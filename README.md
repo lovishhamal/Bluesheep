@@ -8,7 +8,9 @@
    1. Install Node js and yarn on your machine
    2. Copy the repo link from Code button
 
-   Open your terminal and make a project folder
+   Make a project folder and open the terminal on project folder
+
+   On project folder terminal
 
    3. Clone the project into folder (git clone <link>)
    4. Type git checkout development in the root folder
