@@ -18,6 +18,6 @@
 ---
 
 ```
-1. To run the project type yarn run dev in root folder
+   1. To run the project type yarn run dev in root folder
 
 ```
