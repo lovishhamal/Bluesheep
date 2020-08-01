@@ -12,16 +12,20 @@
 
    2. Copy the repo link from Code button
 
-   Open your terminal and make a project folder
+   Make a project folder and open the terminal on project folder
+
+   On project folder terminal
 
    3. Clone the project into folder (git clone <link>)
-   4. In the root folder type yarn
-   5. Cd into client folder and type yarn
+   4. Type cd BlueSheep
+   4. Type git checkout development
+   5. In the root folder type yarn
+   6. Cd into client folder and type yarn
 ```
 
 ---
 
 ```
-   1. To run the project type yarn run dev in root folder
+   1. To run the project type yarn run dev in BlueSheep folder
 
 ```
