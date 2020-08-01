@@ -6,6 +6,10 @@
 
 ```
    1. Install Node js and yarn on your machine
+
+   In terminal type git --version
+   If git is not installed install git
+
    2. Copy the repo link from Code button
 
    Open your terminal and make a project folder
