@@ -13,7 +13,8 @@
    On project folder terminal
 
    3. Clone the project into folder (git clone <link>)
-   4. Type git checkout development in the root folder
+   4. Type cd BlueSheep
+   4. Type git checkout development
    5. In the root folder type yarn
    6. Cd into client folder and type yarn
 ```
