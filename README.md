@@ -6,7 +6,7 @@
 
 ```
    1. Install Node js and yarn on your machine
-   2. Copy the repo from Code button
+   2. Copy the repo link from Code button
 
    Openn your terminal and make a project dfolder
 
