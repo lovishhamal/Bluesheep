@@ -7,14 +7,17 @@
 ```
    1. Install Node js and yarn on your machine
    2. Copy the repo from Code button
-   3. Clone into directory (git clone <link>)
-   4. Cd into root directory and type yarn
+
+   Openn your terminal and make a project dfolder
+
+   3. Clone the project into folder (git clone <link>)
+   4. In the root folder type yarn
    5. Cd into client folder and type yarn
 ```
 
 ---
 
 ```
-1. To run client type yarn start in client folder
+1. To run the project type yarn run dev in root folder
 
 ```
