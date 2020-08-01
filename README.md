@@ -4,7 +4,8 @@
 
 ---
 
-```1. Install Node js and yarn on your machine
+```
+   1. Install Node js and yarn on your machine
    2. Copy the repo from Code button
    3. Clone into directory (git clone <link>)
    4. Cd into root directory and type yarn
