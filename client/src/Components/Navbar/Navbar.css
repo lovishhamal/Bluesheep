@@ -69,6 +69,7 @@ nav ul li {
 
 .login {
   display: flex;
+  padding-right: 5px;
 }
 
 .login-link {
@@ -83,6 +84,7 @@ nav ul li {
 .account {
   position: relative;
   right: 3%;
+  margin-top: 5px;
 }
 
 .spacer {
