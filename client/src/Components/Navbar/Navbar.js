@@ -18,7 +18,7 @@ export default function Navbar() {
   }
 
   return (
-    <div className="navbar-container">
+    <div className="navbar-container" style={{ zIndex: 10 }}>
       <div></div>
       <div className="navbar-main ">
         <div>

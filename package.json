@@ -14,7 +14,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@tailwindcss/ui": "^0.5.0",
     "concurrently": "^5.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "tailwindcss-classnames": "^1.4.1"
   }
 }
