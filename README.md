@@ -11,8 +11,9 @@
    Open your terminal and make a project folder
 
    3. Clone the project into folder (git clone <link>)
-   4. In the root folder type yarn
-   5. Cd into client folder and type yarn
+   4. Type git checkout development in the root folder
+   5. In the root folder type yarn
+   6. Cd into client folder and type yarn
 ```
 
 ---
