@@ -8,10 +8,18 @@ export default function Landingpage() {
   const date = new Date();
   const tomorrow = new Date(date.getTime());
   tomorrow.setDate(date.getDate() + 1);
+
+  const [isMobileView, setisMobileView] = useState(false);
+
+  let mobileView = 'bar';
+  if (isMobileView) {
+    mobileView = 'mobile-bar';
+  }
+
   return (
     <div>
       <section
-        className="w-full h-screen"
+        className="w-full h-screen z-10"
         style={{ backgroundColor: Colors.backgroundcolor }}
       >
         <div class="mt-0 mx-auto max-w-max-w-screen-xl pt-20">
@@ -28,9 +36,11 @@ export default function Landingpage() {
         </div>
         <div className="pt-64 flex items-center justify-center">
           <div class="px-10 py-4 bg-white shadow-lg rounded-lg w-10/12">
-            <div className=" bar flex items-center justify-start">
-              <RangeDatePicker startDate={date} endDate={tomorrow} />
-              <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+            <div className={mobileView}>
+              <div>
+                <RangeDatePicker startDate={date} endDate={tomorrow} />
+              </div>
+              <div class="w-full px-3 mb-6 md:mb-0 item">
                 <div class="relative">
                   <select
                     class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-4 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -51,7 +61,7 @@ export default function Landingpage() {
                   </div>
                 </div>
               </div>
-              <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+              <div class="w-full px-3 mb-6 md:mb-0 item">
                 <div class="relative">
                   <select
                     class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-4 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -72,9 +82,28 @@ export default function Landingpage() {
                   </div>
                 </div>
               </div>
-              <button class="bg-blue-500 ml-10 hover:bg-blue-700 text-white text-xs font-bold py-4 px-6 rounded shadow-lg button">
-                Find Rooms
-              </button>
+              <div className="mobile-footer">
+                <button class="bg-blue-500 ml-10 hover:bg-blue-700 text-white text-xs font-bold py-3 px-6 rounded shadow-lg item">
+                  Find Rooms
+                </button>
+                {isMobileView && (
+                  <button class="bg-blue-500 ml-10 hover:bg-blue-700 text-white text-xs font-bold py-3 px-3 rounded shadow-lg item" onClick={()=>setisMobileView(!isMobileView)}>
+                    Cancle
+                  </button>
+                )}
+              </div>
+            </div>
+            <div className="mobile-view">
+              {!isMobileView && (
+                <div>
+                  <div
+                    className="flex justify-center items-center text-lg tracking-tight cursor-pointer leading-10 font-extrabold sm:text-3xl sm:leading-none md:text-3xl"
+                    onClick={() => setisMobileView(!isMobileView)}
+                  >
+                    Find Rooms
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
