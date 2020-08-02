@@ -1,1 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+@media only screen and (max-width: 990px) {
+  .bar {
+    display: none;
+  }
+}
