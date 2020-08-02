@@ -15,8 +15,7 @@
 .logo-img {
   width: auto;
   height: 110px;
-  position: fixed;
-  z-index: 2;
+  position: absolute;
 }
 
 header {
@@ -24,7 +23,6 @@ header {
   flex-direction: row;
   position: relative;
   left: 3%;
-  overflow: hidden;
   width: 97%;
   height: 70px;
 }
