@@ -5,7 +5,8 @@ import AppRoute from '../AppRoute';
 import Navbar from '../Components/Navbar/Navbar';
 import LandingPage from '../Components/Pages/LandingPage';
 import RoomsPricing from '../Components/Pages/Rooms/RoomsPricing';
-import SignIn from '../Components/Pages/SignIn/sign-in';
+import SignIn from '../Components/Pages/account/sign-in';
+import SignUp from '../Components/Pages/account/sing-up';
 
 export default function Index() {
   return (
@@ -19,7 +20,8 @@ export default function Index() {
             exact
             component={RoomsPricing}
           />
-          <AppRoute path="/register" layout={Navbar} exact component={SignIn} />
+          <AppRoute path="/register" layout={Navbar} exact component={SignUp} />
+          <AppRoute path="/login" layout={Navbar} exact component={SignIn} />
         </Switch>
       </Router>
     </div>
