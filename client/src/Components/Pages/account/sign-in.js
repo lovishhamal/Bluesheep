@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import Colors from '../../../colors/colors';
-import { Link } from 'react-router-dom';
 
 export default function SignIn() {
   const [formErrors, setformErrors] = useState('');

@@ -1,7 +1,17 @@
 const express = require('express');
 const app = express();
-const PORT = 5000;
+const numCPUs = require('os').cpus().length;
+const cluster = require('cluster');
+const PORT = 8080;
 
-app.listen(PORT, () => {
-  console.log(`Server running on port -> ${PORT}`);
-});
+if (cluster.isMaster) {
+  // Fork workers.
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`worker ${worker.process.pid} died`);
+  });
+} else {
+}
