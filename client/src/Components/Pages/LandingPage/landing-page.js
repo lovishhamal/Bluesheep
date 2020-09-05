@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Colors from '../../../colors/colors';
 import { RangeDatePicker } from 'react-google-flight-datepicker';
 import 'react-google-flight-datepicker/dist/main.css';
 import './landing.css';
+import img from './landing.jpg';
 
 export default function Landingpage() {
   const date = new Date();
@@ -18,12 +20,12 @@ export default function Landingpage() {
 
   return (
     <div>
-      <section
-        className="w-full h-screen z-10"
-        style={{ backgroundColor: Colors.backgroundcolor }}
-      >
-        <div class="mt-0 mx-auto max-w-max-w-screen-xl pt-20">
-          <div class="text-center">
+      <section className="w-full h-screen z-10">
+        <div
+          class="mt-0 mx-auto max-w-max-w-screen-xl justify-evenly pt-20 flex flex-row"
+          style={{ height: '73vh' }}
+        >
+          <div class="text-center self-center">
             <h2 class="text-4xl tracking-tight leading-10 font-extrabold text-gray-900 sm:text-5xl sm:leading-none md:text-6xl">
               Welcome To Hotel
               <br />
@@ -33,9 +35,18 @@ export default function Landingpage() {
               Get the best hotel experience in the town.
             </p>
           </div>
+          <div className="text-center self-center">
+            <img
+              src={img}
+              style={{
+                height: 'auto',
+                width: '700px',
+              }}
+            ></img>
+          </div>
         </div>
-        <div className="pt-64 flex items-center justify-center">
-          <div class="px-10 py-4 bg-white shadow-lg rounded-lg w-10/12">
+        <div className="z-40 pt-0 flex items-center justify-center">
+          <div class="px-10 py-4 bg-white shadow-2xl rounded-lg w-10/12">
             <div className={mobileView}>
               <div>
                 <RangeDatePicker startDate={date} endDate={tomorrow} />
@@ -87,7 +98,10 @@ export default function Landingpage() {
                   Find Rooms
                 </button>
                 {isMobileView && (
-                  <button class="bg-blue-500 ml-10 hover:bg-blue-700 text-white text-xs font-bold py-3 px-3 rounded shadow-lg item" onClick={()=>setisMobileView(!isMobileView)}>
+                  <button
+                    class="bg-blue-500 ml-10 hover:bg-blue-700 text-white text-xs font-bold py-3 px-3 rounded shadow-lg item"
+                    onClick={() => setisMobileView(!isMobileView)}
+                  >
                     Cancle
                   </button>
                 )}
