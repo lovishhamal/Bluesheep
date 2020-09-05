@@ -1,34 +1,37 @@
 import React, { useState } from 'react';
-import Colors from '../../../colors/colors';
-import { Link } from 'react-router-dom';
 import './signup.css';
+import { Link } from 'react-router-dom';
+import { registerService } from '../../../services/auth-service';
+import { useHistory } from 'react-router-dom';
 
 const emailRegx = RegExp(
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 );
 
 export default function SignIn() {
-  const [formError, setformError] = useState(false);
+  let history = useHistory();
+  const [formError, setformError] = useState('');
+
   const [state, setState] = useState({
     firstname: null,
     lastname: null,
     email: '',
     password: null,
     confirmpassword: null,
-    phone: null,
+    phoneno: null,
     country: null,
     city: null,
-    citizen: null,
+    citizenidno: null,
     formErrors: {
       firstname: '',
       lastname: '',
       email: '',
       password: '',
       confirmpassword: '',
-      phone: '',
+      phoneno: '',
       country: '',
       city: '',
-      citizen: '',
+      citizenidno: '',
     },
   });
 
@@ -54,7 +57,7 @@ export default function SignIn() {
         formErrors.firstname = value.length < 3 ? 'Minimum 3 characters' : '';
         break;
       case 'lastname':
-        formErrors.lastname = value.length < 3 ? 'Minimum 3 characters' : '';
+        formErrors.lastname = value.length === 0 ? 'required field' : '';
         break;
       case 'password':
         formErrors.password = value.length < 5 ? 'Atleast 5 char' : '';
@@ -63,8 +66,8 @@ export default function SignIn() {
         formErrors.confirmpassword =
           state.password !== value ? 'Password didnot match' : '';
         break;
-      case 'phone':
-        formErrors.phone =
+      case 'phoneno':
+        formErrors.phoneno =
           value.length < 10 || value.length > 10
             ? 'Number must be 10 digit'
             : '';
@@ -76,8 +79,8 @@ export default function SignIn() {
       case 'city':
         formErrors.city = value.length < 1 ? 'Please fill out this field' : '';
         break;
-      case 'citizen':
-        formErrors.citizen =
+      case 'citizenidno':
+        formErrors.citizenidno =
           value.length < 1 ? 'Please fill out this field' : '';
         break;
       default:
@@ -88,6 +91,9 @@ export default function SignIn() {
   };
 
   const isFormValid = ({ formErrors, ...rest }) => {
+    if (formErrors === undefined) {
+      return false;
+    }
     let valid = true;
     Object.values(formErrors).forEach((val) => {
       val.length > 0 && (valid = false);
@@ -101,20 +107,23 @@ export default function SignIn() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
     if (isFormValid(state)) {
-      console.log('send to api');
+      const { formErrors, ...userData } = state;
+
+      delete userData.confirmpassword;
+      registerService(userData).then(({ data }) => {
+        if (data.status == 400) {
+          return setformError(data.message);
+        }
+        history.push('/');
+      });
     } else {
-      setformError(true);
+      setformError('Please fill all the required * fields.');
     }
   };
-
   return (
-    <div
-      class="w-full flex items-center justify-center md:h-screen lg:h-screen"
-      style={{ backgroundColor: Colors.backgroundcolor }}
-    >
-      <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
+    <div class="sign w-full flex items-center justify-center md:h-screen lg:h-screen">
+      <div class="bg-white shadow-2xl rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
         <form onSubmit={onSubmit}>
           <p class="text-red-500 text-xs italic mb-2">
             {formError && (
@@ -122,17 +131,14 @@ export default function SignIn() {
                 class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
                 role="alert"
               >
-                <strong class="font-bold">Please </strong>
-                <span class="block sm:inline">
-                  fill all the required * fields.
-                </span>
+                <span class="block sm:inline">{formError}</span>
                 <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
                   <svg
                     class="fill-current h-6 w-6 text-red-500"
                     role="button"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
-                    onClick={() => setformError(!formError)}
+                    onClick={() => setformError('')}
                   >
                     <title>Close</title>
                     <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
@@ -259,12 +265,12 @@ export default function SignIn() {
                 id="grid-phone"
                 type="number"
                 placeholder="0123456789"
-                name="phone"
-                value={state.phone}
+                name="phoneno"
+                value={state.phoneno}
                 onChange={handleChange}
               />
               <p class="text-red-500 text-xs italic">
-                {state.formErrors.phone && state.formErrors.phone}
+                {state.formErrors.phoneno && state.formErrors.phoneno}
               </p>
             </div>
           </div>
@@ -314,19 +320,19 @@ export default function SignIn() {
                 class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
                 for="grid-citizen"
               >
-                Citizen Id No <span className="text-red-500">*</span>
+                Citizen Id/Passport No <span className="text-red-500">*</span>
               </label>
               <input
                 class="appearance-none bg-gray-200 block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
                 id="grid-citizen"
                 type="number"
                 placeholder="123-456-789"
-                name="citizen"
-                value={state.citizen}
+                name="citizenidno"
+                value={state.citizenidno}
                 onChange={handleChange}
               />
               <p class="text-red-500 text-xs italic">
-                {state.formErrors.citizen && state.formErrors.citizen}
+                {state.formErrors.citizenidno && state.formErrors.citizenidno}
               </p>
             </div>
           </div>

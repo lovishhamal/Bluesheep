@@ -46,7 +46,7 @@ export default function Landingpage() {
           </div>
         </div>
         <div className="z-40 pt-0 flex items-center justify-center">
-          <div class="px-10 py-4 bg-white shadow-lg rounded-lg w-10/12">
+          <div class="px-10 py-4 bg-white shadow-2xl rounded-lg w-10/12">
             <div className={mobileView}>
               <div>
                 <RangeDatePicker startDate={date} endDate={tomorrow} />
