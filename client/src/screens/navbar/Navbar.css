@@ -121,4 +121,8 @@ nav ul li {
   .account {
     display: none;
   }
+
+  .main-account {
+    display: none;
+  }
 }

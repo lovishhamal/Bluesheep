@@ -13,10 +13,8 @@ const httpResponse = {
   errorHandler(response, error, status) {
     response.json(responseBody(status, null, null, error));
   },
-  successHandler(response, data, message) {
-    response
-      .status(httpStatus.OK)
-      .send(responseBody('success', data, null, message));
+  successHandler(response, status, data, message) {
+    response.json(responseBody(status, null, data, message));
   },
   tokenHandler(response, token, message) {
     response

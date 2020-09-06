@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import './signup.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { registerService } from '../../../services/auth-service';
-import { useHistory } from 'react-router-dom';
 
 const emailRegx = RegExp(
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -15,7 +14,7 @@ export default function SignIn() {
   const [state, setState] = useState({
     firstname: null,
     lastname: null,
-    email: '',
+    email: null,
     password: null,
     confirmpassword: null,
     phoneno: null,
@@ -43,14 +42,10 @@ export default function SignIn() {
 
     switch (name) {
       case 'email':
-        if (value.length > 0) {
-          if (emailRegx.test(value)) {
-            formErrors.email = '';
-          } else {
-            formErrors.email = 'Ivalid email fromat';
-          }
-        } else {
+        if (emailRegx.test(value)) {
           formErrors.email = '';
+        } else {
+          formErrors.email = 'Ivalid email fromat';
         }
         break;
       case 'firstname':
@@ -107,6 +102,7 @@ export default function SignIn() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+
     if (isFormValid(state)) {
       const { formErrors, ...userData } = state;
 
@@ -115,12 +111,13 @@ export default function SignIn() {
         if (data.status == 400) {
           return setformError(data.message);
         }
-        history.push('/');
+        history.push('/login');
       });
     } else {
       setformError('Please fill all the required * fields.');
     }
   };
+
   return (
     <div class="sign w-full flex items-center justify-center md:h-screen lg:h-screen">
       <div class="bg-white shadow-2xl rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
@@ -193,7 +190,7 @@ export default function SignIn() {
                 class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
                 for="grid-email"
               >
-                Email
+                Email <span className="text-red-500">*</span>
               </label>
               <input
                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"

@@ -13,8 +13,11 @@ input[type='number'] {
   background-image: url('./3948480.jpg');
   background-size: contain;
 }
+.login-main {
+  background-size: contain;
+}
 
 .login-card {
-  background-image: url('./2384134.jpg');
-  background-size: cover;
+  background-image: url('./2386481.png');
+  background-size: contain;
 }

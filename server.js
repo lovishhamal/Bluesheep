@@ -20,6 +20,7 @@ if (cluster.isMaster) {
   /* Basic server setup */
   app.use(helmet());
 
+  
   /* Database */
 
   db.authenticate()

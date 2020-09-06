@@ -1,10 +1,15 @@
 import React, { useState, useRef } from 'react';
-import Colors from '../../../colors/colors';
-import { Link } from 'react-router-dom';
 import './signup.css';
+import { Link, useHistory } from 'react-router-dom';
+import { loginService } from '../../../services/auth-service';
+
+const emailRegx = RegExp(
+  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+);
 
 export default function SignIn() {
   const [formErrors, setformErrors] = useState('');
+  let history = useHistory();
 
   const userEl = useRef(null);
   const passwordEl = useRef(null);
@@ -12,16 +17,30 @@ export default function SignIn() {
   const onSubmit = (e) => {
     e.preventDefault();
     if (userEl.current.value === '' || passwordEl.current.value === '') {
-      setformErrors('Please fill all fields ');
-      return;
+      return setformErrors('Please fill all fields ');
     }
+
+    if (!emailRegx.test(userEl.current.value)) {
+      return setformErrors('Email format didont matched');
+    }
+
+    loginService({
+      email: userEl.current.value,
+      password: passwordEl.current.value,
+    }).then(({ data }) => {
+      if (data.status == 400) {
+        return setformErrors(data.message);
+      }
+      localStorage.setItem('token', data.token);
+      history.push('/');
+    });
   };
 
   return (
-    <div className="login bg-gray-300">
-      <div class="container mx-auto">
+    <div className=" h-screen bg-gray-100 flex self-center">
+      <div class="container mx-auto ">
         <div class="flex justify-center px-6 my-12">
-          <div class="w-full xl:w-3/4 lg:w-11/12 flex">
+          <div class="w-full xl:w-3/4 lg:w-11/12 shadow-2xl flex">
             <div class="login-card w-full h-auto hidden lg:block lg:w-1/2 bg-cover rounded-l-lg" />
             <div class="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
               <h3 class="pt-4 text-2xl text-center">WELCOME BACK!</h3>
@@ -55,13 +74,13 @@ export default function SignIn() {
                     class="block mb-2 text-sm font-bold text-gray-700"
                     for="username"
                   >
-                    Username or Email
+                    Email
                   </label>
                   <input
-                    class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                    class="w-full px-3 py-4 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                     id="username"
                     type="text"
-                    placeholder="John Doe or johndoe@gmail.com"
+                    placeholder="johndoe@gmail.com"
                     ref={userEl}
                   />
                 </div>
@@ -73,7 +92,7 @@ export default function SignIn() {
                     Password
                   </label>
                   <input
-                    class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                    class="w-full px-3 py-4 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                     id="password"
                     type="password"
                     placeholder="******************"

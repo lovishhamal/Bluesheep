@@ -21,12 +21,18 @@ module.exports = {
     authSchema: Joi.object({
       firstname: Joi.string().min(3).max(30).required(),
       lastname: Joi.string().required(),
-      email: Joi.string().email().allow(''),
+      email: Joi.string().email().required(),
       password: Joi.string().required(),
       phoneno: Joi.string().alphanum().min(10).max(10).required(),
       country: Joi.string().required(),
       city: Joi.string().required(),
       citizenidno: Joi.string().required(),
+    }),
+  },
+  loginSchema: {
+    authSchema: Joi.object({
+      email: Joi.string().email().required(),
+      password: Joi.string().required(),
     }),
   },
 };
