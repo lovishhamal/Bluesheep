@@ -51,7 +51,7 @@ export default function RoomsPricing() {
       className="w-screen h-full"
       style={{ backgroundColor: Colors.backgroundColor }}
     >
-      <div className="z-40 pt-10 flex items-center justify-center">
+      <div className="z-40 pt-16 flex items-center justify-center">
         <div class="px-10 py-2 bg-white shadow-lg rounded-lg w-9/12">
           <div className={mobileView}>
             <div class="w-full px-3 mb-6 md:mb-0 item mr-10">
@@ -131,10 +131,10 @@ export default function RoomsPricing() {
         </div>
       </div>
       <div class="flex flex-row flex-wrap">
-        <div class="max-w-sm w-full sm:w-1/2 lg:w-1/3 py-6 px-8">
+        <div class="max-w-sm w-full sm:w-1/2 lg:w-1/3 py-10 px-10">
           <div class="bg-white shadow-xl rounded-lg overflow-hidden">
-            <div class="bg-cover bg-center h-56 p-2">
-              <div class="flex justify-end w-full h-full">
+            <div class="bg-cover bg-center h-48 p-2">
+              <div class="flex justify-end w-full h-11/12">
                 <img class="rounded" src={img}></img>
               </div>
             </div>
@@ -175,10 +175,10 @@ export default function RoomsPricing() {
               </div>
             </div>
             <div class="px-4 pt-3 pb-4 border-t border-gray-300 bg-gray-100 flex justify-around">
-              <div class="text-xs uppercase font-bold text-gray-600 tracking-wide">
+              <div class="text-xs cursor-pointer uppercase font-bold text-gray-600 tracking-wide">
                 show details
               </div>
-              <div class="text-xs uppercase font-bold text-gray-600 tracking-wide">
+              <div class="text-xs cursor-pointer uppercase font-bold text-gray-600 tracking-wide">
                 book now
               </div>
             </div>

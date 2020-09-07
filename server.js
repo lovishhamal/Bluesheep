@@ -20,7 +20,6 @@ if (cluster.isMaster) {
   /* Basic server setup */
   app.use(helmet());
 
-  
   /* Database */
 
   db.authenticate()
@@ -34,6 +33,7 @@ if (cluster.isMaster) {
   app.use(express.json());
 
   app.use('/', require('./routes/routes'));
+
   app.listen(PORT, () => {
     console.log(`Server started ast port -> ${PORT}`);
   });

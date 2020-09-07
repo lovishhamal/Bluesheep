@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const passport = require('passport');
 require('../../passport/passport');
+
 const {
   validateBody,
   registerSchema,
