@@ -29,6 +29,14 @@ const Room = db.define('rooms', {
     type: Sequalize.STRING,
     field: 'Description',
   },
+  bed: {
+    type: Sequalize.INTEGER,
+    field: 'Bed',
+  },
+  bathroom: {
+    type: Sequalize.STRING,
+    field: 'BathRoom',
+  },
   extra: {
     type: Sequalize.STRING,
     field: 'Extra',

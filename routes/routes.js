@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const userController = require('../controller/user/user-controller');
-const adminController = require('../controller/admin/admin-controller');
+const roomController = require('../controller/rooms/room-controller');
 
 router.use('/', userController);
-router.use('/admin', adminController);
+router.use('/room', roomController);
 
 module.exports = router;

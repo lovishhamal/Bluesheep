@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './style.css';
 import Swal from 'sweetalert2';
 
-import { addRoom } from '../services/room-srvice';
+import { addRoom } from '../services/room-service';
 
 const Error = () => {
   const Toast = Swal.mixin({
@@ -27,6 +27,8 @@ export default function Addroom() {
     price: '',
     capacity: '',
     description: '',
+    bed: '',
+    bathroom: '',
     extra: '',
   });
 
@@ -59,7 +61,28 @@ export default function Addroom() {
       formData.append('files', images[key]);
     }
     formData.append('body', JSON.stringify(form));
-    addRoom(formData);
+    addRoom(formData).then(({ data }) => {
+      if (data.status == 200) {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: data.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: data.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+      setTimeout(() => {
+        window.location.reload('/addroom');
+      }, 1000);
+    });
   };
 
   return (
@@ -144,6 +167,34 @@ export default function Addroom() {
                 type="text"
                 placeholder="Description"
                 aria-label="description"
+                onChange={onChange}
+              />
+            </div>
+            <div class="mt-2">
+              <label class=" block text-sm text-gray-600" for="cus_email">
+                Bed
+              </label>
+              <input
+                class="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded"
+                id="cus_email"
+                name="bed"
+                type="number"
+                placeholder="Bed"
+                aria-label="bed"
+                onChange={onChange}
+              />
+            </div>
+            <div class="mt-2">
+              <label class=" block text-sm text-gray-600" for="cus_email">
+                Bathroom
+              </label>
+              <input
+                class="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded"
+                id="cus_email"
+                name="bathroom"
+                type="text"
+                placeholder="Bathroom"
+                aria-label="bathroom"
                 onChange={onChange}
               />
             </div>

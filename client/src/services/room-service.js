@@ -2,7 +2,7 @@ import Api from '../api';
 
 const addRoom = (roomData) => {
   return new Promise((resolve, reject) => {
-    Api.post('/admin/addroom', roomData, {
+    Api.post('/room/addroom', roomData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -11,4 +11,12 @@ const addRoom = (roomData) => {
       .catch((err) => reject(err));
   });
 };
-export { addRoom };
+
+const getRoom = () => {
+  return new Promise((resolve, reject) => {
+    Api.get('/room')
+      .then(({ data }) => resolve(data))
+      .catch((err) => reject(err));
+  });
+};
+export { addRoom, getRoom };

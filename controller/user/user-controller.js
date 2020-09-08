@@ -16,7 +16,7 @@ router.post(
   async (req, res) => {
     try {
       const data = await authService.register(req.body);
-      httpResponse.successHandler(res, 200, null, data);
+      httpResponse.successHandler(res, 200, null, null, data);
     } catch (error) {
       httpResponse.errorHandler(res, error, 400);
     }
@@ -29,7 +29,7 @@ router.post(
   async (req, res) => {
     try {
       const data = await authService.login(req.body);
-      httpResponse.successHandler(res, 200, data, 'Login Successfull');
+      httpResponse.successHandler(res, 200, null, data, 'Login Successfull');
     } catch (error) {
       httpResponse.errorHandler(res, error, 400);
     }

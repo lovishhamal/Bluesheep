@@ -1,6 +1,6 @@
 const path = require('path');
 const multer = require('multer');
-const DIR = path.join(__dirname);
+const DIR = path.join('/Applications/Bluesheep/client/public/images');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
