@@ -22,9 +22,9 @@ function valuetext(value) {
 
 function getUnique(items, value) {
   if (value === 'capacity') {
-    return ['Guest', ...new Set(items.map((item) => item[value]))];
+    return [1, ...new Set(items.map((item) => item[value]))];
   }
-  return ['Rooms', ...new Set(items.map((item) => item[value]))];
+  return ['All', ...new Set(items.map((item) => item[value]))];
 }
 
 export default function RoomsPricing({ data }) {
@@ -46,6 +46,9 @@ export default function RoomsPricing({ data }) {
         <div className={mobileView}>
           <div class="w-full px-3 mb-6 md:mb-0 item mr-10">
             <div class="relative">
+              <p class="tracking-wide uppercase text-sm font-bold text-gray-700">
+                Rooms
+              </p>
               <select
                 class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-4 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="grid-state"
@@ -69,6 +72,9 @@ export default function RoomsPricing({ data }) {
           </div>
           <div class="w-full px-3 mb-6 md:mb-0 mr-10 item">
             <div class="relative">
+              <p class="tracking-wide uppercase text-sm font-bold text-gray-700">
+                Guest
+              </p>
               <select
                 class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-4 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="grid-state"
