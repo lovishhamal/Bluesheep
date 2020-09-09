@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 
 import { addRoom } from '../services/room-service';
 
-const Error = () => {
+const Error = (error) => {
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -14,8 +14,19 @@ const Error = () => {
 
   Toast.fire({
     icon: 'error',
-    title: 'Please fill all the fields',
+    title: error,
   });
+};
+
+const Success = (msg) => {
+  Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: msg,
+    showConfirmButton: false,
+    timer: 1500,
+  });
+  window.location.reload('/addroom');
 };
 
 export default function Addroom() {
@@ -53,7 +64,7 @@ export default function Addroom() {
   const onSubmit = (e) => {
     e.preventDefault();
     if (!isValid(form) || images.length < 1) {
-      return Error();
+      return Error('Please fill all the fields');
     }
 
     const formData = new FormData();
@@ -63,25 +74,9 @@ export default function Addroom() {
     formData.append('body', JSON.stringify(form));
     addRoom(formData).then(({ data }) => {
       if (data.status == 200) {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: data.message,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      } else {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: data.message,
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        return Success(data.message);
       }
-      setTimeout(() => {
-        window.location.reload('/addroom');
-      }, 1000);
+      return Error(data.message);
     });
   };
 

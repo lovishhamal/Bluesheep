@@ -1,4 +1,5 @@
 const rooms = require('../database/models/rooms');
+
 const roomService = (() => {
   const add = async (roomData) => {
     return new Promise((resolve, reject) => {
@@ -9,7 +10,7 @@ const roomService = (() => {
     });
   };
 
-  const get = async (userData) => {
+  const get = async () => {
     return new Promise((resolve, reject) => {
       rooms
         .findAll()

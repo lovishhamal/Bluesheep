@@ -1,6 +1,6 @@
 import Api from '../api';
 
-const addRoom = (roomData) => {
+const addRoom = async (roomData) => {
   return new Promise((resolve, reject) => {
     Api.post('/room/addroom', roomData, {
       headers: {
@@ -12,11 +12,12 @@ const addRoom = (roomData) => {
   });
 };
 
-const getRoom = () => {
+const getRoom = async () => {
   return new Promise((resolve, reject) => {
     Api.get('/room')
       .then(({ data }) => resolve(data))
       .catch((err) => reject(err));
   });
 };
+
 export { addRoom, getRoom };

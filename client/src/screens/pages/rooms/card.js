@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function card({ item }) {
   return (
-    <div class="max-w-sm sm:w-1/2 lg:w-screen h-screen py-10 px-10">
+    <div class="max-w-sm sm:w-1/2 lg:w-1/4 h-2/4 py-10 px-6">
       <div class="bg-white shadow-xl rounded-lg overflow-hidden">
         <div class="bg-cover bg-center h-48 p-2">
           <div class="flex justify-end w-full h-11/12">
