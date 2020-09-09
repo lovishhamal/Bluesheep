@@ -64,7 +64,6 @@ class ContextProvider extends Component {
   };
 
   render() {
-    console.log('teom - > ', this.state.rooms);
     return (
       <Context.Provider
         value={{
