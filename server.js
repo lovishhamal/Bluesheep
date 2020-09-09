@@ -33,6 +33,7 @@ if (cluster.isMaster) {
   app.use(express.json());
 
   app.use('/', require('./routes/routes'));
+
   app.listen(PORT, () => {
     console.log(`Server started ast port -> ${PORT}`);
   });

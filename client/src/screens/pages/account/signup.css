@@ -1,0 +1,23 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.sign {
+  background-image: url('./3948480.jpg');
+  background-size: contain;
+}
+.login-main {
+  background-size: contain;
+}
+
+.login-card {
+  background-image: url('./2386481.png');
+  background-size: contain;
+}
