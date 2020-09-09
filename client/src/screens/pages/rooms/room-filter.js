@@ -22,9 +22,9 @@ function valuetext(value) {
 
 function getUnique(items, value) {
   if (value === 'capacity') {
-    return [1, ...new Set(items.map((item) => item[value]))];
+    return ['Guest', ...new Set(items.map((item) => item[value]))];
   }
-  return ['all', ...new Set(items.map((item) => item[value]))];
+  return ['Rooms', ...new Set(items.map((item) => item[value]))];
 }
 
 export default function RoomsPricing({ data }) {
