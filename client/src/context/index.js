@@ -10,7 +10,7 @@ class ContextProvider extends Component {
     maxPrice: 0,
     minPrice: 0,
     price: 0,
-    guest: 'all',
+    guest: 'All',
     capacity: 1,
     loading: true,
   };
@@ -50,7 +50,7 @@ class ContextProvider extends Component {
     price = parseInt(price);
     capacity = parseInt(capacity);
 
-    if (guest !== 'all') {
+    if (guest !== 'All') {
       temprooms = temprooms.filter((room) => room.roomname === guest);
     }
 
