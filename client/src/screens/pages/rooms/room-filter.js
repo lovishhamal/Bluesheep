@@ -39,6 +39,7 @@ export default function RoomsPricing({ data }) {
   if (isMobileView) {
     mobileView = 'mobile-bar';
   }
+  
 
   return (
     <div className="z-40 pt-12 flex items-center justify-center">
