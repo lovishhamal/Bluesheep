@@ -64,7 +64,6 @@ class ContextProvider extends Component {
   };
 
   render() {
-    console.log('hello');
     return (
       <Context.Provider
         value={{
