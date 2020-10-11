@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './signup.css';
 import { Link, useHistory } from 'react-router-dom';
 import { registerService } from '../../../services/auth-service';
+import { classnames } from 'tailwindcss-classnames';
 
 const emailRegx = RegExp(
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -10,6 +11,8 @@ const emailRegx = RegExp(
 export default function SignIn() {
   let history = useHistory();
   const [formError, setformError] = useState('');
+
+  const [match, setmatch] = useState(false);
 
   const [state, setState] = useState({
     firstname: null,
@@ -59,7 +62,7 @@ export default function SignIn() {
         break;
       case 'confirmpassword':
         formErrors.confirmpassword =
-          state.password !== value ? 'Password didnot match' : '';
+          state.password !== value ? setmatch(false) : setmatch(true);
         break;
       case 'phoneno':
         formErrors.phoneno =
@@ -244,9 +247,29 @@ export default function SignIn() {
                 onChange={handleChange}
               />
               <p class="text-red-500 text-xs italic">
-                {state.formErrors.confirmpassword &&
-                  state.formErrors.confirmpassword}
+                {!match && state.formErrors.confirmpassword}
               </p>
+            </div>
+
+            <div class="md:w-4 px-3 py-1 md:pt-10 lg:pt-10 ">
+              <svg
+                class={classnames(
+                  'w-6',
+                  'h-6',
+                  `${match ? 'text-green-400' : 'text-red-400'}`
+                )}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
             </div>
           </div>
           <div class="-mx-3 md:flex mb-6">

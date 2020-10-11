@@ -28,6 +28,7 @@ const userService = (() => {
             ],
           },
         })
+
         .then(async (data) => {
           if (!data) {
             const hashedPassword = await bcrypt.hash(userData.password, 10);
