@@ -88,8 +88,6 @@ export default function SignIn() {
     setState({ ...state, formErrors, [name]: value });
   };
 
-  console.log('match -> ', match);
-
   const isFormValid = ({ formErrors, ...rest }) => {
     if (formErrors === undefined) {
       return false;
