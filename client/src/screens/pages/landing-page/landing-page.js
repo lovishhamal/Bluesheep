@@ -6,6 +6,7 @@ import './landing.css';
 import img from './landing.jpg';
 
 export default function Landingpage() {
+  const [daterange, setdate] = useState('');
   const date = new Date();
   const tomorrow = new Date(date.getTime());
   tomorrow.setDate(date.getDate() + 1);
@@ -17,6 +18,7 @@ export default function Landingpage() {
     mobileView = 'mobile-bar';
   }
 
+  const onChangeDate = (startDate, endDate) => {};
   return (
     <div>
       <section className="w-full h-screen z-10">
@@ -91,7 +93,13 @@ export default function Landingpage() {
           <div class="px-10 py-4 bg-white shadow-2xl rounded-lg w-10/12">
             <div className={mobileView}>
               <div>
-                <RangeDatePicker startDate={date} endDate={tomorrow} />
+                <RangeDatePicker
+                  startDate={date}
+                  endDate={tomorrow}
+                  onChange={(startDate, endDate) =>
+                    onChangeDate(startDate, endDate)
+                  }
+                />
               </div>
               <div class="w-full px-3 mb-6 md:mb-0 item">
                 <div class="relative">

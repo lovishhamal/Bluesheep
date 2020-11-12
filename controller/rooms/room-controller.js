@@ -17,9 +17,28 @@ router.post('/addroom', upload.array('files', 5), async (req, res) => {
     httpResponse.errorHandler(res, error, 400);
   }
 });
+
 router.get('/', async (req, res) => {
   try {
     const data = await roomService.get();
+    httpResponse.successHandler(res, 200, data, null, 'success');
+  } catch (error) {
+    httpResponse.errorHandler(res, error, 400);
+  }
+});
+
+router.post('/booking', async (req, res) => {
+  try {
+    const data = await roomService.book(req.body);
+    httpResponse.successHandler(res, 200, data, null, 'success');
+  } catch (error) {
+    httpResponse.errorHandler(res, error, 400);
+  }
+});
+
+router.get('/getbooking/:id', async (req, res) => {
+  try {
+    const data = await roomService.getBooking(req.params.id);
     httpResponse.successHandler(res, 200, data, null, 'success');
   } catch (error) {
     httpResponse.errorHandler(res, error, 400);

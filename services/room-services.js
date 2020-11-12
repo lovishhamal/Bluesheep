@@ -1,4 +1,5 @@
 const rooms = require('../database/models/rooms');
+const booking = require('../database/models/booking');
 
 const roomService = (() => {
   const add = async (roomData) => {
@@ -19,9 +20,29 @@ const roomService = (() => {
     });
   };
 
+  const book = async (body) => {
+    return new Promise((resolve, reject) => {
+      booking
+        .create(body)
+        .then((data) => resolve(data))
+        .catch(() => reject('Couldnot get rooms'));
+    });
+  };
+
+  const getBooking = async (id) => {
+    return new Promise((resolve, reject) => {
+      booking
+        .findAll({ where: { user_id: id } })
+        .then((data) => resolve(data))
+        .catch(() => reject('Couldnot get rooms'));
+    });
+  };
+
   return {
     add,
     get,
+    book,
+    getBooking,
   };
 })();
 

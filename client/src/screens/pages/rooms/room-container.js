@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Context } from '../../../context';
 import RoomFilter from './room-filter';
 import RoomList from './rooms-list';
@@ -17,6 +17,7 @@ export default function Roomcontainer() {
         style={{ backgroundColor: Colors.backgroundColor }}
       >
         <RoomFilter data={state} />
+
         {state.rooms.length < 1 ? (
           <div className="w-screen h-screen flex justify-center items-center">
             <p className="tracking-wide text-5xl uppercase text-sm font-bold text-gray-700">

@@ -2,10 +2,30 @@ import React, { useState, useRef } from 'react';
 import './signup.css';
 import { Link, useHistory } from 'react-router-dom';
 import { loginService } from '../../../services/auth-service';
+import Swal from 'sweetalert2';
 
 const emailRegx = RegExp(
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 );
+
+const signin = () => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+
+  Toast.fire({
+    icon: 'success',
+    title: 'Signed in successfully',
+  });
+};
 
 export default function SignIn() {
   const [formErrors, setformErrors] = useState('');
@@ -32,6 +52,7 @@ export default function SignIn() {
         return setformErrors(data.message);
       }
       localStorage.setItem('token', data.token);
+      signin();
       history.push('/');
     });
   };

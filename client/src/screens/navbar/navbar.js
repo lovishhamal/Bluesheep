@@ -131,7 +131,7 @@ export default function Navbar({ profile }) {
                       Account settings
                     </Link>
                     <Link
-                      to="#"
+                      to="/mybooking"
                       class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
                     >
                       My Booking

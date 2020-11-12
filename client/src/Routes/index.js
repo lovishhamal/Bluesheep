@@ -7,6 +7,8 @@ import LandingPage from '../screens/pages/landing-page';
 import RoomsPricing from '../screens/pages/rooms';
 import SignIn from '../screens/pages/account/sign-in';
 import SignUp from '../screens/pages/account/sing-up';
+import RoomDetail from '../screens/pages/details/details';
+import MyBooking from '../screens/pages/mybooking/mybooking';
 
 import Dashboard from '../dashboard';
 import Content from '../dashboard/content';
@@ -27,6 +29,18 @@ export default function Index() {
         />
         <AppRoute path="/register" layout={Navbar} exact component={SignUp} />
         <AppRoute path="/login" layout={Navbar} exact component={SignIn} />
+        <AppRoute
+          path="/roomdetail/:id"
+          layout={Navbar}
+          exact
+          component={RoomDetail}
+        />
+        <AppRoute
+          path="/mybooking"
+          layout={Navbar}
+          exact
+          component={requireAuth(MyBooking)}
+        />
         <Dashboard>
           <Route path="/dashboard" exact component={Content} />
           <Route path="/addroom" exact component={AddRoom} />

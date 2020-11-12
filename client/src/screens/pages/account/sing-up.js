@@ -3,10 +3,21 @@ import './signup.css';
 import { Link, useHistory } from 'react-router-dom';
 import { registerService } from '../../../services/auth-service';
 import { classnames } from 'tailwindcss-classnames';
+import Swal from 'sweetalert2';
 
 const emailRegx = RegExp(
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 );
+
+const success = () => {
+  Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Your are successfully registered.',
+    showConfirmButton: false,
+    timer: 1500,
+  });
+};
 
 export default function SignIn() {
   let history = useHistory();
@@ -105,7 +116,7 @@ export default function SignIn() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
+    delete state.formErrors.confirmpassword;
     if (isFormValid(state)) {
       const { formErrors, ...userData } = state;
 
@@ -114,6 +125,7 @@ export default function SignIn() {
         if (data.status == 400) {
           return setformError(data.message);
         }
+        success();
         history.push('/login');
       });
     } else {
@@ -345,7 +357,7 @@ export default function SignIn() {
               <input
                 class="appearance-none bg-gray-200 block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
                 id="grid-citizen"
-                type="number"
+                type="text"
                 placeholder="123-456-789"
                 name="citizenidno"
                 value={state.citizenidno}

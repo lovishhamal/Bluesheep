@@ -1,8 +1,162 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { getToken } from '../../../utils';
+import jwt_decode from 'jwt-decode';
+import { bookRoom } from '../../../services/room-service';
+import { useHistory } from 'react-router-dom';
 
-export default function card({ item }) {
+import { RangeDatePicker } from 'react-google-flight-datepicker';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+
+const message = () => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+
+  Toast.fire({
+    icon: 'error',
+    title: 'Please login to continue',
+  });
+};
+
+const confirm = (item, start, end) => {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, confirm booking!',
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      const user = await getToken();
+      const decode = jwt_decode(user);
+      const data = {
+        roomno: item.roomno,
+        roomname: item.roomname,
+        price: item.price,
+        bed: item.bed,
+        capacity: item.capacity,
+        user_id: decode.data.id,
+        start_date: start,
+        end_date: end,
+      };
+      await bookRoom(data);
+      Swal.fire('Booked!', 'Your booking has been created', 'success');
+    }
+  });
+};
+
+const useStyles = makeStyles({
+  root: {
+    minWidth: 275,
+    marginTop: '5%',
+    width: '70%',
+    height: '75%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 12,
+  },
+});
+
+let startDate = '';
+let endDate = '';
+
+export default function RoomCard({ item }) {
+  const history = useHistory();
+  const [start, setstart] = useState('');
+  const [end, setend] = useState('');
+  const classes = useStyles();
+
+  const [value, setvalue] = useState(false);
+
+  const date = new Date();
+  const tomorrow = new Date(date.getTime());
+  tomorrow.setDate(date.getDate() + 1);
+
+  startDate = date;
+  endDate = tomorrow;
+
+  const book = (item) => {
+    if (getToken() === null) {
+      history.push('/login');
+      message();
+      return;
+    }
+    confirm(item, startDate, endDate);
+  };
+
+  const onDateChange = (start, end) => {
+    startDate = start;
+    endDate = end;
+    return;
+  };
+
   return (
     <div class="max-w-sm sm:w-1/2 lg:w-1/4 h-2/4 py-10 px-6">
+      {value && (
+        <div class="bg-gray-200 flex items-start justify-center h-screen fixed w-screen z-20 top-0 left-0 right-0">
+          <Card className={classes.root}>
+            <CardContent>
+              <Typography
+                className={classes.title}
+                color="textSecondary"
+                gutterBottom
+              >
+                Please select date.
+              </Typography>
+              <RangeDatePicker
+                startDate={date}
+                endDate={tomorrow}
+                onChange={(startDate, endDate) =>
+                  onDateChange(startDate, endDate)
+                }
+              />
+            </CardContent>
+            <CardActions style={{ alignSelf: 'flex-end' }}>
+              <button
+                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 border border-green-700 rounded"
+                size="small"
+                onClick={() => book(item)}
+              >
+                Confirm
+              </button>
+              <button
+                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded"
+                size="small"
+                onClick={() => setvalue(false)}
+              >
+                Cancel
+              </button>
+            </CardActions>
+          </Card>
+        </div>
+      )}
       <div class="bg-white shadow-xl rounded-lg overflow-hidden">
         <div class="bg-cover bg-center h-48 p-2">
           <div class="flex justify-end w-full h-11/12">
@@ -48,9 +202,12 @@ export default function card({ item }) {
         </div>
         <div class="px-4 pt-3 pb-4 border-t border-gray-300 bg-gray-100 flex justify-around">
           <div class="text-xs cursor-pointer uppercase font-bold text-gray-600 tracking-wide">
-            show details
+            <Link to={`/roomdetail/${item.id}`}> show details</Link>
           </div>
-          <div class="text-xs cursor-pointer uppercase font-bold text-gray-600 tracking-wide">
+          <div
+            class="text-xs cursor-pointer uppercase font-bold text-gray-600 tracking-wide"
+            onClick={() => setvalue(true)}
+          >
             book now
           </div>
         </div>

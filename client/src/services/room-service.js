@@ -20,4 +20,20 @@ const getRoom = async () => {
   });
 };
 
-export { addRoom, getRoom };
+const bookRoom = async (data) => {
+  return new Promise((resolve, reject) => {
+    Api.post('/room/booking', data)
+      .then(({ data }) => resolve(data))
+      .catch((err) => reject(err));
+  });
+};
+
+const getBooking = async (id) => {
+  return new Promise((resolve, reject) => {
+    Api.get(`/room/getbooking/${id}`)
+      .then(({ data }) => resolve(data))
+      .catch((err) => reject(err));
+  });
+};
+
+export { addRoom, getRoom, bookRoom, getBooking };
