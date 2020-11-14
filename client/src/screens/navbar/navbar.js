@@ -21,7 +21,6 @@ export default function Navbar({ profile }) {
   }
 
   const signout = () => {
-    console.log('click', toggleAccount);
     removeToken();
     settoggleaccount(!toggleAccount);
     history.push('/');
@@ -117,7 +116,7 @@ export default function Navbar({ profile }) {
                   />
                 </svg>
                 {toggleAccount && (
-                  <div class="mt-2 py-2 absolute right-0 w-48 bg-white rounded-lg shadow-xl">
+                  <div class="z-20 mt-2 py-2 absolute right-0 w-48 bg-white rounded-lg shadow-xl">
                     <span
                       class="block cursor-pointer px-4 py-2 text-gray-800 capitalize hover:bg-indigo-500 hover:text-white"
                       style={{ borderBottom: '1px solid #f2f2f2' }}

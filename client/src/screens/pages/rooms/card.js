@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { getToken } from '../../../utils';
@@ -12,6 +12,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import { Context } from '../../../context';
 
 const message = () => {
   const Toast = Swal.mixin({
@@ -31,7 +32,43 @@ const message = () => {
   });
 };
 
-const confirm = (item, start, end) => {
+const errorMsg = () => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+
+  Toast.fire({
+    icon: 'error',
+    title: 'Booking is not vailable on this date.',
+  });
+};
+
+const invalid = () => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+
+  Toast.fire({
+    icon: 'error',
+    title: 'Check In date is invalid',
+  });
+};
+
+const confirm = (item, start, end, history) => {
   Swal.fire({
     title: 'Are you sure?',
     text: "You won't be able to revert this!",
@@ -42,20 +79,26 @@ const confirm = (item, start, end) => {
     confirmButtonText: 'Yes, confirm booking!',
   }).then(async (result) => {
     if (result.isConfirmed) {
-      const user = await getToken();
-      const decode = jwt_decode(user);
-      const data = {
-        roomno: item.roomno,
-        roomname: item.roomname,
-        price: item.price,
-        bed: item.bed,
-        capacity: item.capacity,
-        user_id: decode.data.id,
-        start_date: start,
-        end_date: end,
-      };
-      await bookRoom(data);
-      Swal.fire('Booked!', 'Your booking has been created', 'success');
+      try {
+        const user = await getToken();
+        const decode = jwt_decode(user);
+        const data = {
+          roomid: item.id,
+          roomno: item.roomno,
+          roomname: item.roomname,
+          price: item.price,
+          bed: item.bed,
+          capacity: item.capacity,
+          user_id: decode.data.id,
+          start_date: start,
+          end_date: end,
+        };
+        await bookRoom(data);
+        Swal.fire('Booked!', 'Your booking has been created', 'success');
+        history.push('/mybooking');
+      } catch (error) {
+        errorMsg();
+      }
     }
   });
 };
@@ -87,11 +130,10 @@ const useStyles = makeStyles({
 let startDate = '';
 let endDate = '';
 
-export default function RoomCard({ item }) {
+export default function RoomCard({ item, id }) {
   const history = useHistory();
-  const [start, setstart] = useState('');
-  const [end, setend] = useState('');
   const classes = useStyles();
+  const { setbooking, booking } = useContext(Context);
 
   const [value, setvalue] = useState(false);
 
@@ -108,7 +150,10 @@ export default function RoomCard({ item }) {
       message();
       return;
     }
-    confirm(item, startDate, endDate);
+
+    if (startDate < new Date()) return invalid();
+    setbooking(item);
+    confirm(item, startDate, endDate, history);
   };
 
   const onDateChange = (start, end) => {
@@ -117,10 +162,14 @@ export default function RoomCard({ item }) {
     return;
   };
 
+  console.log('id-> booking', booking);
+  const find = booking.find((val) => val.id === item.id);
+  const bookApi = item.bookings.find((item) => item.user_id === id);
+
   return (
     <div class="max-w-sm sm:w-1/2 lg:w-1/4 h-2/4 py-10 px-6">
       {value && (
-        <div class="bg-gray-200 flex items-start justify-center h-screen fixed w-screen z-20 top-0 left-0 right-0">
+        <div class="bg-blue-400 flex items-start justify-center h-screen fixed w-screen z-20 top-0 left-0 right-0">
           <Card className={classes.root}>
             <CardContent>
               <Typography
@@ -140,14 +189,14 @@ export default function RoomCard({ item }) {
             </CardContent>
             <CardActions style={{ alignSelf: 'flex-end' }}>
               <button
-                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 border border-green-700 rounded"
+                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                 size="small"
                 onClick={() => book(item)}
               >
                 Confirm
               </button>
               <button
-                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded"
+                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                 size="small"
                 onClick={() => setvalue(false)}
               >
@@ -167,8 +216,8 @@ export default function RoomCard({ item }) {
           <p class="tracking-wide uppercase text-sm font-bold text-gray-700">
             {item.roomname}
           </p>
-          <p class="text-3xl text-gray-900">{item.price}</p>
-          <p class="text-gray-700 uppercase">{item.extra}</p>
+          <p class="text-3xl text-gray-900">Rs. {item.price}</p>
+          <p class="text-gray-700 uppercase"> Rs. {item.extra}</p>
         </div>
         <div class="flex p-4 border-t border-gray-300 text-gray-700">
           <div class="flex-1 inline-flex items-center">
@@ -204,12 +253,24 @@ export default function RoomCard({ item }) {
           <div class="text-xs cursor-pointer uppercase font-bold text-gray-600 tracking-wide">
             <Link to={`/roomdetail/${item.id}`}> show details</Link>
           </div>
-          <div
-            class="text-xs cursor-pointer uppercase font-bold text-gray-600 tracking-wide"
-            onClick={() => setvalue(true)}
-          >
-            book now
-          </div>
+          {(find && find.id === item.id) ||
+          (bookApi &&
+            bookApi.user_id === id &&
+            new Date(bookApi.end_date) > new Date()) ? (
+            <div
+              class="text-xs cursor-pointer uppercase font-bold text-gray-600 tracking-wide"
+              onClick={() => setvalue(true)}
+            >
+              Your Booking
+            </div>
+          ) : (
+            <div
+              class="text-xs cursor-pointer uppercase font-bold text-gray-600 tracking-wide"
+              onClick={() => setvalue(true)}
+            >
+              book now
+            </div>
+          )}
         </div>
       </div>
     </div>

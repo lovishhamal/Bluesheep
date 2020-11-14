@@ -14,7 +14,14 @@ const roomService = (() => {
   const get = async () => {
     return new Promise((resolve, reject) => {
       rooms
-        .findAll()
+        .findAll({
+          include: [
+            {
+              model: booking,
+              attributes: ['user_id', 'end_date'],
+            },
+          ],
+        })
         .then((data) => resolve(data))
         .catch(() => reject('Couldnot get rooms'));
     });
@@ -23,9 +30,37 @@ const roomService = (() => {
   const book = async (body) => {
     return new Promise((resolve, reject) => {
       booking
-        .create(body)
-        .then((data) => resolve(data))
-        .catch(() => reject('Couldnot get rooms'));
+        .findAll({
+          where: {
+            roomno: body.roomno,
+          },
+        })
+        .then((data) => {
+          if (data.length < 1) {
+            booking
+              .create(body)
+              .then((data) => resolve(data))
+              .catch(() => reject('Couldnot book room'));
+          } else {
+            for (var i in data) {
+              if (
+                body.start_date < data[i].start_date &&
+                body.end_date < data[i].start_date
+              ) {
+              } else if (
+                body.start_date > data[i].end_date &&
+                body.end_date > data[i].end_date
+              ) {
+              } else {
+                return reject('Booking not available on this date');
+              }
+            }
+            booking
+              .create(body)
+              .then((data) => resolve(data))
+              .catch(() => reject('Couldnot book room'));
+          }
+        });
     });
   };
 
@@ -38,11 +73,24 @@ const roomService = (() => {
     });
   };
 
+  const deleteBooking = async (id) => {
+    return new Promise((resolve, reject) => {
+      booking
+        .findOne({ where: { id } })
+        .then((data) => {
+          data.destroy();
+          resolve();
+        })
+        .catch(() => reject('Couldnot get rooms'));
+    });
+  };
+
   return {
     add,
     get,
     book,
     getBooking,
+    deleteBooking,
   };
 })();
 

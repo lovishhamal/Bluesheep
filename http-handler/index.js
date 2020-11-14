@@ -11,10 +11,10 @@ responseBody = (status, data, token, message = null) => {
 
 const httpResponse = {
   errorHandler(response, error, status) {
-    response.json(responseBody(status, null, null, error));
+    response.status(status).json(responseBody(status, null, null, error));
   },
   successHandler(response, status, data, token, message) {
-    response.json(responseBody(status, data, token, message));
+    response.status(status).json(responseBody(status, data, token, message));
   },
   tokenHandler(response, token, message) {
     response

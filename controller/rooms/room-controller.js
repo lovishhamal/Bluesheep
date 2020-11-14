@@ -41,7 +41,16 @@ router.get('/getbooking/:id', async (req, res) => {
     const data = await roomService.getBooking(req.params.id);
     httpResponse.successHandler(res, 200, data, null, 'success');
   } catch (error) {
-    httpResponse.errorHandler(res, error, 400);
+    httpResponse.errorHandler(res, error, 500);
+  }
+});
+
+router.delete('/deletebooking/:id', async (req, res) => {
+  try {
+    const data = await roomService.deleteBooking(req.params.id);
+    httpResponse.successHandler(res, 200, data, null, 'success');
+  } catch (error) {
+    httpResponse.errorHandler(res, error, 500);
   }
 });
 

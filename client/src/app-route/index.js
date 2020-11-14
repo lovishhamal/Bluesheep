@@ -10,7 +10,6 @@ export default function Index({
 }) {
   const token = getToken();
   const profile = token ? jwtDecode(token) : '';
-  console.log('token -> ', token);
   return (
     <div>
       <Layout token={token} profile={profile ? profile.data : ''} />

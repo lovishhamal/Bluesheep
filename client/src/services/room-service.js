@@ -36,4 +36,12 @@ const getBooking = async (id) => {
   });
 };
 
-export { addRoom, getRoom, bookRoom, getBooking };
+const deleteBooking = async (id) => {
+  return new Promise((resolve, reject) => {
+    Api.delete(`/room/deletebooking/${id}`)
+      .then(({ data }) => resolve(data))
+      .catch((err) => reject(err));
+  });
+};
+
+export { addRoom, getRoom, bookRoom, getBooking, deleteBooking };

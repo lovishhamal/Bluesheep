@@ -77,8 +77,8 @@ export default function SignIn() {
         break;
       case 'phoneno':
         formErrors.phoneno =
-          value.length < 10 || value.length > 10
-            ? 'Number must be 10 digit'
+          +value < 9000000000 || +value > 9999999999
+            ? 'Number didnot match'
             : '';
         break;
       case 'country':
@@ -296,7 +296,7 @@ export default function SignIn() {
                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3"
                 id="grid-phone"
                 type="number"
-                placeholder="0123456789"
+                placeholder="9800000000"
                 name="phoneno"
                 value={state.phoneno}
                 onChange={handleChange}

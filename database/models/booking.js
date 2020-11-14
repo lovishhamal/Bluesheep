@@ -17,6 +17,10 @@ const Booking = db.define('bookings', {
     type: Sequalize.INTEGER,
     field: 'Capacity',
   },
+  roomid: {
+    type: Sequalize.INTEGER,
+    field: 'RoomId',
+  },
   roomname: {
     type: Sequalize.INTEGER,
     field: 'RoomName',

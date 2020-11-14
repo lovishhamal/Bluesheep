@@ -13,6 +13,7 @@ class ContextProvider extends Component {
     guest: 'All',
     capacity: 1,
     loading: true,
+    booking: [],
   };
 
   componentDidMount = async () => {
@@ -64,6 +65,18 @@ class ContextProvider extends Component {
     this.setState({ rooms: temprooms });
   };
 
+  setbooking = (data) => {
+    this.setState({ booking: [...this.state.booking, data] });
+  };
+
+  deletebooking = (id, roomid) => {
+    let filterBooking = [...this.state.booking];
+    filterBooking = filterBooking.filter((item) => item.id !== roomid);
+    this.setState({
+      booking: filterBooking,
+    });
+  };
+
   render() {
     return (
       <Context.Provider
@@ -71,6 +84,8 @@ class ContextProvider extends Component {
           ...this.state,
           onChangePrice: this.onChangePrice,
           handleChange: this.handleChange,
+          setbooking: this.setbooking,
+          deletebooking: this.deletebooking,
         }}
       >
         {this.props.children}
