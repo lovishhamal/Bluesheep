@@ -94,40 +94,6 @@ const errorMsg = () => {
   });
 };
 
-const confirm = (item, start, end, history) => {
-  Swal.fire({
-    title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, confirm booking!',
-  }).then(async (result) => {
-    if (result.isConfirmed) {
-      try {
-        const user = await getToken();
-        const decode = jwt_decode(user);
-        const data = {
-          roomno: item.roomno,
-          roomname: item.roomname,
-          price: item.price,
-          bed: item.bed,
-          capacity: item.capacity,
-          user_id: decode.data.id,
-          start_date: start,
-          end_date: end,
-        };
-        await bookRoom(data);
-        Swal.fire('Booked!', 'Your booking has been created', 'success');
-        history.push('/mybooking');
-      } catch (error) {
-        errorMsg();
-      }
-    }
-  });
-};
-
 const findRoom = (id, rooms) => {
   let result = rooms.find((item) => item.id == id);
   return result;
@@ -159,6 +125,41 @@ const Details = (props) => {
   const { allRooms } = useContext(Context);
   const data = findRoom(+props.match.params.id, allRooms);
 
+  const confirm = (item, start, end, history) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, confirm booking!',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const user = await getToken();
+          const decode = jwt_decode(user);
+          const data = {
+            roomno: item.roomno,
+            roomname: item.roomname,
+            price: item.price,
+            bed: item.bed,
+            capacity: item.capacity,
+            user_id: decode.data.id,
+            start_date: start,
+            end_date: end,
+          };
+          await bookRoom(data);
+          setbooking(item);
+          Swal.fire('Booked!', 'Your booking has been created', 'success');
+          history.push('/mybooking');
+        } catch (error) {
+          errorMsg();
+        }
+      }
+    });
+  };
+
   const book = async (item) => {
     try {
       if (getToken() === null) {
@@ -167,7 +168,7 @@ const Details = (props) => {
         return;
       }
       if (startDate < new Date()) return invalid();
-      setbooking(item);
+
       confirm(item, startDate, endDate, history);
     } catch (error) {}
   };
@@ -181,58 +182,95 @@ const Details = (props) => {
     );
 
     return (
-      <section class="text-gray-700 body-font overflow-hidden">
+      <section class="w-screen text-gray-700 body-font overflow-hidden">
         {value && (
-          <div class="bg-blue-400 flex items-start justify-center h-screen fixed w-screen z-20 top-0 left-0 right-0">
-            <Card className={classes.root}>
-              <CardContent>
-                <Typography
-                  className={classes.title}
-                  color="textSecondary"
-                  gutterBottom
-                >
-                  Please select date.
-                </Typography>
-                <RangeDatePicker
-                  startDate={date}
-                  endDate={tomorrow}
-                  onChange={(startDate, endDate) =>
-                    onDateChange(startDate, endDate)
-                  }
-                />
-              </CardContent>
-              <CardActions style={{ alignSelf: 'flex-end' }}>
-                <button
-                  class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                  size="small"
-                  onClick={() => book(data)}
-                >
-                  Confirm
-                </button>
-                <button
-                  class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                  size="small"
-                  onClick={() => setvalue(false)}
-                >
-                  Cancel
-                </button>
-              </CardActions>
-            </Card>
+          <div class="fixed inset-0 overflow-y-auto">
+            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+              <div class="fixed inset-0 transition-opacity">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+              </div>
+              <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>
+              &#8203;
+              <div
+                class="inline-block align-bottom bg-white rounded-lg text-left shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="modal-headline"
+              >
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                  <div class="sm:flex sm:items-start">
+                    <div class=" mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
+                      <svg
+                        class="w-6 h-6 text-green-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                      <h3
+                        class="text-lg leading-6 font-medium text-gray-900"
+                        id="modal-headline"
+                      >
+                        Book Room
+                      </h3>
+                      <div class="mt-2 z-20">
+                        <RangeDatePicker
+                          startDate={date}
+                          endDate={tomorrow}
+                          onChange={(startDate, endDate) =>
+                            onDateChange(startDate, endDate)
+                          }
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                  <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
+                    <button
+                      type="button"
+                      class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-red-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+                      onClick={() => book(data)}
+                    >
+                      Book Now
+                    </button>
+                  </span>
+                  <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
+                    <button
+                      type="button"
+                      class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+                      onClick={() => setvalue(false)}
+                    >
+                      Cancel
+                    </button>
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         )}
-        <div class="container px-5 py-5 mx-auto">
+        <div class="container py-5">
           <div
-            class="lg:w-4/5 mx-auto flex flex-wrap shadow-2xl"
+            class="w-screen mt-5 flex flex-wrap shadow-2xl"
             style={{ borderWidth: 20, borderColor: colors.white }}
           >
             {data.images.map((item) => (
               <img
                 alt="ecommerce"
-                class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
+                class="lg:w-1/3 w-full object-cover object-center rounded border border-gray-200"
                 src={item}
               />
             ))}
-            <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+            <div class="lg:w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 class="text-sm title-font text-gray-500 tracking-widest capitalize">
                 {data.roomname}
               </h2>

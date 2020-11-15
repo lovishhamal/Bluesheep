@@ -54,4 +54,14 @@ router.delete('/deletebooking/:id', async (req, res) => {
   }
 });
 
+router.post('/findrooms', async (req, res) => {
+  try {
+    const data = await roomService.getFindRooms(req.body);
+
+    httpResponse.successHandler(res, 200, data, null, 'success');
+  } catch (error) {
+    httpResponse.errorHandler(res, error, 500);
+  }
+});
+
 module.exports = router;

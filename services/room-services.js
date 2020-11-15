@@ -85,12 +85,57 @@ const roomService = (() => {
     });
   };
 
+  const getFindRooms = async (body) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const findAllRooms = await rooms.findAll();
+
+        const data = await booking.findAll({
+          where: {
+            roomname: body.room,
+          },
+        });
+
+        if (data.length > 0) {
+          var roomId = [];
+          for (let i in data) {
+            if (
+              body.startDate < data[i].start_date &&
+              body.endDate < data[i].start_date
+            ) {
+            } else if (
+              body.startDate > data[i].end_date &&
+              body.endDate > data[i].end_date
+            ) {
+            } else {
+              roomId.push(data[i].roomid);
+            }
+          }
+
+          const rooms = findAllRooms.filter(
+            (val) => roomId.indexOf(val.id) < 0 && val.roomname === body.room
+          );
+
+          return resolve(rooms);
+        }
+
+        let filterRooms = findAllRooms.filter(
+          (val) => val.roomname === body.room && val.capacity == body.guest
+        );
+        resolve(filterRooms);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
   return {
     add,
     get,
     book,
     getBooking,
     deleteBooking,
+    getFindRooms,
   };
 })();
 

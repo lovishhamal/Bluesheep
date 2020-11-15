@@ -14,7 +14,16 @@ class ContextProvider extends Component {
     capacity: 1,
     loading: true,
     booking: [],
+    selectRoom: [],
+    selectCapacity: [],
   };
+
+  getUnique(items, value) {
+    if (value === 'capacity') {
+      return [...new Set(items.map((item) => item[value]))];
+    }
+    return [...new Set(items.map((item) => item[value]))];
+  }
 
   componentDidMount = async () => {
     const { data } = await getRoom();
@@ -25,6 +34,9 @@ class ContextProvider extends Component {
     let min = Math.min(...set);
     let mid = set[Math.floor((set.length - 1) / 2)];
 
+    const room = this.getUnique(data, 'roomname');
+    const capacity = this.getUnique(data, 'capacity');
+
     this.setState({
       allRooms: data,
       rooms: data,
@@ -33,6 +45,8 @@ class ContextProvider extends Component {
       minPrice: min,
       midPrice: mid,
       loading: false,
+      selectRoom: room,
+      selectCapacity: capacity,
     });
   };
 

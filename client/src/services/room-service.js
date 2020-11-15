@@ -44,4 +44,12 @@ const deleteBooking = async (id) => {
   });
 };
 
-export { addRoom, getRoom, bookRoom, getBooking, deleteBooking };
+const getFindRooms = async (data) => {
+  return new Promise((resolve, reject) => {
+    Api.post('/room/findrooms/', data)
+      .then(({ data }) => resolve(data))
+      .catch((err) => reject(err));
+  });
+};
+
+export { addRoom, getRoom, bookRoom, getBooking, deleteBooking, getFindRooms };

@@ -8,10 +8,6 @@ import { useHistory } from 'react-router-dom';
 
 import { RangeDatePicker } from 'react-google-flight-datepicker';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import { Context } from '../../../context';
 
 const message = () => {
@@ -68,41 +64,6 @@ const invalid = () => {
   });
 };
 
-const confirm = (item, start, end, history) => {
-  Swal.fire({
-    title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, confirm booking!',
-  }).then(async (result) => {
-    if (result.isConfirmed) {
-      try {
-        const user = await getToken();
-        const decode = jwt_decode(user);
-        const data = {
-          roomid: item.id,
-          roomno: item.roomno,
-          roomname: item.roomname,
-          price: item.price,
-          bed: item.bed,
-          capacity: item.capacity,
-          user_id: decode.data.id,
-          start_date: start,
-          end_date: end,
-        };
-        await bookRoom(data);
-        Swal.fire('Booked!', 'Your booking has been created', 'success');
-        history.push('/mybooking');
-      } catch (error) {
-        errorMsg();
-      }
-    }
-  });
-};
-
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -144,6 +105,42 @@ export default function RoomCard({ item, id }) {
   startDate = date;
   endDate = tomorrow;
 
+  const confirm = (item, start, end, history) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, confirm booking!',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const user = await getToken();
+          const decode = jwt_decode(user);
+          const data = {
+            roomid: item.id,
+            roomno: item.roomno,
+            roomname: item.roomname,
+            price: item.price,
+            bed: item.bed,
+            capacity: item.capacity,
+            user_id: decode.data.id,
+            start_date: start,
+            end_date: end,
+          };
+          await bookRoom(data);
+          setbooking(item);
+          Swal.fire('Booked!', 'Your booking has been created', 'success');
+          history.push('/mybooking');
+        } catch (error) {
+          errorMsg();
+        }
+      }
+    });
+  };
+
   const book = (item) => {
     if (getToken() === null) {
       history.push('/login');
@@ -152,7 +149,6 @@ export default function RoomCard({ item, id }) {
     }
 
     if (startDate < new Date()) return invalid();
-    setbooking(item);
     confirm(item, startDate, endDate, history);
   };
 
@@ -162,48 +158,84 @@ export default function RoomCard({ item, id }) {
     return;
   };
 
-  console.log('id-> booking', booking);
   const find = booking.find((val) => val.id === item.id);
   const bookApi = item.bookings.find((item) => item.user_id === id);
 
   return (
     <div class="max-w-sm sm:w-1/2 lg:w-1/4 h-2/4 py-10 px-6">
       {value && (
-        <div class="bg-blue-400 flex items-start justify-center h-screen fixed w-screen z-20 top-0 left-0 right-0">
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                color="textSecondary"
-                gutterBottom
-              >
-                Please select date.
-              </Typography>
-              <RangeDatePicker
-                startDate={date}
-                endDate={tomorrow}
-                onChange={(startDate, endDate) =>
-                  onDateChange(startDate, endDate)
-                }
-              />
-            </CardContent>
-            <CardActions style={{ alignSelf: 'flex-end' }}>
-              <button
-                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                size="small"
-                onClick={() => book(item)}
-              >
-                Confirm
-              </button>
-              <button
-                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                size="small"
-                onClick={() => setvalue(false)}
-              >
-                Cancel
-              </button>
-            </CardActions>
-          </Card>
+        <div class="fixed inset-0 overflow-y-auto">
+          <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity">
+              <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>
+            &#8203;
+            <div
+              class="inline-block align-bottom bg-white rounded-lg text-left shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="modal-headline"
+            >
+              <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                  <div class=" mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
+                    <svg
+                      class="w-6 h-6 text-green-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                    <h3
+                      class="text-lg leading-6 font-medium text-gray-900"
+                      id="modal-headline"
+                    >
+                      Book Room
+                    </h3>
+                    <div class="mt-2 z-20">
+                      <RangeDatePicker
+                        startDate={date}
+                        endDate={tomorrow}
+                        onChange={(startDate, endDate) =>
+                          onDateChange(startDate, endDate)
+                        }
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
+                  <button
+                    type="button"
+                    class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-red-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+                    onClick={() => book(item)}
+                  >
+                    Book Now
+                  </button>
+                </span>
+                <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
+                  <button
+                    type="button"
+                    class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+                    onClick={() => setvalue(false)}
+                  >
+                    Cancel
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       )}
       <div class="bg-white shadow-xl rounded-lg overflow-hidden">
@@ -217,7 +249,7 @@ export default function RoomCard({ item, id }) {
             {item.roomname}
           </p>
           <p class="text-3xl text-gray-900">Rs. {item.price}</p>
-          <p class="text-gray-700 uppercase"> Rs. {item.extra}</p>
+          <p class="text-gray-700 uppercase">{item.extra}</p>
         </div>
         <div class="flex p-4 border-t border-gray-300 text-gray-700">
           <div class="flex-1 inline-flex items-center">
@@ -276,3 +308,37 @@ export default function RoomCard({ item, id }) {
     </div>
   );
 }
+/* <Card className={classes.root}>
+              <CardContent>
+                <Typography
+                  className={classes.title}
+                  color="textSecondary"
+                  gutterBottom
+                >
+                  Please select date.
+                </Typography>
+                <RangeDatePicker
+                  startDate={date}
+                  endDate={tomorrow}
+                  onChange={(startDate, endDate) =>
+                    onDateChange(startDate, endDate)
+                  }
+                />
+              </CardContent>
+              <CardActions style={{ alignSelf: 'flex-end' }}>
+                <button
+                  class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                  size="small"
+                  onClick={() => book(item)}
+                >
+                  Confirm
+                </button>
+                <button
+                  class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                  size="small"
+                  onClick={() => setvalue(false)}
+                >
+                  Cancel
+                </button>
+              </CardActions>
+            </Card>*/
