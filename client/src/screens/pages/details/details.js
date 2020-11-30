@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Context } from '../../../context';
 import colors from '../../../colors/colors';
@@ -355,6 +355,7 @@ const Details = (props) => {
                   <div
                     className="flex ml-auto text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded"
                     onClick={() => setvalue(true)}
+                    id="booking"
                   >
                     Your Booking
                   </div>
