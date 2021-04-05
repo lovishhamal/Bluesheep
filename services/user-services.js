@@ -38,12 +38,14 @@ const userService = (() => {
               .catch(() => reject('Error while registering'));
           }
 
-          if (data.email === userData.email) {
-            return reject('Email already exists');
-          }
+          if (data) {
+            if (data.email === userData.email) {
+              return reject('Email already exists');
+            }
 
-          if (data.phoneno === userData.phoneno) {
-            return reject('Phone No already exists');
+            if (data.phoneno === userData.phoneno) {
+              return reject('Phone No already exists');
+            }
           }
         });
     });
@@ -53,7 +55,7 @@ const userService = (() => {
     return new Promise((resolve, reject) => {
       users.findOne({ where: { email: userData.email } }).then(async (data) => {
         if (!data) return reject('Couldnot find email');
-
+        console.log('data -> ', userData.password);
         const isPasswordMatch = await bcrypt.compare(
           userData.password,
           data.password

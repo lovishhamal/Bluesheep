@@ -1,8 +1,5 @@
-const bcrypt = require('bcryptjs');
-const Jwt = require('jsonwebtoken');
 const booking = require('../database/models/booking');
 const customer = require('../database/models/customers');
-const { Op } = require('sequelize');
 const moment = require('moment');
 
 const customerService = (() => {
@@ -46,8 +43,18 @@ const customerService = (() => {
         .catch((err) => reject(err));
     });
   };
+
+  const getCustomer = () => {
+    return new Promise((resolve, reject) => {
+      customer
+        .findAll()
+        .then((data) => resolve(data))
+        .catch((err) => reject(err));
+    });
+  };
   return {
     addCustomer,
+    getCustomer,
   };
 })();
 

@@ -8,4 +8,12 @@ const getBookingService = async () => {
   });
 };
 
-export { getBookingService };
+const getCustomerService = async () => {
+  return new Promise((resolve, reject) => {
+    Api.get('/customer')
+      .then((data) => resolve(data))
+      .catch((err) => reject(err));
+  });
+};
+
+export { getBookingService, getCustomerService };

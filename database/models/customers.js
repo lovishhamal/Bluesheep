@@ -12,6 +12,10 @@ const Customers = db.define('customers', {
     type: Sequalize.STRING,
     field: 'Name',
   },
+  last_name: {
+    type: Sequalize.STRING,
+    field: 'LastName',
+  },
   email: {
     type: Sequalize.STRING,
     field: 'Email',

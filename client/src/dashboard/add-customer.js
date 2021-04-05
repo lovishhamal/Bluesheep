@@ -46,6 +46,7 @@ export default function Addcustomer() {
   const rooms = useContext(Context);
   const [state, setState] = useState({
     name: '',
+    last_name: '',
     email: '',
     address: '',
     idno: '',
@@ -104,12 +105,27 @@ export default function Addcustomer() {
             </p>
             <div class="">
               <label class="block text-sm text-gray-600" for="cus_name">
-                Name
+                First Name
               </label>
               <input
                 class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
                 id="cus_name"
                 name="name"
+                type="text"
+                required=""
+                placeholder="Your Name"
+                aria-label="Name"
+                onChange={onChange}
+              />
+            </div>
+            <div class="">
+              <label class="block text-sm text-gray-600" for="cus_name">
+                Last Name
+              </label>
+              <input
+                class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                id="cus_name"
+                name="last_name"
                 type="text"
                 required=""
                 placeholder="Your Name"
