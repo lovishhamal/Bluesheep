@@ -35,11 +35,8 @@ export default function Navbar({ profile }) {
             close={() => settoggle(!toggle)}
             slide={slide}
             profile={profile}
-          ></Sidebar>
-          <Backdrop
-            close={() => settoggle(!toggle)}
-            className={backdrop}
-          ></Backdrop>
+          />
+          <Backdrop close={() => settoggle(!toggle)} className={backdrop} />
         </div>
         <header>
           <div className="logo">

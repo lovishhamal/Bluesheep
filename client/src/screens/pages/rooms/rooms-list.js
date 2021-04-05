@@ -11,7 +11,7 @@ export default function RoomsPricing({ data, setvalue }) {
     const set = () => {
       const user = getToken();
       const decode = user && jwt_decode(user);
-      user && setstate(decode.data.id);
+      user && setstate(decode.data?.id);
     };
 
     set();

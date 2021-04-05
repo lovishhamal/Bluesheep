@@ -8,7 +8,7 @@ const emailRegx = RegExp(
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 );
 
-const signin = () => {
+const signin = (msg, type) => {
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -21,8 +21,8 @@ const signin = () => {
   });
 
   Toast.fire({
-    icon: 'success',
-    title: 'Signed in successfully',
+    icon: type,
+    title: msg,
   });
 };
 
@@ -46,14 +46,16 @@ export default function SignIn() {
     loginService({
       email: userEl.current.value,
       password: passwordEl.current.value,
-    }).then(({ data }) => {
-      if (data.status == 400) {
-        return setformErrors(data.message);
-      }
-      localStorage.setItem('token', data.token);
-      signin();
-      history.push('/');
-    });
+    })
+      .then(({ data }) => {
+        if (data.status == 400) {
+          return setformErrors(data.message);
+        }
+        localStorage.setItem('token', data.token);
+        signin('Successfully signed in', 'success');
+        history.push('/');
+      })
+      .catch((err) => signin('Password/Username didnot match', 'error'));
   };
 
   return (

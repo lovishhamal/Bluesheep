@@ -19,6 +19,16 @@ const success = () => {
   });
 };
 
+const error = () => {
+  Swal.fire({
+    position: 'center',
+    icon: 'error',
+    title: 'EMail already exists',
+    showConfirmButton: false,
+    timer: 1500,
+  });
+};
+
 export default function SignIn() {
   let history = useHistory();
   const [formError, setformError] = useState('');
@@ -121,13 +131,15 @@ export default function SignIn() {
       const { formErrors, ...userData } = state;
 
       delete userData.confirmpassword;
-      registerService(userData).then(({ data }) => {
-        if (data.status == 400) {
-          return setformError(data.message);
-        }
-        success();
-        history.push('/login');
-      });
+      registerService(userData)
+        .then(({ data }) => {
+          if (data.status == 400) {
+            return setformError(data.message);
+          }
+          success();
+          history.push('/login');
+        })
+        .catch((err) => error());
     } else {
       setformError('Please fill all the required * fields.');
     }

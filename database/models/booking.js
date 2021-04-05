@@ -1,5 +1,5 @@
 const Sequalize = require('sequelize');
-
+const users = require('./register-user');
 const db = require('../');
 
 const Booking = db.define('bookings', {
@@ -43,4 +43,5 @@ const Booking = db.define('bookings', {
   },
 });
 
+Booking.hasOne(users, { sourceKey: 'user_id', foreignKey: 'id' });
 module.exports = Booking;

@@ -213,17 +213,14 @@ export default function Addroom() {
               class="relative h-full flex flex-col bg-white shadow-md rounded-md"
             >
               <section class="h-full overflow-auto p-8 w-full h-full flex flex-col">
-                <header class="border-dashed border-2 border-gray-400 py-12 flex flex-col justify-center items-center">
-                  <input
-                    id="hidden-input"
-                    type="file"
-                    multiple
-                    class=" choose mt-2 rounded-sm px-3 py-1 focus:shadow-outline focus:outline-none"
-                    onChange={onChangeImage}
-                    disabled={images.length === 5 ? true : false}
-                  />
-                  Upload file
-                </header>
+                <input
+                  id="hidden-input"
+                  type="file"
+                  multiple
+                  class="choose mt-2 rounded-sm px-3 py-10 focus:shadow-outline focus:outline-none"
+                  onChange={onChangeImage}
+                  disabled={images.length === 5 ? true : false}
+                />
 
                 <h1 class="pt-8 pb-3 font-semibold sm:text-lg text-gray-900">
                   To Upload

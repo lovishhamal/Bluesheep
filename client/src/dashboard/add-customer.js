@@ -50,58 +50,14 @@ export default function Addcustomer() {
                 name="cus_email"
                 type="text"
                 required=""
-                placeholder="Street"
-                aria-label="Email"
-              />
-            </div>
-            <div class="mt-2">
-              <label class="hidden text-sm block text-gray-600" for="cus_email">
-                City
-              </label>
-              <input
-                class="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded"
-                id="cus_email"
-                name="cus_email"
-                type="text"
-                required=""
-                placeholder="City"
-                aria-label="Email"
-              />
-            </div>
-            <div class="inline-block mt-2 w-1/2 pr-1">
-              <label class="hidden block text-sm text-gray-600" for="cus_email">
-                Country
-              </label>
-              <input
-                class="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded"
-                id="cus_email"
-                name="cus_email"
-                type="text"
-                required=""
                 placeholder="Country"
                 aria-label="Email"
               />
             </div>
-            <div class="inline-block mt-2 -mx-1 pl-1 w-1/2">
-              <label class="hidden block text-sm text-gray-600" for="cus_email">
-                Zip
-              </label>
-              <input
-                class="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded"
-                id="cus_email"
-                name="cus_email"
-                type="text"
-                required=""
-                placeholder="Zip"
-                aria-label="Email"
-              />
-            </div>
-            <p class="text-lg text-gray-800 font-medium py-4">
-              Payment information
-            </p>
+            <p class="text-lg text-gray-800 font-medium py-4">Identification</p>
             <div class="">
               <label class="block text-sm text-gray-600" for="cus_name">
-                Card
+                Id No
               </label>
               <input
                 class="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded"
@@ -109,7 +65,7 @@ export default function Addcustomer() {
                 name="cus_name"
                 type="text"
                 required=""
-                placeholder="Card Number MM/YY CVC"
+                placeholder="123-4456-789"
                 aria-label="Name"
               />
             </div>
@@ -118,7 +74,7 @@ export default function Addcustomer() {
                 class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded"
                 type="submit"
               >
-                $3.00
+                Submit
               </button>
             </div>
           </form>

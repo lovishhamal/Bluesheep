@@ -36,10 +36,12 @@
     "passport-local": "^1.0.0",
     "pg": "^8.2.1",
     "pg-hstore": "^2.3.3",
+    "react-loading-skeleton": "^2.2.0",
     "react-nice-dates": "^3.0.7",
     "sequelize": "^5.21.12",
     "snyk": "^1.389.0",
-    "tailwindcss-classnames": "^1.4.1"
+    "tailwindcss-classnames": "^1.4.1",
+    "web-push": "^3.4.4"
   },
   "devDependencies": {
     "concurrently": "^5.2.0",

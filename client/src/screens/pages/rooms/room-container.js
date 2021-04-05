@@ -14,10 +14,9 @@ export default function Roomcontainer() {
     return (
       <div
         className="w-screen h-full"
-        style={{ backgroundColor: Colors.backgroundColor }}
+        style={{ backgroundColor: Colors.backgroundColor, height: '100vh' }}
       >
         <RoomFilter data={state} />
-
         {state.rooms.length < 1 ? (
           <div className="w-screen h-screen flex justify-center items-center">
             <p className="tracking-wide text-5xl uppercase text-sm font-bold text-gray-700">

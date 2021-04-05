@@ -28,14 +28,10 @@ const userService = (() => {
             ],
           },
         })
-
         .then(async (data) => {
           if (!data) {
             const hashedPassword = await bcrypt.hash(userData.password, 10);
-            const hashedId = await bcrypt.hash(userData.citizenidno, 10);
             userData.password = hashedPassword;
-            userData.citizenidno = hashedId;
-
             users
               .create(userData)
               .then(() => resolve('Successfully registered'))
