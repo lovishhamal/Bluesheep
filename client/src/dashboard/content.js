@@ -8,7 +8,6 @@ export default function Content() {
   useEffect(() => {
     (async () => {
       try {
-        console.log('fetch');
         const data = await getBookingService();
         setBookings(data.data.data);
         setLoading(false);

@@ -1,26 +1,26 @@
 const Sequalize = require('sequelize');
-const users = require('./register-user');
 const db = require('../');
 
-const Booking = db.define('bookings', {
+const Customers = db.define('customers', {
   id: {
     type: Sequalize.INTEGER,
     primaryKey: true,
     allowNull: false,
     autoIncrement: true,
   },
-  bed: {
-    type: Sequalize.INTEGER,
-    field: 'Bed',
+  name: {
+    type: Sequalize.STRING,
+    field: 'Name',
   },
-  capacity: {
-    type: Sequalize.INTEGER,
-    field: 'Capacity',
+  email: {
+    type: Sequalize.STRING,
+    field: 'Email',
   },
-  roomid: {
-    type: Sequalize.INTEGER,
-    field: 'RoomId',
+  address: {
+    type: Sequalize.STRING,
+    field: 'Address',
   },
+  idno: { type: Sequalize.INTEGER, field: 'IdNo' },
   roomname: {
     type: Sequalize.INTEGER,
     field: 'RoomName',
@@ -28,10 +28,6 @@ const Booking = db.define('bookings', {
   roomno: {
     type: Sequalize.INTEGER,
     field: 'RoomNo',
-  },
-  user_id: {
-    type: Sequalize.INTEGER,
-    field: 'UserId',
   },
   start_date: {
     type: Sequalize.DATE,
@@ -43,5 +39,4 @@ const Booking = db.define('bookings', {
   },
 });
 
-Booking.hasOne(users, { sourceKey: 'user_id', foreignKey: 'id' });
-module.exports = Booking;
+module.exports = Customers;

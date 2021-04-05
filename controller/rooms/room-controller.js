@@ -64,4 +64,13 @@ router.post('/findrooms', async (req, res) => {
   }
 });
 
+router.get('/available', async (req, res) => {
+  try {
+    const data = await roomService.available(req.body);
+    httpResponse.successHandler(res, 200, data, null, 'success');
+  } catch (error) {
+    httpResponse.errorHandler(res, error, 500);
+  }
+});
+
 module.exports = router;

@@ -129,6 +129,43 @@ const roomService = (() => {
     });
   };
 
+  const available = (body) => {
+    return new Promise((resolve, reject) => {
+      bookings
+        .findAll({
+          where: {
+            roomno: body.roomno,
+          },
+        })
+        .then((data) => {
+          if (data.length < 1) {
+            booking
+              .create(body)
+              .then((data) => resolve(data))
+              .catch(() => reject('Couldnot book room'));
+          } else {
+            for (var i in data) {
+              if (
+                body.start_date < data[i].start_date &&
+                body.end_date < data[i].start_date
+              ) {
+              } else if (
+                body.start_date > data[i].end_date &&
+                body.end_date > data[i].end_date
+              ) {
+              } else {
+                return reject('Booking not available on this date');
+              }
+            }
+            booking
+              .create(body)
+              .then((data) => resolve(data))
+              .catch(() => reject('Couldnot book room'));
+          }
+        });
+    });
+  };
+
   return {
     add,
     get,
@@ -136,6 +173,7 @@ const roomService = (() => {
     getBooking,
     deleteBooking,
     getFindRooms,
+    available,
   };
 })();
 

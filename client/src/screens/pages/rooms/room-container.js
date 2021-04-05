@@ -13,8 +13,8 @@ export default function Roomcontainer() {
   } else {
     return (
       <div
-        className="w-screen h-full"
-        style={{ backgroundColor: Colors.backgroundColor, height: '100vh' }}
+        className="w-screen"
+        style={{ backgroundColor: Colors.backgroundColor, height: 'auto' }}
       >
         <RoomFilter data={state} />
         {state.rooms.length < 1 ? (

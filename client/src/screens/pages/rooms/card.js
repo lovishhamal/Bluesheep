@@ -241,7 +241,11 @@ export default function RoomCard({ item, id }) {
       <div class="bg-white shadow-xl rounded-lg overflow-hidden">
         <div class="bg-cover bg-center h-48 p-2">
           <div class="flex justify-end w-full h-11/12">
-            <img class="rounded" src={item.images[0]}></img>
+            <img
+              class="rounded"
+              src={item.images[0]}
+              style={{ height: '180px', width: '100%', objectFit: 'cover' }}
+            />
           </div>
         </div>
         <div class="p-4">
