@@ -9,6 +9,7 @@ import SignIn from '../screens/pages/account/sign-in';
 import SignUp from '../screens/pages/account/sing-up';
 import RoomDetail from '../screens/pages/details/details';
 import MyBooking from '../screens/pages/mybooking/mybooking';
+import MyOrder from '../screens/pages/order/order';
 import Culinary from '../screens/pages/culinary/culinary';
 import OurService from '../screens/pages/ourservices/ourservice';
 import About from '../screens/pages/about/about';
@@ -43,7 +44,7 @@ export default function Index() {
           exact
           component={RoomDetail}
         />
-        <AppRoute path="/culinary" layout={Navbar} exact component={Culinary} />{' '}
+        <AppRoute path="/culinary" layout={Navbar} exact component={Culinary} />
         <AppRoute
           path="/services"
           layout={Navbar}
@@ -55,6 +56,12 @@ export default function Index() {
           layout={Navbar}
           exact
           component={requireAuth(MyBooking)}
+        />
+        <AppRoute
+          path="/myorder"
+          layout={Navbar}
+          exact
+          component={requireAuth(MyOrder)}
         />
         <AppRoute
           path="/about"

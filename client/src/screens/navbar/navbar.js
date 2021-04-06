@@ -132,6 +132,12 @@ export default function Navbar({ profile }) {
                     >
                       My Booking
                     </Link>
+                    <Link
+                      to="/myorder"
+                      class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
+                    >
+                      My Order
+                    </Link>
                     <span
                       class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white cursor-pointer"
                       onClick={() => signout()}

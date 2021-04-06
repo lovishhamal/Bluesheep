@@ -26,11 +26,6 @@ export default function Index({ profile, close, slide }) {
           <nav className="side-nav-main">
             <ul>
               <li>
-                <a href="/" className="side-link">
-                  home
-                </a>
-              </li>
-              <li>
                 <a href="/rooms&pricing" className="side-link">
                   rooms & pricing
                 </a>
@@ -55,6 +50,11 @@ export default function Index({ profile, close, slide }) {
                   <li>
                     <a href="/mybooking" className="side-link">
                       My Booking
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/myorder" className="side-link">
+                      My Order
                     </a>
                   </li>
                   <li className="side-link" onClick={() => signout()}>

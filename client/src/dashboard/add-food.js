@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import Swal from 'sweetalert2';
-import { addCustomer } from '../services/form-service';
+import { addFood } from '../services/food';
 import { RangeDatePicker } from 'react-google-flight-datepicker';
 import { Context } from '../context';
 
@@ -29,24 +29,43 @@ const Success = (msg) => {
   window.location.reload('/addroom');
 };
 
+const isValid = (form) => {
+  let valid = true;
+  Object.values(form).forEach((val) => {
+    val == '' && (valid = false);
+  });
+  return valid;
+};
+
 export default function Addfood(props) {
   const [images, setimages] = useState([]);
   const [imagepath, setImagePath] = useState([]);
 
   const [form, setform] = useState({
-    roomno: '',
-    roomname: '',
+    name: '',
     price: '',
-    capacity: '',
     description: '',
-    bed: '',
-    bathroom: '',
-    extra: '',
   });
+
   const onSubmit = (e) => {
     e.preventDefault();
-    try {
-    } catch (error) {}
+    if (!isValid(form) || images.length < 1) {
+      return error('Please fill all the fields');
+    }
+
+    const formData = new FormData();
+    for (const key of Object.keys(images)) {
+      formData.append('files', images[key]);
+    }
+    formData.append('body', JSON.stringify(form));
+    addFood(formData)
+      .then(({ data }) => {
+        if (data.status == 200) {
+          return Success(data.message);
+        }
+        return error(data.message);
+      })
+      .catch((err) => console.log('err', err));
   };
 
   const onChange = (e) => {
@@ -78,7 +97,7 @@ export default function Addfood(props) {
               <input
                 class="w-full px-2 py-1 text-gray-700 bg-gray-200 rounded"
                 id="cus_name"
-                name="foodname"
+                name="name"
                 type="text"
                 placeholder="Food Name"
                 aria-label="roomno"
@@ -125,9 +144,8 @@ export default function Addfood(props) {
                   multiple
                   class="choose mt-2 rounded-sm px-3 py-10 focus:shadow-outline focus:outline-none"
                   onChange={onChangeImage}
-                  disabled={images.length === 5 ? true : false}
+                  disabled={images.length === 1 ? true : false}
                 />
-
                 <h1 class="pt-8 pb-3 font-semibold sm:text-lg text-gray-900">
                   To Upload
                 </h1>
