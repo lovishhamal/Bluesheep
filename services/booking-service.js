@@ -11,7 +11,27 @@ const roomService = (() => {
               model: users,
             },
           ],
+          order: [['start_date', 'ASC']],
         })
+        .then((data) => {
+          if (data) {
+            resolve(data);
+          }
+        })
+        .catch(() => reject('Couldnot get rooms'));
+    });
+  };
+  const update = async (id) => {
+    return new Promise((resolve, reject) => {
+      booking
+        .update(
+          { status: 'Occupied' },
+          {
+            where: {
+              id,
+            },
+          }
+        )
         .then((data) => {
           if (data) {
             resolve(data);
@@ -22,6 +42,7 @@ const roomService = (() => {
   };
   return {
     get,
+    update,
   };
 })();
 

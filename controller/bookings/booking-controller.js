@@ -11,4 +11,13 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.patch('/update/:id', async (req, res) => {
+  try {
+    const data = await bookService.update(req.params.id);
+    httpResponse.successHandler(res, 200, data, null, 'success');
+  } catch (error) {
+    httpResponse.errorHandler(res, error, 400);
+  }
+});
+
 module.exports = router;

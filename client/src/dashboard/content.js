@@ -2,28 +2,61 @@ import React, { useEffect, useState } from 'react';
 import {
   getBookingService,
   getCustomerService,
+  updateBooking,
 } from '../services/booking-service';
 import Placeholder from '../common/Placeholder';
+import Swal from 'sweetalert2';
 
 export default function Content() {
   const [bookings, setBookings] = useState([]);
   const [customers, setCustomer] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [refetch, setRefetch] = useState(false);
+
+  const confirm = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete!',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await updateBooking(id);
+          setRefetch(!refetch);
+          Swal.fire('Updated!', 'Booking has been updated.', 'success');
+        } catch (error) {}
+      }
+    });
+  };
 
   useEffect(() => {
     (async () => {
       try {
-        const data = await getBookingService();
+        let data = await getBookingService();
         const data1 = await getCustomerService();
 
-        setBookings(data?.data?.data ?? []);
-        setCustomer(data1?.data?.data ?? []);
+        setBookings(
+          data?.data?.data.filter((item) => item.status === 'Booked') ?? []
+        );
+        setCustomer(
+          data1?.data?.data.concat(
+            data?.data?.data.filter((item) => item.status !== 'Booked')
+          ) ?? []
+        );
         setLoading(false);
       } catch (error) {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [refetch]);
+
+  const updateRooms = async (id) => {
+    confirm(id);
+  };
 
   return (
     <div class="z-20 w-full overflow-x-hidden border-t flex flex-col">
@@ -82,6 +115,9 @@ export default function Content() {
                     <th class="text-left py-3 px-4 uppercase font-semibold text-sm">
                       Booked
                     </th>
+                    <th class="text-left py-3 px-4 uppercase font-semibold text-sm">
+                      Action
+                    </th>
                   </tr>
                 </thead>
                 <tbody class="text-gray-700">
@@ -118,6 +154,15 @@ export default function Content() {
                         <a class="hover:text-blue-500" href="tel:622322662">
                           {item.status}
                         </a>
+                      </td>
+                      <td
+                        class="py-3 px-4"
+                        onClick={() => updateRooms(item.id)}
+                      >
+                        <i
+                          class="fas fa-plus-circle"
+                          style={{ fontSize: '20px' }}
+                        ></i>
                       </td>
                     </tr>
                   ))}

@@ -54,6 +54,7 @@ const customerService = (() => {
               model: users,
             },
           ],
+          order: [['start_date', 'ASC']],
         })
         .then((data) => resolve(data))
         .catch((err) => reject(err));

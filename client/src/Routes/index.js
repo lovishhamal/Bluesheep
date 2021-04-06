@@ -19,6 +19,8 @@ import Dashboard from '../dashboard';
 import Content from '../dashboard/content';
 import AddRoom from '../dashboard/add-room';
 import AddCustomer from '../dashboard/add-customer';
+import AllCustomers from '../dashboard/customers';
+import AllRooms from '../dashboard/rooms';
 
 import DashboardNavbar from '../dashboard/header';
 
@@ -77,6 +79,18 @@ export default function Index() {
           path="/addcustomer"
           exact
           component={requireAuth(AddCustomer)}
+        />
+        <Dashboard
+          layout={DashboardNavbar}
+          path="/allcustomers"
+          exact
+          component={requireAuth(AllCustomers)}
+        />
+        <Dashboard
+          layout={DashboardNavbar}
+          path="/allrooms"
+          exact
+          component={requireAuth(AllRooms)}
         />
         <AppRoute layout={Navbar} exact component={NotFound} />
       </Switch>

@@ -27,7 +27,6 @@ class ContextProvider extends Component {
 
   componentDidMount = async () => {
     const { data } = await getRoom();
-    console.log('data -> ', data);
     let set = data.map((val) => val.price).sort((a, b) => a - b);
 
     let max = Math.max(...set);

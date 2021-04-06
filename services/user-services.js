@@ -66,9 +66,18 @@ const userService = (() => {
     });
   };
 
+  const get = () => {
+    return new Promise((resolve, reject) => {
+      users
+        .findAll()
+        .then((data) => resolve(data))
+        .catch((err) => reject(err));
+    });
+  };
   return {
     register,
     login,
+    get,
   };
 })();
 

@@ -16,4 +16,12 @@ const getCustomerService = async () => {
   });
 };
 
-export { getBookingService, getCustomerService };
+const updateBooking = async (id) => {
+  return new Promise((resolve, reject) => {
+    Api.patch(`/booking/update/${id}`)
+      .then((data) => resolve(data))
+      .catch((err) => reject(err));
+  });
+};
+
+export { getBookingService, getCustomerService, updateBooking };

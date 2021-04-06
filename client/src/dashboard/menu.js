@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Menu() {
-  const [form, setform] = useState(false);
   return (
     <aside class="z-20 relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl">
       <div class="p-6">
@@ -21,6 +20,23 @@ export default function Menu() {
           <i class="fas fa-tachometer-alt mr-3"></i>
           Dashboard
         </Link>
+        <div style={{ marginTop: 10 }} />
+        <Link
+          to="/allcustomers"
+          class="flex items-center active-nav-link text-white py-4 pl-6 nav-item w-64"
+        >
+          <i class="fas fa-male mr-3"></i>
+          Customers
+        </Link>
+        <div style={{ marginTop: 10 }} />
+        <Link
+          to="/allrooms"
+          class="flex items-center active-nav-link text-white py-4 pl-6 nav-item w-64"
+        >
+          <i class="fas fa-home mr-3"></i>
+          Rooms
+        </Link>
+        <div style={{ marginTop: 10 }} />
         <div class="relative">
           <div class="px-2 ml-10 py-2 w-48  rounded-md shadow dark-mode:bg-gray-800">
             <Link
