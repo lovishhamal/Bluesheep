@@ -16,7 +16,7 @@ router.post(
   async (req, res) => {
     try {
       const data = await authService.register(req.body);
-      httpResponse.successHandler(res, 200, null, null, data);
+      httpResponse.successHandler(res, 200, data, null, 'success');
     } catch (error) {
       httpResponse.errorHandler(res, error, 400);
     }

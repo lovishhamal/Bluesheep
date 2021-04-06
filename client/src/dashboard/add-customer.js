@@ -42,7 +42,8 @@ function getUnique(items, value) {
   return ['Select Room ', ...new Set(items.map((item) => item[value]))];
 }
 
-export default function Addcustomer() {
+export default function Addcustomer(props) {
+  console.log('props -> ', props.location.state.user_id);
   const rooms = useContext(Context);
   const [state, setState] = useState({
     name: '',

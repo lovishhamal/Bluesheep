@@ -23,13 +23,13 @@ const error = () => {
   Swal.fire({
     position: 'center',
     icon: 'error',
-    title: 'EMail already exists',
+    title: 'Email/Phone already exists',
     showConfirmButton: false,
     timer: 1500,
   });
 };
 
-export default function SignIn() {
+export default function SignIn(props) {
   let history = useHistory();
   const [formError, setformError] = useState('');
 
@@ -127,21 +127,38 @@ export default function SignIn() {
   const onSubmit = (e) => {
     e.preventDefault();
     delete state.formErrors.confirmpassword;
-    if (isFormValid(state)) {
-      const { formErrors, ...userData } = state;
-
-      delete userData.confirmpassword;
-      registerService(userData)
-        .then(({ data }) => {
-          if (data.status == 400) {
-            return setformError(data.message);
-          }
-          success();
-          history.push('/login');
-        })
-        .catch((err) => error());
+    if (props?.location?.query?.admin) {
+      if (isFormValid(state)) {
+        const { formErrors, ...userData } = state;
+        delete userData.confirmpassword;
+        registerService(userData)
+          .then(({ data }) => {
+            if (data.status == 400) {
+              return setformError(data.message);
+            }
+            success();
+            history.push('/addcustomer', { user_id: data.data.id });
+          })
+          .catch((err) => error());
+      } else {
+        setformError('Please fill all the required * fields.');
+      }
     } else {
-      setformError('Please fill all the required * fields.');
+      if (isFormValid(state)) {
+        const { formErrors, ...userData } = state;
+        delete userData.confirmpassword;
+        registerService(userData)
+          .then(({ data }) => {
+            if (data.status == 400) {
+              return setformError(data.message);
+            }
+            success();
+            history.push('/login');
+          })
+          .catch((err) => error());
+      } else {
+        setformError('Please fill all the required * fields.');
+      }
     }
   };
 

@@ -34,7 +34,7 @@ const userService = (() => {
             userData.password = hashedPassword;
             users
               .create(userData)
-              .then(() => resolve('Successfully registered'))
+              .then((data) => resolve(data))
               .catch(() => reject('Error while registering'));
           }
 
@@ -55,7 +55,6 @@ const userService = (() => {
     return new Promise((resolve, reject) => {
       users.findOne({ where: { email: userData.email } }).then(async (data) => {
         if (!data) return reject('Couldnot find email');
-        console.log('data -> ', userData.password);
         const isPasswordMatch = await bcrypt.compare(
           userData.password,
           data.password
