@@ -45,4 +45,13 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.patch('/', async (req, res) => {
+  try {
+    const data = await authService.patch(req.body);
+    httpResponse.successHandler(res, 200, data, null, 'success');
+  } catch (error) {
+    httpResponse.errorHandler(res, error, 400);
+  }
+});
+
 module.exports = router;

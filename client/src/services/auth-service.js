@@ -16,4 +16,12 @@ const loginService = async (userData) => {
   });
 };
 
-export { registerService, loginService };
+const setToken = async (userData) => {
+  return new Promise((resolve, reject) => {
+    Api.patch('/', userData)
+      .then((data) => resolve(data))
+      .catch((err) => reject(err));
+  });
+};
+
+export { registerService, loginService, setToken };

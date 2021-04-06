@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const Jwt = require('jsonwebtoken');
 const users = require('../database/models/register-user');
+const token = require('../database/models/notification-token');
 const { Op } = require('sequelize');
 
 const JwtToken = (userData) => {
@@ -74,10 +75,28 @@ const userService = (() => {
         .catch((err) => reject(err));
     });
   };
+  const patch = (body) => {
+    return new Promise((resolve, reject) => {
+      token.findOne().then((data) => {
+        if (data) {
+          data
+            .update(body)
+            .then((item) => resolve(item))
+            .catch((err) => reject(err));
+        } else {
+          data
+            .create(body)
+            .then((val) => resolve(val))
+            .catch((err) => reject(err));
+        }
+      });
+    });
+  };
   return {
     register,
     login,
     get,
+    patch,
   };
 })();
 

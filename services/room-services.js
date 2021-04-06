@@ -2,6 +2,8 @@ const rooms = require('../database/models/rooms');
 const booking = require('../database/models/booking');
 const customers = require('../database/models/customers');
 const moment = require('moment');
+const admin = require('../firebase-config');
+
 const roomService = (() => {
   const add = async (roomData) => {
     return new Promise((resolve, reject) => {
@@ -68,7 +70,9 @@ const roomService = (() => {
       body.end_date = moment(body.end_date).format('YYYY-MM-DD');
       booking
         .create(body)
-        .then((data) => resolve(data))
+        .then((data) => {
+          resolve(data);
+        })
         .catch(() => reject('Couldnot book room'));
     });
   };
