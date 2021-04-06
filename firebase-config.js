@@ -4,7 +4,7 @@ var serviceAccount = require('./bluesheep-b173e-firebase-adminsdk-qbs5p-79152ebe
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://Bluesheep.firebaseio.com',
+  databaseURL: 'https://bluesheep.firebaseio.com',
 });
 
 module.exports = admin;

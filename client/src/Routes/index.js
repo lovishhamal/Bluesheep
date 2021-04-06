@@ -21,7 +21,7 @@ import AddRoom from '../dashboard/add-room';
 import AddCustomer from '../dashboard/add-customer';
 import AllCustomers from '../dashboard/customers';
 import AllRooms from '../dashboard/rooms';
-
+import AddFood from '../dashboard/add-food';
 import DashboardNavbar from '../dashboard/header';
 
 export default function Index() {
@@ -91,6 +91,12 @@ export default function Index() {
           path="/allrooms"
           exact
           component={requireAuth(AllRooms)}
+        />
+        <Dashboard
+          layout={DashboardNavbar}
+          path="/addfood"
+          exact
+          component={requireAuth(AddFood)}
         />
         <AppRoute layout={Navbar} exact component={NotFound} />
       </Switch>

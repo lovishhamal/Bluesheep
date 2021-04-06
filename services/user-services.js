@@ -84,7 +84,7 @@ const userService = (() => {
             .then((item) => resolve(item))
             .catch((err) => reject(err));
         } else {
-          data
+          token
             .create(body)
             .then((val) => resolve(val))
             .catch((err) => reject(err));

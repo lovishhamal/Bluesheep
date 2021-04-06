@@ -3,6 +3,14 @@ const booking = require('../database/models/booking');
 const customers = require('../database/models/customers');
 const moment = require('moment');
 const admin = require('../firebase-config');
+const notif = require('../database/models/notification-token');
+const ntfs = require('../database/models/notifications');
+
+const notification_options = {
+  priority: 'high',
+  timeToLive: 120 * 120 * 24,
+  contentAvailable: true,
+};
 
 const roomService = (() => {
   const add = async (roomData) => {
@@ -66,14 +74,44 @@ const roomService = (() => {
           return reject('Booking not available on this date');
         }
       }
+
+      const token = await notif.findOne();
+
+      const nbody = {
+        tokens: [token.dataValues.notification],
+        notification: {
+          title: 'Room Booked',
+          body: `Room No ${body.roomno}`,
+        },
+        options: notification_options,
+        data: {
+          url: '/dashboard',
+        },
+      };
+
       body.start_date = moment(body.start_date).format('YYYY-MM-DD');
       body.end_date = moment(body.end_date).format('YYYY-MM-DD');
       booking
         .create(body)
         .then((data) => {
+          token &&
+            admin
+              .messaging()
+              .sendMulticast(nbody)
+              .then((response) => {
+                console.log('res -> ', response);
+              })
+              .catch((error) => reject(error));
+          ntfs.create({
+            title: 'Room Booked',
+            body: `Room No ${body.roomno}`,
+            opened: false,
+            created_at: moment().format('YYYY-MM-DD'),
+            updated_at: moment().format('YYYY-MM-DD'),
+          });
           resolve(data);
         })
-        .catch(() => reject('Couldnot book room'));
+        .catch((err) => reject(err));
     });
   };
 
@@ -150,7 +188,7 @@ const roomService = (() => {
             roomno: body.roomno,
           },
         })
-        .then((data) => {
+        .then(async (data) => {
           if (data.length < 1) {
             booking
               .create(body)
@@ -170,6 +208,7 @@ const roomService = (() => {
                 return reject('Booking not available on this date');
               }
             }
+
             booking
               .create(body)
               .then((data) => resolve(data))
