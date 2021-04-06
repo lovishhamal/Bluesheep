@@ -79,6 +79,9 @@ export default function Content() {
                     <th class="text-left py-3 px-4 uppercase font-semibold text-sm">
                       CheckOut At
                     </th>
+                    <th class="text-left py-3 px-4 uppercase font-semibold text-sm">
+                      Booked
+                    </th>
                   </tr>
                 </thead>
                 <tbody class="text-gray-700">
@@ -109,6 +112,11 @@ export default function Content() {
                       <td class="py-3 px-4">
                         <a class="hover:text-blue-500" href="tel:622322662">
                           {item.end_date}
+                        </a>
+                      </td>
+                      <td class="py-3 px-4">
+                        <a class="hover:text-blue-500" href="tel:622322662">
+                          {item.status}
                         </a>
                       </td>
                     </tr>
@@ -153,42 +161,30 @@ export default function Content() {
                 <tbody class="text-gray-700">
                   {customers.map((item, i) => (
                     <tr key={`${i}`}>
-                      <td class="text-left py-3 px-4">{item.name}</td>
-                      <td class="text-left py-3 px-4">{item.last_name}</td>
-                      <td class="text-left py-3 px-4">
+                      <td class="py-3 px-4">{item.user.firstname}</td>
+                      <td class="py-3 px-4">{item.user.lastname}</td>
+                      <td class="py-3 px-4">
                         <a class="hover:text-blue-500" href="tel:622322662">
-                          {item.idno}
+                          {item.user.citizenidno}
                         </a>
                       </td>
-                      <td class="text-left py-3 px-4">
-                        <a
-                          class="hover:text-blue-500"
-                          href="mailto:jonsmith@mail.com"
-                        >
+                      <td class=" py-3 px-4">
+                        <a class="hover:text-blue-500" href="tel:622322662">
                           {item.roomno}
                         </a>
                       </td>
-                      <td class="text-left py-3 px-4">
-                        <a
-                          class="hover:text-blue-500"
-                          href="mailto:jonsmith@mail.com"
-                        >
+                      <td class=" py-3px-4">
+                        <a class="hover:text-blue-500" href="tel:622322662">
                           {item.roomname}
                         </a>
                       </td>
-                      <td class="text-left py-3 px-4">
-                        <a
-                          class="hover:text-blue-500"
-                          href="mailto:jonsmith@mail.com"
-                        >
+                      <td class="py-3px-4">
+                        <a class="hover:text-blue-500" href="tel:622322662">
                           {item.start_date}
                         </a>
                       </td>
-                      <td class="text-left py-3 px-4">
-                        <a
-                          class="hover:text-blue-500"
-                          href="mailto:jonsmith@mail.com"
-                        >
+                      <td class="py-3 px-4">
+                        <a class="hover:text-blue-500" href="tel:622322662">
                           {item.end_date}
                         </a>
                       </td>

@@ -41,6 +41,10 @@ const Booking = db.define('bookings', {
     type: Sequalize.DATE,
     field: 'EndDate',
   },
+  status: {
+    type: Sequalize.STRING,
+    field: 'Status',
+  },
 });
 
 Booking.hasOne(users, { sourceKey: 'user_id', foreignKey: 'id' });

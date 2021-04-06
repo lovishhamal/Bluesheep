@@ -1,6 +1,7 @@
 const booking = require('../database/models/booking');
 const customer = require('../database/models/customers');
 const moment = require('moment');
+const users = require('../database/models/register-user');
 
 const customerService = (() => {
   const addCustomer = async (body) => {
@@ -47,7 +48,13 @@ const customerService = (() => {
   const getCustomer = () => {
     return new Promise((resolve, reject) => {
       customer
-        .findAll()
+        .findAll({
+          include: [
+            {
+              model: users,
+            },
+          ],
+        })
         .then((data) => resolve(data))
         .catch((err) => reject(err));
     });

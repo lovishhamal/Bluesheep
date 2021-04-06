@@ -129,6 +129,7 @@ export default function RoomCard({ item, id }) {
             user_id: decode.data.id,
             start_date: start,
             end_date: end,
+            status: 'Booked',
           };
           await bookRoom(data);
           setbooking(item);
