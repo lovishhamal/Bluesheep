@@ -4,6 +4,7 @@ import Routes from './routes';
 import { ContextProvider } from './context';
 import firebase from './firebase';
 import { setToken } from './services/auth-service';
+
 function App() {
   useEffect(() => {
     const msg = firebase.messaging();
