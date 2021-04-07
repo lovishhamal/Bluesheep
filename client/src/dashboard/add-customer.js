@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import Swal from 'sweetalert2';
-import { addCustomer } from '../services/form-service';
+import { bookRoom } from '../services/room-service';
 import { RangeDatePicker } from 'react-google-flight-datepicker';
 import { Context } from '../context';
 
@@ -63,7 +63,6 @@ export default function Addcustomer(props) {
     bed: null,
     roomid: null,
   });
-
   const date = new Date();
   const tomorrow = new Date(date.getTime());
   tomorrow.setDate(date.getDate() + 1);
@@ -72,11 +71,12 @@ export default function Addcustomer(props) {
     e.preventDefault();
     try {
       if (startDate < new Date()) return invalid();
-      addCustomer({
-        user_id: props.location.state.user_id,
+      bookRoom({
+        user_id: rooms.user_id,
         start_date: startDate,
         end_date: new Date(endDate),
         ...room,
+        status: 'Occupied',
       })
         .then((data) => Success('Customer added'))
         .catch((err) => error('Booking not availbale on this date'));
@@ -102,6 +102,7 @@ export default function Addcustomer(props) {
     });
   };
   const urooms = getUnique(rooms.allRooms, 'roomno');
+
   return (
     <div className="z-20 overflow-x-hidden flex justify-center">
       <div class="scroll w-full lg:w-1/2 mt-6 pl-0 lg:pl-2">
@@ -113,6 +114,36 @@ export default function Addcustomer(props) {
             <p class="text-lg text-gray-800 font-medium py-4">Rooms</p>
             <div class="">
               <label class="block text-sm text-gray-600" for="cus_name">
+                Name
+              </label>
+              <input
+                class="w-full py-4 px-4 text-gray-700 bg-gray-200 rounded"
+                id="cus_name"
+                name="name"
+                type="text"
+                placeholder="Name"
+                aria-label="roomno"
+                disabled={true}
+                value={rooms.name}
+              />
+            </div>
+            <div class="">
+              <label class="block text-sm text-gray-600" for="cus_name">
+                Email
+              </label>
+              <input
+                class="w-full py-4 px-4 text-gray-700 bg-gray-200 rounded"
+                id="cus_name"
+                name="name"
+                type="text"
+                placeholder="Email"
+                aria-label="roomno"
+                disabled={true}
+                value={rooms.email}
+              />
+            </div>
+            <div class="">
+              <label class="block text-sm text-gray-600" for="cus_name">
                 Select Room
               </label>
               <select
@@ -120,7 +151,7 @@ export default function Addcustomer(props) {
                 onChange={handleChange}
                 class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-4 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="grid-state"
-                disabled={props?.location?.state?.user_id ? false : true}
+                disabled={rooms.user_id ? false : true}
               >
                 {urooms?.length > 0 &&
                   urooms.map((item) => <option>{item}</option>)}

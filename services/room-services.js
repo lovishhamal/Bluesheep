@@ -84,9 +84,6 @@ const roomService = (() => {
           body: `Room No ${body.roomno}`,
         },
         options: notification_options,
-        data: {
-          url: '/dashboard',
-        },
       };
 
       body.start_date = moment(body.start_date).format('YYYY-MM-DD');

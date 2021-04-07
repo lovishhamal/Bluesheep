@@ -1,5 +1,6 @@
 const order = require('../database/models/order');
 const food = require('../database/models/food');
+const user = require('../database/models/register-user');
 
 const orderService = (() => {
   const add = async (data) => {
@@ -23,9 +24,12 @@ const orderService = (() => {
   const getOrder = async (id) => {
     return new Promise((resolve, reject) => {
       order
-        .findAll({ where: { user_id: id }, include: [{ model: food }] })
-        .then((data) => console.log('update -> ', data))
-        .catch((err) => console.log('error -> ', err));
+        .findAll({
+          where: { user_id: id },
+          include: [{ model: user }, { model: food }],
+        })
+        .then((data) => resolve(data))
+        .catch((err) => reject(err));
     });
   };
 

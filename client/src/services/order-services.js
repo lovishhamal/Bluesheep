@@ -24,7 +24,7 @@ const getMyOrder = async (id) => {
 };
 const deleteMyOrder = async (id) => {
   return new Promise((resolve, reject) => {
-    Api.delete(`/order/${id}`)
+    Api.delete(`/order/delete/${id}`)
       .then((data) => resolve(data))
       .catch((err) => reject(err));
   });

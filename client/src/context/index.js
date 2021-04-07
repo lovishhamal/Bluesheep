@@ -16,6 +16,9 @@ class ContextProvider extends Component {
     booking: [],
     selectRoom: [],
     selectCapacity: [],
+    user_id: null,
+    email: null,
+    name: null,
   };
 
   getUnique(items, value) {
@@ -90,6 +93,9 @@ class ContextProvider extends Component {
     });
   };
 
+  setUserId = (id, name, email) => {
+    this.setState({ ...this.state, user_id: id, name, email });
+  };
   render() {
     return (
       <Context.Provider
@@ -99,6 +105,7 @@ class ContextProvider extends Component {
           handleChange: this.handleChange,
           setbooking: this.setbooking,
           deletebooking: this.deletebooking,
+          setUserId: this.setUserId,
         }}
       >
         {this.props.children}

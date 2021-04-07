@@ -8,4 +8,12 @@ const getUser = async () => {
   });
 };
 
-export { getUser };
+const searchUser = async (email) => {
+  return new Promise((resolve, reject) => {
+    Api.get(`/search/${email}`)
+      .then((data) => resolve(data))
+      .catch((err) => reject(err));
+  });
+};
+
+export { getUser, searchUser };

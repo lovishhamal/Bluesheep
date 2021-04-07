@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './signup.css';
 import { Link, useHistory } from 'react-router-dom';
 import { registerService } from '../../../services/auth-service';
 import { classnames } from 'tailwindcss-classnames';
 import Swal from 'sweetalert2';
+import { Context } from '../../../context';
 
 const emailRegx = RegExp(
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -32,7 +33,7 @@ const error = () => {
 export default function SignIn(props) {
   let history = useHistory();
   const [formError, setformError] = useState('');
-
+  const { setUserId } = useContext(Context);
   const [match, setmatch] = useState(false);
 
   const [state, setState] = useState({
@@ -137,6 +138,11 @@ export default function SignIn(props) {
               return setformError(data.message);
             }
             success();
+            setUserId(
+              data.data.id,
+              data.data.firstname + ' ' + data.data.lastname,
+              data.data.email
+            );
             history.push('/addcustomer', { user_id: data.data.id });
           })
           .catch((err) => error());

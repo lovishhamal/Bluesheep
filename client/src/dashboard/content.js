@@ -37,15 +37,12 @@ export default function Content() {
     (async () => {
       try {
         let data = await getBookingService();
-        const data1 = await getCustomerService();
 
         setBookings(
-          data?.data?.data.filter((item) => item.status === 'Booked') ?? []
+          data?.data?.data?.filter((item) => item.status === 'Booked') ?? []
         );
         setCustomer(
-          data1?.data?.data.concat(
-            data?.data?.data.filter((item) => item.status !== 'Booked')
-          ) ?? []
+          data?.data?.data?.filter((item) => item.status !== 'Booked') ?? []
         );
         setLoading(false);
       } catch (error) {

@@ -92,11 +92,21 @@ const userService = (() => {
       });
     });
   };
+
+  const search = (email) => {
+    return new Promise((resolve, reject) => {
+      users
+        .findOne({ where: { email } })
+        .then((data) => resolve(data))
+        .catch((err) => reject(err));
+    });
+  };
   return {
     register,
     login,
     get,
     patch,
+    search,
   };
 })();
 

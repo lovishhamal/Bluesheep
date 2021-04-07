@@ -38,7 +38,7 @@ const MyOrder = (props) => {
           if (data.status === 400) {
             setstate([]);
           } else {
-            setstate(data.data.data);
+            setstate(data.data.data.flatMap((item) => item.food));
           }
         })
         .catch((err) => setstate([]));
@@ -52,7 +52,6 @@ const MyOrder = (props) => {
     } catch (error) {}
   };
 
-  console.log('delete -> ', state);
   return state.length < 1 ? (
     <div
       style={{
@@ -93,14 +92,12 @@ const MyOrder = (props) => {
               <>
                 <tr>
                   <td class="text-left py-3 px-4 uppercase  heading">
-                    {item.food.name}
+                    {item.name}
                   </td>
                   <td class="text-left py-3 px-4  heading">
-                    {item.food.description}
+                    {item.description}
                   </td>
-                  <td class="text-left py-3 px-4  heading">
-                    {item.food.price}
-                  </td>
+                  <td class="text-left py-3 px-4  heading">{item.price}</td>
                   <td class="text-left py-3 px-4 heading">
                     <button
                       class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-3 rounded"

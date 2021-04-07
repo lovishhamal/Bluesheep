@@ -1,6 +1,5 @@
 const Sequalize = require('sequelize');
 const db = require('../');
-const Order = require('./order');
 
 const Food = db.define('food', {
   id: {
@@ -22,7 +21,5 @@ const Food = db.define('food', {
     type: Sequalize.ARRAY(Sequalize.STRING),
   },
 });
-
-Food.hasMany(Order, { foreignKey: 'food_id', sourceKey: 'id' });
 
 module.exports = Food;
