@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { getRoom } from '../services/room-service';
 import Placeholder from '../common/Placeholder';
 import { Context } from '../context';
-
+import { Link } from 'react-router-dom';
 export default function Rooms() {
   const { allRooms, loading } = useContext(Context);
 
@@ -57,6 +57,9 @@ export default function Rooms() {
                     <th class="text-left py-3 px-4 uppercase font-semibold text-sm">
                       Capacity
                     </th>
+                    <th class="text-left py-3 px-4 uppercase font-semibold text-sm">
+                      Action
+                    </th>
                   </tr>
                 </thead>
                 <tbody class="text-gray-700">
@@ -84,6 +87,26 @@ export default function Rooms() {
                           {item.capacity}
                         </a>
                       </td>
+                      <div style={{ display: 'flex', flexDirection: 'row' }}>
+                        <Link to={{ pathname: `/addroom/edit`, query: item }}>
+                          <td class="py-3 px-4">
+                            <button
+                              type="button"
+                              class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+                            >
+                              Edit
+                            </button>
+                          </td>
+                        </Link>
+                        <td class="py-3 px-4">
+                          <button
+                            type="button"
+                            class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </div>
                     </tr>
                   ))}
                 </tbody>

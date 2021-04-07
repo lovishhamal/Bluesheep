@@ -77,7 +77,7 @@ export default function Index() {
         />
         <Dashboard
           layout={DashboardNavbar}
-          path="/addroom"
+          path="/addroom/:id"
           exact
           component={requireAuth(AddRoom)}
         />

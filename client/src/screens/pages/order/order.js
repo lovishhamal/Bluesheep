@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getMyOrder, deleteMyOrder } from '../../../services/order-services';
 import { getToken } from '../../../utils';
 import jwt_decode from 'jwt-decode';
 import './order.css';
-import { Context } from '../../../context';
 import Swal from 'sweetalert2';
 
 const MyOrder = (props) => {

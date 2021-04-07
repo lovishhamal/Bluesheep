@@ -36,6 +36,7 @@ const confirm = (id, user_id) => {
     }
   });
 };
+
 export default (props) => {
   const [foods, setFoods] = useState([]);
   const [loading, setLoading] = useState(true);
