@@ -19,9 +19,19 @@ const foodService = (() => {
     });
   };
 
+  const update = async (id, data) => {
+    return new Promise((resolve, reject) => {
+      food
+        .update(data, { where: { id } })
+        .then((data) => resolve(data))
+        .catch(() => reject('error'));
+    });
+  };
+
   return {
     add,
     get,
+    update,
   };
 })();
 

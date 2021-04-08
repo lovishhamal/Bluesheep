@@ -229,12 +229,22 @@ const roomService = (() => {
   const update = (id, body) => {
     return new Promise((resolve, reject) => {
       rooms
-        .update(body, {
+        .findOne({
           where: {
             id,
           },
         })
-        .then((data) => resolve(data))
+        .then((data) => {
+          console.log('data -> ', body);
+          const image = body.uImages.filter((item) =>
+            item.includes('/images/')
+          );
+          console.log('1', image);
+          body.dataValues.images = body.dataValues.images.concat(image);
+          console.log('body -> ', body);
+          return;
+          resolve(data);
+        })
         .catch((err) => reject(err));
     });
   };

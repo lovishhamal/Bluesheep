@@ -16,4 +16,20 @@ const getFood = async () => {
   });
 };
 
-export { addFood, getFood };
+const editFood = async (id, data) => {
+  return new Promise((resolve, reject) => {
+    Api.patch(`/food/${id}`, data)
+      .then(({ data }) => resolve(data))
+      .catch((err) => reject(err));
+  });
+};
+
+const deleteFood = async (id) => {
+  return new Promise((resolve, reject) => {
+    Api.delete(`/food/${id}`)
+      .then(({ data }) => resolve(data))
+      .catch((err) => reject(err));
+  });
+};
+
+export { addFood, getFood, editFood, deleteFood };

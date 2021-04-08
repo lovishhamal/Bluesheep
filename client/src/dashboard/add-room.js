@@ -45,6 +45,7 @@ export default function Addroom(props) {
 
   useEffect(() => {
     if (props?.match?.params?.id === 'edit') {
+      const formData = new FormData();
       setform(props?.location?.query);
       setimages(props?.location?.query?.images);
       setImagePath(props?.location?.query?.images);
@@ -52,6 +53,7 @@ export default function Addroom(props) {
   }, []);
 
   const isValid = (form) => {
+    console.log('form -> vv', form);
     let valid = true;
     Object.values(form).forEach((val) => {
       val == '' && (valid = false);
@@ -71,14 +73,16 @@ export default function Addroom(props) {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    delete form?.bookings;
     if (!isValid(form) || images.length < 1) {
       return error('Please fill all the fields');
     }
-    delete form?.bookings;
+
     const formData = new FormData();
     for (const key of Object.keys(images)) {
       formData.append('files', images[key]);
     }
+    form.uImage = imagepath;
     formData.append('body', JSON.stringify(form));
 
     if (props?.match?.params?.id === 'edit') {
@@ -256,7 +260,7 @@ export default function Addroom(props) {
                     id="empty"
                     class="h-full w-full text-center flex flex-row items-center justify-center items-center"
                   >
-                    {images?.length > 0 ? (
+                    {imagepath?.length > 0 ? (
                       imagepath.map((path) => (
                         <div
                           style={{

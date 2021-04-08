@@ -11,6 +11,7 @@ import RoomDetail from '../screens/pages/details/details';
 import MyBooking from '../screens/pages/mybooking/mybooking';
 import MyOrder from '../screens/pages/order/order';
 import Culinary from '../screens/pages/culinary/culinary';
+import Food from '../dashboard/food';
 import OurService from '../screens/pages/ourservices/ourservice';
 import About from '../screens/pages/about/about';
 import NotFound from '../utils/path/404';
@@ -101,7 +102,13 @@ export default function Index() {
         />
         <Dashboard
           layout={DashboardNavbar}
-          path="/addfood"
+          path="/foods"
+          exact
+          component={requireAuth(Food)}
+        />
+        <Dashboard
+          layout={DashboardNavbar}
+          path="/addfood/:id"
           exact
           component={requireAuth(AddFood)}
         />

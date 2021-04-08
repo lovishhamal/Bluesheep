@@ -1,6 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Swal from 'sweetalert2';
-import { addFood } from '../services/food';
+import { addFood, editFood } from '../services/food';
 import { RangeDatePicker } from 'react-google-flight-datepicker';
 import { Context } from '../context';
 
@@ -46,26 +46,40 @@ export default function Addfood(props) {
     price: '',
     description: '',
   });
-
+  useEffect(() => {
+    if (props?.match?.params?.id === 'edit') {
+      setform(props?.location?.query);
+      setimages(props?.location?.query?.images);
+      setImagePath(props?.location?.query?.images);
+    }
+  }, []);
   const onSubmit = (e) => {
     e.preventDefault();
     if (!isValid(form) || images.length < 1) {
       return error('Please fill all the fields');
     }
-
     const formData = new FormData();
     for (const key of Object.keys(images)) {
       formData.append('files', images[key]);
     }
     formData.append('body', JSON.stringify(form));
-    addFood(formData)
-      .then(({ data }) => {
-        if (data.status == 200) {
-          return Success(data.message);
-        }
-        return error(data.message);
-      })
-      .catch((err) => console.log('err', err));
+
+    if (props?.match?.params?.id === 'edit') {
+      editFood(props?.location?.query.id, formData)
+        .then(({ data }) => {
+          Success('Success');
+        })
+        .catch((err) => error('error'));
+    } else {
+      addFood(formData)
+        .then(({ data }) => {
+          if (data.status == 200) {
+            return Success(data.message);
+          }
+          return error(data.message);
+        })
+        .catch((err) => console.log('err', err));
+    }
   };
 
   const onChange = (e) => {
@@ -102,6 +116,7 @@ export default function Addfood(props) {
                 placeholder="Food Name"
                 aria-label="roomno"
                 onChange={onChange}
+                value={form?.name}
               />
             </div>
             <div class="">
@@ -116,6 +131,7 @@ export default function Addfood(props) {
                 placeholder="Description"
                 aria-label="roomno"
                 onChange={onChange}
+                value={form?.description}
               />
             </div>
             <div class="mt-2">
@@ -130,6 +146,7 @@ export default function Addfood(props) {
                 placeholder="Price"
                 aria-label="description"
                 onChange={onChange}
+                value={form?.price}
               />
             </div>
             <p class="text-lg text-gray-800 font-medium py-4">Upload Images</p>
@@ -144,7 +161,7 @@ export default function Addfood(props) {
                   multiple
                   class="choose mt-2 rounded-sm px-3 py-10 focus:shadow-outline focus:outline-none"
                   onChange={onChangeImage}
-                  disabled={images.length === 1 ? true : false}
+                  disabled={images?.length === 1 ? true : false}
                 />
                 <h1 class="pt-8 pb-3 font-semibold sm:text-lg text-gray-900">
                   To Upload
@@ -155,9 +172,27 @@ export default function Addfood(props) {
                     id="empty"
                     class="h-full w-full text-center flex flex-row items-center justify-center items-center"
                   >
-                    {images.length > 0 ? (
+                    {images?.length > 0 ? (
                       imagepath.map((path) => (
-                        <img class="mx-auto w-32" src={path}></img>
+                        <div
+                          style={{
+                            flexDirection: 'column',
+                            alignItems: 'flex-end',
+                          }}
+                        >
+                          {/* <i class="fas fa-close mr-3" onClick={() => {}}></i>*/}
+                          <h1
+                            onClick={() => {
+                              setimages(images.filter((item) => item !== path));
+                              setImagePath(
+                                imagepath.filter((val) => val !== path)
+                              );
+                            }}
+                          >
+                            Delete
+                          </h1>
+                          <img class="mx-auto w-32" src={path} />
+                        </div>
                       ))
                     ) : (
                       <span>
@@ -181,7 +216,9 @@ export default function Addfood(props) {
                 id="submit"
                 class="rounded-sm px-3 py-1 bg-blue-700 hover:bg-blue-500 text-white focus:shadow-outline focus:outline-none"
               >
-                Submit Now
+                {props?.match?.params?.id === 'edit'
+                  ? 'Edit Room'
+                  : 'Submit Now'}
               </button>
             </footer>
           </form>

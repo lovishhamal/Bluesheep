@@ -1,12 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { deleteRoom } from '../services/room-service';
 import Placeholder from '../common/Placeholder';
 import { Context } from '../context';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { getFood } from '../services/food';
 
 export default function Rooms() {
-  const { allRooms, setAllRooms, loading } = useContext(Context);
+  const [food, setFood] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const confirm = (id) => {
     Swal.fire({
@@ -20,12 +22,24 @@ export default function Rooms() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await deleteRoom(id);
-          setAllRooms(id);
           Swal.fire('Deleted!', 'Your booking has been deleted.', 'success');
         } catch (error) {}
       }
     });
+  };
+
+  useEffect(() => {
+    fetchFood();
+  }, []);
+
+  const fetchFood = async () => {
+    try {
+      const response = await getFood();
+      setLoading(false);
+      setFood(response.data.data);
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
   return (
@@ -56,31 +70,19 @@ export default function Rooms() {
           </p>
           {loading ? (
             <Placeholder />
-          ) : allRooms.length > 0 ? (
+          ) : food.length > 0 ? (
             <div class="bg-white overflow-auto">
               <table class="min-w-full bg-white">
                 <thead class="bg-gray-800 text-white">
                   <tr>
                     <th class="text-left py-3 px-4 uppercase font-semibold text-sm">
-                      Room No
-                    </th>
-                    <th class="text-left py-3 px-4 uppercase font-semibold text-sm">
-                      Room Name
-                    </th>
-                    <th class="text-left py-3 px-4 uppercase font-semibold text-sm">
-                      Price
+                      Food Name
                     </th>
                     <th class="text-left py-3 px-4 uppercase font-semibold text-sm">
                       Description
                     </th>
                     <th class="text-left py-3 px-4 uppercase font-semibold text-sm">
-                      Bed
-                    </th>
-                    <th class="text-left py-3 px-4 uppercase font-semibold text-sm">
-                      Bathroom
-                    </th>
-                    <th class="text-left py-3 px-4 uppercase font-semibold text-sm">
-                      Capacity
+                      Price
                     </th>
                     <th class="text-left py-3 px-4 uppercase font-semibold text-sm">
                       Action
@@ -88,15 +90,9 @@ export default function Rooms() {
                   </tr>
                 </thead>
                 <tbody class="text-gray-700">
-                  {allRooms.map((item, i) => (
+                  {food.map((item, i) => (
                     <tr key={`${i}`}>
-                      <td class="py-3 px-4">{item.roomno}</td>
-                      <td class="py-3 px-4">{item.roomname}</td>
-                      <td class=" py-3 px-4">
-                        <a class="hover:text-blue-500" href="tel:622322662">
-                          {item.price}
-                        </a>
-                      </td>
+                      <td class="py-3 px-4">{item.name}</td>
                       <td class="py-3 px-4">
                         <a class="hover:text-blue-500" href="tel:622322662">
                           {item.description}
@@ -104,21 +100,11 @@ export default function Rooms() {
                       </td>
                       <td class=" py-3 px-4">
                         <a class="hover:text-blue-500" href="tel:622322662">
-                          {item.bed}
-                        </a>
-                      </td>
-                      <td class=" py-3 px-4">
-                        <a class="hover:text-blue-500" href="tel:622322662">
-                          {item.bathroom}
-                        </a>
-                      </td>
-                      <td class="py-3 px-4">
-                        <a class="hover:text-blue-500" href="tel:622322662">
-                          {item.capacity}
+                          {item.price}
                         </a>
                       </td>
                       <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <Link to={{ pathname: `/addroom/edit`, query: item }}>
+                        <Link to={{ pathname: `/addfood/edit`, query: item }}>
                           <td class="py-3 px-4">
                             <button
                               type="button"
@@ -144,7 +130,7 @@ export default function Rooms() {
               </table>
             </div>
           ) : (
-            <h1>No rooms available</h1>
+            <h1>No bookings available</h1>
           )}
         </div>
       </main>
