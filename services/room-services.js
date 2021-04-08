@@ -132,6 +132,17 @@ const roomService = (() => {
         .catch(() => reject('Couldnot get rooms'));
     });
   };
+  const deleteRoom = async (id) => {
+    return new Promise((resolve, reject) => {
+      rooms
+        .findOne({ where: { id } })
+        .then((data) => {
+          data.destroy();
+          resolve();
+        })
+        .catch(() => reject('Couldnot get rooms'));
+    });
+  };
 
   const getFindRooms = async (body) => {
     return new Promise(async (resolve, reject) => {
@@ -215,6 +226,19 @@ const roomService = (() => {
     });
   };
 
+  const update = (id, body) => {
+    return new Promise((resolve, reject) => {
+      rooms
+        .update(body, {
+          where: {
+            id,
+          },
+        })
+        .then((data) => resolve(data))
+        .catch((err) => reject(err));
+    });
+  };
+
   return {
     add,
     get,
@@ -223,6 +247,8 @@ const roomService = (() => {
     deleteBooking,
     getFindRooms,
     available,
+    update,
+    deleteRoom,
   };
 })();
 

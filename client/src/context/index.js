@@ -96,6 +96,13 @@ class ContextProvider extends Component {
   setUserId = (id, name, email) => {
     this.setState({ ...this.state, user_id: id, name, email });
   };
+
+  setAllRooms = (id) => {
+    this.setState({
+      ...this.state,
+      allRooms: this.state.allRooms.filter((item) => item.id !== id),
+    });
+  };
   render() {
     return (
       <Context.Provider
@@ -106,6 +113,7 @@ class ContextProvider extends Component {
           setbooking: this.setbooking,
           deletebooking: this.deletebooking,
           setUserId: this.setUserId,
+          setAllRooms: this.setAllRooms,
         }}
       >
         {this.props.children}

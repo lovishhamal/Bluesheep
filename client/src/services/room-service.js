@@ -43,6 +43,13 @@ const deleteBooking = async (id) => {
       .catch((err) => reject(err));
   });
 };
+const deleteRoom = async (id) => {
+  return new Promise((resolve, reject) => {
+    Api.delete(`/room/deleteroom/${id}`)
+      .then(({ data }) => resolve(data))
+      .catch((err) => reject(err));
+  });
+};
 
 const getFindRooms = async (data) => {
   return new Promise((resolve, reject) => {
@@ -52,4 +59,21 @@ const getFindRooms = async (data) => {
   });
 };
 
-export { addRoom, getRoom, bookRoom, getBooking, deleteBooking, getFindRooms };
+const editRoom = async (id, data) => {
+  return new Promise((resolve, reject) => {
+    Api.patch(`/room/${id}`, data)
+      .then(({ data }) => resolve(data))
+      .catch((err) => reject(err));
+  });
+};
+
+export {
+  addRoom,
+  getRoom,
+  bookRoom,
+  getBooking,
+  deleteBooking,
+  getFindRooms,
+  editRoom,
+  deleteRoom,
+};

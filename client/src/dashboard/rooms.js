@@ -1,10 +1,32 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { getRoom } from '../services/room-service';
+import React, { useContext } from 'react';
+import { deleteRoom } from '../services/room-service';
 import Placeholder from '../common/Placeholder';
 import { Context } from '../context';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+
 export default function Rooms() {
-  const { allRooms, loading } = useContext(Context);
+  const { allRooms, setAllRooms, loading } = useContext(Context);
+
+  const confirm = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete!',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await deleteRoom(id);
+          setAllRooms(id);
+          Swal.fire('Deleted!', 'Your booking has been deleted.', 'success');
+        } catch (error) {}
+      }
+    });
+  };
 
   return (
     <div class="z-20 w-full overflow-x-hidden border-t flex flex-col">
@@ -102,6 +124,7 @@ export default function Rooms() {
                           <button
                             type="button"
                             class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+                            onClick={() => confirm(item.id)}
                           >
                             Delete
                           </button>

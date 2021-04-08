@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import './style.css';
 import Swal from 'sweetalert2';
 
-import { addRoom } from '../services/room-service';
+import { addRoom, editRoom } from '../services/room-service';
 
-const Error = (error) => {
+const error = (error) => {
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -45,9 +45,9 @@ export default function Addroom(props) {
 
   useEffect(() => {
     if (props?.match?.params?.id === 'edit') {
-      setform(props.location.query);
-      setimages(props.location.query.images);
-      setImagePath(props.location.query.images);
+      setform(props?.location?.query);
+      setimages(props?.location?.query?.images);
+      setImagePath(props?.location?.query?.images);
     }
   }, []);
 
@@ -72,22 +72,31 @@ export default function Addroom(props) {
   const onSubmit = (e) => {
     e.preventDefault();
     if (!isValid(form) || images.length < 1) {
-      return Error('Please fill all the fields');
+      return error('Please fill all the fields');
     }
-
+    delete form?.bookings;
     const formData = new FormData();
     for (const key of Object.keys(images)) {
       formData.append('files', images[key]);
     }
     formData.append('body', JSON.stringify(form));
-    addRoom(formData).then(({ data }) => {
-      if (data.status == 200) {
-        return Success(data.message);
-      }
-      return Error(data.message);
-    });
+
+    if (props?.match?.params?.id === 'edit') {
+      editRoom(props?.location?.query.id, formData)
+        .then(({ data }) => {
+          Success('Success');
+        })
+        .catch((err) => error('error'));
+    } else {
+      addRoom(formData).then(({ data }) => {
+        if (data.status == 200) {
+          return Success(data.message);
+        }
+        return error(data.message);
+      });
+    }
   };
-  console.log('images -> ', images);
+
   return (
     <div className="z-20 overflow-x-hidden flex justify-center">
       <div class="scroll w-full lg:w-1/2 mt-6 pl-0 lg:pl-2">
@@ -115,7 +124,7 @@ export default function Addroom(props) {
                 placeholder="Room No"
                 aria-label="roomno"
                 onChange={onChange}
-                value={form.roomno}
+                value={form?.roomno}
               />
             </div>
             <div class="">
@@ -130,7 +139,7 @@ export default function Addroom(props) {
                 placeholder="Room Name"
                 aria-label="roomname"
                 onChange={onChange}
-                value={form.roomname}
+                value={form?.roomname}
               />
             </div>
             <div class="mt-2">
@@ -145,7 +154,7 @@ export default function Addroom(props) {
                 placeholder="Room Price"
                 aria-label="roomprice"
                 onChange={onChange}
-                value={form.price}
+                value={form?.price}
               />
             </div>
             <div class="mt-2">
@@ -160,7 +169,7 @@ export default function Addroom(props) {
                 placeholder="Room Capacity"
                 aria-label="capacity"
                 onChange={onChange}
-                value={form.capacity}
+                value={form?.capacity}
               />
             </div>
             <div class="mt-2">
@@ -175,7 +184,7 @@ export default function Addroom(props) {
                 placeholder="Description"
                 aria-label="description"
                 onChange={onChange}
-                value={form.description}
+                value={form?.description}
               />
             </div>
             <div class="mt-2">
@@ -190,7 +199,7 @@ export default function Addroom(props) {
                 placeholder="Bed"
                 aria-label="bed"
                 onChange={onChange}
-                value={form.bed}
+                value={form?.bed}
               />
             </div>
             <div class="mt-2">
@@ -205,7 +214,7 @@ export default function Addroom(props) {
                 placeholder="Bathroom"
                 aria-label="bathroom"
                 onChange={onChange}
-                value={form.bathroom}
+                value={form?.bathroom}
               />
             </div>
             <div class="mt-2">
@@ -220,7 +229,7 @@ export default function Addroom(props) {
                 placeholder="Extra"
                 aria-label="extra"
                 onChange={onChange}
-                value={form.extra}
+                value={form?.extra}
               />
             </div>
             <p class="text-lg text-gray-800 font-medium py-4">Upload Images</p>
@@ -235,7 +244,7 @@ export default function Addroom(props) {
                   multiple
                   class="choose mt-2 rounded-sm px-3 py-10 focus:shadow-outline focus:outline-none"
                   onChange={onChangeImage}
-                  disabled={images.length === 5 ? true : false}
+                  disabled={images?.length === 5 ? true : false}
                 />
 
                 <h1 class="pt-8 pb-3 font-semibold sm:text-lg text-gray-900">
@@ -247,7 +256,7 @@ export default function Addroom(props) {
                     id="empty"
                     class="h-full w-full text-center flex flex-row items-center justify-center items-center"
                   >
-                    {images.length > 0 ? (
+                    {images?.length > 0 ? (
                       imagepath.map((path) => (
                         <div
                           style={{
@@ -255,10 +264,17 @@ export default function Addroom(props) {
                             alignItems: 'flex-end',
                           }}
                         >
-                          <i
-                            class="fas fa-close mr-3"
-                            // onClick={() => imagepath.filter(item)=>item===path}
-                          ></i>
+                          {/* <i class="fas fa-close mr-3" onClick={() => {}}></i>*/}
+                          <h1
+                            onClick={() => {
+                              setimages(images.filter((item) => item !== path));
+                              setImagePath(
+                                imagepath.filter((val) => val !== path)
+                              );
+                            }}
+                          >
+                            Delete
+                          </h1>
                           <img class="mx-auto w-32" src={path} />
                         </div>
                       ))
