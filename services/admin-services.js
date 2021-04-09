@@ -18,16 +18,28 @@ const JwtToken = (userData) => {
 
 const userService = (() => {
   const register = async (userData) => {
+    console.log('userData -> ', userData);
     return new Promise((resolve, reject) => {
       users
         .findAll({
           where: {
-            [Op.or]: [{ email: userData.email }, { phone: userData.phone }],
-            role: 'super-admin',
+            [Op.or]: [
+              { email: userData.email },
+              { phone: userData.phone },
+              { role: userData.role },
+            ],
           },
         })
         .then(async (data) => {
           if (data.length < 1) {
+            if (
+              data
+                .filter((item) => item.dataValues.role === 'super-admin')
+                .flatMap((val) => val.dataValues.role)[0] === userData.role
+            ) {
+              return reject('Super Admin already exists');
+            }
+
             const hashedPassword = await bcrypt.hash(userData.password, 10);
             userData.password = hashedPassword;
             users
@@ -35,13 +47,17 @@ const userService = (() => {
               .then((data) => resolve(data))
               .catch(() => reject('Error while registering'));
           } else {
-            if (data[0].role === userData.role) {
+            if (
+              data
+                .filter((item) => item.dataValues.role === 'super-admin')
+                .flatMap((val) => val.dataValues.role)[0] === userData.role
+            ) {
               return reject('Super Admin already exists');
             }
             if (data[0].email === userData.email) {
               return reject('Email already exists');
             }
-            console.log('phone ', data[0].phone, userData.phone);
+
             if (data[0].phone === userData.phone) {
               return reject('Phone No already exists');
             }
