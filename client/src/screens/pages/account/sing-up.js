@@ -20,11 +20,11 @@ const success = () => {
   });
 };
 
-const error = () => {
+const error = (msg) => {
   Swal.fire({
     position: 'center',
     icon: 'error',
-    title: 'Email/Phone already exists',
+    title: msg,
     showConfirmButton: false,
     timer: 1500,
   });
@@ -161,7 +161,7 @@ export default function SignIn(props) {
             success();
             history.push('/login');
           })
-          .catch((err) => error());
+          .catch((err) => error(err));
       } else {
         setformError('Please fill all the required * fields.');
       }

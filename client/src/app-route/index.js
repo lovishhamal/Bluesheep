@@ -15,7 +15,9 @@ export default function Index({
       <Layout token={token} profile={profile ? profile.data : ''} />
       <Route
         {...rest}
-        render={(props) => <Component {...props} token={token} />}
+        render={(props) => (
+          <Component {...props} token={token} profile={profile} />
+        )}
       />
     </div>
   );

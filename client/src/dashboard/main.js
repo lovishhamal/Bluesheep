@@ -12,6 +12,7 @@ export default function Main({
 }) {
   const token = getToken();
   const profile = token ? jwtDecode(token) : '';
+
   return (
     <div class="bg-gray-100 font-family-karla flex">
       <Menu />
@@ -19,7 +20,14 @@ export default function Main({
         <Layout token={token} profile={profile ? profile.data : ''} />
         <Route
           {...rest}
-          render={(props) => <Component {...props} token={token} />}
+          render={(props) => (
+            <Component
+              {...props}
+              token={token}
+              admin={true}
+              profile={profile ? profile.data : ''}
+            />
+          )}
         />
       </div>
     </div>

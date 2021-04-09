@@ -118,7 +118,7 @@ export default function Navbar({ profile }) {
                       class="block cursor-pointer px-4 py-2 text-gray-800 capitalize hover:bg-indigo-500 hover:text-white"
                       style={{ borderBottom: '1px solid #f2f2f2' }}
                     >
-                      {profile.firstname} {profile.lastname}
+                      {profile?.firstname ?? profile.name} {profile.lastname}
                     </span>
                     <Link
                       to="#"

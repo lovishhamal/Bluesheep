@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './style.css';
 import Swal from 'sweetalert2';
-
 import { addRoom, editRoom } from '../services/room-service';
 
 const error = (error) => {
@@ -45,7 +44,6 @@ export default function Addroom(props) {
 
   useEffect(() => {
     if (props?.match?.params?.id === 'edit') {
-      const formData = new FormData();
       setform(props?.location?.query);
       setimages(props?.location?.query?.images);
       setImagePath(props?.location?.query?.images);
@@ -53,7 +51,6 @@ export default function Addroom(props) {
   }, []);
 
   const isValid = (form) => {
-    console.log('form -> vv', form);
     let valid = true;
     Object.values(form).forEach((val) => {
       val == '' && (valid = false);

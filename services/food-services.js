@@ -19,12 +19,24 @@ const foodService = (() => {
     });
   };
 
-  const update = async (id, data) => {
+  const update = async (id, body) => {
     return new Promise((resolve, reject) => {
       food
-        .update(data, { where: { id } })
-        .then((data) => resolve(data))
-        .catch(() => reject('error'));
+        .findOne({
+          where: {
+            id,
+          },
+        })
+        .then((data) => {
+          const image = body.uImage.filter((item) => /images/.test(item));
+          body.images = body.images.concat(image);
+          delete body.uImage;
+          data
+            .update(body)
+            .then((res) => resolve(res))
+            .catch((err) => reject(err));
+        })
+        .catch((err) => reject(err));
     });
   };
 

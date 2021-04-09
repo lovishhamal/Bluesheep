@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import './signup.css';
 import { Link, useHistory } from 'react-router-dom';
-import { loginService } from '../../../services/auth-service';
+import { loginAdminService } from '../../../services/admin-services';
 import Swal from 'sweetalert2';
 
 const emailRegx = RegExp(
@@ -43,7 +43,7 @@ export default function SignIn() {
       return setformErrors('Email format didont matched');
     }
 
-    loginService({
+    loginAdminService({
       email: userEl.current.value,
       password: passwordEl.current.value,
     })
@@ -53,9 +53,9 @@ export default function SignIn() {
         }
         localStorage.setItem('token', data.token);
         signin('Successfully signed in', 'success');
-        history.push('/');
+        history.push('/dashboard');
       })
-      .catch((err) => signin('Password/Username didnot match', 'error'));
+      .catch((err) => signin(err, 'error'));
   };
 
   return (
@@ -66,6 +66,7 @@ export default function SignIn() {
             <div class="login-card w-full h-auto hidden lg:block lg:w-1/2 bg-cover rounded-l-lg" />
             <div class="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
               <h3 class="pt-4 text-2xl text-center">WELCOME BACK!</h3>
+              <h3 class="pt-4 text-2xl text-center">Login as Admin</h3>
               <form
                 class="px-8 pt-6 pb-8 mb-4 bg-white rounded"
                 onSubmit={onSubmit}
@@ -133,7 +134,7 @@ export default function SignIn() {
                 <div class="text-center">
                   <Link
                     class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                    to="/register"
+                    to="/register/admin"
                   >
                     Create an Account!
                   </Link>

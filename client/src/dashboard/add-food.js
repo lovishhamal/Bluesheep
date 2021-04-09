@@ -1,8 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { addFood, editFood } from '../services/food';
-import { RangeDatePicker } from 'react-google-flight-datepicker';
-import { Context } from '../context';
 
 const error = (error) => {
   const Toast = Swal.mixin({
@@ -54,6 +52,8 @@ export default function Addfood(props) {
     }
   }, []);
   const onSubmit = (e) => {
+    console.log('images -> ', images);
+    console.log('form -> ', form);
     e.preventDefault();
     if (!isValid(form) || images.length < 1) {
       return error('Please fill all the fields');
@@ -62,6 +62,7 @@ export default function Addfood(props) {
     for (const key of Object.keys(images)) {
       formData.append('files', images[key]);
     }
+    form.uImage = imagepath;
     formData.append('body', JSON.stringify(form));
 
     if (props?.match?.params?.id === 'edit') {
@@ -91,6 +92,8 @@ export default function Addfood(props) {
     setimages([...images, e.target.files[0]]);
     setImagePath([...imagepath, URL.createObjectURL(e.target.files[0])]);
   };
+
+  console.log('imag length -> ', images, images.length);
 
   return (
     <div className="z-20 overflow-x-hidden flex justify-center">
@@ -183,10 +186,8 @@ export default function Addfood(props) {
                           {/* <i class="fas fa-close mr-3" onClick={() => {}}></i>*/}
                           <h1
                             onClick={() => {
-                              setimages(images.filter((item) => item !== path));
-                              setImagePath(
-                                imagepath.filter((val) => val !== path)
-                              );
+                              setimages([]);
+                              setImagePath([]);
                             }}
                           >
                             Delete
@@ -217,7 +218,7 @@ export default function Addfood(props) {
                 class="rounded-sm px-3 py-1 bg-blue-700 hover:bg-blue-500 text-white focus:shadow-outline focus:outline-none"
               >
                 {props?.match?.params?.id === 'edit'
-                  ? 'Edit Room'
+                  ? 'Edit Food'
                   : 'Submit Now'}
               </button>
             </footer>

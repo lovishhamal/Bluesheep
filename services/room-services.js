@@ -235,15 +235,13 @@ const roomService = (() => {
           },
         })
         .then((data) => {
-          console.log('data -> ', body);
-          const image = body.uImages.filter((item) =>
-            item.includes('/images/')
-          );
-          console.log('1', image);
-          body.dataValues.images = body.dataValues.images.concat(image);
-          console.log('body -> ', body);
-          return;
-          resolve(data);
+          const image = body.uImage.filter((item) => /images/.test(item));
+          body.images = body.images.concat(image);
+          delete body.uImage;
+          data
+            .update(body)
+            .then((res) => resolve(res))
+            .catch((err) => reject(err));
         })
         .catch((err) => reject(err));
     });

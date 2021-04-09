@@ -4,7 +4,7 @@ const registerService = async (userData) => {
   return new Promise((resolve, reject) => {
     Api.post('/register', userData)
       .then((data) => resolve(data))
-      .catch((err) => reject(err));
+      .catch((err) => reject(err?.response?.data?.message));
   });
 };
 

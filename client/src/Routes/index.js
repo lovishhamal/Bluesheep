@@ -1,11 +1,13 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import AppRoute from '../app-route';
 import Navbar from '../screens/navbar/navbar';
 import LandingPage from '../screens/pages/landing-page';
 import RoomsPricing from '../screens/pages/rooms';
 import SignIn from '../screens/pages/account/sign-in';
+import SignInAdmin from '../screens/pages/account/admin-signin';
+import SignUpAdmin from '../screens/pages/account/sign-up-admin';
 import SignUp from '../screens/pages/account/sing-up';
 import RoomDetail from '../screens/pages/details/details';
 import MyBooking from '../screens/pages/mybooking/mybooking';
@@ -13,8 +15,8 @@ import MyOrder from '../screens/pages/order/order';
 import Culinary from '../screens/pages/culinary/culinary';
 import Food from '../dashboard/food';
 import OurService from '../screens/pages/ourservices/ourservice';
+import Unauthorized from '../screens/pages/404';
 import About from '../screens/pages/about/about';
-import NotFound from '../utils/path/404';
 import requireAuth from '../auth';
 
 import Dashboard from '../dashboard';
@@ -38,7 +40,19 @@ export default function Index() {
           component={RoomsPricing}
         />
         <AppRoute path="/register" layout={Navbar} exact component={SignUp} />
+        <AppRoute
+          path="/register/admin"
+          layout={Navbar}
+          exact
+          component={SignUpAdmin}
+        />
         <AppRoute path="/login" layout={Navbar} exact component={SignIn} />
+        <AppRoute
+          path="/unauthorized"
+          layout={Navbar}
+          exact
+          component={Unauthorized}
+        />
         <AppRoute
           path="/roomdetail/:id"
           layout={Navbar}
@@ -70,11 +84,17 @@ export default function Index() {
           exact
           component={requireAuth(About)}
         />
+        <AppRoute
+          path="/admin/login"
+          layout={Navbar}
+          exact
+          component={SignInAdmin}
+        />
         <Dashboard
-          layout={requireAuth(DashboardNavbar)}
+          layout={DashboardNavbar}
           path="/dashboard"
           exact
-          component={Content}
+          component={requireAuth(Content)}
         />
         <Dashboard
           layout={DashboardNavbar}
@@ -112,7 +132,7 @@ export default function Index() {
           exact
           component={requireAuth(AddFood)}
         />
-        <AppRoute layout={Navbar} exact component={NotFound} />
+        <AppRoute layout={Navbar} exact component={Unauthorized} />
       </Switch>
     </Router>
   );
