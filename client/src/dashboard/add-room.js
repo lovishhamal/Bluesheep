@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './style.css';
 import Swal from 'sweetalert2';
+import { addRoom, editRoom } from '../services/room-service';
 
-import { addRoom } from '../services/room-service';
-
-const Error = (error) => {
+const error = (error) => {
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -29,7 +28,7 @@ const Success = (msg) => {
   window.location.reload('/addroom');
 };
 
-export default function Addroom() {
+export default function Addroom(props) {
   const [images, setimages] = useState([]);
   const [imagepath, setImagePath] = useState([]);
   const [form, setform] = useState({
@@ -42,6 +41,14 @@ export default function Addroom() {
     bathroom: '',
     extra: '',
   });
+
+  useEffect(() => {
+    if (props?.match?.params?.id === 'edit') {
+      setform(props?.location?.query);
+      setimages(props?.location?.query?.images);
+      setImagePath(props?.location?.query?.images);
+    }
+  }, []);
 
   const isValid = (form) => {
     let valid = true;
@@ -63,21 +70,32 @@ export default function Addroom() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    delete form?.bookings;
     if (!isValid(form) || images.length < 1) {
-      return Error('Please fill all the fields');
+      return error('Please fill all the fields');
     }
 
     const formData = new FormData();
     for (const key of Object.keys(images)) {
       formData.append('files', images[key]);
     }
+    form.uImage = imagepath;
     formData.append('body', JSON.stringify(form));
-    addRoom(formData).then(({ data }) => {
-      if (data.status == 200) {
-        return Success(data.message);
-      }
-      return Error(data.message);
-    });
+
+    if (props?.match?.params?.id === 'edit') {
+      editRoom(props?.location?.query.id, formData)
+        .then(({ data }) => {
+          Success('Success');
+        })
+        .catch((err) => error('error'));
+    } else {
+      addRoom(formData).then(({ data }) => {
+        if (data.status == 200) {
+          return Success(data.message);
+        }
+        return error(data.message);
+      });
+    }
   };
 
   return (
@@ -107,6 +125,7 @@ export default function Addroom() {
                 placeholder="Room No"
                 aria-label="roomno"
                 onChange={onChange}
+                value={form?.roomno}
               />
             </div>
             <div class="">
@@ -121,6 +140,7 @@ export default function Addroom() {
                 placeholder="Room Name"
                 aria-label="roomname"
                 onChange={onChange}
+                value={form?.roomname}
               />
             </div>
             <div class="mt-2">
@@ -135,6 +155,7 @@ export default function Addroom() {
                 placeholder="Room Price"
                 aria-label="roomprice"
                 onChange={onChange}
+                value={form?.price}
               />
             </div>
             <div class="mt-2">
@@ -149,6 +170,7 @@ export default function Addroom() {
                 placeholder="Room Capacity"
                 aria-label="capacity"
                 onChange={onChange}
+                value={form?.capacity}
               />
             </div>
             <div class="mt-2">
@@ -163,6 +185,7 @@ export default function Addroom() {
                 placeholder="Description"
                 aria-label="description"
                 onChange={onChange}
+                value={form?.description}
               />
             </div>
             <div class="mt-2">
@@ -177,6 +200,7 @@ export default function Addroom() {
                 placeholder="Bed"
                 aria-label="bed"
                 onChange={onChange}
+                value={form?.bed}
               />
             </div>
             <div class="mt-2">
@@ -191,6 +215,7 @@ export default function Addroom() {
                 placeholder="Bathroom"
                 aria-label="bathroom"
                 onChange={onChange}
+                value={form?.bathroom}
               />
             </div>
             <div class="mt-2">
@@ -205,6 +230,7 @@ export default function Addroom() {
                 placeholder="Extra"
                 aria-label="extra"
                 onChange={onChange}
+                value={form?.extra}
               />
             </div>
             <p class="text-lg text-gray-800 font-medium py-4">Upload Images</p>
@@ -213,17 +239,14 @@ export default function Addroom() {
               class="relative h-full flex flex-col bg-white shadow-md rounded-md"
             >
               <section class="h-full overflow-auto p-8 w-full h-full flex flex-col">
-                <header class="border-dashed border-2 border-gray-400 py-12 flex flex-col justify-center items-center">
-                  <input
-                    id="hidden-input"
-                    type="file"
-                    multiple
-                    class=" choose mt-2 rounded-sm px-3 py-1 focus:shadow-outline focus:outline-none"
-                    onChange={onChangeImage}
-                    disabled={images.length === 5 ? true : false}
-                  />
-                  Upload file
-                </header>
+                <input
+                  id="hidden-input"
+                  type="file"
+                  multiple
+                  class="choose mt-2 rounded-sm px-3 py-10 focus:shadow-outline focus:outline-none"
+                  onChange={onChangeImage}
+                  disabled={images?.length === 5 ? true : false}
+                />
 
                 <h1 class="pt-8 pb-3 font-semibold sm:text-lg text-gray-900">
                   To Upload
@@ -234,9 +257,27 @@ export default function Addroom() {
                     id="empty"
                     class="h-full w-full text-center flex flex-row items-center justify-center items-center"
                   >
-                    {images.length > 0 ? (
+                    {imagepath?.length > 0 ? (
                       imagepath.map((path) => (
-                        <img class="mx-auto w-32" src={path}></img>
+                        <div
+                          style={{
+                            flexDirection: 'column',
+                            alignItems: 'flex-end',
+                          }}
+                        >
+                          {/* <i class="fas fa-close mr-3" onClick={() => {}}></i>*/}
+                          <h1
+                            onClick={() => {
+                              setimages(images.filter((item) => item !== path));
+                              setImagePath(
+                                imagepath.filter((val) => val !== path)
+                              );
+                            }}
+                          >
+                            Delete
+                          </h1>
+                          <img class="mx-auto w-32" src={path} />
+                        </div>
                       ))
                     ) : (
                       <span>
@@ -260,7 +301,9 @@ export default function Addroom() {
                 id="submit"
                 class="rounded-sm px-3 py-1 bg-blue-700 hover:bg-blue-500 text-white focus:shadow-outline focus:outline-none"
               >
-                Submit Now
+                {props?.match?.params?.id === 'edit'
+                  ? 'Edit Room'
+                  : 'Submit Now'}
               </button>
             </footer>
           </form>

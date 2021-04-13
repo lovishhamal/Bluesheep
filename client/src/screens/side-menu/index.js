@@ -25,18 +25,6 @@ export default function Index({ profile, close, slide }) {
         <div>
           <nav className="side-nav-main">
             <ul>
-              {profile && (
-                <li style={{ backgroundColor: '#ff9933' }}>
-                  <a href="#" className="side-link">
-                    Welcome {profile.firstname}
-                  </a>
-                </li>
-              )}
-              <li>
-                <a href="/" className="side-link">
-                  home
-                </a>
-              </li>
               <li>
                 <a href="/rooms&pricing" className="side-link">
                   rooms & pricing
@@ -60,13 +48,13 @@ export default function Index({ profile, close, slide }) {
               {profile ? (
                 <>
                   <li>
-                    <a href="/about" className="side-link">
-                      Account Setting
+                    <a href="/mybooking" className="side-link">
+                      My Booking
                     </a>
                   </li>
                   <li>
-                    <a href="/about" className="side-link">
-                      My Booking
+                    <a href="/myorder" className="side-link">
+                      My Order
                     </a>
                   </li>
                   <li className="side-link" onClick={() => signout()}>

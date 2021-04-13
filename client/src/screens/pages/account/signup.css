@@ -21,3 +21,7 @@ input[type='number'] {
   background-image: url('../../../assets/images/2386481.png');
   background-size: contain;
 }
+
+input:checked + svg {
+  display: block;
+}

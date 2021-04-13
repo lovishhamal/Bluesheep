@@ -1,17 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './signup.css';
 import { Link, useHistory } from 'react-router-dom';
 import { registerService } from '../../../services/auth-service';
 import { classnames } from 'tailwindcss-classnames';
+import Swal from 'sweetalert2';
+import { Context } from '../../../context';
 
 const emailRegx = RegExp(
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 );
 
-export default function SignIn() {
+const success = () => {
+  Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Your are successfully registered.',
+    showConfirmButton: false,
+    timer: 1500,
+  });
+};
+
+const error = (msg) => {
+  Swal.fire({
+    position: 'center',
+    icon: 'error',
+    title: msg,
+    showConfirmButton: false,
+    timer: 1500,
+  });
+};
+
+export default function SignIn(props) {
   let history = useHistory();
   const [formError, setformError] = useState('');
-
+  const { setUserId } = useContext(Context);
   const [match, setmatch] = useState(false);
 
   const [state, setState] = useState({
@@ -66,8 +88,8 @@ export default function SignIn() {
         break;
       case 'phoneno':
         formErrors.phoneno =
-          value.length < 10 || value.length > 10
-            ? 'Number must be 10 digit'
+          +value < 9000000000 || +value > 9999999999
+            ? 'Number didnot match'
             : '';
         break;
       case 'country':
@@ -105,19 +127,44 @@ export default function SignIn() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    if (isFormValid(state)) {
-      const { formErrors, ...userData } = state;
-
-      delete userData.confirmpassword;
-      registerService(userData).then(({ data }) => {
-        if (data.status == 400) {
-          return setformError(data.message);
-        }
-        history.push('/login');
-      });
+    delete state.formErrors.confirmpassword;
+    if (props?.location?.query?.admin) {
+      if (isFormValid(state)) {
+        const { formErrors, ...userData } = state;
+        delete userData.confirmpassword;
+        registerService(userData)
+          .then(({ data }) => {
+            if (data.status == 400) {
+              return setformError(data.message);
+            }
+            success();
+            setUserId(
+              data.data.id,
+              data.data.firstname + ' ' + data.data.lastname,
+              data.data.email
+            );
+            history.push('/addcustomer', { user_id: data.data.id });
+          })
+          .catch((err) => error());
+      } else {
+        setformError('Please fill all the required * fields.');
+      }
     } else {
-      setformError('Please fill all the required * fields.');
+      if (isFormValid(state)) {
+        const { formErrors, ...userData } = state;
+        delete userData.confirmpassword;
+        registerService(userData)
+          .then(({ data }) => {
+            if (data.status == 400) {
+              return setformError(data.message);
+            }
+            success();
+            history.push('/login');
+          })
+          .catch((err) => error(err));
+      } else {
+        setformError('Please fill all the required * fields.');
+      }
     }
   };
 
@@ -284,7 +331,7 @@ export default function SignIn() {
                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3"
                 id="grid-phone"
                 type="number"
-                placeholder="0123456789"
+                placeholder="9800000000"
                 name="phoneno"
                 value={state.phoneno}
                 onChange={handleChange}
@@ -345,7 +392,7 @@ export default function SignIn() {
               <input
                 class="appearance-none bg-gray-200 block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
                 id="grid-citizen"
-                type="number"
+                type="text"
                 placeholder="123-456-789"
                 name="citizenidno"
                 value={state.citizenidno}

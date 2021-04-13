@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Context } from '../../../context';
 import RoomFilter from './room-filter';
 import RoomList from './rooms-list';
@@ -13,8 +13,8 @@ export default function Roomcontainer() {
   } else {
     return (
       <div
-        className="w-screen h-full"
-        style={{ backgroundColor: Colors.backgroundColor }}
+        className="w-screen"
+        style={{ backgroundColor: Colors.backgroundColor, height: 'auto' }}
       >
         <RoomFilter data={state} />
         {state.rooms.length < 1 ? (

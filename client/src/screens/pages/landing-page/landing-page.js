@@ -1,11 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Colors from '../../../colors/colors';
 import { RangeDatePicker } from 'react-google-flight-datepicker';
 import 'react-google-flight-datepicker/dist/main.css';
 import './landing.css';
 import img from './landing.jpg';
+import FindRoom from '../../../components/findroom/findroom';
+import { Context } from '../../../context';
+
+let startDate = '';
+let endDate = '';
 
 export default function Landingpage() {
+  const { selectRoom, selectCapacity } = useContext(Context);
+  const [modal, setmodal] = useState(false);
+
+  useEffect(() => {
+    const set = () => {
+      setstate({ room: selectRoom[0], guest: selectCapacity[0] });
+      startDate = date;
+      endDate = tomorrow;
+    };
+
+    set();
+  }, [selectRoom, selectCapacity]);
+
+  const [state, setstate] = useState({ room: '', guest: '' });
+
   const date = new Date();
   const tomorrow = new Date(date.getTime());
   tomorrow.setDate(date.getDate() + 1);
@@ -17,8 +37,22 @@ export default function Landingpage() {
     mobileView = 'mobile-bar';
   }
 
+  const onChangeDate = (start, end) => {
+    startDate = start;
+    endDate = end;
+    return;
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setstate({ ...state, [name]: value });
+  };
+
   return (
     <div>
+      {modal && (
+        <FindRoom data={{ ...state, startDate, endDate }} modal={setmodal} />
+      )}
       <section className="w-full h-screen z-10">
         <div className="landing pt-20" style={{ height: '73vh' }}>
           <div class="text-center self-center">
@@ -91,17 +125,25 @@ export default function Landingpage() {
           <div class="px-10 py-4 bg-white shadow-2xl rounded-lg w-10/12">
             <div className={mobileView}>
               <div>
-                <RangeDatePicker startDate={date} endDate={tomorrow} />
+                <RangeDatePicker
+                  startDate={date}
+                  endDate={tomorrow}
+                  onChange={(startDate, endDate) =>
+                    onChangeDate(startDate, endDate)
+                  }
+                />
               </div>
               <div class="w-full px-3 mb-6 md:mb-0 item">
                 <div class="relative">
                   <select
+                    name="room"
+                    onChange={handleChange}
                     class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-4 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-state"
                   >
-                    <option>Single Room</option>
-                    <option>Double Room</option>
-                    <option>Triple Room</option>
+                    {selectRoom.map((item) => (
+                      <option>{item}</option>
+                    ))}
                   </select>
                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg
@@ -117,12 +159,14 @@ export default function Landingpage() {
               <div class="w-full px-3 mb-6 md:mb-0 item">
                 <div class="relative">
                   <select
+                    name="guest"
+                    onChange={handleChange}
                     class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-4 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-state"
                   >
-                    <option>Guests</option>
-                    <option>1</option>
-                    <option>2</option>
+                    {selectCapacity.map((item) => (
+                      <option>{item}</option>
+                    ))}
                   </select>
                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg
@@ -136,7 +180,10 @@ export default function Landingpage() {
                 </div>
               </div>
               <div className="mobile-footer">
-                <button class="bg-blue-500 ml-10 hover:bg-blue-700 text-white text-xs font-bold py-3 px-6 rounded shadow-lg item">
+                <button
+                  class="bg-blue-500 ml-10 hover:bg-blue-700 text-white text-xs font-bold py-3 px-6 rounded shadow-lg item"
+                  onClick={() => setmodal(true)}
+                >
                   Find Rooms
                 </button>
                 {isMobileView && (
@@ -154,7 +201,9 @@ export default function Landingpage() {
                 <div>
                   <div
                     className="flex justify-center items-center text-lg tracking-tight cursor-pointer leading-10 font-extrabold sm:text-3xl sm:leading-none md:text-3xl"
-                    onClick={() => setisMobileView(!isMobileView)}
+                    onClick={() => {
+                      setisMobileView(!isMobileView);
+                    }}
                   >
                     Find Rooms
                   </div>

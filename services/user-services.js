@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const Jwt = require('jsonwebtoken');
 const users = require('../database/models/register-user');
+const token = require('../database/models/notification-token');
 const { Op } = require('sequelize');
 
 const JwtToken = (userData) => {
@@ -28,26 +29,24 @@ const userService = (() => {
             ],
           },
         })
-
         .then(async (data) => {
           if (!data) {
             const hashedPassword = await bcrypt.hash(userData.password, 10);
-            const hashedId = await bcrypt.hash(userData.citizenidno, 10);
             userData.password = hashedPassword;
-            userData.citizenidno = hashedId;
-
             users
               .create(userData)
-              .then(() => resolve('Successfully registered'))
+              .then((data) => resolve(data))
               .catch(() => reject('Error while registering'));
           }
 
-          if (data.email === userData.email) {
-            return reject('Email already exists');
-          }
+          if (data) {
+            if (data.email === userData.email) {
+              return reject('Email already exists');
+            }
 
-          if (data.phoneno === userData.phoneno) {
-            return reject('Phone No already exists');
+            if (data.phoneno === userData.phoneno) {
+              return reject('Phone No already exists');
+            }
           }
         });
     });
@@ -57,7 +56,6 @@ const userService = (() => {
     return new Promise((resolve, reject) => {
       users.findOne({ where: { email: userData.email } }).then(async (data) => {
         if (!data) return reject('Couldnot find email');
-
         const isPasswordMatch = await bcrypt.compare(
           userData.password,
           data.password
@@ -69,9 +67,46 @@ const userService = (() => {
     });
   };
 
+  const get = () => {
+    return new Promise((resolve, reject) => {
+      users
+        .findAll()
+        .then((data) => resolve(data))
+        .catch((err) => reject(err));
+    });
+  };
+  const patch = (body) => {
+    return new Promise((resolve, reject) => {
+      token.findOne().then((data) => {
+        if (data) {
+          data
+            .update(body)
+            .then((item) => resolve(item))
+            .catch((err) => reject(err));
+        } else {
+          token
+            .create(body)
+            .then((val) => resolve(val))
+            .catch((err) => reject(err));
+        }
+      });
+    });
+  };
+
+  const search = (email) => {
+    return new Promise((resolve, reject) => {
+      users
+        .findOne({ where: { email } })
+        .then((data) => resolve(data))
+        .catch((err) => reject(err));
+    });
+  };
   return {
     register,
     login,
+    get,
+    patch,
+    search,
   };
 })();
 

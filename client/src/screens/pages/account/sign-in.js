@@ -2,10 +2,29 @@ import React, { useState, useRef } from 'react';
 import './signup.css';
 import { Link, useHistory } from 'react-router-dom';
 import { loginService } from '../../../services/auth-service';
+import Swal from 'sweetalert2';
 
 const emailRegx = RegExp(
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 );
+
+const signin = (msg, type) => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+
+  Toast.fire({
+    icon: type,
+    title: msg,
+  });
+};
 
 export default function SignIn() {
   const [formErrors, setformErrors] = useState('');
@@ -27,13 +46,16 @@ export default function SignIn() {
     loginService({
       email: userEl.current.value,
       password: passwordEl.current.value,
-    }).then(({ data }) => {
-      if (data.status == 400) {
-        return setformErrors(data.message);
-      }
-      localStorage.setItem('token', data.token);
-      history.push('/');
-    });
+    })
+      .then(({ data }) => {
+        if (data.status == 400) {
+          return setformErrors(data.message);
+        }
+        localStorage.setItem('token', data.token);
+        signin('Successfully signed in', 'success');
+        history.push('/');
+      })
+      .catch((err) => signin('Password/Username didnot match', 'error'));
   };
 
   return (
@@ -98,16 +120,6 @@ export default function SignIn() {
                     placeholder="******************"
                     ref={passwordEl}
                   />
-                </div>
-                <div class="mb-4">
-                  <input
-                    class="mr-2 leading-tight"
-                    type="checkbox"
-                    id="checkbox_id"
-                  />
-                  <label class="text-sm" for="checkbox_id">
-                    Remember Me
-                  </label>
                 </div>
                 <div class="mb-6 text-center">
                   <button

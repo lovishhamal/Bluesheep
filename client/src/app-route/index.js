@@ -10,11 +10,15 @@ export default function Index({
 }) {
   const token = getToken();
   const profile = token ? jwtDecode(token) : '';
-
   return (
     <div>
       <Layout token={token} profile={profile ? profile.data : ''} />
-      <Route {...rest} render={(props) => <Component {...props} />} />
+      <Route
+        {...rest}
+        render={(props) => (
+          <Component {...props} token={token} profile={profile} />
+        )}
+      />
     </div>
   );
 }

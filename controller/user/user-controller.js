@@ -16,7 +16,7 @@ router.post(
   async (req, res) => {
     try {
       const data = await authService.register(req.body);
-      httpResponse.successHandler(res, 200, null, null, data);
+      httpResponse.successHandler(res, 200, data, null, 'success');
     } catch (error) {
       httpResponse.errorHandler(res, error, 400);
     }
@@ -35,5 +35,32 @@ router.post(
     }
   }
 );
+
+router.get('/', async (req, res) => {
+  try {
+    const data = await authService.get();
+    httpResponse.successHandler(res, 200, data, null, 'success');
+  } catch (error) {
+    httpResponse.errorHandler(res, error, 400);
+  }
+});
+
+router.get('/search/:id', async (req, res) => {
+  try {
+    const data = await authService.search(req.params.id);
+    httpResponse.successHandler(res, 200, data, null, 'success');
+  } catch (error) {
+    httpResponse.errorHandler(res, error, 400);
+  }
+});
+
+router.patch('/', async (req, res) => {
+  try {
+    const data = await authService.patch(req.body);
+    httpResponse.successHandler(res, 200, data, null, 'success');
+  } catch (error) {
+    httpResponse.errorHandler(res, error, 400);
+  }
+});
 
 module.exports = router;

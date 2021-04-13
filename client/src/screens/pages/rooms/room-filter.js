@@ -22,7 +22,7 @@ function valuetext(value) {
 
 function getUnique(items, value) {
   if (value === 'capacity') {
-    return [1, ...new Set(items.map((item) => item[value]))];
+    return [...new Set(items.map((item) => item[value]))];
   }
   return ['All', ...new Set(items.map((item) => item[value]))];
 }
@@ -39,7 +39,6 @@ export default function RoomsPricing({ data }) {
   if (isMobileView) {
     mobileView = 'mobile-bar';
   }
-  
 
   return (
     <div className="z-40 pt-12 flex items-center justify-center">

@@ -1,19 +1,259 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { getToken } from '../../../utils';
+import jwt_decode from 'jwt-decode';
+import { bookRoom } from '../../../services/room-service';
+import { useHistory } from 'react-router-dom';
 
-export default function card({ item }) {
+import { RangeDatePicker } from 'react-google-flight-datepicker';
+import { makeStyles } from '@material-ui/core/styles';
+import { Context } from '../../../context';
+
+const message = () => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+
+  Toast.fire({
+    icon: 'error',
+    title: 'Please login to continue',
+  });
+};
+
+const errorMsg = () => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+
+  Toast.fire({
+    icon: 'error',
+    title: 'Booking is not vailable on this date.',
+  });
+};
+
+const invalid = () => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+
+  Toast.fire({
+    icon: 'error',
+    title: 'Check In date is invalid',
+  });
+};
+
+const useStyles = makeStyles({
+  root: {
+    minWidth: 275,
+    marginTop: '5%',
+    width: '70%',
+    height: '75%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 12,
+  },
+});
+
+let startDate = '';
+let endDate = '';
+
+export default function RoomCard({ item, id }) {
+  const history = useHistory();
+  const classes = useStyles();
+  const { setbooking, booking } = useContext(Context);
+
+  const [value, setvalue] = useState(false);
+
+  const date = new Date();
+  const tomorrow = new Date(date.getTime());
+  tomorrow.setDate(date.getDate() + 1);
+
+  startDate = date;
+  endDate = tomorrow;
+
+  const confirm = (item, start, end, history) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, confirm booking!',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const user = await getToken();
+          const decode = jwt_decode(user);
+          const data = {
+            roomid: item.id,
+            roomno: item.roomno,
+            roomname: item.roomname,
+            price: item.price,
+            bed: item.bed,
+            capacity: item.capacity,
+            user_id: decode.data.id,
+            start_date: start,
+            end_date: end,
+            status: 'Booked',
+          };
+          await bookRoom(data);
+          setbooking(item);
+          Swal.fire('Booked!', 'Your booking has been created', 'success');
+          history.push('/mybooking');
+        } catch (error) {
+          errorMsg();
+        }
+      }
+    });
+  };
+
+  const book = (item) => {
+    if (getToken() === null) {
+      history.push('/login');
+      message();
+      return;
+    }
+
+    if (startDate < new Date()) return invalid();
+    confirm(item, startDate, endDate, history);
+  };
+
+  const onDateChange = (start, end) => {
+    startDate = start;
+    endDate = end;
+    return;
+  };
+
+  const find = booking.find((val) => val.id === item.id);
+  const bookApi = item.bookings.find((item) => item.user_id === id);
+
   return (
     <div class="max-w-sm sm:w-1/2 lg:w-1/4 h-2/4 py-10 px-6">
+      {value && (
+        <div class="fixed inset-0 overflow-y-auto">
+          <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity">
+              <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>
+            &#8203;
+            <div
+              class="inline-block align-bottom bg-white rounded-lg text-left shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="modal-headline"
+            >
+              <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                  <div class=" mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
+                    <svg
+                      class="w-6 h-6 text-green-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                    <h3
+                      class="text-lg leading-6 font-medium text-gray-900"
+                      id="modal-headline"
+                    >
+                      Book Room
+                    </h3>
+                    <div class="mt-2 z-20">
+                      <RangeDatePicker
+                        startDate={date}
+                        endDate={tomorrow}
+                        onChange={(startDate, endDate) =>
+                          onDateChange(startDate, endDate)
+                        }
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
+                  <button
+                    type="button"
+                    class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-red-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+                    onClick={() => book(item)}
+                  >
+                    Book Now
+                  </button>
+                </span>
+                <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
+                  <button
+                    type="button"
+                    class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+                    onClick={() => setvalue(false)}
+                  >
+                    Cancel
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <div class="bg-white shadow-xl rounded-lg overflow-hidden">
         <div class="bg-cover bg-center h-48 p-2">
           <div class="flex justify-end w-full h-11/12">
-            <img class="rounded" src={item.images[0]}></img>
+            <img
+              class="rounded"
+              src={item.images[0]}
+              style={{ height: '180px', width: '100%', objectFit: 'cover' }}
+            />
           </div>
         </div>
         <div class="p-4">
           <p class="tracking-wide uppercase text-sm font-bold text-gray-700">
             {item.roomname}
           </p>
-          <p class="text-3xl text-gray-900">{item.price}</p>
+          <p class="text-3xl text-gray-900">Rs. {item.price}</p>
           <p class="text-gray-700 uppercase">{item.extra}</p>
         </div>
         <div class="flex p-4 border-t border-gray-300 text-gray-700">
@@ -48,13 +288,62 @@ export default function card({ item }) {
         </div>
         <div class="px-4 pt-3 pb-4 border-t border-gray-300 bg-gray-100 flex justify-around">
           <div class="text-xs cursor-pointer uppercase font-bold text-gray-600 tracking-wide">
-            show details
+            <Link to={`/roomdetail/${item.id}`}> show details</Link>
           </div>
-          <div class="text-xs cursor-pointer uppercase font-bold text-gray-600 tracking-wide">
-            book now
-          </div>
+          {(find && find.id === item.id) ||
+          (bookApi &&
+            bookApi.user_id === id &&
+            new Date(bookApi.end_date) > new Date()) ? (
+            <div
+              class="text-xs cursor-pointer uppercase font-bold text-gray-600 tracking-wide"
+              onClick={() => setvalue(true)}
+            >
+              Your Booking
+            </div>
+          ) : (
+            <div
+              class="text-xs cursor-pointer uppercase font-bold text-gray-600 tracking-wide"
+              onClick={() => setvalue(true)}
+            >
+              book now
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 }
+/* <Card className={classes.root}>
+              <CardContent>
+                <Typography
+                  className={classes.title}
+                  color="textSecondary"
+                  gutterBottom
+                >
+                  Please select date.
+                </Typography>
+                <RangeDatePicker
+                  startDate={date}
+                  endDate={tomorrow}
+                  onChange={(startDate, endDate) =>
+                    onDateChange(startDate, endDate)
+                  }
+                />
+              </CardContent>
+              <CardActions style={{ alignSelf: 'flex-end' }}>
+                <button
+                  class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                  size="small"
+                  onClick={() => book(item)}
+                >
+                  Confirm
+                </button>
+                <button
+                  class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                  size="small"
+                  onClick={() => setvalue(false)}
+                >
+                  Cancel
+                </button>
+              </CardActions>
+            </Card>*/

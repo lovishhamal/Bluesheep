@@ -13,7 +13,20 @@ class ContextProvider extends Component {
     guest: 'All',
     capacity: 1,
     loading: true,
+    booking: [],
+    selectRoom: [],
+    selectCapacity: [],
+    user_id: null,
+    email: null,
+    name: null,
   };
+
+  getUnique(items, value) {
+    if (value === 'capacity') {
+      return [...new Set(items.map((item) => item[value]))];
+    }
+    return [...new Set(items.map((item) => item[value]))];
+  }
 
   componentDidMount = async () => {
     const { data } = await getRoom();
@@ -23,6 +36,9 @@ class ContextProvider extends Component {
     let min = Math.min(...set);
     let mid = set[Math.floor((set.length - 1) / 2)];
 
+    const room = this.getUnique(data, 'roomname');
+    const capacity = this.getUnique(data, 'capacity');
+
     this.setState({
       allRooms: data,
       rooms: data,
@@ -31,6 +47,8 @@ class ContextProvider extends Component {
       minPrice: min,
       midPrice: mid,
       loading: false,
+      selectRoom: room,
+      selectCapacity: capacity,
     });
   };
 
@@ -63,6 +81,28 @@ class ContextProvider extends Component {
     this.setState({ rooms: temprooms });
   };
 
+  setbooking = (data) => {
+    this.setState({ booking: [...this.state.booking, data] });
+  };
+
+  deletebooking = (id, roomid) => {
+    let filterBooking = [...this.state.booking];
+    filterBooking = filterBooking.filter((item) => item.id !== roomid);
+    this.setState({
+      booking: filterBooking,
+    });
+  };
+
+  setUserId = (id, name, email) => {
+    this.setState({ ...this.state, user_id: id, name, email });
+  };
+
+  setAllRooms = (id) => {
+    this.setState({
+      ...this.state,
+      allRooms: this.state.allRooms.filter((item) => item.id !== id),
+    });
+  };
   render() {
     return (
       <Context.Provider
@@ -70,6 +110,10 @@ class ContextProvider extends Component {
           ...this.state,
           onChangePrice: this.onChangePrice,
           handleChange: this.handleChange,
+          setbooking: this.setbooking,
+          deletebooking: this.deletebooking,
+          setUserId: this.setUserId,
+          setAllRooms: this.setAllRooms,
         }}
       >
         {this.props.children}
