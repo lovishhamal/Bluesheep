@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const Jwt = require('jsonwebtoken');
 const users = require('../database/models/register-user');
+const book = require('../database/models/booking');
 const token = require('../database/models/notification-token');
 const { Op } = require('sequelize');
 
@@ -101,6 +102,7 @@ const userService = (() => {
         .catch((err) => reject(err));
     });
   };
+
   return {
     register,
     login,

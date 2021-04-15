@@ -6,12 +6,17 @@ import {
 } from '../services/booking-service';
 import Placeholder from '../common/Placeholder';
 import Swal from 'sweetalert2';
+import { searchUser } from '../services/user-service';
+import { Link } from 'react-router-dom';
+import Colors from '../colors/colors';
 
 export default function Content() {
   const [bookings, setBookings] = useState([]);
   const [customers, setCustomer] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refetch, setRefetch] = useState(false);
+  const [email, setEmail] = useState(null);
+  const [customerData, setCustomerData] = useState([]);
 
   const confirm = (id) => {
     Swal.fire({
@@ -37,12 +42,15 @@ export default function Content() {
     (async () => {
       try {
         let data = await getBookingService();
-
-        setBookings(
-          data?.data?.data?.filter((item) => item.status === 'Booked') ?? []
-        );
         setCustomer(
           data?.data?.data?.filter((item) => item.status !== 'Booked') ?? []
+        );
+
+        setCustomerData(
+          data?.data?.data?.filter((item) => item.status !== 'Booked') ?? []
+        );
+        setBookings(
+          data?.data?.data?.filter((item) => item.status === 'Booked') ?? []
         );
         setLoading(false);
       } catch (error) {
@@ -55,6 +63,15 @@ export default function Content() {
     confirm(id);
   };
 
+  const search = async () => {
+    try {
+      const res = await searchUser(email);
+      setCustomer(res?.data?.data ?? []);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
   return (
     <div class="z-20 w-full overflow-x-hidden border-t flex flex-col">
       <main class="w-full overflow-scroll flex-grow p-6">
@@ -170,6 +187,44 @@ export default function Content() {
             <h1>No bookings available</h1>
           )}
           <div style={{ height: 40 }} />
+          <div
+            style={{
+              width: 'auto',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'flex-start',
+            }}
+          >
+            <input
+              onChange={(e) => {
+                if (e.target.value) {
+                  setEmail(e.target.value);
+                } else {
+                  setCustomer(customerData);
+                }
+              }}
+              placeholder="Search Customer"
+              style={{
+                height: 60,
+                padding: 10,
+                marginBottom: 20,
+                borderRadius: 8,
+              }}
+            />
+            <div style={{ marginLeft: 30 }} />
+            <button
+              class="font-bold py-2 rounded mt-2"
+              style={{
+                background: 'black',
+                color: 'white',
+                padding: 10,
+              }}
+              onClick={search}
+            >
+              Search
+            </button>
+          </div>
+          <div style={{ marginTop: 20 }} />
           {loading ? (
             <Placeholder />
           ) : customers.length > 0 ? (
@@ -182,6 +237,9 @@ export default function Content() {
                     </th>
                     <th class="text-left py-3 px-4 uppercase font-semibold text-sm">
                       Last name
+                    </th>
+                    <th class="text-left py-3 px-4 uppercase font-semibold text-sm">
+                      Email
                     </th>
                     <th class="text-left py-3 px-4 uppercase font-semibold text-sm">
                       Citizen No
@@ -198,6 +256,9 @@ export default function Content() {
                     <th class="text-left py-3 px-4 uppercase font-semibold text-sm">
                       CheckOut At
                     </th>
+                    <th class="text-left py-3 px-4 uppercase font-semibold text-sm">
+                      Bill
+                    </th>
                   </tr>
                 </thead>
                 <tbody class="text-gray-700">
@@ -205,6 +266,7 @@ export default function Content() {
                     <tr key={`${i}`}>
                       <td class="py-3 px-4">{item.user.firstname}</td>
                       <td class="py-3 px-4">{item.user.lastname}</td>
+                      <td class="py-3 px-4">{item.user.email}</td>
                       <td class="py-3 px-4">
                         <a class="hover:text-blue-500" href="tel:622322662">
                           {item.user.citizenidno}
@@ -230,6 +292,29 @@ export default function Content() {
                           {item.end_date}
                         </a>
                       </td>
+                      <Link to="/addcustomer">
+                        <td
+                          class="py-3 px-4"
+                          onClick={() => {
+                            // setUserId(
+                            //   item.id,
+                            //   item.firstname + ' ' + item.lastname,
+                            //   item.email
+                            // );
+                          }}
+                        >
+                          <h1
+                            style={{
+                              padding: 10,
+                              backgroundColor: Colors.primaryColor,
+                              color: Colors.white,
+                              borderRadius: 4,
+                            }}
+                          >
+                            Bill
+                          </h1>
+                        </td>
+                      </Link>
                     </tr>
                   ))}
                 </tbody>

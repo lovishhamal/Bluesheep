@@ -10,7 +10,7 @@ const getUser = async () => {
 
 const searchUser = async (email) => {
   return new Promise((resolve, reject) => {
-    Api.get(`/search/${email}`)
+    Api.get(`/booking/search/${email}`)
       .then((data) => resolve(data))
       .catch((err) => reject(err));
   });

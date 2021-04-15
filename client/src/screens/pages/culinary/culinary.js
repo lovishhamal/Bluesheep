@@ -67,7 +67,7 @@ export default (props) => {
       {loading ? (
         <h1>Load</h1>
       ) : (
-        <main class="w-full overflow-y-auto flex-row mt-10">
+        <main class="w-full overflow-y-auto flex-row mt-10 pb-10">
           <div class="px-10 grid grid-cols-4 gap-4">
             {foods.map((item, i) => (
               <div

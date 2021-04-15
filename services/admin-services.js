@@ -18,7 +18,6 @@ const JwtToken = (userData) => {
 
 const userService = (() => {
   const register = async (userData) => {
-    console.log('userData -> ', userData);
     return new Promise((resolve, reject) => {
       users
         .findAll({

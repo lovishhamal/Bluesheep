@@ -6,13 +6,13 @@ import firebase from './firebase';
 import { setToken } from './services/auth-service';
 
 function App() {
-  useEffect(() => {
-    const msg = firebase.messaging();
-    msg
-      .requestPermission()
-      .then((item) => msg.getToken())
-      .then((data) => setToken({ notification: data }));
-  }, []);
+  // useEffect(() => {
+  //   const msg = firebase.messaging();
+  //   msg
+  //     .requestPermission()
+  //     .then((item) => msg.getToken())
+  //     .then((data) => setToken({ notification: data }));
+  // }, []);
   return (
     <div className="App">
       <ContextProvider>

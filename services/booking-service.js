@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const booking = require('../database/models/booking');
 const users = require('../database/models/register-user');
 
@@ -40,9 +41,35 @@ const roomService = (() => {
         .catch(() => reject('Couldnot get rooms'));
     });
   };
+
+  const searchBooked = (email) => {
+    return new Promise((resolve, reject) => {
+      users
+        .findOne({ where: { email } })
+        .then((res) => {
+          booking
+            .findAll({
+              where: {
+                status: 'Occupied',
+                user_id: res.dataValues.id,
+              },
+              include: [
+                {
+                  model: users,
+                },
+              ],
+              order: [['start_date', 'ASC']],
+            })
+            .then((data) => resolve(data))
+            .catch((err) => reject(err));
+        })
+        .catch((err) => reject(err));
+    });
+  };
   return {
     get,
     update,
+    searchBooked,
   };
 })();
 

@@ -1,7 +1,6 @@
 const Sequalize = require('sequelize');
 
 const db = require('../');
-
 const User = db.define('users', {
   id: {
     type: Sequalize.INTEGER,
@@ -42,5 +41,4 @@ const User = db.define('users', {
     field: 'CitizenId',
   },
 });
-
 module.exports = User;
