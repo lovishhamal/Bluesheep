@@ -16,4 +16,12 @@ const searchUser = async (email) => {
   });
 };
 
-export { getUser, searchUser };
+const getBill = async (id, data) => {
+  return new Promise((resolve, reject) => {
+    Api.post(`/bill/${id}`, data)
+      .then((data) => resolve(data))
+      .catch((err) => reject(err));
+  });
+};
+
+export { getUser, searchUser, getBill };

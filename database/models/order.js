@@ -15,6 +15,9 @@ const Order = db.define('order', {
   user_id: {
     type: Sequalize.INTEGER,
   },
+  order_date: {
+    type: Sequalize.DATE,
+  },
 });
 
 Order.hasMany(user, { foreignKey: 'id', sourceKey: 'user_id' });

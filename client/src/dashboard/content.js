@@ -137,36 +137,36 @@ export default function Content() {
                 <tbody class="text-gray-700">
                   {bookings.map((item, i) => (
                     <tr key={`${i}`}>
-                      <td class="py-3 px-4">{item.user.firstname}</td>
-                      <td class="py-3 px-4">{item.user.lastname}</td>
+                      <td class="py-3 px-4">{item?.user?.firstname}</td>
+                      <td class="py-3 px-4">{item?.user?.lastname}</td>
                       <td class="py-3 px-4">
                         <a class="hover:text-blue-500" href="tel:622322662">
-                          {item.user.citizenidno}
+                          {item?.user?.citizenidno}
                         </a>
                       </td>
                       <td class=" py-3 px-4">
                         <a class="hover:text-blue-500" href="tel:622322662">
-                          {item.roomno}
+                          {item?.roomno}
                         </a>
                       </td>
                       <td class=" py-3px-4">
                         <a class="hover:text-blue-500" href="tel:622322662">
-                          {item.roomname}
+                          {item?.roomname}
                         </a>
                       </td>
                       <td class="py-3px-4">
                         <a class="hover:text-blue-500" href="tel:622322662">
-                          {item.start_date}
+                          {item?.start_date}
                         </a>
                       </td>
                       <td class="py-3 px-4">
                         <a class="hover:text-blue-500" href="tel:622322662">
-                          {item.end_date}
+                          {item?.end_date}
                         </a>
                       </td>
                       <td class="py-3 px-4">
                         <a class="hover:text-blue-500" href="tel:622322662">
-                          {item.status}
+                          {item?.status}
                         </a>
                       </td>
                       <td
@@ -292,17 +292,8 @@ export default function Content() {
                           {item.end_date}
                         </a>
                       </td>
-                      <Link to="/addcustomer">
-                        <td
-                          class="py-3 px-4"
-                          onClick={() => {
-                            // setUserId(
-                            //   item.id,
-                            //   item.firstname + ' ' + item.lastname,
-                            //   item.email
-                            // );
-                          }}
-                        >
+                      <Link to={{ pathname: '/billing', query: item }}>
+                        <td class="py-3 px-4">
                           <h1
                             style={{
                               padding: 10,

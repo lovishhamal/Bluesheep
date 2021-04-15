@@ -4,6 +4,8 @@ const users = require('../database/models/register-user');
 const book = require('../database/models/booking');
 const token = require('../database/models/notification-token');
 const { Op } = require('sequelize');
+const order = require('../database/models/order');
+const Food = require('../database/models/food');
 
 const JwtToken = (userData) => {
   return Jwt.sign(
@@ -103,12 +105,35 @@ const userService = (() => {
     });
   };
 
+  const bill = (id, body) => {
+    return new Promise(async (resolve, reject) => {
+      const food = order.findAll({
+        where: {
+          // user_id: id,
+          order_date: { [Op.gte]: new Date('2021-04-15') },
+        },
+        include: [{ model: Food }],
+      });
+      const booking = book.findAll({
+        where: {
+          user_id: id,
+          start_date: { [Op.gte]: new Date(body.start_date) },
+          end_date: { [Op.lte]: new Date(body.end_date) },
+        },
+      });
+      Promise.all([food, booking]).then((data) => {
+        resolve({ food: data[0], booking: data[1] });
+      });
+    });
+  };
+
   return {
     register,
     login,
     get,
     patch,
     search,
+    bill,
   };
 })();
 

@@ -30,7 +30,7 @@ const confirm = (id, user_id) => {
   }).then(async (result) => {
     if (result.isConfirmed) {
       try {
-        await addOrder({ food_id: id, user_id });
+        await addOrder({ food_id: id, user_id, order_date: new Date() });
         Swal.fire('Ordered', 'Your order has been placed.', 'success');
       } catch (error) {}
     }
