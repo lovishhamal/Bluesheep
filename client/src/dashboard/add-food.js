@@ -52,8 +52,6 @@ export default function Addfood(props) {
     }
   }, []);
   const onSubmit = (e) => {
-    console.log('images -> ', images);
-    console.log('form -> ', form);
     e.preventDefault();
     if (!isValid(form) || images.length < 1) {
       return error('Please fill all the fields');
@@ -92,8 +90,6 @@ export default function Addfood(props) {
     setimages([...images, e.target.files[0]]);
     setImagePath([...imagepath, URL.createObjectURL(e.target.files[0])]);
   };
-
-  console.log('imag length -> ', images, images.length);
 
   return (
     <div className="z-20 overflow-x-hidden flex justify-center">

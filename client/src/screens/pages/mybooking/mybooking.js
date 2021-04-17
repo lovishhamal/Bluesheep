@@ -81,6 +81,9 @@ const Mybooking = (props) => {
               <th class="text-left py-3 px-4 uppercase font-semibold text-sm heading">
                 Room Name
               </th>
+              <th class="text-left py-3 px-4 uppercase font-semibold text-sm heading">
+                Price
+              </th>
               <th class="text-left py-3 px-3 uppercase font-semibold text-sm heading">
                 Checkin Date
               </th>
@@ -99,6 +102,9 @@ const Mybooking = (props) => {
                   <td class="text-left py-3 px-4  heading">{item.roomno}</td>
                   <td class="text-left py-3 px-4 uppercase  heading">
                     {item.roomname}
+                  </td>
+                  <td class="text-left py-3 px-4 uppercase  heading">
+                    {item.price}
                   </td>
                   <td class="text-left py-3 px-4  heading">
                     {new Date(item.start_date).toString().slice(0, 15)}

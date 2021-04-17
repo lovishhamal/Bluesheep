@@ -34,6 +34,7 @@ const orderService = (() => {
   };
 
   const deleteOrder = async (id) => {
+    console.log('id -> ', id);
     return new Promise((resolve, reject) => {
       order
         .destroy({ where: { id } })

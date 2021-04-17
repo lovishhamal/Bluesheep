@@ -6,9 +6,28 @@ import './landing.css';
 import img from './landing.jpg';
 import FindRoom from '../../../components/findroom/findroom';
 import { Context } from '../../../context';
+import Swal from 'sweetalert2';
 
 let startDate = '';
 let endDate = '';
+
+const invalid = () => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+
+  Toast.fire({
+    icon: 'error',
+    title: 'Check In date is invalid',
+  });
+};
 
 export default function Landingpage() {
   const { selectRoom, selectCapacity } = useContext(Context);
@@ -182,7 +201,14 @@ export default function Landingpage() {
               <div className="mobile-footer">
                 <button
                   class="bg-blue-500 ml-10 hover:bg-blue-700 text-white text-xs font-bold py-3 px-6 rounded shadow-lg item"
-                  onClick={() => setmodal(true)}
+                  onClick={() => {
+                    const today = new Date();
+                    const yesterday = new Date(today);
+
+                    yesterday.setDate(yesterday.getDate() - 1);
+                    if (startDate <= yesterday) return invalid();
+                    setmodal(true);
+                  }}
                 >
                   Find Rooms
                 </button>

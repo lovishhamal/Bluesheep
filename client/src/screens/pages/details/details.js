@@ -9,10 +9,6 @@ import Swal from 'sweetalert2';
 
 import { RangeDatePicker } from 'react-google-flight-datepicker';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
   root: {
@@ -167,7 +163,11 @@ const Details = (props) => {
         history.push('/login');
         return;
       }
-      if (startDate < new Date()) return invalid();
+      const today = new Date();
+      const yesterday = new Date(today);
+
+      yesterday.setDate(yesterday.getDate() - 1);
+      if (startDate <= yesterday) return invalid();
 
       confirm(item, startDate, endDate, history);
     } catch (error) {}

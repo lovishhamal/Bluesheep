@@ -26,7 +26,7 @@ export default function Content() {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete!',
+      confirmButtonText: 'Yes, Update!',
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
@@ -42,10 +42,10 @@ export default function Content() {
     (async () => {
       try {
         let data = await getBookingService();
+
         setCustomer(
           data?.data?.data?.filter((item) => item.status !== 'Booked') ?? []
         );
-
         setCustomerData(
           data?.data?.data?.filter((item) => item.status !== 'Booked') ?? []
         );
@@ -264,32 +264,32 @@ export default function Content() {
                 <tbody class="text-gray-700">
                   {customers.map((item, i) => (
                     <tr key={`${i}`}>
-                      <td class="py-3 px-4">{item.user.firstname}</td>
-                      <td class="py-3 px-4">{item.user.lastname}</td>
-                      <td class="py-3 px-4">{item.user.email}</td>
+                      <td class="py-3 px-4">{item?.user?.firstname}</td>
+                      <td class="py-3 px-4">{item?.user?.lastname}</td>
+                      <td class="py-3 px-4">{item?.user?.email}</td>
                       <td class="py-3 px-4">
                         <a class="hover:text-blue-500" href="tel:622322662">
-                          {item.user.citizenidno}
+                          {item?.user?.citizenidno}
                         </a>
                       </td>
                       <td class=" py-3 px-4">
                         <a class="hover:text-blue-500" href="tel:622322662">
-                          {item.roomno}
+                          {item?.roomno}
                         </a>
                       </td>
                       <td class=" py-3px-4">
                         <a class="hover:text-blue-500" href="tel:622322662">
-                          {item.roomname}
+                          {item?.roomname}
                         </a>
                       </td>
                       <td class="py-3px-4">
                         <a class="hover:text-blue-500" href="tel:622322662">
-                          {item.start_date}
+                          {item?.start_date}
                         </a>
                       </td>
                       <td class="py-3 px-4">
                         <a class="hover:text-blue-500" href="tel:622322662">
-                          {item.end_date}
+                          {item?.end_date}
                         </a>
                       </td>
                       <Link to={{ pathname: '/billing', query: item }}>

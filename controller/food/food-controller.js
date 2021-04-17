@@ -44,7 +44,7 @@ router.patch('/:id', upload.array('files', 5), async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   try {
-    const data = await foodService.delete(req.params.id);
+    const data = await foodService.deleteFood(req.params.id);
     httpResponse.successHandler(res, 200, data, null, 'success');
   } catch (error) {
     httpResponse.errorHandler(res, error, 500);

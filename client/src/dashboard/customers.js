@@ -27,12 +27,13 @@ export default function Customers() {
   const search = async () => {
     try {
       const res = await searchUser(email);
-      setUsers(res?.data?.data ? [res?.data?.data] : []);
+      setUsers(res?.data?.data ? [res?.data?.data[0].user] : []);
       setLoading(false);
     } catch (error) {
       setLoading(false);
     }
   };
+
   return (
     <div class="z-20 w-full overflow-x-hidden border-t flex flex-col">
       <main class="w-full overflow-scroll flex-grow p-6">

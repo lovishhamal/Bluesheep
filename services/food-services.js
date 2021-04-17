@@ -40,10 +40,19 @@ const foodService = (() => {
     });
   };
 
+  const deleteFood = async (id) => {
+    return new Promise((resolve, reject) => {
+      food
+        .destroy({ where: { id } })
+        .then(() => resolve('Successfully deleted food.'))
+        .catch((err) => reject(err));
+    });
+  };
   return {
     add,
     get,
     update,
+    deleteFood,
   };
 })();
 

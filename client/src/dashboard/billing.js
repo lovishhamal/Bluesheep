@@ -1,14 +1,17 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getBill } from '../services/user-service';
 import Placeholder from '../common/Placeholder';
-import { Context } from '../context';
-import { Link } from 'react-router-dom';
 import Logo from '../assets/images/bluesheep_logo.png';
 import colors from '../colors/colors';
 
-const foods = [];
+let foods = [];
+let totalPrice = 0;
+let totalRoom = 0;
+const tax = 10;
+let finalPrice = 0;
 export default function Customers(props) {
   const [data, setData] = useState({ food: [], booking: [] });
+  const [booking, setBooking] = useState([]);
   const [loading, setLoading] = useState(false);
   const [food, setFood] = useState([]);
 
@@ -20,6 +23,26 @@ export default function Customers(props) {
             props.location.query.user.id,
             props?.location?.query
           );
+
+          totalRoom = data.data.data.booking
+            .map((item) => item.price)
+            .reduce((c, v) => c + v);
+
+          if (data.data.data.food.length > 0) {
+            console.log('1');
+            totalPrice = data.data.data.food
+              .map((item) => item.food[0].price)
+              .reduce((c, v) => c + v);
+          } else {
+            console.log('2');
+            totalPrice = data.d;
+            foods = [];
+            totalPrice = 0;
+          }
+
+          finalPrice = (totalPrice + totalRoom) / tax;
+
+          setBooking(data.data.data.booking);
           setData(data?.data?.data ?? { food: [], booking: [] });
           let mapItem = data?.data?.data?.food?.map((item) => {
             return {
@@ -44,13 +67,16 @@ export default function Customers(props) {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [props?.location?.query?.user?.id]);
+
+  const Print = () => {
+    window.print();
+  };
 
   return (
     <div class="z-20 w-full overflow-x-hidden border-t flex flex-col">
       <main class="w-full overflow-scroll flex-grow p-6">
-        <h1 class="text-3xl text-black pb-6">Billing</h1>
-        <div class="w-full mt-12 flex-col justify-center items-center">
+        <div class="w-full flex-col justify-center items-center">
           {loading ? (
             <Placeholder />
           ) : data ? (
@@ -94,9 +120,11 @@ export default function Customers(props) {
                 </div>
                 <div>
                   <h1 style={{ color: colors.primaryColor }}>Invoice Number</h1>
+                  <h1>{(Math.random() * 100000000).toString().slice(0, 14)}</h1>
                 </div>
                 <div>
                   <h1 style={{ color: colors.primaryColor }}>Amount Due</h1>
+                  <h1>Rs {totalPrice + totalRoom}</h1>
                 </div>
               </div>
               <div
@@ -108,38 +136,158 @@ export default function Customers(props) {
                 }}
               />
               <span style={{ marginTop: 10 }} />
-              <div className="flex-row justify-between items-start flex w-full">
-                <div>
-                  <h1 style={{ color: colors.primaryColor }}>Food</h1>
-                </div>
-                <div>
-                  <h1 style={{ color: colors.primaryColor }}>Rate</h1>
-                </div>
-                <div>
-                  <h1 style={{ color: colors.primaryColor }}>Qty</h1>
-                </div>
-                <div>
-                  <h1 style={{ color: colors.primaryColor }}>Total</h1>
-                </div>
-              </div>
-              {food.map((item) => {
-                return (
-                  <div className="flex-row justify-between items-center flex w-full">
-                    <div>
-                      <h1>{item.name}</h1>
-                    </div>
-                    <div>
-                      <h1>{item.rate}</h1>
-                    </div>
-                    <div>
-                      <h1>{item.count}</h1>
-                    </div>
-                    <div>
-                      <h1>{item.price}</h1>
+              <div class="w-full">
+                <div class="align-middle inline-block w-full shadow overflow-hidden bg-white shadow-dashboard px-8 pt-3 rounded-bl-lg rounded-br-lg">
+                  <table class="w-full">
+                    <thead>
+                      <tr>
+                        <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
+                          Food
+                        </th>
+                        <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">
+                          Rate
+                        </th>
+                        <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">
+                          Quantity
+                        </th>
+                        <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">
+                          Total
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                      {food.length > 0 &&
+                        food.map((item) => (
+                          <tr>
+                            <td class="px-6 py-4 whitespace-no-wrap">
+                              <div class="flex items-center">
+                                <div>
+                                  <div class="text-sm leading-5 text-gray-800">
+                                    {item.name}
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-no-wrap">
+                              <div class="text-sm leading-5 text-blue-900">
+                                {item.rate}
+                              </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-no-wrap text-blue-900 text-sm leading-5">
+                              {item.count}
+                            </td>
+                            <td class="px-6 py-4 whitespace-no-wrap text-blue-900 text-sm leading-5">
+                              {item.price}
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                  <div className="flex flex-col justify-end items-end w-full mt-4 mb-4">
+                    <div
+                      className="flex flex-row justify-between"
+                      style={{ width: '18%' }}
+                    >
+                      <h1 style={{ color: colors.primaryColor }}>Total</h1>
+                      <h1> Rs {totalPrice}</h1>
                     </div>
                   </div>
-                );
-              })}
+                </div>
+              </div>
+              <span style={{ marginTop: 20 }} />
+              <div class="w-full">
+                <div class="align-middle inline-block w-full shadow overflow-hidden bg-white shadow-dashboard px-8 pt-3 rounded-bl-lg rounded-br-lg">
+                  <table class="w-full">
+                    <thead>
+                      <tr>
+                        <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
+                          Room No
+                        </th>
+                        <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">
+                          Room Name
+                        </th>
+                        <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">
+                          Rate
+                        </th>
+                        <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">
+                          Checkin At
+                        </th>
+                        <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">
+                          Checkout At
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                      {booking.length > 0 &&
+                        booking.map((item) => (
+                          <tr>
+                            <td class="px-6 py-4 whitespace-no-wrap">
+                              <div class="flex items-center">
+                                <div>
+                                  <div class="text-sm leading-5 text-gray-800">
+                                    {item.roomno}
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-no-wrap">
+                              <div class="text-sm leading-5 text-blue-900">
+                                {item.roomname}
+                              </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-no-wrap text-blue-900 text-sm leading-5">
+                              {item.price}
+                            </td>
+                            <td class="px-6 py-4 whitespace-no-wrap text-blue-900 text-sm leading-5">
+                              {item.start_date}
+                            </td>
+                            <td class="px-6 py-4 whitespace-no-wrap text-blue-900 text-sm leading-5">
+                              {item.end_date}
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                  <div className="flex flex-col justify-end items-end w-full mt-4 mb-4">
+                    <div
+                      className="flex flex-row justify-between"
+                      style={{ width: '18%' }}
+                    >
+                      <h1 style={{ color: colors.primaryColor }}>Total</h1>
+                      <h1> Rs {totalRoom}</h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-row justify-end items-end w-full mt-4">
+                <div className="flex flex-col justify-end items-end w-full mt-4">
+                  <h1>Sub Total</h1>
+                  <span style={{ marginTop: 10 }} />
+                  <h1>Tax</h1>
+                  <span style={{ marginTop: 10 }} />
+                  <h1 style={{ color: colors.primaryColor }}>Grand Total</h1>
+                </div>
+                <span style={{ marginRight: '5%' }} />
+                <div
+                  className="flex flex-col justify-start items-start"
+                  style={{ width: '7%' }}
+                >
+                  <h1>Rs {totalPrice + totalRoom}</h1>
+                  <span style={{ marginTop: 10 }} />
+                  <h1>{`${tax}%`}</h1>
+                  <span style={{ marginTop: 10 }} />
+                  <h1>Rs {totalPrice + totalRoom + finalPrice}</h1>
+                </div>
+              </div>
+              <div className="flex justify-end items-end w-full">
+                <button
+                  type="button"
+                  class="inline-flex justify-center w-2/12 rounded-md border border-transparent px-4 py-2 bg-blue-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5 mt-5"
+                  onClick={Print}
+                >
+                  Print
+                </button>
+              </div>
             </div>
           ) : (
             <h1>No billing found</h1>
@@ -149,18 +297,3 @@ export default function Customers(props) {
     </div>
   );
 }
-
-/* <div class="mt-6">
-                <button class="flex items-center justify-between w-full bg-white rounded-md border-2 border-blue-500 p-4 focus:outline-none">
-                  <label class="flex items-center">
-                    <input
-                      type="radio"
-                      class="form-radio h-5 w-5 text-blue-600"
-                      checked
-                    />
-                    <span class="ml-2 text-sm text-gray-700">MS Delivery</span>
-                  </label>
-
-                  <span class="text-gray-600 text-sm">$18</span>
-                </button>
-              </div>*/

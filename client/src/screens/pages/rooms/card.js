@@ -148,8 +148,11 @@ export default function RoomCard({ item, id }) {
       message();
       return;
     }
+    const today = new Date();
+    const yesterday = new Date(today);
 
-    if (startDate < new Date()) return invalid();
+    yesterday.setDate(yesterday.getDate() - 1);
+    if (startDate <= yesterday) return invalid();
     confirm(item, startDate, endDate, history);
   };
 

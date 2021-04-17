@@ -106,11 +106,17 @@ const userService = (() => {
   };
 
   const bill = (id, body) => {
+    console.log('bosy -> ', id, body);
     return new Promise(async (resolve, reject) => {
       const food = order.findAll({
         where: {
-          // user_id: id,
-          order_date: { [Op.gte]: new Date('2021-04-15') },
+          user_id: id,
+          order_date: {
+            [Op.and]: {
+              [Op.gte]: new Date(body.start_date),
+              [Op.lte]: new Date(body.end_date),
+            },
+          },
         },
         include: [{ model: Food }],
       });

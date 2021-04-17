@@ -5,6 +5,7 @@ import { Context } from '../context';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { getFood } from '../services/food';
+import { deleteFood } from '../services/food';
 
 export default function Rooms() {
   const [food, setFood] = useState([]);
@@ -22,6 +23,8 @@ export default function Rooms() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
+          deleteFood(id);
+          setFood(food.filter((item) => item.id !== id));
           Swal.fire('Deleted!', 'Your booking has been deleted.', 'success');
         } catch (error) {}
       }

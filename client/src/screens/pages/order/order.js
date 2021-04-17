@@ -21,7 +21,7 @@ const MyOrder = (props) => {
       if (result.isConfirmed) {
         try {
           await deleteMyOrder(id);
-          setstate(state.filter((data) => data.id !== id));
+          setstate(state.filter((data) => data.itemId !== id));
           Swal.fire('Deleted!', 'Your order has been deleted.', 'success');
         } catch (error) {}
       }
@@ -37,7 +37,14 @@ const MyOrder = (props) => {
           if (data.status === 400) {
             setstate([]);
           } else {
-            setstate(data.data.data.flatMap((item) => item.food));
+            setstate(
+              data.data.data.map((item) => {
+                return {
+                  ...item.food[0],
+                  itemId: item.id,
+                };
+              })
+            );
           }
         })
         .catch((err) => setstate([]));
@@ -100,7 +107,7 @@ const MyOrder = (props) => {
                   <td class="text-left py-3 px-4 heading">
                     <button
                       class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-3 rounded"
-                      onClick={() => deleteRoom(item.id)}
+                      onClick={() => deleteRoom(item.itemId)}
                     >
                       Delete
                     </button>

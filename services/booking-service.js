@@ -47,21 +47,25 @@ const roomService = (() => {
       users
         .findOne({ where: { email } })
         .then((res) => {
-          booking
-            .findAll({
-              where: {
-                status: 'Occupied',
-                user_id: res.dataValues.id,
-              },
-              include: [
-                {
-                  model: users,
+          if (res) {
+            booking
+              .findAll({
+                where: {
+                  status: 'Occupied',
+                  user_id: res.dataValues.id,
                 },
-              ],
-              order: [['start_date', 'ASC']],
-            })
-            .then((data) => resolve(data))
-            .catch((err) => reject(err));
+                include: [
+                  {
+                    model: users,
+                  },
+                ],
+                order: [['start_date', 'ASC']],
+              })
+              .then((data) => resolve(data))
+              .catch((err) => reject(err));
+          } else {
+            resolve(null);
+          }
         })
         .catch((err) => reject(err));
     });
