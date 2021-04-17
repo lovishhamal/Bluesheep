@@ -184,11 +184,9 @@ export default function Customers(props) {
                     </tbody>
                   </table>
                   <div className="flex flex-col justify-end items-end w-full mt-4 mb-4">
-                    <div
-                      className="flex flex-row justify-between"
-                      style={{ width: '18%' }}
-                    >
+                    <div className="flex flex-row justify-between">
                       <h1 style={{ color: colors.primaryColor }}>Total</h1>
+                      <span style={{ marginRight: 40 }} />
                       <h1> Rs {totalPrice}</h1>
                     </div>
                   </div>
@@ -249,11 +247,9 @@ export default function Customers(props) {
                     </tbody>
                   </table>
                   <div className="flex flex-col justify-end items-end w-full mt-4 mb-4">
-                    <div
-                      className="flex flex-row justify-between"
-                      style={{ width: '18%' }}
-                    >
+                    <div className="flex flex-row justify-between">
                       <h1 style={{ color: colors.primaryColor }}>Total</h1>
+                      <span style={{ marginRight: 40 }} />
                       <h1> Rs {totalRoom}</h1>
                     </div>
                   </div>
@@ -267,10 +263,10 @@ export default function Customers(props) {
                   <span style={{ marginTop: 10 }} />
                   <h1 style={{ color: colors.primaryColor }}>Grand Total</h1>
                 </div>
-                <span style={{ marginRight: '5%' }} />
+                <span style={{ marginRight: 10 }} />
                 <div
-                  className="flex flex-col justify-start items-start"
-                  style={{ width: '7%' }}
+                  className="flex flex-col justify-end items-end"
+                  style={{ width: '10%' }}
                 >
                   <h1>Rs {totalPrice + totalRoom}</h1>
                   <span style={{ marginTop: 10 }} />
