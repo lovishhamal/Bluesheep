@@ -4,11 +4,14 @@ import Card from './card';
 
 const Findroom = ({ data, modal }) => {
   const [state, setstate] = useState([]);
+  const [match, setmatch] = useState([]);
   const [loading, setloading] = useState(true);
+
   useEffect(() => {
     const fetch = async () => {
       const result = await getFindRooms(data);
-      setstate(result.data);
+      setstate(result.data.filter((item) => !item.match));
+      setmatch(result.data.filter((item) => item.match));
       setloading(!loading);
     };
 
@@ -60,9 +63,35 @@ const Findroom = ({ data, modal }) => {
               aria-labelledby="modal-headline"
             >
               <hr style={{ marginTop: '50px' }} />
-              {state.map((item, i) => (
-                <Card key={i} item={item} />
-              ))}
+              {match.length > 0 && (
+                <h1
+                  style={{
+                    marginTop: 20,
+                    fontSize: 25,
+                    fontWeight: 'bold',
+                  }}
+                  className="flex w-full items-center justify-center"
+                >
+                  Best Matched Rooms
+                </h1>
+              )}
+              <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                {match.length > 0 &&
+                  match.map((item, i) => <Card key={i} item={item} />)}
+                <h1
+                  style={{
+                    marginTop: 20,
+                    fontSize: 25,
+                    fontWeight: 'bold',
+                  }}
+                  className="flex w-full items-center justify-center"
+                >
+                  Matched Rooms
+                </h1>
+                {state.map((item, i) => (
+                  <Card key={i} item={item} />
+                ))}
+              </div>
             </div>
           ) : (
             !loading && (
