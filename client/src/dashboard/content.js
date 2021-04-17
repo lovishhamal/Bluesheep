@@ -44,10 +44,14 @@ export default function Content() {
         let data = await getBookingService();
 
         setCustomer(
-          data?.data?.data?.filter((item) => item.status !== 'Booked') ?? []
+          data?.data?.data?.filter(
+            (item) => item.status !== 'Booked' && item.status !== 'Checkout'
+          ) ?? []
         );
         setCustomerData(
-          data?.data?.data?.filter((item) => item.status !== 'Booked') ?? []
+          data?.data?.data?.filter(
+            (item) => item.status !== 'Booked' && item.status !== 'Checkout'
+          ) ?? []
         );
         setBookings(
           data?.data?.data?.filter((item) => item.status === 'Booked') ?? []

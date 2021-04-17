@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getBill } from '../services/user-service';
+import { getBill, checkout } from '../services/user-service';
 import Placeholder from '../common/Placeholder';
 import Logo from '../assets/images/bluesheep_logo.png';
 import colors from '../colors/colors';
@@ -69,8 +69,11 @@ export default function Customers(props) {
     })();
   }, [props?.location?.query?.user?.id]);
 
-  const Print = () => {
-    window.print();
+  const Print = async () => {
+    try {
+      await checkout(props?.location?.query?.id);
+      window.print();
+    } catch (error) {}
   };
 
   return (

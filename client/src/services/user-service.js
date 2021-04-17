@@ -24,4 +24,12 @@ const getBill = async (id, data) => {
   });
 };
 
-export { getUser, searchUser, getBill };
+const checkout = async (id) => {
+  return new Promise((resolve, reject) => {
+    Api.get(`/checkout/${id}`)
+      .then((data) => resolve(data))
+      .catch((err) => reject(err));
+  });
+};
+
+export { getUser, searchUser, getBill, checkout };

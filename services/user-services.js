@@ -106,7 +106,6 @@ const userService = (() => {
   };
 
   const bill = (id, body) => {
-    console.log('bosy -> ', id, body);
     return new Promise(async (resolve, reject) => {
       const food = order.findAll({
         where: {
@@ -133,6 +132,15 @@ const userService = (() => {
     });
   };
 
+  const checkout = (id) => {
+    return new Promise((resolve, reject) => {
+      book
+        .update({ status: 'Checkout' }, { where: { id } })
+        .then((data) => resolve(data))
+        .catch((err) => reject(err));
+    });
+  };
+
   return {
     register,
     login,
@@ -140,6 +148,7 @@ const userService = (() => {
     patch,
     search,
     bill,
+    checkout,
   };
 })();
 
