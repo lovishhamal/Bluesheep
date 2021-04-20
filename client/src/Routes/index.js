@@ -12,6 +12,7 @@ import SignUp from '../screens/pages/account/sing-up';
 import RoomDetail from '../screens/pages/details/details';
 import MyBooking from '../screens/pages/mybooking/mybooking';
 import MyOrder from '../screens/pages/order/order';
+import MyBill from '../screens/pages/bill/bill';
 import Culinary from '../screens/pages/culinary/culinary';
 import Food from '../dashboard/food';
 import OurService from '../screens/pages/ourservices/ourservice';
@@ -78,6 +79,12 @@ export default function Index() {
           layout={Navbar}
           exact
           component={requireAuth(MyOrder)}
+        />
+        <AppRoute
+          path="/mybill"
+          layout={Navbar}
+          exact
+          component={requireAuth(MyBill)}
         />
         <AppRoute
           path="/about"

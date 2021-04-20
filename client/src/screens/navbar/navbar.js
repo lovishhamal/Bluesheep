@@ -28,7 +28,7 @@ export default function Navbar({ profile }) {
 
   return (
     <div className="navbar-container">
-      <div></div>
+      <div />
       <div className="navbar-main ">
         <div>
           <Sidebar

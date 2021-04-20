@@ -5,6 +5,7 @@ import jwt_decode from 'jwt-decode';
 import './booking.css';
 import { Context } from '../../../context';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const Mybooking = (props) => {
   const [state, setstate] = useState([]);
@@ -91,6 +92,9 @@ const Mybooking = (props) => {
                 Checkout Date
               </th>
               <th class="text-left py-3 px-3 uppercase font-semibold text-sm heading">
+                Bill
+              </th>
+              <th class="text-left py-3 px-3 uppercase font-semibold text-sm heading">
                 Action
               </th>
             </tr>
@@ -111,6 +115,14 @@ const Mybooking = (props) => {
                   </td>
                   <td class="text-left py-3 px-4  heading">
                     {new Date(item.end_date).toString().slice(0, 15)}
+                  </td>
+                  <td class="text-left py-3 px-4 heading">
+                    <Link
+                      to={{ pathname: '/mybill', query: item }}
+                      class="bg-blue-500 hover:bg-red-700 text-white font-bold py-2 px-3 rounded"
+                    >
+                      Bill
+                    </Link>
                   </td>
                   <td class="text-left py-3 px-4 heading">
                     <button

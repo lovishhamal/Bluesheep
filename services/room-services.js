@@ -5,6 +5,7 @@ const moment = require('moment');
 const admin = require('../firebase-config');
 const notif = require('../database/models/notification-token');
 const ntfs = require('../database/models/notifications');
+const User = require('../database/models/register-user');
 
 const notification_options = {
   priority: 'high',
@@ -115,7 +116,7 @@ const roomService = (() => {
   const getBooking = async (id) => {
     return new Promise((resolve, reject) => {
       booking
-        .findAll({ where: { user_id: id } })
+        .findAll({ where: { user_id: id }, include: [{ model: User }] })
         .then((data) => resolve(data))
         .catch(() => reject('Couldnot get rooms'));
     });
@@ -132,6 +133,7 @@ const roomService = (() => {
         .catch(() => reject('Couldnot get rooms'));
     });
   };
+
   const deleteRoom = async (id) => {
     return new Promise((resolve, reject) => {
       rooms
