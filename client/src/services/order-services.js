@@ -29,5 +29,12 @@ const deleteMyOrder = async (id) => {
       .catch((err) => reject(err));
   });
 };
+const getDates = async (id) => {
+  return new Promise((resolve, reject) => {
+    Api.get(`/booking/dates/${id}`)
+      .then((data) => resolve(data))
+      .catch((err) => reject(err));
+  });
+};
 
-export { addOrder, getOrder, getMyOrder, deleteMyOrder };
+export { addOrder, getOrder, getMyOrder, deleteMyOrder, getDates };

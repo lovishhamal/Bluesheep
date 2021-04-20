@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { addOrder } from '../../../services/order-services';
+import { addOrder, getDates } from '../../../services/order-services';
 import { getFood } from '../../../services/food';
 import decode from 'jwt-decode';
 import Swal from 'sweetalert2';
+import jwt_decode from 'jwt-decode';
+import { getToken } from '../../../utils';
 
 const errors = (error) => {
   const Toast = Swal.mixin({
@@ -37,13 +39,37 @@ const confirm = (id, user_id) => {
   });
 };
 
+const invalid = () => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+
+  Toast.fire({
+    icon: 'error',
+    title: 'Order cannot be made',
+  });
+};
+
 export default (props) => {
   const [foods, setFoods] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [bookStatus, setbookStatus] = useState(null);
   useEffect(() => {
     (async () => {
       try {
+        const token = await getToken();
+        const decode = jwt_decode(token);
         const response = await getFood();
+        const dates = await getDates(decode.data.id);
+
+        setbookStatus(dates.data.data.map((item) => item.status));
         setFoods(response?.data?.data ?? []);
         setLoading(false);
       } catch (error) {
@@ -54,6 +80,8 @@ export default (props) => {
 
   const Order = async (id) => {
     try {
+      console.log('bookstatus -> ', bookStatus);
+      if (!bookStatus.includes('Occupied')) return invalid();
       const user_id = decode(props.token).data.id;
       if (!user_id) throw new Error();
       confirm(id, user_id);

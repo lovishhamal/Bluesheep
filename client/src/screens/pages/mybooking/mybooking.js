@@ -7,6 +7,17 @@ import { Context } from '../../../context';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 
+const color = {
+  Occupied: 'green',
+  Booked: 'yellow',
+  Checkout: 'red',
+};
+
+const textColor = {
+  Occupied: 'white',
+  Booked: 'black',
+  Checkout: 'white',
+};
 const Mybooking = (props) => {
   const [state, setstate] = useState([]);
   const { deletebooking } = useContext(Context);
@@ -92,6 +103,9 @@ const Mybooking = (props) => {
                 Checkout Date
               </th>
               <th class="text-left py-3 px-3 uppercase font-semibold text-sm heading">
+                Status
+              </th>
+              <th class="text-left py-3 px-3 uppercase font-semibold text-sm heading">
                 Bill
               </th>
               <th class="text-left py-3 px-3 uppercase font-semibold text-sm heading">
@@ -115,6 +129,18 @@ const Mybooking = (props) => {
                   </td>
                   <td class="text-left py-3 px-4  heading">
                     {new Date(item.end_date).toString().slice(0, 15)}
+                  </td>
+                  <td class="text-left py-3 px-4 heading">
+                    <p
+                      style={{
+                        backgroundColor: color[item.status],
+                        color: textColor[item.status],
+                        textAlign: 'center',
+                        borderRadius: 4,
+                      }}
+                    >
+                      {item.status}
+                    </p>
                   </td>
                   <td class="text-left py-3 px-4 heading">
                     <Link

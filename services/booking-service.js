@@ -70,10 +70,30 @@ const roomService = (() => {
         .catch((err) => reject(err));
     });
   };
+
+  const dates = async (id) => {
+    return new Promise((resolve, reject) => {
+      booking
+        .findAll({
+          where: {
+            user_id: id,
+          },
+          attributes: ['start_date', 'end_date', 'status'],
+        })
+        .then((data) => {
+          if (data) {
+            resolve(data);
+          }
+        })
+        .catch(() => reject('Couldnot get rooms'));
+    });
+  };
+
   return {
     get,
     update,
     searchBooked,
+    dates,
   };
 })();
 
