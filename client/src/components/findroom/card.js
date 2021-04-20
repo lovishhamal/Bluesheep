@@ -33,6 +33,16 @@ const Card = ({ item }) => {
               {item.description}
             </p>
           </div>
+          <div class="mt-2">
+            <p class="text-sm leading-5 text-gray-500 capitalize">
+              Extra: {item.extra}
+            </p>
+          </div>
+          <div class="mt-2">
+            <p class="text-sm leading-5 text-gray-500 capitalize">
+              Price: Rs {item.price}
+            </p>
+          </div>
         </div>
       </div>
       <div class="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">

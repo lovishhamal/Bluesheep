@@ -7,7 +7,6 @@ import img from './landing.jpg';
 import FindRoom from '../../../components/findroom/findroom';
 import { Context } from '../../../context';
 import Swal from 'sweetalert2';
-import Search from '../../../assets/icons/search.svg';
 
 let startDate = '';
 let endDate = '';
@@ -33,7 +32,7 @@ const invalid = () => {
 export default function Landingpage() {
   const { selectRoom, selectCapacity } = useContext(Context);
   const [modal, setmodal] = useState(false);
-  const [query, setQuery] = useState(null);
+
   useEffect(() => {
     const set = () => {
       setstate({ room: selectRoom[0], guest: selectCapacity[0] });
@@ -45,8 +44,6 @@ export default function Landingpage() {
   }, [selectRoom, selectCapacity]);
 
   const [state, setstate] = useState({ room: '', guest: '' });
-  const [lookup, setLookup] = useState(false);
-
   const date = new Date();
   const tomorrow = new Date(date.getTime());
   tomorrow.setDate(date.getDate() + 1);
@@ -72,54 +69,9 @@ export default function Landingpage() {
   return (
     <div>
       {modal && (
-        <FindRoom
-          data={{ ...state, startDate, endDate, lookup }}
-          modal={setmodal}
-        />
+        <FindRoom data={{ ...state, startDate, endDate }} modal={setmodal} />
       )}
-      {lookup && (
-        <div
-          class="main-modal fixed w-full inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster"
-          style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
-        >
-          <div class="border border-teal-500 shadow-lg modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-            <div class="modal-content py-4 text-left px-6">
-              <div class="flex justify-between items-center pb-3">
-                <p class="text-2xl font-bold">
-                  Describe what kind of room you like.
-                </p>
-              </div>
-              <div class="my-5 w-full">
-                <textarea
-                  style={{
-                    borderWidth: 1,
-                    width: '100%',
-                    height: 100,
-                    borderRadius: 8,
-                    padding: 5,
-                    outline: 'none',
-                  }}
-                  onChange={(e) => setQuery(e.target.value)}
-                />
-              </div>
-              <div class="flex justify-end pt-2">
-                <button
-                  class="focus:outline-none modal-close px-4 bg-gray-400 p-3 rounded-lg text-black hover:bg-gray-300"
-                  onClick={() => setLookup(false)}
-                >
-                  Cancel
-                </button>
-                <button
-                  class="focus:outline-none px-4 bg-teal-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400"
-                  onClick={() => setLookup(false)}
-                >
-                  Confirm
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+
       <section className="w-full h-screen z-10">
         <div className="landing pt-20" style={{ height: '73vh' }}>
           <div class="text-center self-center">
@@ -245,15 +197,6 @@ export default function Landingpage() {
                     </svg>
                   </div>
                 </div>
-              </div>
-              <div
-                style={{ cursor: 'pointer' }}
-                onClick={() => setLookup(true)}
-              >
-                <img
-                  src={Search}
-                  style={{ height: 40, width: 150, borderRadius: 40 }}
-                />
               </div>
               <div className="mobile-footer">
                 <button

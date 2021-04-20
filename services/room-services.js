@@ -179,28 +179,10 @@ const roomService = (() => {
 
           return resolve(rooms);
         }
-
         let filterRooms = findAllRooms.filter(
           (val) => val.roomname === body.room && val.capacity == body.guest
         );
-
-        resolve(
-          filterRooms.concat([
-            {
-              id: 45,
-              roomno: 101,
-              roomname: 'Match Room',
-              price: 990,
-              capacity: 1,
-              description: 'Best match',
-              bed: 1,
-              bathroom: '1',
-              extra: 'Free WIFI',
-              images: [Array],
-              match: true,
-            },
-          ])
-        );
+        resolve(filterRooms);
       } catch (error) {
         reject(error);
       }

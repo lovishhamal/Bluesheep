@@ -32,6 +32,7 @@ export default function RoomsPricing({ data }) {
   const { allRooms, minPrice, midPrice, maxPrice } = data;
   const { onChangePrice, handleChange } = useContext(Context);
   const [isMobileView, setisMobileView] = useState(false);
+  const [query, setQuery] = useState(null);
   const rooms = getUnique(allRooms, 'roomname');
   const capacity = getUnique(allRooms, 'capacity');
 
@@ -42,7 +43,7 @@ export default function RoomsPricing({ data }) {
 
   return (
     <div className="z-40 pt-12 flex items-center justify-center">
-      <div class="px-10 py-2 bg-white shadow-lg rounded-lg w-9/12">
+      <div class="px-10 py-2 bg-white shadow-lg rounded-lg w-11/12">
         <div className={mobileView}>
           <div class="w-full px-3 mb-6 md:mb-0 item mr-10">
             <div class="relative">
@@ -128,6 +129,22 @@ export default function RoomsPricing({ data }) {
                 Rs {maxPrice}
               </p>
             </div>
+          </div>
+          <div class="w-full px-3 mb-6 md:mb-0 item lg:ml-10 md:ml-10">
+            <p class="tracking-wide uppercase text-sm font-bold text-gray-700">
+              Filter features
+            </p>
+            <input
+              style={{
+                borderWidth: 1,
+                width: '100%',
+                height: 50,
+                borderRadius: 8,
+                padding: 5,
+                outline: 'none',
+              }}
+              onChange={(e) => setQuery(e.target.value)}
+            />
           </div>
         </div>
         <div className="mobile-view">
