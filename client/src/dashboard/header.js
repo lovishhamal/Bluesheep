@@ -56,21 +56,23 @@ export default function Header() {
         </svg>
         <button
           onClick={() => setaccount(!account)}
-          class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none"
+          class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400"
         >
           <img src="https://source.unsplash.com/uJ8LNVCBjFQ/400x400" />
         </button>
         {account && (
           <div
-            class="absolute w-48 bg-white rounded-lg shadow-lg py-2 mt-16 z-100"
-            style={{ zIndex: 100 }}
+            class="absolute w-48 bg-white rounded-lg shadow-lg py-2"
+            style={{ zIndex: 100, marginTop: '80%' }}
             onClick={() => {
               removeToken();
               setaccount(!account);
               history.push('/');
             }}
           >
-            <button class="block px-4 py-2 account-link">Sign Out</button>
+            <button class="block px-4 py-2 account-link w-full">
+              Sign Out
+            </button>
           </div>
         )}
       </div>

@@ -95,7 +95,12 @@ export default () => {
                 Rs.25000
               </span>
               <button class="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
-                Buy
+                <a
+                  href="tel:9860903667"
+                  onclick="ga('send', 'event', { eventCategory: 'Contact', eventAction: 'Call', eventLabel: 'Mobile Button'});"
+                >
+                  <p class="call-button">Call</p>
+                </a>
               </button>
             </div>
           </div>
