@@ -121,12 +121,6 @@ export default function Navbar({ profile }) {
                       {profile?.firstname ?? profile.name} {profile.lastname}
                     </span>
                     <Link
-                      to="#"
-                      class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
-                    >
-                      Account settings
-                    </Link>
-                    <Link
                       to="/mybooking"
                       class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
                     >

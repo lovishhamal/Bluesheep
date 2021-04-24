@@ -86,12 +86,7 @@ export default function Index() {
           exact
           component={requireAuth(MyBill)}
         />
-        <AppRoute
-          path="/about"
-          layout={Navbar}
-          exact
-          component={requireAuth(About)}
-        />
+        <AppRoute path="/about" layout={Navbar} exact component={About} />
         <AppRoute
           path="/admin/login"
           layout={Navbar}

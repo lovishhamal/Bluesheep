@@ -2,14 +2,18 @@ import React, { useContext } from 'react';
 import { Context } from '../../../context';
 import RoomFilter from './room-filter';
 import RoomList from './rooms-list';
-import Loading from './loading';
 import Colors from '../../../colors/colors';
+import PlaceHolder from '../../../common/Placeholder';
 
 export default function Roomcontainer() {
   const state = useContext(Context);
 
   if (state.loading) {
-    return <Loading />;
+    return (
+      <div class="px-10 mt-10">
+        <PlaceHolder />
+      </div>
+    );
   } else {
     return (
       <div

@@ -70,7 +70,12 @@ export default function Addcustomer(props) {
   const onSubmit = (e) => {
     e.preventDefault();
     try {
-      if (startDate < new Date()) return invalid();
+      const today = new Date();
+      const yesterday = new Date(today);
+
+      yesterday.setDate(yesterday.getDate() - 1);
+      if (startDate <= yesterday) return invalid();
+
       bookRoom({
         user_id: rooms.user_id,
         start_date: startDate,

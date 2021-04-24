@@ -20,6 +20,9 @@ const Food = db.define('food', {
   images: {
     type: Sequalize.ARRAY(Sequalize.STRING),
   },
+  show: {
+    type: Sequalize.BOOLEAN,
+  },
 });
 
 module.exports = Food;

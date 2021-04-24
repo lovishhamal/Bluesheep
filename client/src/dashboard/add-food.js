@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { addFood, editFood } from '../services/food';
-
+import { useHistory } from 'react-router-dom';
 const error = (error) => {
   const Toast = Swal.mixin({
     toast: true,
@@ -24,33 +24,35 @@ const Success = (msg) => {
     showConfirmButton: false,
     timer: 1500,
   });
-  window.location.reload('/addroom');
 };
 
 const isValid = (form) => {
   let valid = true;
   Object.values(form).forEach((val) => {
-    val == '' && (valid = false);
+    val === '' && (valid = false);
   });
   return valid;
 };
 
 export default function Addfood(props) {
+  let history = useHistory();
   const [images, setimages] = useState([]);
   const [imagepath, setImagePath] = useState([]);
-
   const [form, setform] = useState({
     name: '',
     price: '',
     description: '',
+    show: true,
   });
   useEffect(() => {
+    console.log('props?.location?.query -> ', props?.location?.query);
     if (props?.match?.params?.id === 'edit') {
       setform(props?.location?.query);
       setimages(props?.location?.query?.images);
       setImagePath(props?.location?.query?.images);
     }
   }, []);
+
   const onSubmit = (e) => {
     e.preventDefault();
     if (!isValid(form) || images.length < 1) {
@@ -67,12 +69,14 @@ export default function Addfood(props) {
       editFood(props?.location?.query.id, formData)
         .then(({ data }) => {
           Success('Success');
+          history.push('/foods');
         })
         .catch((err) => error('error'));
     } else {
       addFood(formData)
         .then(({ data }) => {
           if (data.status == 200) {
+            window.location.reload('/add-food');
             return Success(data.message);
           }
           return error(data.message);
@@ -165,7 +169,6 @@ export default function Addfood(props) {
                 <h1 class="pt-8 pb-3 font-semibold sm:text-lg text-gray-900">
                   To Upload
                 </h1>
-
                 <ul id="gallery" class="flex flex-1 flex-wrap -m-1">
                   <li
                     id="empty"
@@ -205,6 +208,17 @@ export default function Addfood(props) {
                     )}
                   </li>
                 </ul>
+                <div class="flex flex-row items-center justify-start">
+                  <input
+                    type="checkbox"
+                    id="vehicle1"
+                    name="vehicle1"
+                    checked={form?.show}
+                    onClick={() => setform({ ...form, show: !form.show })}
+                  />
+                  <span style={{ marginLeft: 10 }} />
+                  <label for="vehicle1">Show</label>
+                </div>
               </section>
             </article>
             <footer class="flex justify-start pt-8">
