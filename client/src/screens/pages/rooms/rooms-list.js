@@ -17,7 +17,7 @@ export default function RoomsPricing({ data, setvalue }) {
     set();
   }, []);
   return (
-    <div class="flex flex-row flex-wrap w-screen h-full justify-center">
+    <div class="flex flex-row flex-wrap w-screen justify-center">
       {data.map((val) => (
         <Card item={val} setvalue={setvalue} id={state} />
       ))}

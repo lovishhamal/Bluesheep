@@ -41,7 +41,7 @@ export default function Menu() {
           to="/foods"
           class="flex items-center active-nav-link text-white py-4 pl-6 nav-item w-64"
         >
-          <i class="fas fa-food mr-3"></i>
+          <i class="fas fa-utensils mr-3"></i>
           Foods
         </Link>
         <div style={{ marginTop: 10 }} />

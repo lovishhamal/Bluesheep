@@ -259,7 +259,7 @@ export default function SignIn(props) {
             </button>
             <Link
               class="inline-block ml-6 align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-              to="/login"
+              to="//admin/login"
             >
               Already Sign up ?
             </Link>

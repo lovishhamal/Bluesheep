@@ -107,7 +107,7 @@ export default function Addcustomer(props) {
     <div className="z-20 overflow-x-hidden flex justify-center">
       <div class="scroll w-full lg:w-1/2 mt-6 pl-0 lg:pl-2">
         <p class="text-xl pb-6 flex items-center">
-          <i class="fas fa-list mr-3"></i> Add Customer
+          <i class="fas fa-list mr-3"></i> Create Booking
         </p>
         <div class="leading-loose">
           <form class="p-10 bg-white rounded shadow-xl">

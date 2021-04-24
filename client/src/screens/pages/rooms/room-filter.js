@@ -1,10 +1,7 @@
 import React, { useState, useContext } from 'react';
-
 import { makeStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
-import Typography from '@material-ui/core/Typography';
 import './style.css';
-
 import { Context } from '../../../context';
 
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +29,6 @@ export default function RoomsPricing({ data }) {
   const { allRooms, minPrice, midPrice, maxPrice } = data;
   const { onChangePrice, handleChange } = useContext(Context);
   const [isMobileView, setisMobileView] = useState(false);
-  const [query, setQuery] = useState(null);
   const rooms = getUnique(allRooms, 'roomname');
   const capacity = getUnique(allRooms, 'capacity');
 
@@ -135,6 +131,7 @@ export default function RoomsPricing({ data }) {
               Filter features
             </p>
             <input
+              name="feature"
               style={{
                 borderWidth: 1,
                 width: '100%',
@@ -143,7 +140,7 @@ export default function RoomsPricing({ data }) {
                 padding: 5,
                 outline: 'none',
               }}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={handleChange}
             />
           </div>
         </div>

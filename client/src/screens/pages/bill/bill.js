@@ -16,7 +16,6 @@ export default function Customers(props) {
   const [loading, setLoading] = useState(false);
   const [food, setFood] = useState([]);
 
-  console.log('props -> ', props.location);
   useEffect(() => {
     (async () => {
       try {
@@ -25,7 +24,7 @@ export default function Customers(props) {
             props.location.query.user.id,
             props?.location?.query
           );
-
+          console.log('gb -> ', data.data);
           totalRoom = data.data.data.booking
             .map((item) => item.price)
             .reduce((c, v) => c + v);

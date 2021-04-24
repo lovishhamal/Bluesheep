@@ -4,7 +4,7 @@ import Colors from '../../../colors/colors';
 export default function loading() {
   return (
     <div
-      className="w-screen h-screen "
+      className="w-screen h-screen"
       style={{ backgroundColor: Colors.backgroundColor }}
     >
       <div className="flex relative py-16 h-screen">

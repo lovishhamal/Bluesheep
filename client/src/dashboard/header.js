@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-
+import { useHistory } from 'react-router-dom';
+import { removeToken } from '../utils';
 export default function Header() {
   const [account, setaccount] = useState(false);
+  let history = useHistory();
   return (
     <header class="w-full flex items-center justify-end bg-white py-2 left-0 hidden sm:flex">
       <div class="relative w-32 flex justify-between items-center mr-10">
@@ -59,15 +60,17 @@ export default function Header() {
         >
           <img src="https://source.unsplash.com/uJ8LNVCBjFQ/400x400" />
         </button>
-
         {account && (
-          <div class="absolute w-48 bg-white rounded-lg shadow-lg py-2 mt-16">
-            <Link
-              href="#"
-              class="block px-4 py-2 account-link hover:text-white"
-            >
-              Sign Out
-            </Link>
+          <div
+            class="absolute w-48 bg-white rounded-lg shadow-lg py-2 mt-16 z-100"
+            style={{ zIndex: 100 }}
+            onClick={() => {
+              removeToken();
+              setaccount(!account);
+              history.push('/');
+            }}
+          >
+            <button class="block px-4 py-2 account-link">Sign Out</button>
           </div>
         )}
       </div>

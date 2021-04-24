@@ -19,6 +19,7 @@ class ContextProvider extends Component {
     user_id: null,
     email: null,
     name: null,
+    feature: '',
   };
 
   getUnique(items, value) {
@@ -62,7 +63,7 @@ class ContextProvider extends Component {
   };
 
   filterRooms = () => {
-    let { allRooms, price, guest, capacity } = this.state;
+    let { allRooms, price, guest, capacity, feature } = this.state;
     let temprooms = allRooms;
 
     price = parseInt(price);
@@ -74,6 +75,12 @@ class ContextProvider extends Component {
 
     if (capacity !== 1) {
       temprooms = temprooms.filter((room) => room.capacity === capacity);
+    }
+
+    if (feature) {
+      temprooms = temprooms.filter((item) =>
+        item.extra.toLowerCase().match(feature.toLowerCase())
+      );
     }
 
     temprooms = temprooms.filter((room) => room.price <= price);
