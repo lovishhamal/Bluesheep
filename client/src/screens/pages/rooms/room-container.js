@@ -17,7 +17,7 @@ export default function Roomcontainer() {
   } else {
     return (
       <div
-        className="w-screen sm:w-1/2 lg:w-screen lg:h-screen"
+        className="w-screen sm:w-1/2 lg:w-screen lg:h-full"
         style={{ backgroundColor: Colors.backgroundColor }}
       >
         <RoomFilter data={state} />

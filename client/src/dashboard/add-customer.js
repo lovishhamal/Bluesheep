@@ -104,6 +104,7 @@ export default function Addcustomer(props) {
       roomid: roomtype.id,
       bed: roomtype.bed,
       capacity: roomtype.capacity,
+      price: roomtype.price,
     });
   };
   const urooms = getUnique(rooms.allRooms, 'roomno');
@@ -184,6 +185,17 @@ export default function Addcustomer(props) {
                 disabled={true}
               >
                 <option>{room?.capacity}</option>
+              </select>
+              <label class="block text-sm text-gray-600" for="cus_name">
+                Room Price
+              </label>
+              <select
+                name="price"
+                class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-4 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="grid-state"
+                disabled={true}
+              >
+                <option>{room?.price}</option>
               </select>
             </div>
             <p class="text-lg text-gray-800 font-medium py-4">
