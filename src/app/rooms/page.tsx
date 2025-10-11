@@ -100,7 +100,7 @@ export default function RoomsPage() {
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "NPR",
+      currency: "Rs",
     }).format(price);
   };
 

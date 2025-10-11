@@ -91,7 +91,7 @@ export default function MenuPage() {
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "NPR",
+      currency: "Rs",
     }).format(price);
   };
 
@@ -155,7 +155,7 @@ export default function MenuPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-red-900 to-gray-900 text-white">
       {/* Navigation */}
-      <nav className="w-full bg-gray-900/95 backdrop-blur-sm border-b border-yellow-600/30 shadow-sm">
+      <nav className="w-full bg-slate-900/95 backdrop-blur-sm border-b border-emerald-400/30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <motion.div
