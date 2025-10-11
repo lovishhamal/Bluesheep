@@ -10,6 +10,8 @@ import {
   UserIcon,
   CalendarIcon,
   CurrencyDollarIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
 } from "@heroicons/react/24/outline";
 import { supabase } from "../util/supabase";
 import { useState, useEffect } from "react";
@@ -34,6 +36,9 @@ export default function RoomsPage() {
   const [rooms, setRooms] = useState<Room[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState<{
+    [key: string]: number;
+  }>({});
 
   // Fetch rooms from database
   useEffect(() => {
@@ -94,12 +99,29 @@ export default function RoomsPage() {
     );
   };
 
-  // Get first image or fallback
-  const getRoomImage = (images: string[]) => {
+  // Get current image for a room
+  const getCurrentRoomImage = (roomId: string, images: string[]) => {
+    const currentIndex = currentImageIndex[roomId] || 0;
     if (images && images.length > 0) {
-      return images[0];
+      return images[currentIndex];
     }
     return "/hotel-room.jpg"; // Fallback image
+  };
+
+  // Navigate to next image
+  const nextImage = (roomId: string, totalImages: number) => {
+    setCurrentImageIndex((prev) => ({
+      ...prev,
+      [roomId]: ((prev[roomId] || 0) + 1) % totalImages,
+    }));
+  };
+
+  // Navigate to previous image
+  const prevImage = (roomId: string, totalImages: number) => {
+    setCurrentImageIndex((prev) => ({
+      ...prev,
+      [roomId]: ((prev[roomId] || 0) - 1 + totalImages) % totalImages,
+    }));
   };
 
   return (
@@ -173,17 +195,65 @@ export default function RoomsPage() {
                   viewport={{ once: true }}
                   className="glass-card rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-105 float"
                 >
-                  {/* Room Image */}
-                  <div className="h-64 relative overflow-hidden">
+                  {/* Room Image Gallery */}
+                  <div className="h-64 relative overflow-hidden group">
                     <img
-                      src={getRoomImage(room.images)}
+                      src={getCurrentRoomImage(room.id, room.images)}
                       alt={room.room_name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.src = "/hotel-room.jpg";
                       }}
                     />
+
+                    {/* Navigation Arrows (only show if multiple images) */}
+                    {room.images && room.images.length > 1 && (
+                      <>
+                        <button
+                          onClick={() => prevImage(room.id, room.images.length)}
+                          className="absolute left-2 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-all duration-300 hover:scale-110 shadow-lg border border-white/20"
+                        >
+                          <ChevronLeftIcon className="w-6 h-6" />
+                        </button>
+                        <button
+                          onClick={() => nextImage(room.id, room.images.length)}
+                          className="absolute right-2 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-all duration-300 hover:scale-110 shadow-lg border border-white/20"
+                        >
+                          <ChevronRightIcon className="w-6 h-6" />
+                        </button>
+                      </>
+                    )}
+
+                    {/* Image Counter */}
+                    {room.images && room.images.length > 1 && (
+                      <div className="absolute top-2 right-2 glass px-2 py-1 rounded-full text-xs text-white">
+                        {(currentImageIndex[room.id] || 0) + 1} /{" "}
+                        {room.images.length}
+                      </div>
+                    )}
+
+                    {/* Image Indicators */}
+                    {room.images && room.images.length > 1 && (
+                      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
+                        {room.images.map((_, index) => (
+                          <button
+                            key={index}
+                            onClick={() =>
+                              setCurrentImageIndex((prev) => ({
+                                ...prev,
+                                [room.id]: index,
+                              }))
+                            }
+                            className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                              (currentImageIndex[room.id] || 0) === index
+                                ? "bg-white"
+                                : "bg-white/50 hover:bg-white/75"
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   <div className="p-6">
