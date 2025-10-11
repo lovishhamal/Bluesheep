@@ -1,0 +1,133 @@
+{
+  "businessInfo": {
+    "name": "Blue Sheep Hotel",
+    "description": "Luxury hotel in Dunai, Phoksundo offering exceptional hospitality and stunning mountain views",
+    "address": {
+      "street": "Dunai, Dolpa",
+      "city": "Dunai",
+      "region": "Karnali Province",
+      "country": "Nepal",
+      "postalCode": "21100"
+    },
+    "coordinates": {
+      "latitude": "28.9167",
+      "longitude": "82.8333"
+    },
+    "phone": "+977-XXXX-XXXX",
+    "email": "info@bluesheephotel.com",
+    "website": "https://bluesheephotel.com",
+    "businessHours": {
+      "monday": "6:00 AM - 10:00 PM",
+      "tuesday": "6:00 AM - 10:00 PM",
+      "wednesday": "6:00 AM - 10:00 PM",
+      "thursday": "6:00 AM - 10:00 PM",
+      "friday": "6:00 AM - 10:00 PM",
+      "saturday": "6:00 AM - 10:00 PM",
+      "sunday": "6:00 AM - 10:00 PM"
+    },
+    "amenities": [
+      "Free WiFi",
+      "Restaurant",
+      "Mountain View",
+      "Air Conditioning",
+      "Room Service",
+      "Parking",
+      "24/7 Reception"
+    ],
+    "localKeywords": [
+      "hotel in Dunai",
+      "hotel in Phoksundo",
+      "best hotel Phoksundo",
+      "luxury hotel Dunai",
+      "accommodation Phoksundo",
+      "Dunai hotel booking",
+      "Phoksundo accommodation",
+      "mountain hotel Nepal",
+      "Dolpa hotel",
+      "Phoksundo Lake hotel",
+      "Shey Phoksundo hotel",
+      "Dunai accommodation",
+      "Phoksundo lodging",
+      "Dolpa accommodation",
+      "Himalayan hotel",
+      "mountain view hotel Nepal"
+    ],
+    "nearbyAttractions": [
+      {
+        "name": "Phoksundo Lake",
+        "distance": "5 minutes walk",
+        "description": "Crystal clear alpine lake with stunning mountain reflections"
+      },
+      {
+        "name": "Shey Phoksundo National Park",
+        "distance": "10 minutes drive",
+        "description": "Protected area with diverse wildlife and pristine landscapes"
+      },
+      {
+        "name": "Dolpa Airport",
+        "distance": "15 minutes drive",
+        "description": "Regional airport for easy access to the area"
+      },
+      {
+        "name": "Local Monasteries",
+        "distance": "Walking distance",
+        "description": "Ancient Buddhist monasteries with rich cultural heritage"
+      },
+      {
+        "name": "Trekking Trails",
+        "distance": "Direct access",
+        "description": "World-class trekking routes through the Himalayas"
+      }
+    ],
+    "reviews": {
+      "averageRating": 4.8,
+      "totalReviews": 127,
+      "recentReviews": [
+        {
+          "rating": 5,
+          "review": "Amazing hotel with breathtaking mountain views. The service was exceptional!",
+          "author": "Sarah M.",
+          "date": "2024-01-15"
+        },
+        {
+          "rating": 5,
+          "review": "Perfect location near Phoksundo Lake. Clean, comfortable, and friendly staff.",
+          "author": "John D.",
+          "date": "2024-01-10"
+        },
+        {
+          "rating": 4,
+          "review": "Great hotel in Dunai. The mountain views from our room were incredible.",
+          "author": "Maria L.",
+          "date": "2024-01-08"
+        }
+      ]
+    }
+  },
+  "seoStrategy": {
+    "primaryKeywords": [
+      "best hotel in Phoksundo",
+      "hotel in Dunai",
+      "luxury accommodation Phoksundo",
+      "mountain hotel Nepal"
+    ],
+    "longTailKeywords": [
+      "best hotel near Phoksundo Lake",
+      "luxury hotel in Dunai Dolpa",
+      "mountain view hotel Phoksundo",
+      "accommodation near Shey Phoksundo National Park",
+      "hotel with Phoksundo Lake view",
+      "Dunai hotel with mountain views",
+      "best place to stay in Phoksundo",
+      "luxury hotel Dolpa Nepal"
+    ],
+    "contentStrategy": [
+      "Create location-specific landing pages",
+      "Optimize for 'hotel in [location]' searches",
+      "Include local landmarks and attractions",
+      "Use geo-targeted keywords throughout content",
+      "Create local business listings",
+      "Build local citations and backlinks"
+    ]
+  }
+}
