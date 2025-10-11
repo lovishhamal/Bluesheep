@@ -18,6 +18,20 @@ export default function CampingPage() {
   const handleBookingSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Validate required fields
+    if (!bookingForm.name.trim()) {
+      alert("Please enter your full name");
+      return;
+    }
+    if (!bookingForm.numberOfPeople.trim()) {
+      alert("Please enter the number of people");
+      return;
+    }
+    if (!bookingForm.arrivalDate.trim()) {
+      alert("Please select an arrival date");
+      return;
+    }
+
     const message = `Hi! I'm interested in booking a camping spot in your garden.
 
 Booking Details:
@@ -484,7 +498,7 @@ Please let me know about availability and the booking process.`;
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-6 py-3 bg-emerald-500 text-white rounded-lg font-semibold hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/30"
+                  className="flex-1 px-6 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg font-semibold hover:from-emerald-400 hover:to-emerald-500 transition-all duration-300 shadow-lg shadow-emerald-500/30 hover:shadow-emerald-400/40 transform hover:scale-105"
                 >
                   Send to WhatsApp
                 </button>

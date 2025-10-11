@@ -116,6 +116,16 @@ export default function RoomsPage() {
     e.preventDefault();
     if (!selectedRoom) return;
 
+    // Validate required fields
+    if (!bookingForm.customerName.trim()) {
+      alert("Please enter your full name");
+      return;
+    }
+    if (!bookingForm.customerPhone.trim()) {
+      alert("Please enter your phone number");
+      return;
+    }
+
     // Create WhatsApp message with form data
     const message = `Hi! I'm interested in ${
       bookingType === "book" ? "booking" : "reserving"
@@ -438,24 +448,36 @@ Please let me know about availability and booking process.`;
 
                   <div className="relative z-10">
                     {/* Room Header */}
-                    <div className="mb-4">
-                      <div className="flex flex-col gap-3 mb-3">
-                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                          <h3 className="text-xl sm:text-2xl font-bold text-white font-montserrat break-words flex-1">
+                    <div className="mb-6">
+                      <div className="flex flex-col gap-4 mb-4">
+                        <div className="flex flex-col gap-3">
+                          <h3 className="text-lg sm:text-xl font-bold text-white font-montserrat break-words">
                             {room.room_name}
                           </h3>
-                          <div className="text-left sm:text-right">
-                            <span className="text-2xl sm:text-3xl font-bold text-emerald-400 whitespace-nowrap">
+                          <div className="flex items-center text-xs text-emerald-300">
+                            <UserIcon className="w-3 h-3 mr-2" />
+                            <span>Capacity: {room.capacity} guests</span>
+                          </div>
+                        </div>
+
+                        {/* Yellow dots separator */}
+                        <div className="flex justify-center py-2">
+                          <div className="flex space-x-1">
+                            <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                            <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                            <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                          </div>
+                        </div>
+
+                        <div className="pt-2">
+                          <div className="text-center">
+                            <span className="text-xl sm:text-2xl font-bold text-emerald-400">
                               {formatPrice(room.price_per_night)}
                             </span>
-                            <p className="text-sm text-emerald-300">
+                            <p className="text-xs text-emerald-300 mt-1">
                               per night
                             </p>
                           </div>
-                        </div>
-                        <div className="flex items-center text-sm text-emerald-300">
-                          <UserIcon className="w-4 h-4 mr-2" />
-                          <span>Capacity: {room.capacity} guests</span>
                         </div>
                       </div>
                     </div>
@@ -864,7 +886,7 @@ Please let me know about availability and booking process.`;
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-6 py-3 bg-emerald-500 text-white rounded-lg font-semibold hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/30"
+                  className="flex-1 px-6 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg font-semibold hover:from-emerald-400 hover:to-emerald-500 transition-all duration-300 shadow-lg shadow-emerald-500/30 hover:shadow-emerald-400/40 transform hover:scale-105"
                 >
                   Send to WhatsApp
                 </button>

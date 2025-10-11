@@ -311,7 +311,7 @@ export default function MenuPage() {
 
       {/* Menu Items */}
       <section className="py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {loading ? (
             <div className="text-center py-20">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-lg p-8 inline-block border border-yellow-600/30">
@@ -343,7 +343,7 @@ export default function MenuPage() {
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-8 sm:gap-10 lg:gap-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
               {selectedCategory === "All"
                 ? // Show all categories as cards
                   categories.slice(1).map((category) => {
@@ -360,7 +360,7 @@ export default function MenuPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                         viewport={{ once: true }}
-                        className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 sm:p-10 lg:p-12 border border-yellow-600/30 hover:border-yellow-400/50 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-yellow-400/20 group relative overflow-hidden min-h-[500px] sm:min-h-[550px] lg:min-h-[600px] w-full"
+                        className="bg-white/5 backdrop-blur-sm rounded-2xl p-10 sm:p-12 lg:p-16 border border-yellow-600/30 hover:border-yellow-400/50 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-yellow-400/20 group relative overflow-hidden min-h-[600px] sm:min-h-[700px] lg:min-h-[800px] w-full"
                       >
                         {/* Background glow effect */}
                         <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
@@ -405,11 +405,25 @@ export default function MenuPage() {
                               <div className="mb-4">
                                 <div className="flex flex-col gap-3 mb-3">
                                   <div className="flex flex-col gap-2">
-                                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                                      <h3 className="text-xl sm:text-2xl font-semibold text-white font-montserrat break-words flex-1">
+                                    <div className="flex items-center gap-2">
+                                      <h3 className="text-lg sm:text-xl font-semibold text-white font-montserrat break-words flex-1">
                                         {item.item_name}
                                       </h3>
-                                      <span className="text-2xl sm:text-3xl font-bold text-yellow-400 whitespace-nowrap">
+
+                                      {/* Yellow dots separator */}
+                                      <div className="flex-1 flex justify-center">
+                                        <div className="flex space-x-1">
+                                          <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                                          <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                                          <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                                          <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                                          <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                                          <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                                          <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                                        </div>
+                                      </div>
+
+                                      <span className="text-xl sm:text-2xl font-bold text-yellow-400 whitespace-nowrap">
                                         {formatPrice(item.price)}
                                       </span>
                                     </div>
@@ -460,7 +474,7 @@ export default function MenuPage() {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: index * 0.1 }}
                       viewport={{ once: true }}
-                      className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 sm:p-10 lg:p-12 border border-yellow-600/30 hover:border-yellow-400/50 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-yellow-400/20 group relative overflow-hidden min-h-[400px] sm:min-h-[450px] lg:min-h-[500px] w-full"
+                      className="bg-white/5 backdrop-blur-sm rounded-2xl p-10 sm:p-12 lg:p-16 border border-yellow-600/30 hover:border-yellow-400/50 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-yellow-400/20 group relative overflow-hidden min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] w-full"
                     >
                       {/* Background glow effect */}
                       <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
@@ -484,11 +498,27 @@ export default function MenuPage() {
                         <div className="mb-6">
                           <div className="flex flex-col gap-4 mb-4">
                             <div className="flex flex-col gap-3">
-                              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                                <h3 className="text-2xl sm:text-3xl font-bold text-white font-montserrat break-words flex-1">
+                              <div className="flex items-center gap-4">
+                                <h3 className="text-xl sm:text-2xl font-bold text-white font-montserrat break-words flex-1">
                                   {item.item_name}
                                 </h3>
-                                <span className="text-3xl sm:text-4xl font-bold text-yellow-400 whitespace-nowrap">
+
+                                {/* Yellow dots separator */}
+                                <div className="flex-1 flex justify-center">
+                                  <div className="flex space-x-1">
+                                    <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                                    <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                                    <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                                    <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                                    <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                                    <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                                    <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                                    <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                                    <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                                  </div>
+                                </div>
+
+                                <span className="text-2xl sm:text-3xl font-bold text-yellow-400 whitespace-nowrap">
                                   {formatPrice(item.price)}
                                 </span>
                               </div>
