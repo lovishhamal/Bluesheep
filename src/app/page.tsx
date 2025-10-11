@@ -263,7 +263,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <motion.div
           style={{ y }}
           className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent z-10"
@@ -342,24 +342,10 @@ export default function Home() {
             )}
           </button>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            <ChevronDownIcon className="w-8 h-8 text-white" />
-          </motion.div>
-        </motion.div>
       </section>
 
       {/* Location Section */}
-      <section className="py-20 relative">
+      <section className="pt-0 pb-20 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
