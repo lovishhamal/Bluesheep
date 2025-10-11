@@ -43,14 +43,14 @@ export const getImagesFromFolder = async (
     // Filter for image files and create full URLs
     const imageFiles: StorageImage[] =
       data
-        ?.filter((file: any) => {
+        ?.filter((file: { name: string }) => {
           const extension = file.name.toLowerCase().split(".").pop();
           return ["jpg", "jpeg", "png", "webp", "gif"].includes(
             extension || ""
           );
         })
         .map(
-          (file: any): StorageImage => ({
+          (file: { name: string }): StorageImage => ({
             name: file.name,
             url: getImageUrl(bucket, folder, file.name),
             alt: file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " "),

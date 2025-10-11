@@ -1,4 +1,5 @@
-import { Metadata } from "next";
+"use client";
+
 import { motion } from "framer-motion";
 import {
   MapPinIcon,
@@ -7,19 +8,6 @@ import {
   ClockIcon,
 } from "@heroicons/react/24/outline";
 
-export const metadata: Metadata = {
-  title: "Contact Blue Sheep Hotel - Dunai, Phoksundo | Book Your Stay",
-  description:
-    "Get in touch with Blue Sheep Hotel in Dunai, Phoksundo. Book your luxury accommodation, inquire about rooms, or plan your visit to the Himalayas.",
-  keywords: [
-    "contact Blue Sheep Hotel",
-    "hotel booking Dunai",
-    "Phoksundo hotel contact",
-    "Blue Sheep Hotel phone",
-    "Dunai hotel reservation",
-    "hotel in Phoksundo contact",
-  ],
-};
 
 export default function ContactPage() {
   return (
