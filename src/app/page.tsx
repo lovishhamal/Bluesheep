@@ -274,7 +274,7 @@ export default function Home() {
                 >
                   Contact
                 </Link>
-          </div>
+              </div>
             </motion.div>
           )}
         </div>
@@ -385,7 +385,7 @@ export default function Home() {
       </section>
 
       {/* Location Section */}
-      <section className="relative -mt-20 pb-20 z-20">
+      <section className="relative pb-20 z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -394,15 +394,15 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <div className="glass-card p-8 text-center">
+            <div className="bg-slate-800/95 backdrop-blur-sm rounded-2xl p-8 text-center border border-emerald-400/30 shadow-xl">
               <h2 className="text-4xl md:text-5xl font-bold text-white font-poppins mb-6">
-              Perfectly Located in Dunai, Phoksundo
-            </h2>
+                Perfectly Located in Dunai, Phoksundo
+              </h2>
               <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Our hotel is strategically located to provide easy access to all
-              the natural wonders and cultural sites that make this region so
-              special.
-            </p>
+                Our hotel is strategically located to provide easy access to all
+                the natural wonders and cultural sites that make this region so
+                special.
+              </p>
             </div>
           </motion.div>
 
@@ -459,11 +459,11 @@ export default function Home() {
           >
             <div className="glass-card p-8 text-center">
               <h2 className="text-4xl md:text-5xl font-bold text-white font-poppins mb-6">
-              What Our Guests Say
-            </h2>
+                What Our Guests Say
+              </h2>
               <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Discover why guests love their stay at Hotel Blue Sheep Inn
-            </p>
+                Discover why guests love their stay at Hotel Blue Sheep Inn
+              </p>
             </div>
           </motion.div>
 
@@ -538,8 +538,8 @@ export default function Home() {
           >
             <div className="glass-card p-8 text-center">
               <h2 className="text-4xl md:text-5xl font-bold font-poppins mb-6 text-white">
-              Book Your Stay Today
-            </h2>
+                Book Your Stay Today
+              </h2>
               <p className="text-xl max-w-3xl mx-auto text-white/90">
                 Ready to experience the best hotel in Dunai, Phoksundo? Contact
                 us now to make your reservation.
