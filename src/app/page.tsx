@@ -385,7 +385,7 @@ export default function Home() {
       </section>
 
       {/* Location Section */}
-      <section className="pt-0 pb-20 relative">
+      <section className="relative -mt-32 pb-20 z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
