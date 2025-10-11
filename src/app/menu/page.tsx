@@ -542,19 +542,13 @@ export default function MenuPage() {
             <p className="text-gray-300 mb-6">
               Contact us to place your order or make a reservation.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-yellow-400 text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors">
-                Call to Order
-              </button>
+            <div className="flex justify-center">
               <Link
                 href="/rooms"
                 className="bg-emerald-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-emerald-400 transition-colors text-center"
               >
                 Book Now
               </Link>
-              <button className="border border-yellow-400 text-yellow-400 px-8 py-3 rounded-lg font-semibold hover:bg-yellow-400/10 transition-colors">
-                Make Reservation
-              </button>
             </div>
           </motion.div>
         </div>

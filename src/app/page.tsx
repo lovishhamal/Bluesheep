@@ -33,6 +33,11 @@ export default function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Open camping page function
+  const openCampingPage = () => {
+    window.open("/camping", "_blank");
+  };
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([
     {
       src: "/phoksundo-lake.jpg",
@@ -178,6 +183,12 @@ export default function Home() {
                 Rooms
               </Link>
               <Link
+                href="/camping"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
+              >
+                Camping
+              </Link>
+              <Link
                 href="/menu"
                 className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
               >
@@ -234,6 +245,13 @@ export default function Home() {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Rooms
+                </Link>
+                <Link
+                  href="/camping"
+                  className="block text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Camping
                 </Link>
                 <Link
                   href="/menu"
@@ -342,6 +360,28 @@ export default function Home() {
             )}
           </button>
         </div>
+
+        {/* Jumping Animated Camping Button */}
+        <motion.button
+          onClick={openCampingPage}
+          className="absolute bottom-8 right-8 z-30 w-20 h-20 bg-emerald-500 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-emerald-400 transition-colors duration-300 shadow-2xl shadow-emerald-500/50 border-2 border-emerald-300/50"
+          animate={{
+            y: [0, -15, 0],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          whileHover={{
+            scale: 1.15,
+            y: [0, -20, 0],
+            boxShadow: "0 0 30px rgba(16, 185, 129, 0.8)",
+          }}
+          aria-label="Open camping page"
+        >
+          <span className="text-2xl">🏕️</span>
+        </motion.button>
       </section>
 
       {/* Location Section */}
