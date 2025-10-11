@@ -90,7 +90,8 @@ export default function MenuPage() {
   // Format price for display
   const formatPrice = (price: number) => {
     return (
-      "Rs. " + new Intl.NumberFormat("en-US", {
+      "Rs. " +
+      new Intl.NumberFormat("en-US", {
         style: "decimal",
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
@@ -295,7 +296,7 @@ export default function MenuPage() {
             className="text-center"
           >
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-widest mb-4 font-montserrat bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 bg-clip-text text-transparent animate-pulse">
-              MENU
+              MENU - RESTAURANT
             </h1>
             <p className="text-lg sm:text-xl text-yellow-300 italic tracking-widest font-montserrat">
               Culinary Excellence

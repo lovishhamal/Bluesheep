@@ -220,7 +220,7 @@ Please let me know about availability and the booking process.`;
             className="text-center"
           >
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-widest mb-4 font-montserrat bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-400 bg-clip-text text-transparent animate-pulse">
-              GARDEN CAMPING
+              GARDEN CAMPING - OUTDOOR
             </h1>
             <p className="text-lg sm:text-xl text-emerald-300 italic tracking-widest font-montserrat">
               Experience Nature in Our Beautiful Garden
