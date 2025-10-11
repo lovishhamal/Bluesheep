@@ -90,9 +90,10 @@ export default function MenuPage() {
   // Format price for display
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "Rs",
-    }).format(price);
+      style: "decimal",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price) + " Rs";
   };
 
   // Get unique categories
