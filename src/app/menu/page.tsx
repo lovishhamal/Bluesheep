@@ -26,7 +26,7 @@ interface MenuItem {
   description: string;
   price: number;
   category: string;
-  images: string[];
+  images: string; // Changed from string[] to string
   is_available: boolean;
   created_at: string;
   updated_at: string;
@@ -41,17 +41,70 @@ export default function MenuPage() {
 
   // Fetch menu items from database
   useEffect(() => {
+    let isMounted = true; // Prevent state updates if component unmounts
+
     const fetchMenuItems = async () => {
       try {
-        setLoading(true);
         console.log("Fetching menu items from database...");
+        console.log(
+          "Supabase URL:",
+          process.env.NEXT_PUBLIC_SUPABASE_URL ? "Set" : "Not set"
+        );
+        console.log(
+          "Supabase Key:",
+          process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? "Set" : "Not set"
+        );
 
         // Check if Supabase is configured
         if (
           !process.env.NEXT_PUBLIC_SUPABASE_URL ||
           !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
         ) {
-          throw new Error("Supabase environment variables not configured");
+          console.warn(
+            "Supabase environment variables not configured, using mock data"
+          );
+          if (isMounted) {
+            // Mock data for development
+            const mockMenuItems = [
+              {
+                id: "1",
+                item_name: "Dal Bhat",
+                description: "Traditional Nepali rice and lentil curry",
+                price: 500,
+                category: "Main Course",
+                images: "/dining-area.jpg", // Changed from array to string
+                is_available: true,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+              },
+              {
+                id: "2",
+                item_name: "Momo",
+                description: "Steamed dumplings with meat or vegetables",
+                price: 300,
+                category: "Appetizer",
+                images: "/dining-area.jpg", // Changed from array to string
+                is_available: true,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+              },
+              {
+                id: "3",
+                item_name: "Thukpa",
+                description: "Nepali noodle soup with vegetables",
+                price: 400,
+                category: "Soup",
+                images: "/dining-area.jpg", // Changed from array to string
+                is_available: true,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+              },
+            ];
+            setMenuItems(mockMenuItems);
+            setError(null);
+            setLoading(false);
+          }
+          return;
         }
 
         const { data, error } = await supabase
@@ -66,25 +119,38 @@ export default function MenuPage() {
           throw error;
         }
 
-        setMenuItems(data || []);
-        console.log(
-          "Menu items loaded successfully:",
-          data?.length || 0,
-          "items"
-        );
+        if (isMounted) {
+          setMenuItems(data || []);
+          setError(null);
+          console.log(
+            "Menu items loaded successfully:",
+            data?.length || 0,
+            "items"
+          );
+        }
       } catch (err) {
         console.error("Error fetching menu items:", err);
-        setError(
-          `Failed to load menu: ${
-            err instanceof Error ? err.message : "Unknown error"
-          }`
-        );
+        if (isMounted) {
+          setError(
+            `Failed to load menu: ${
+              err instanceof Error ? err.message : "Unknown error"
+            }`
+          );
+          setMenuItems([]);
+        }
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
     fetchMenuItems();
+
+    // Cleanup function
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // Format price for display
@@ -97,6 +163,16 @@ export default function MenuPage() {
         maximumFractionDigits: 0,
       }).format(price)
     );
+  };
+
+  // Capitalize category names
+  const capitalizeCategory = (category: string) => {
+    return category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
+  };
+
+  // Capitalize item names
+  const capitalizeItemName = (itemName: string) => {
+    return itemName.charAt(0).toUpperCase() + itemName.slice(1).toLowerCase();
   };
 
   // Get unique categories
@@ -306,7 +382,7 @@ export default function MenuPage() {
                     : "bg-white/10 text-gray-300 hover:bg-white/20 border border-yellow-600/30"
                 }`}
               >
-                {category}
+                {category === "All" ? "All" : capitalizeCategory(category)}
               </button>
             ))}
           </div>
@@ -391,7 +467,7 @@ export default function MenuPage() {
                               "✨"}
                           </div>
                           <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-yellow-400 tracking-wider font-montserrat break-words">
-                            {category}
+                            {capitalizeCategory(category)}
                           </h2>
                         </div>
 
@@ -411,7 +487,7 @@ export default function MenuPage() {
                                   <div className="flex flex-col gap-2">
                                     <div className="flex items-center gap-2">
                                       <h3 className="text-lg sm:text-xl font-semibold text-white font-montserrat break-words flex-1">
-                                        {item.item_name}
+                                        {capitalizeItemName(item.item_name)}
                                       </h3>
 
                                       {/* Yellow dots separator */}
@@ -437,27 +513,24 @@ export default function MenuPage() {
                                       </span>
                                     )}
                                   </div>
-                                  {item.description && (
-                                    <p className="text-gray-300 text-base sm:text-lg leading-relaxed italic break-words">
-                                      {item.description}
-                                    </p>
-                                  )}
+                                  <p className="text-gray-300 text-base sm:text-lg leading-relaxed italic break-words">
+                                    {item.description ||
+                                      "Delicious and freshly prepared"}
+                                  </p>
                                 </div>
                               </div>
 
-                              {/* Item Image */}
-                              {item.images && item.images.length > 0 && (
-                                <div className="mt-3">
-                                  <img
-                                    src={item.images[0]}
-                                    alt={item.item_name}
-                                    className="w-full h-32 object-cover rounded-lg border border-yellow-600/30"
-                                    onError={(e) => {
-                                      e.currentTarget.style.display = "none";
-                                    }}
-                                  />
-                                </div>
-                              )}
+                              {/* Item Image - Show database image or fallback */}
+                              <div className="mt-3">
+                                <img
+                                  src={item.images || "/dining-area.jpg"}
+                                  alt={capitalizeItemName(item.item_name)}
+                                  className="w-full h-32 object-cover rounded-lg border border-yellow-600/30"
+                                  onError={(e) => {
+                                    e.currentTarget.src = "/dining-area.jpg";
+                                  }}
+                                />
+                              </div>
                             </motion.div>
                           ))}
 
@@ -483,19 +556,17 @@ export default function MenuPage() {
                       {/* Background glow effect */}
                       <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
 
-                      {/* Item Image */}
-                      {item.images && item.images.length > 0 && (
-                        <div className="mb-4 sm:mb-6 relative z-10">
-                          <img
-                            src={item.images[0]}
-                            alt={item.item_name}
-                            className="w-full h-40 sm:h-48 lg:h-56 object-cover rounded-lg border border-yellow-600/30"
-                            onError={(e) => {
-                              e.currentTarget.style.display = "none";
-                            }}
-                          />
-                        </div>
-                      )}
+                      {/* Item Image - Show database image or fallback */}
+                      <div className="mb-4 sm:mb-6 relative z-10">
+                        <img
+                          src={item.images || "/dining-area.jpg"}
+                          alt={capitalizeItemName(item.item_name)}
+                          className="w-full h-40 sm:h-48 lg:h-56 object-cover rounded-lg border border-yellow-600/30"
+                          onError={(e) => {
+                            e.currentTarget.src = "/dining-area.jpg";
+                          }}
+                        />
+                      </div>
 
                       {/* Item Details */}
                       <div className="relative z-10">
@@ -504,7 +575,7 @@ export default function MenuPage() {
                             <div className="flex flex-col gap-3">
                               <div className="flex items-center gap-4">
                                 <h3 className="text-xl sm:text-2xl font-bold text-white font-montserrat break-words flex-1">
-                                  {item.item_name}
+                                  {capitalizeItemName(item.item_name)}
                                 </h3>
 
                                 {/* Yellow dots separator */}
@@ -532,11 +603,10 @@ export default function MenuPage() {
                                 </span>
                               )}
                             </div>
-                            {item.description && (
-                              <p className="text-gray-300 text-lg sm:text-xl leading-relaxed italic break-words">
-                                {item.description}
-                              </p>
-                            )}
+                            <p className="text-gray-300 text-lg sm:text-xl leading-relaxed italic break-words">
+                              {item.description ||
+                                "Delicious and freshly prepared"}
+                            </p>
                           </div>
                         </div>
 
@@ -549,7 +619,7 @@ export default function MenuPage() {
                             );
                           })()}
                           <span className="text-xs sm:text-sm text-yellow-300 uppercase tracking-wider break-words">
-                            {item.category}
+                            {capitalizeCategory(item.category)}
                           </span>
                         </div>
                       </div>
