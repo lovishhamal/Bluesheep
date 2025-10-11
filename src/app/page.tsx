@@ -14,27 +14,22 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
 } from "@heroicons/react/24/outline";
+import { getImagesFromFolder, StorageImage } from "./util/storage";
+
+// Type definitions
+
+interface GalleryImage {
+  src: string;
+  alt: string;
+  title: string;
+  description: string;
+}
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
-  const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 300], [0, -50]);
-
-  const galleryImages = [
-    {
-      src: "/hero-bg.jpg",
-      alt: "Blue Sheep Hotel - Mountain View",
-      title: "Stunning Mountain Views",
-      description: "Wake up to panoramic views of the Himalayas",
-    },
-    {
-      src: "/hotel-exterior.jpg",
-      alt: "Blue Sheep Hotel Exterior",
-      title: "Luxury Hotel Exterior",
-      description: "Modern architecture in the heart of Dunai",
-    },
+  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([
     {
       src: "/phoksundo-lake.jpg",
       alt: "Phoksundo Lake View",
@@ -53,7 +48,9 @@ export default function Home() {
       title: "Fine Dining Restaurant",
       description: "Authentic local cuisine and international dishes",
     },
-  ];
+  ]);
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 300], [0, -50]);
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length);
@@ -68,6 +65,58 @@ export default function Home() {
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+
+  // Fetch images from Supabase
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const images = await getImagesFromFolder("images", "banners");
+
+        if (images.length > 0) {
+          // Transform Supabase images to match our gallery format
+          const transformedImages: GalleryImage[] = images.map(
+            (image: StorageImage, index: number) => ({
+              src: image.url,
+              alt: image.alt,
+              title: getImageTitle(image.name, index),
+              description: getImageDescription(image.name, index),
+            })
+          );
+          setGalleryImages(transformedImages);
+        }
+      } catch (error) {
+        console.error("Error fetching images from Supabase:", error);
+        // Keep fallback images if Supabase fails
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  // Helper functions to generate titles and descriptions based on image names
+  const getImageTitle = (fileName: string, index: number) => {
+    const titles = [
+      "Phoksundo Lake",
+      "Luxury Accommodation",
+      "Fine Dining Restaurant",
+      "Mountain Adventure",
+      "Scenic Landscapes",
+      "Hotel Amenities",
+    ];
+    return titles[index] || titles[0];
+  };
+
+  const getImageDescription = (fileName: string, index: number) => {
+    const descriptions = [
+      "Crystal clear alpine lake just minutes away",
+      "Comfortable rooms with modern amenities",
+      "Authentic local cuisine and international dishes",
+      "Experience the beauty of the mountains",
+      "Breathtaking natural scenery",
+      "World-class facilities and services",
+    ];
+    return descriptions[index] || descriptions[0];
+  };
 
   // Auto-advance gallery
   useEffect(() => {
@@ -95,9 +144,9 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700">
+    <div className="min-h-screen animated-bg">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-slate-900/90 backdrop-blur-md border-b border-amber-400/30 shadow-lg">
+      <nav className="sticky top-0 w-full z-50 bg-gray-800/95 backdrop-blur-sm border-b border-gray-700/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <motion.div
@@ -112,31 +161,24 @@ export default function Home() {
               />
             </motion.div>
             <div className="hidden md:flex space-x-8">
-              {["Home", "Rooms", "Dining", "Activities", "Contact"].map(
+              {["Home", "Rooms", "Menu", "Activities", "Contact"].map(
                 (item) => (
                   <a
                     key={item}
                     href="#"
-                    className="text-white hover:text-amber-300 transition-colors duration-300 font-medium"
+                    className="text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
                   >
                     {item}
                   </a>
                 )
               )}
             </div>
-            <motion.button
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-6 py-2 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
-            >
-              Book Now
-            </motion.button>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <motion.div
           style={{ y }}
           className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent z-10"
@@ -159,7 +201,7 @@ export default function Home() {
         {/* Navigation Arrows */}
         <button
           onClick={prevImage}
-          className="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 bg-black/30 hover:bg-black/50 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm"
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 glass p-3 rounded-full transition-all duration-300 hover:scale-110 glow"
           aria-label="Previous image"
         >
           <ChevronLeftIcon className="w-6 h-6" />
@@ -167,7 +209,7 @@ export default function Home() {
 
         <button
           onClick={nextImage}
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 bg-black/30 hover:bg-black/50 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm"
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 glass p-3 rounded-full transition-all duration-300 hover:scale-110 glow"
           aria-label="Next image"
         >
           <ChevronRightIcon className="w-6 h-6" />
@@ -193,7 +235,7 @@ export default function Home() {
           {/* Play/Pause Button */}
           <button
             onClick={() => setIsAutoPlay(!isAutoPlay)}
-            className="bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-all duration-300 backdrop-blur-sm"
+            className="glass p-2 rounded-full transition-all duration-300 hover:scale-110 glow"
             aria-label={isAutoPlay ? "Pause slideshow" : "Play slideshow"}
           >
             {isAutoPlay ? (
@@ -216,56 +258,6 @@ export default function Home() {
           </button>
         </div>
 
-        <div className="relative z-20 text-center text-white max-w-4xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="mb-8"
-          >
-            <img
-              src="/logo.jpg"
-              alt="Hotel Blue Sheep Inn Logo"
-              className="h-40 md:h-52 mx-auto mb-6 rounded-xl shadow-2xl"
-            />
-          </motion.div>
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl md:text-2xl mb-4 font-playfair text-white/95"
-          >
-            Luxury Mountain Retreat in Dunai, Phoksundo
-          </motion.p>
-          <motion.div
-            key={currentImageIndex}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg mb-8 max-w-2xl mx-auto"
-          >
-            <h3 className="text-xl font-semibold mb-2 text-white">
-              {galleryImages[currentImageIndex].title}
-            </h3>
-            <p className="text-white/90 font-medium">
-              {galleryImages[currentImageIndex].description}
-            </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-          >
-            <button className="bg-amber-500 hover:bg-amber-600 text-slate-900 px-8 py-3 rounded-full text-lg font-bold transition-all transform hover:scale-105 shadow-lg">
-              Book Your Stay
-            </button>
-            <button className="border-2 border-amber-500 text-white hover:bg-amber-500 hover:text-slate-900 px-8 py-3 rounded-full text-lg font-semibold transition-all shadow-lg">
-              Explore Rooms
-            </button>
-          </motion.div>
-        </div>
-
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -281,70 +273,8 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 bg-gradient-to-b from-white to-amber-50/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 font-playfair mb-6">
-              Why Choose Blue Sheep Hotel?
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Located in the pristine beauty of Dunai, Phoksundo, we offer an
-              unparalleled hospitality experience with modern amenities and
-              breathtaking views.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: ViewfinderCircleIcon,
-                title: "Stunning Mountain Views",
-                description:
-                  "Wake up to panoramic views of the Himalayas and pristine Phoksundo Lake",
-              },
-              {
-                icon: WifiIcon,
-                title: "Free High-Speed WiFi",
-                description:
-                  "Stay connected with complimentary high-speed internet throughout the hotel",
-              },
-              {
-                icon: BuildingOfficeIcon,
-                title: "Fine Dining Restaurant",
-                description:
-                  "Experience authentic local cuisine and international dishes in our elegant restaurant",
-              },
-            ].map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                className="text-center p-6 rounded-lg hover:shadow-lg transition-all duration-300 hover:transform hover:scale-105 bg-white/80 backdrop-blur-sm"
-              >
-                <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
-                  <feature.icon className="w-8 h-8 text-amber-600" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600">{feature.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Location Section */}
-      <section className="py-20 bg-amber-50/30">
+      <section className="py-20 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -353,14 +283,16 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 font-playfair mb-6">
-              Perfectly Located in Dunai, Phoksundo
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our hotel is strategically located to provide easy access to all
-              the natural wonders and cultural sites that make this region so
-              special.
-            </p>
+            <div className="glass-card p-8 text-center">
+              <h2 className="text-4xl md:text-5xl font-bold text-white font-poppins mb-6">
+                Perfectly Located in Dunai, Phoksundo
+              </h2>
+              <p className="text-xl text-white/90 max-w-3xl mx-auto">
+                Our hotel is strategically located to provide easy access to all
+                the natural wonders and cultural sites that make this region so
+                special.
+              </p>
+            </div>
           </motion.div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -370,8 +302,8 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <div className="bg-white p-8 rounded-lg shadow-lg border border-amber-100">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6 font-playfair">
+              <div className="glass-card p-8">
+                <h3 className="text-2xl font-bold text-white mb-6 font-poppins">
                   Nearby Attractions
                 </h3>
                 <ul className="space-y-4">
@@ -382,8 +314,8 @@ export default function Home() {
                     "Local Monasteries - Walking distance",
                     "Trekking Trails - Direct access",
                   ].map((attraction, index) => (
-                    <li key={index} className="flex items-center text-gray-700">
-                      <StarIcon className="w-5 h-5 text-amber-500 mr-3" />
+                    <li key={index} className="flex items-center text-white/90">
+                      <StarIcon className="w-5 h-5 text-yellow-300 mr-3" />
                       {attraction}
                     </li>
                   ))}
@@ -396,16 +328,16 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="bg-gray-300 h-96 rounded-lg flex items-center justify-center"
+              className="glass-card h-96 rounded-lg flex items-center justify-center"
             >
-              <p className="text-gray-600">Interactive Map Coming Soon</p>
+              <p className="text-white/90">Interactive Map Coming Soon</p>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -414,12 +346,14 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 font-playfair mb-6">
-              What Our Guests Say
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Discover why guests love their stay at Hotel Blue Sheep Inn
-            </p>
+            <div className="glass-card p-8 text-center">
+              <h2 className="text-4xl md:text-5xl font-bold text-white font-poppins mb-6">
+                What Our Guests Say
+              </h2>
+              <p className="text-xl text-white/90 max-w-3xl mx-auto">
+                Discover why guests love their stay at Hotel Blue Sheep Inn
+              </p>
+            </div>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -452,25 +386,25 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className="bg-amber-50/50 p-8 rounded-lg shadow-md border border-amber-200/50"
+                className="glass-card p-8 rounded-lg float"
               >
                 <div className="flex items-center mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <StarIcon key={i} className="w-5 h-5 text-amber-500" />
+                    <StarIcon key={i} className="w-5 h-5 text-yellow-300" />
                   ))}
                 </div>
-                <p className="text-gray-700 italic mb-6">
+                <p className="text-white/90 italic mb-6">
                   "{testimonial.quote}"
                 </p>
                 <div className="flex items-center">
-                  <div className="w-10 h-10 bg-slate-700 rounded-full flex items-center justify-center text-white font-bold">
+                  <div className="w-10 h-10 glass rounded-full flex items-center justify-center text-white font-bold navy-glow">
                     {testimonial.name.charAt(0)}
                   </div>
                   <div className="ml-3">
-                    <p className="font-semibold text-gray-900">
+                    <p className="font-semibold text-white">
                       {testimonial.name}
                     </p>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-white/70">
                       {testimonial.location}
                     </p>
                   </div>
@@ -482,7 +416,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-20 bg-slate-900 text-white">
+      <section className="py-20 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -491,13 +425,15 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold font-playfair mb-6">
-              Book Your Stay Today
-            </h2>
-            <p className="text-xl max-w-3xl mx-auto">
-              Ready to experience the best hotel in Dunai, Phoksundo? Contact us
-              now to make your reservation.
-            </p>
+            <div className="glass-card p-8 text-center">
+              <h2 className="text-4xl md:text-5xl font-bold font-poppins mb-6 text-white">
+                Book Your Stay Today
+              </h2>
+              <p className="text-xl max-w-3xl mx-auto text-white/90">
+                Ready to experience the best hotel in Dunai, Phoksundo? Contact
+                us now to make your reservation.
+              </p>
+            </div>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -506,11 +442,13 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
-              className="text-center"
+              className="text-center glass-card p-6 float"
             >
-              <MapPinIcon className="w-12 h-12 mx-auto mb-4 text-amber-400" />
-              <h3 className="text-xl font-semibold mb-2">Location</h3>
-              <p className="text-slate-300">
+              <MapPinIcon className="w-12 h-12 mx-auto mb-4 text-yellow-300" />
+              <h3 className="text-xl font-semibold mb-2 text-white">
+                Location
+              </h3>
+              <p className="text-white/90">
                 Dunai, Dolpa
                 <br />
                 Karnali Province, Nepal
@@ -522,11 +460,11 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
               viewport={{ once: true }}
-              className="text-center"
+              className="text-center glass-card p-6 float"
             >
-              <PhoneIcon className="w-12 h-12 mx-auto mb-4 text-amber-400" />
-              <h3 className="text-xl font-semibold mb-2">Phone</h3>
-              <p className="text-slate-300">+977-XXXX-XXXX</p>
+              <PhoneIcon className="w-12 h-12 mx-auto mb-4 text-yellow-300" />
+              <h3 className="text-xl font-semibold mb-2 text-white">Phone</h3>
+              <p className="text-white/90">+977-XXXX-XXXX</p>
             </motion.div>
 
             <motion.div
@@ -534,45 +472,45 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
               viewport={{ once: true }}
-              className="text-center"
+              className="text-center glass-card p-6 float"
             >
-              <EnvelopeIcon className="w-12 h-12 mx-auto mb-4 text-amber-400" />
-              <h3 className="text-xl font-semibold mb-2">Email</h3>
-              <p className="text-slate-300">info@bluesheephotel.com</p>
+              <EnvelopeIcon className="w-12 h-12 mx-auto mb-4 text-yellow-300" />
+              <h3 className="text-xl font-semibold mb-2 text-white">Email</h3>
+              <p className="text-white/90">info@bluesheephotel.com</p>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-black text-white py-12">
+      <footer className="glass-dark text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h3 className="text-2xl font-bold font-playfair mb-4">
+            <h3 className="text-2xl font-bold font-poppins mb-4">
               Blue Sheep Hotel
             </h3>
-            <p className="text-gray-400 mb-6">Best Hotel in Dunai, Phoksundo</p>
+            <p className="text-white/70 mb-6">Best Hotel in Dunai, Phoksundo</p>
             <div className="flex justify-center space-x-6">
               <a
                 href="#"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-white/70 hover:text-white transition-colors"
               >
                 Privacy Policy
               </a>
               <a
                 href="#"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-white/70 hover:text-white transition-colors"
               >
                 Terms of Service
               </a>
               <a
                 href="#"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-white/70 hover:text-white transition-colors"
               >
                 Contact
               </a>
             </div>
-            <p className="text-gray-500 mt-8">
+            <p className="text-white/60 mt-8">
               &copy; 2024 Blue Sheep Hotel. All rights reserved.
             </p>
           </div>
