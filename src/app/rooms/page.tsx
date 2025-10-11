@@ -525,7 +525,7 @@ export default function RoomsPage() {
       </section>
 
       {/* Amenities Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -534,11 +534,11 @@ export default function RoomsPage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-200">
-              <h2 className="text-4xl font-bold text-gray-900 font-montserrat mb-6">
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-emerald-400/30">
+              <h2 className="text-4xl font-bold text-white font-montserrat mb-6">
                 Room Amenities
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
                 Every room is equipped with modern amenities to ensure your
                 comfort and convenience.
               </p>
@@ -574,15 +574,20 @@ export default function RoomsPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center bg-white rounded-2xl shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-all duration-300 hover:scale-105"
+                className="text-center bg-white/5 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-emerald-400/30 hover:border-emerald-300/50 hover:shadow-2xl hover:shadow-emerald-400/20 transition-all duration-300 hover:scale-105 group relative overflow-hidden"
               >
-                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 border border-gray-200">
-                  <amenity.icon className="w-8 h-8 text-gray-700" />
+                {/* Background glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
+
+                <div className="relative z-10">
+                  <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-emerald-400/30">
+                    <amenity.icon className="w-8 h-8 text-emerald-400" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-white mb-2">
+                    {amenity.title}
+                  </h3>
+                  <p className="text-gray-300">{amenity.description}</p>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {amenity.title}
-                </h3>
-                <p className="text-gray-600">{amenity.description}</p>
               </motion.div>
             ))}
           </div>
@@ -590,26 +595,26 @@ export default function RoomsPage() {
       </section>
 
       {/* Footer CTA */}
-      <section className="py-20 bg-gray-900">
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="bg-white rounded-2xl shadow-xl p-8"
+            className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-emerald-400/30"
           >
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-white mb-4 font-montserrat">
               Ready to Book?
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-300 mb-6">
               Contact us to make a reservation or book your perfect room.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-gray-900 text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+              <button className="bg-emerald-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-emerald-400 transition-colors">
                 Book Now
               </button>
-              <button className="border border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors">
+              <button className="border border-emerald-400 text-emerald-400 px-8 py-3 rounded-lg font-semibold hover:bg-emerald-400/10 transition-colors">
                 Contact Us
               </button>
             </div>
