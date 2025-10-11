@@ -129,9 +129,9 @@ export default function RoomsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-800 text-white">
       {/* Navigation */}
-      <nav className="sticky top-0 w-full z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+      <nav className="sticky top-0 w-full z-50 bg-slate-900/95 backdrop-blur-sm border-b border-emerald-400/30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <motion.div
@@ -150,31 +150,31 @@ export default function RoomsPage() {
             <div className="hidden md:flex space-x-8">
               <Link
                 href="/"
-                className="text-gray-700 hover:text-gray-900 transition-colors duration-300 font-medium"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
               >
                 Home
               </Link>
               <Link
                 href="/rooms"
-                className="text-gray-900 font-semibold border-b-2 border-gray-900 transition-colors duration-300"
+                className="text-emerald-400 font-semibold border-b-2 border-emerald-400 transition-colors duration-300"
               >
                 Rooms
               </Link>
               <Link
                 href="/menu"
-                className="text-gray-700 hover:text-gray-900 transition-colors duration-300 font-medium"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
               >
                 Menu
               </Link>
               <Link
                 href="/activities"
-                className="text-gray-700 hover:text-gray-900 transition-colors duration-300 font-medium"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
               >
                 Activities
               </Link>
               <Link
                 href="/contact"
-                className="text-gray-700 hover:text-gray-900 transition-colors duration-300 font-medium"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
               >
                 Contact
               </Link>
@@ -184,7 +184,7 @@ export default function RoomsPage() {
             <div className="md:hidden">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-gray-700 hover:text-gray-900 transition-colors duration-300"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300"
               >
                 {isMobileMenuOpen ? (
                   <XMarkIcon className="h-6 w-6" />
@@ -201,40 +201,40 @@ export default function RoomsPage() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-gray-200"
+              className="md:hidden border-t border-emerald-400/30"
             >
               <div className="py-4 space-y-4">
                 <Link
                   href="/"
-                  className="block text-gray-700 hover:text-gray-900 transition-colors duration-300 font-medium"
+                  className="block text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Home
                 </Link>
                 <Link
                   href="/rooms"
-                  className="block text-gray-900 font-semibold"
+                  className="block text-emerald-400 font-semibold"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Rooms
                 </Link>
                 <Link
                   href="/menu"
-                  className="block text-gray-700 hover:text-gray-900 transition-colors duration-300 font-medium"
+                  className="block text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Menu
                 </Link>
                 <Link
                   href="/activities"
-                  className="block text-gray-700 hover:text-gray-900 transition-colors duration-300 font-medium"
+                  className="block text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Activities
                 </Link>
                 <Link
                   href="/contact"
-                  className="block text-gray-700 hover:text-gray-900 transition-colors duration-300 font-medium"
+                  className="block text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Contact
@@ -246,20 +246,20 @@ export default function RoomsPage() {
       </nav>
 
       {/* Header */}
-      <section className="relative py-20 bg-white">
+      <section className="relative py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="bg-white rounded-2xl shadow-xl p-8 border border-gray-200"
+            viewport={{ once: true }}
+            className="text-center"
           >
-            <h1 className="text-4xl md:text-6xl font-bold font-montserrat mb-6 text-gray-900">
-              Luxury Rooms & Suites
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-widest mb-4 font-montserrat bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-400 bg-clip-text text-transparent animate-pulse">
+              ROOMS
             </h1>
-            <p className="text-xl max-w-3xl mx-auto text-gray-600">
-              Experience unparalleled comfort and stunning mountain views in our
-              beautifully appointed rooms and suites in Dunai, Phoksundo.
+            <p className="text-lg sm:text-xl text-emerald-300 italic tracking-widest font-montserrat">
+              Garden Hotel
             </p>
           </motion.div>
         </div>
@@ -299,7 +299,7 @@ export default function RoomsPage() {
               </div>
             </div>
           ) : (
-            <div className="grid lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {rooms.map((room, index) => (
                 <motion.div
                   key={room.id}
@@ -307,10 +307,13 @@ export default function RoomsPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: index * 0.2 }}
                   viewport={{ once: true }}
-                  className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-200"
+                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-emerald-400/40 hover:border-emerald-300/60 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-emerald-400/30 group relative overflow-hidden min-h-[450px] sm:min-h-[500px] w-full"
                 >
+                  {/* Background glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
+
                   {/* Room Image Gallery */}
-                  <div className="h-64 relative overflow-hidden group">
+                  <div className="h-40 sm:h-48 relative overflow-hidden rounded-lg border border-emerald-400/40 mb-4 relative z-10">
                     <img
                       src={getCurrentRoomImage(room.id, room.images)}
                       alt={room.room_name}
@@ -370,34 +373,40 @@ export default function RoomsPage() {
                     )}
                   </div>
 
-                  <div className="p-6">
+                  <div className="relative z-10">
                     {/* Room Header */}
-                    <div className="flex justify-between items-start mb-4">
-                      <div>
-                        <h3 className="text-xl font-bold text-gray-900 mb-1">
-                          {room.room_name}
-                        </h3>
-                        <div className="flex items-center text-sm text-gray-600">
-                          <UserIcon className="w-4 h-4 mr-1" />
+                    <div className="mb-4">
+                      <div className="flex flex-col gap-3 mb-3">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                          <h3 className="text-xl sm:text-2xl font-bold text-white font-montserrat break-words flex-1">
+                            {room.room_name}
+                          </h3>
+                          <div className="text-left sm:text-right">
+                            <span className="text-2xl sm:text-3xl font-bold text-emerald-400 whitespace-nowrap">
+                              {formatPrice(room.price_per_night)}
+                            </span>
+                            <p className="text-sm text-emerald-300">
+                              per night
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-center text-sm text-emerald-300">
+                          <UserIcon className="w-4 h-4 mr-2" />
                           <span>Capacity: {room.capacity} guests</span>
                         </div>
-                      </div>
-                      <div className="text-right">
-                        <span className="text-2xl font-bold text-gray-900">
-                          {formatPrice(room.price_per_night)}
-                        </span>
-                        <p className="text-sm text-gray-600">per night</p>
                       </div>
                     </div>
 
                     {/* Description */}
-                    <p className="text-gray-600 mb-4 line-clamp-3">
-                      {room.description}
-                    </p>
+                    {room.description && (
+                      <p className="text-gray-200 text-sm sm:text-base leading-relaxed mb-4 break-words">
+                        {room.description}
+                      </p>
+                    )}
 
                     {/* Facilities */}
-                    <div className="mb-6">
-                      <h4 className="text-sm font-semibold text-gray-900 mb-3 flex items-center">
+                    <div className="mb-4">
+                      <h4 className="text-sm font-semibold text-emerald-300 mb-3 flex items-center">
                         <CheckIcon className="w-4 h-4 mr-2" />
                         Facilities
                       </h4>
@@ -407,16 +416,16 @@ export default function RoomsPage() {
                           .map((facility, facilityIndex) => (
                             <div
                               key={facilityIndex}
-                              className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700 border border-gray-200 hover:bg-gray-200 transition-colors duration-200"
+                              className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 hover:bg-emerald-500/30 transition-colors duration-200"
                             >
-                              <CheckIcon className="w-3 h-3 text-gray-600 mr-1 flex-shrink-0" />
+                              <CheckIcon className="w-3 h-3 text-emerald-400 mr-1 flex-shrink-0" />
                               <span className="truncate max-w-24">
                                 {facility}
                               </span>
                             </div>
                           ))}
                         {room.facilities.length > 8 && (
-                          <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-50 text-gray-500 border border-gray-200">
+                          <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-400/20">
                             +{room.facilities.length - 8} more
                           </div>
                         )}
@@ -427,12 +436,12 @@ export default function RoomsPage() {
                     <div className="mb-4">
                       {room.is_available ? (
                         <div className="flex items-center justify-between">
-                          <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 border border-green-200 text-green-700">
-                            <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                          <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-500/20 border border-green-400/30 text-green-300">
+                            <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
                             Available Now
                           </div>
                           {room.start_date && room.end_date && (
-                            <div className="text-xs text-gray-600">
+                            <div className="text-xs text-gray-300">
                               Until{" "}
                               {new Date(room.end_date).toLocaleString("en-US", {
                                 timeZone: "Asia/Kathmandu",
@@ -472,7 +481,7 @@ export default function RoomsPage() {
                                 )}{" "}
                                 NPT
                               </div>
-                              <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 border border-red-200 text-red-700">
+                              <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-500/20 border border-red-400/30 text-red-300">
                                 <CalendarIcon className="w-3 h-3 mr-1" />
                                 Until:{" "}
                                 {new Date(room.end_date).toLocaleString(
@@ -501,8 +510,8 @@ export default function RoomsPage() {
                       disabled={!room.is_available}
                       className={`w-full py-3 rounded-lg font-semibold transition-all duration-300 ${
                         room.is_available
-                          ? "bg-gray-900 text-white hover:bg-gray-800 hover:scale-105"
-                          : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                          ? "bg-emerald-500 text-white hover:bg-emerald-400 hover:scale-105 shadow-lg shadow-emerald-500/30"
+                          : "bg-gray-600 text-gray-400 cursor-not-allowed"
                       }`}
                     >
                       {room.is_available ? "Book Now" : "Not Available"}

@@ -148,9 +148,9 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen animated-bg">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-800 text-white">
       {/* Navigation */}
-      <nav className="sticky top-0 w-full z-50 bg-gray-800/95 backdrop-blur-sm border-b border-gray-700/50">
+      <nav className="sticky top-0 w-full z-50 bg-slate-900/95 backdrop-blur-sm border-b border-emerald-400/30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <motion.div
@@ -167,31 +167,31 @@ export default function Home() {
             <div className="hidden md:flex space-x-8">
               <Link
                 href="/"
-                className="text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
+                className="text-emerald-400 font-semibold border-b-2 border-emerald-400 transition-colors duration-300"
               >
                 Home
               </Link>
               <Link
                 href="/rooms"
-                className="text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
               >
                 Rooms
               </Link>
               <Link
                 href="/menu"
-                className="text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
               >
                 Menu
               </Link>
               <Link
                 href="/activities"
-                className="text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
               >
                 Activities
               </Link>
               <Link
                 href="/contact"
-                className="text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
               >
                 Contact
               </Link>
