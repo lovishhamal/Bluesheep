@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import Link from "next/link";
 import {
   MapPinIcon,
   PhoneIcon,
@@ -13,6 +14,8 @@ import {
   ChevronDownIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
+  Bars3Icon,
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { getImagesFromFolder, StorageImage } from "./util/storage";
 
@@ -29,6 +32,7 @@ export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([
     {
       src: "/phoksundo-lake.jpg",
@@ -161,19 +165,100 @@ export default function Home() {
               />
             </motion.div>
             <div className="hidden md:flex space-x-8">
-              {["Home", "Rooms", "Menu", "Activities", "Contact"].map(
-                (item) => (
-                  <a
-                    key={item}
-                    href="#"
-                    className="text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
-                  >
-                    {item}
-                  </a>
-                )
-              )}
+              <Link
+                href="/"
+                className="text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
+              >
+                Home
+              </Link>
+              <Link
+                href="/rooms"
+                className="text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
+              >
+                Rooms
+              </Link>
+              <Link
+                href="/menu"
+                className="text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
+              >
+                Menu
+              </Link>
+              <Link
+                href="/activities"
+                className="text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
+              >
+                Activities
+              </Link>
+              <Link
+                href="/contact"
+                className="text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
+              >
+                Contact
+              </Link>
+            </div>
+
+            {/* Mobile menu button */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-white hover:text-yellow-200 transition-colors duration-300"
+              >
+                {isMobileMenuOpen ? (
+                  <XMarkIcon className="h-6 w-6" />
+                ) : (
+                  <Bars3Icon className="h-6 w-6" />
+                )}
+              </button>
             </div>
           </div>
+
+          {/* Mobile menu */}
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden border-t border-gray-700/50"
+            >
+              <div className="py-4 space-y-4">
+                <Link
+                  href="/"
+                  className="block text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/rooms"
+                  className="block text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Rooms
+                </Link>
+                <Link
+                  href="/menu"
+                  className="block text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Menu
+                </Link>
+                <Link
+                  href="/activities"
+                  className="block text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Activities
+                </Link>
+                <Link
+                  href="/contact"
+                  className="block text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Contact
+                </Link>
+              </div>
+            </motion.div>
+          )}
         </div>
       </nav>
 

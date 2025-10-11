@@ -11,7 +11,8 @@ module.exports = {
         inter: ["var(--font-inter)", "sans-serif"],
         poppins: ["var(--font-poppins)", "sans-serif"],
         playfair: ["var(--font-playfair)", "serif"],
-        sans: ["var(--font-poppins)", "system-ui", "sans-serif"],
+        montserrat: ["var(--font-montserrat)", "sans-serif"],
+        sans: ["var(--font-montserrat)", "system-ui", "sans-serif"],
       },
       animation: {
         "fade-in": "fadeIn 0.5s ease-in-out",
