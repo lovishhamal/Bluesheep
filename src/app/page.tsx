@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import {
   MapPinIcon,
@@ -58,8 +58,6 @@ export default function Home() {
       description: "Authentic local cuisine and international dishes",
     },
   ]);
-  const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 300], [0, -50]);
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length);
@@ -282,10 +280,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
-        <motion.div
-          style={{ y }}
-          className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent z-10"
-        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent z-10" />
 
         {/* Image Gallery */}
         <div className="absolute inset-0">
