@@ -198,7 +198,7 @@ Please let me know about availability and booking process.`;
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-800 text-white">
       {/* Navigation */}
-      <nav className="sticky top-0 w-full z-50 bg-slate-900/95 backdrop-blur-sm border-b border-emerald-400/30 shadow-sm">
+      <nav className="fixed top-0 w-full z-[100] bg-slate-900/95 backdrop-blur-sm border-b border-emerald-400/30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <motion.div
@@ -332,7 +332,7 @@ Please let me know about availability and booking process.`;
       </nav>
 
       {/* Header */}
-      <section className="relative py-20">
+      <section className="relative py-20 pt-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -386,13 +386,13 @@ Please let me know about availability and booking process.`;
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {rooms.map((room, index) => (
-                <motion.div
+            {rooms.map((room, index) => (
+              <motion.div
                   key={room.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: index * 0.2 }}
-                  viewport={{ once: true }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                viewport={{ once: true }}
                   className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-emerald-400/40 hover:border-emerald-300/60 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-emerald-400/30 group relative overflow-hidden min-h-[450px] sm:min-h-[500px] w-full"
                 >
                   {/* Background glow effect */}
@@ -455,7 +455,7 @@ Please let me know about availability and booking process.`;
                             }`}
                           />
                         ))}
-                      </div>
+                </div>
                     )}
                   </div>
 
@@ -613,11 +613,11 @@ Please let me know about availability and booking process.`;
                       }`}
                     >
                       {room.is_available ? "Book Now" : "Not Available"}
-                    </button>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
           )}
         </div>
       </section>
@@ -634,12 +634,12 @@ Please let me know about availability and booking process.`;
           >
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-emerald-400/30">
               <h2 className="text-4xl font-bold text-white font-montserrat mb-6">
-                Room Amenities
-              </h2>
+              Room Amenities
+            </h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Every room is equipped with modern amenities to ensure your
-                comfort and convenience.
-              </p>
+              Every room is equipped with modern amenities to ensure your
+              comfort and convenience.
+            </p>
             </div>
           </motion.div>
 

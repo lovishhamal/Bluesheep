@@ -18,7 +18,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen animated-bg">
       {/* Navigation */}
-      <nav className="sticky top-0 w-full z-50 bg-slate-900/95 backdrop-blur-sm border-b border-emerald-400/30 shadow-sm">
+      <nav className="fixed top-0 w-full z-[100] bg-slate-900/95 backdrop-blur-sm border-b border-emerald-400/30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <motion.div
@@ -158,26 +158,26 @@ export default function ContactPage() {
       </nav>
 
       {/* Header */}
-      <section className="relative py-20">
+      <section className="relative py-20 pt-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="glass-card p-8 inline-block float">
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
               className="text-4xl md:text-6xl font-bold font-poppins mb-6 text-white"
-            >
-              Contact Us
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            Contact Us
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
               className="text-xl max-w-3xl mx-auto text-white/90"
-            >
+          >
               Ready to experience the best hotel in Dunai, Phoksundo? Get in
               touch with us to book your stay or ask any questions.
-            </motion.p>
+          </motion.p>
           </div>
         </div>
       </section>
@@ -195,63 +195,63 @@ export default function ContactPage() {
             >
               <div className="glass-card p-8">
                 <h2 className="text-3xl font-bold text-white mb-8 font-poppins">
-                  Get in Touch
-                </h2>
+                Get in Touch
+              </h2>
 
-                <div className="space-y-6">
-                  <div className="flex items-start">
+              <div className="space-y-6">
+                <div className="flex items-start">
                     <MapPinIcon className="w-6 h-6 text-sun-yellow mt-1 mr-4" />
-                    <div>
+                  <div>
                       <h3 className="text-lg font-semibold text-white">
-                        Address
-                      </h3>
+                      Address
+                    </h3>
                       <p className="text-white/90">
-                        Dunai, Dolpa
-                        <br />
-                        Karnali Province, Nepal
-                        <br />
-                        Near Phoksundo Lake
-                      </p>
-                    </div>
+                      Dunai, Dolpa
+                      <br />
+                      Karnali Province, Nepal
+                      <br />
+                      Near Phoksundo Lake
+                    </p>
                   </div>
+                </div>
 
-                  <div className="flex items-start">
+                <div className="flex items-start">
                     <PhoneIcon className="w-6 h-6 text-sun-yellow mt-1 mr-4" />
-                    <div>
+                  <div>
                       <h3 className="text-lg font-semibold text-white">
-                        Phone
-                      </h3>
+                      Phone
+                    </h3>
                       <p className="text-white/90">+977-XXXX-XXXX</p>
                       <p className="text-sm text-white/70">Available 24/7</p>
                     </div>
-                  </div>
+                </div>
 
-                  <div className="flex items-start">
+                <div className="flex items-start">
                     <EnvelopeIcon className="w-6 h-6 text-sun-yellow mt-1 mr-4" />
-                    <div>
+                  <div>
                       <h3 className="text-lg font-semibold text-white">
-                        Email
-                      </h3>
+                      Email
+                    </h3>
                       <p className="text-white/90">info@bluesheephotel.com</p>
                       <p className="text-sm text-white/70">
-                        We respond within 2 hours
-                      </p>
-                    </div>
+                      We respond within 2 hours
+                    </p>
                   </div>
+                </div>
 
-                  <div className="flex items-start">
+                <div className="flex items-start">
                     <ClockIcon className="w-6 h-6 text-sun-yellow mt-1 mr-4" />
-                    <div>
+                  <div>
                       <h3 className="text-lg font-semibold text-white">
-                        Reception Hours
-                      </h3>
+                      Reception Hours
+                    </h3>
                       <p className="text-white/90">
-                        Monday - Sunday: 6:00 AM - 10:00 PM
-                        <br />
-                        Check-in: 2:00 PM
-                        <br />
-                        Check-out: 11:00 AM
-                      </p>
+                      Monday - Sunday: 6:00 AM - 10:00 PM
+                      <br />
+                      Check-in: 2:00 PM
+                      <br />
+                      Check-out: 11:00 AM
+                    </p>
                     </div>
                   </div>
                 </div>
@@ -363,12 +363,12 @@ export default function ContactPage() {
           >
             <div className="glass-card p-8 text-center">
               <h2 className="text-3xl font-bold text-white font-poppins mb-4">
-                Find Us in Dunai, Phoksundo
-              </h2>
+              Find Us in Dunai, Phoksundo
+            </h2>
               <p className="text-lg text-white/90">
-                Located in the heart of Dunai with easy access to Phoksundo Lake
-                and surrounding attractions.
-              </p>
+              Located in the heart of Dunai with easy access to Phoksundo Lake
+              and surrounding attractions.
+            </p>
             </div>
           </motion.div>
 

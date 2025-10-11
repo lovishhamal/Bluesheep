@@ -68,7 +68,7 @@ Please let me know about availability and the booking process.`;
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-800">
       {/* Navigation */}
-      <nav className="sticky top-0 z-40 bg-slate-900/95 backdrop-blur-sm border-b border-emerald-400/30 shadow-sm">
+      <nav className="fixed top-0 w-full z-[100] bg-slate-900/95 backdrop-blur-sm border-b border-emerald-400/30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
@@ -206,7 +206,7 @@ Please let me know about availability and the booking process.`;
       </nav>
 
       {/* Header Section */}
-      <section className="py-20 relative">
+      <section className="py-20 pt-32 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
