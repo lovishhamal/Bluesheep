@@ -377,13 +377,14 @@ export default function Home() {
             className="text-center mb-16"
           >
             <div className="bg-slate-800/95 backdrop-blur-sm rounded-2xl p-8 text-center border border-emerald-400/30 shadow-xl">
-              <h2 className="text-4xl md:text-5xl font-bold text-white font-poppins mb-6">
-                Perfectly Located in Dunai, Phoksundo
-              </h2>
+              <h1 className="text-4xl md:text-5xl font-bold text-white font-poppins mb-6">
+                Best Hotel in Dunai, Phoksundo - Garden Restaurant & Camping
+              </h1>
               <p className="text-xl text-white/90 max-w-3xl mx-auto">
-                Our hotel is strategically located to provide easy access to all
-                the natural wonders and cultural sites that make this region so
-                special.
+                Experience the best hotel in Dunai, Phoksundo with our luxury
+                accommodation, garden restaurant, and camping facilities.
+                Perfectly located for exploring the natural wonders of Dolpa
+                region.
               </p>
             </div>
           </motion.div>
@@ -441,10 +442,11 @@ export default function Home() {
           >
             <div className="glass-card p-8 text-center">
               <h2 className="text-4xl md:text-5xl font-bold text-white font-poppins mb-6">
-                What Our Guests Say
+                Best Hotel in Dunai, Phoksundo - Guest Reviews
               </h2>
               <p className="text-xl text-white/90 max-w-3xl mx-auto">
-                Discover why guests love their stay at Hotel Blue Sheep Inn
+                Discover why guests choose our hotel in Dunai, Phoksundo for the
+                best accommodation experience
               </p>
             </div>
           </motion.div>
@@ -462,14 +464,14 @@ export default function Home() {
                 name: "David Chen",
                 location: "Singapore",
                 quote:
-                  "Perfect location for exploring Phoksundo Lake. The hotel restaurant serves amazing local cuisine with a modern twist.",
+                  "Perfect location for exploring Phoksundo Lake. The garden restaurant serves amazing local cuisine with a modern twist. Best hotel in Dunai!",
                 rating: 5,
               },
               {
                 name: "Emma Wilson",
                 location: "United Kingdom",
                 quote:
-                  "Incredibly comfortable rooms and the most stunning mountain views I've ever experienced. Will definitely return!",
+                  "Incredibly comfortable rooms and the most stunning mountain views I've ever experienced. The camping facilities are amazing too! Will definitely return!",
                 rating: 5,
               },
             ].map((testimonial, index) => (

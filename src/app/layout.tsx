@@ -31,13 +31,20 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   title:
-    "Blue Sheep Hotel - Best Hotel in Dunai, Phoksundo | Luxury Accommodation",
+    "Best Hotel in Dunai, Phoksundo | Garden Restaurant & Camping | Blue Sheep Hotel",
   description:
-    "Experience luxury hospitality at Blue Sheep Hotel in Dunai, Phoksundo. Best hotel in the region with modern amenities, stunning mountain views, and exceptional service. Book your stay today!",
+    "🏨 Best hotel in Dunai, Phoksundo with garden restaurant & camping. Luxury accommodation in Dolpa with mountain views, WiFi, and exceptional service. Book your stay today!",
   keywords: [
-    "hotel in Dunai",
-    "hotel in Phoksundo",
-    "best hotel Phoksundo",
+    "best hotel in dunai",
+    "hotel in dunai",
+    "hotel in phoksundo",
+    "best hotel in phoksundo",
+    "garden restaurant",
+    "camping",
+    "camping dunai",
+    "camping phoksundo",
+    "garden restaurant dunai",
+    "garden restaurant phoksundo",
     "luxury hotel Dunai",
     "accommodation Phoksundo",
     "Blue Sheep Hotel",
@@ -45,6 +52,10 @@ export const metadata: Metadata = {
     "Phoksundo accommodation",
     "mountain hotel Nepal",
     "Dolpa hotel",
+    "restaurant dunai",
+    "restaurant phoksundo",
+    "garden camping",
+    "tent camping dunai",
   ],
   authors: [{ name: "Blue Sheep Hotel" }],
   creator: "Blue Sheep Hotel",
@@ -59,9 +70,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Blue Sheep Hotel - Best Hotel in Dunai, Phoksundo",
+    title: "Best Hotel in Dunai, Phoksundo | Garden Restaurant & Camping",
     description:
-      "Experience luxury hospitality at Blue Sheep Hotel in Dunai, Phoksundo. Best hotel in the region with modern amenities and stunning mountain views.",
+      "🏨 Best hotel in Dunai, Phoksundo with garden restaurant & camping. Luxury accommodation with mountain views, WiFi, and exceptional service.",
     url: "https://bluesheephotel.com",
     siteName: "Blue Sheep Hotel",
     images: [
@@ -69,7 +80,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Blue Sheep Hotel - Luxury Hotel in Dunai, Phoksundo",
+        alt: "Best Hotel in Dunai, Phoksundo - Garden Restaurant & Camping",
       },
     ],
     locale: "en_US",
@@ -77,9 +88,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blue Sheep Hotel - Best Hotel in Dunai, Phoksundo",
+    title: "Best Hotel in Dunai, Phoksundo | Garden Restaurant & Camping",
     description:
-      "Experience luxury hospitality at Blue Sheep Hotel in Dunai, Phoksundo. Best hotel in the region with modern amenities and stunning mountain views.",
+      "🏨 Best hotel in Dunai, Phoksundo with garden restaurant & camping. Luxury accommodation with mountain views and exceptional service.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -136,16 +147,61 @@ export default function RootLayout({
                 },
                 {
                   "@type": "LocationFeatureSpecification",
-                  name: "Restaurant",
+                  name: "Garden Restaurant",
+                },
+                {
+                  "@type": "LocationFeatureSpecification",
+                  name: "Camping",
                 },
                 {
                   "@type": "LocationFeatureSpecification",
                   name: "Mountain View",
                 },
+                {
+                  "@type": "LocationFeatureSpecification",
+                  name: "Garden Camping",
+                },
               ],
               starRating: {
                 "@type": "Rating",
                 ratingValue: "5",
+              },
+              hasRestaurant: {
+                "@type": "Restaurant",
+                name: "Garden Restaurant",
+                description:
+                  "Best garden restaurant in Dunai, Phoksundo with mountain views",
+                servesCuisine: ["Nepali", "International", "Local"],
+                amenityFeature: [
+                  {
+                    "@type": "LocationFeatureSpecification",
+                    name: "Garden Views",
+                  },
+                  {
+                    "@type": "LocationFeatureSpecification",
+                    name: "Mountain Views",
+                  },
+                ],
+              },
+              hasCamping: {
+                "@type": "LodgingBusiness",
+                name: "Garden Camping",
+                description:
+                  "Best camping in Dunai, Phoksundo with garden facilities",
+                amenityFeature: [
+                  {
+                    "@type": "LocationFeatureSpecification",
+                    name: "Tent Camping",
+                  },
+                  {
+                    "@type": "LocationFeatureSpecification",
+                    name: "Garden Camping",
+                  },
+                  {
+                    "@type": "LocationFeatureSpecification",
+                    name: "Mountain Views",
+                  },
+                ],
               },
             }),
           }}

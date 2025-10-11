@@ -1,17 +1,42 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Luxury Rooms & Suites - Blue Sheep Hotel Dunai, Phoksundo",
+  title: "Best Hotel Rooms in Dunai, Phoksundo | Luxury Accommodation",
   description:
-    "Experience luxury accommodation in Dunai, Phoksundo. Our rooms offer stunning mountain views, modern amenities, and exceptional comfort. Book your perfect stay today.",
+    "🏨 Book the best hotel rooms in Dunai, Phoksundo. Luxury accommodation with mountain views, modern amenities, and exceptional service. Best hotel in the region!",
   keywords: [
-    "hotel rooms Dunai",
-    "luxury accommodation Phoksundo",
+    "best hotel in dunai",
+    "hotel rooms dunai",
+    "hotel in phoksundo",
+    "best hotel in phoksundo",
+    "luxury accommodation dunai",
+    "hotel booking dunai",
+    "Phoksundo accommodation",
+    "Dolpa hotel rooms",
     "mountain view rooms",
-    "hotel suites Dunai",
-    "Phoksundo hotel rooms",
     "Blue Sheep Hotel rooms",
   ],
+  openGraph: {
+    title: "Best Hotel Rooms in Dunai, Phoksundo | Luxury Accommodation",
+    description:
+      "🏨 Book the best hotel rooms in Dunai, Phoksundo. Luxury accommodation with mountain views and modern amenities.",
+    url: "https://bluesheephotel.com/rooms",
+    images: [
+      {
+        url: "/hotel-room.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Best Hotel Rooms in Dunai, Phoksundo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Best Hotel Rooms in Dunai, Phoksundo | Luxury Accommodation",
+    description:
+      "🏨 Book the best hotel rooms in Dunai, Phoksundo. Luxury accommodation with mountain views and modern amenities.",
+    images: ["/hotel-room.jpg"],
+  },
 };
 
 export default function RoomsLayout({

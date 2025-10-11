@@ -508,9 +508,7 @@ Please let me know about availability and booking process.`;
                               className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 hover:bg-emerald-500/30 transition-colors duration-200"
                             >
                               <CheckIcon className="w-3 h-3 text-emerald-400 mr-1 flex-shrink-0" />
-                              <span className="truncate max-w-24">
-                                {facility}
-                              </span>
+                              <span>{facility}</span>
                             </div>
                           ))}
                         {room.facilities.length > 8 && (
@@ -549,7 +547,7 @@ Please let me know about availability and booking process.`;
                         <div className="space-y-2">
                           <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 border border-red-200 text-red-700">
                             <div className="w-2 h-2 bg-red-500 rounded-full mr-2"></div>
-                            Not Available
+                            Occupied
                           </div>
                           {room.start_date && room.end_date && (
                             <div className="flex flex-wrap gap-2">
@@ -596,14 +594,13 @@ Please let me know about availability and booking process.`;
                     {/* Book Now Button */}
                     <button
                       onClick={() => handleBooking(room)}
-                      disabled={!room.is_available}
                       className={`w-full py-3 rounded-lg font-semibold transition-all duration-300 ${
                         room.is_available
                           ? "bg-emerald-500 text-white hover:bg-emerald-400 hover:scale-105 shadow-lg shadow-emerald-500/30"
-                          : "bg-gray-600 text-gray-400 cursor-not-allowed"
+                          : "bg-red-500/20 text-red-300 border border-red-400/50 hover:bg-red-500/30 hover:scale-105 shadow-lg shadow-red-500/20"
                       }`}
                     >
-                      {room.is_available ? "Book Now" : "Not Available"}
+                      {room.is_available ? "Book Now" : "Occupied"}
                     </button>
                   </div>
                 </motion.div>
