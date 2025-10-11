@@ -42,6 +42,15 @@ export default function RoomsPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState<{
     [key: string]: number;
   }>({});
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
+  const [bookingType, setBookingType] = useState<"book" | "reserve">("book");
+  const [bookingForm, setBookingForm] = useState({
+    customerName: "",
+    customerEmail: "",
+    customerPhone: "",
+    specialRequests: "",
+  });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Fetch rooms from database
@@ -91,16 +100,64 @@ export default function RoomsPage() {
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "USD",
+      currency: "NPR",
     }).format(price);
   };
 
   // Handle booking
   const handleBooking = (room: Room) => {
-    // You can implement booking logic here
-    alert(
-      `Booking ${room.room_name} for ${formatPrice(room.price_per_night)}/night`
-    );
+    if (room.is_available) {
+      setSelectedRoom(room);
+      setIsBookingModalOpen(true);
+    }
+  };
+
+  const handleBookingSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedRoom) return;
+
+    // Create WhatsApp message with form data
+    const message = `Hi! I'm interested in ${
+      bookingType === "book" ? "booking" : "reserving"
+    } the ${selectedRoom.room_name} room.
+
+Room Details:
+- Room: ${selectedRoom.room_name}
+- Price: ${formatPrice(selectedRoom.price_per_night)} per night
+- Capacity: ${selectedRoom.capacity} guests
+- Facilities: ${selectedRoom.facilities.join(", ")}
+
+Customer Details:
+- Name: ${bookingForm.customerName}
+- Phone: ${bookingForm.customerPhone}
+- Email: ${bookingForm.customerEmail || "Not provided"}
+- Booking Type: ${bookingType === "book" ? "Book Now" : "Reserve"}
+${
+  bookingForm.specialRequests
+    ? `- Special Requests: ${bookingForm.specialRequests}`
+    : ""
+}
+
+Please let me know about availability and booking process.`;
+
+    const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
+      message
+    )}`;
+    window.open(whatsappUrl, "_blank");
+
+    // Close modal after opening WhatsApp
+    closeBookingModal();
+  };
+
+  const closeBookingModal = () => {
+    setIsBookingModalOpen(false);
+    setSelectedRoom(null);
+    setBookingForm({
+      customerName: "",
+      customerEmail: "",
+      customerPhone: "",
+      specialRequests: "",
+    });
   };
 
   // Get current image for a room
@@ -172,12 +229,18 @@ export default function RoomsPage() {
               >
                 Activities
               </Link>
-              <Link
-                href="/contact"
+              <button
+                onClick={() => {
+                  const message = `Hi! I'd like to get in touch about your hotel services.`;
+                  const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
+                    message
+                  )}`;
+                  window.open(whatsappUrl, "_blank");
+                }}
                 className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
               >
                 Contact
-              </Link>
+              </button>
             </div>
 
             {/* Mobile menu button */}
@@ -564,8 +627,8 @@ export default function RoomsPage() {
               },
               {
                 icon: EyeIcon,
-                title: "Scenic Views",
-                description: "Stunning Phoksundo Lake views",
+                title: "Garden Restaurant",
+                description: "On-site restaurant with garden views",
               },
             ].map((amenity, index) => (
               <motion.div
@@ -610,17 +673,206 @@ export default function RoomsPage() {
             <p className="text-gray-300 mb-6">
               Contact us to make a reservation or book your perfect room.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-emerald-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-emerald-400 transition-colors">
-                Book Now
-              </button>
-              <button className="border border-emerald-400 text-emerald-400 px-8 py-3 rounded-lg font-semibold hover:bg-emerald-400/10 transition-colors">
+            <div className="flex justify-center">
+              <button
+                onClick={() => {
+                  const message = `Hi! I'd like to get in touch about your hotel services.`;
+                  const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
+                    message
+                  )}`;
+                  window.open(whatsappUrl, "_blank");
+                }}
+                className="border border-emerald-400 text-emerald-400 px-8 py-3 rounded-lg font-semibold hover:bg-emerald-400/10 transition-colors"
+              >
                 Contact Us
               </button>
             </div>
           </motion.div>
         </div>
       </section>
+
+      {/* Booking Modal */}
+      {isBookingModalOpen && selectedRoom && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="bg-slate-800/95 backdrop-blur-sm rounded-2xl p-8 border border-emerald-400/50 shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+          >
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-white font-montserrat">
+                {bookingType === "book" ? "Book" : "Reserve"}{" "}
+                {selectedRoom.room_name}
+              </h2>
+              <button
+                onClick={closeBookingModal}
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <XMarkIcon className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Booking Type Selection */}
+            <div className="mb-6">
+              <div className="flex gap-4">
+                <button
+                  onClick={() => setBookingType("book")}
+                  className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
+                    bookingType === "book"
+                      ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/30"
+                      : "bg-slate-700/50 text-gray-300 border border-emerald-400/50 hover:bg-emerald-500/20"
+                  }`}
+                >
+                  Book Now
+                </button>
+                <button
+                  onClick={() => setBookingType("reserve")}
+                  className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
+                    bookingType === "reserve"
+                      ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/30"
+                      : "bg-slate-700/50 text-gray-300 border border-emerald-400/50 hover:bg-emerald-500/20"
+                  }`}
+                >
+                  Reserve
+                </button>
+              </div>
+            </div>
+
+            {/* Booking Notice */}
+            <div className="mb-6 p-4 bg-amber-500/20 border border-amber-400/30 rounded-lg">
+              <div className="flex items-center gap-3">
+                <div className="w-6 h-6 bg-amber-500 rounded-full flex items-center justify-center">
+                  <span className="text-white text-sm font-bold">!</span>
+                </div>
+                <div>
+                  <h4 className="text-amber-300 font-semibold mb-1">
+                    Important Notice
+                  </h4>
+                  <p className="text-amber-200 text-sm">
+                    Bookings must be made at least 1 day in advance. This will
+                    open WhatsApp with your booking details.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Room Info */}
+            <div className="mb-6 p-4 bg-slate-700/50 rounded-lg border border-emerald-400/30">
+              <div className="flex justify-between items-center">
+                <div>
+                  <h3 className="text-lg font-semibold text-white">
+                    {selectedRoom.room_name}
+                  </h3>
+                  <p className="text-emerald-300">
+                    Capacity: {selectedRoom.capacity} guests
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-2xl font-bold text-emerald-400">
+                    {formatPrice(selectedRoom.price_per_night)}
+                  </p>
+                  <p className="text-sm text-gray-300">per night</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Booking Form */}
+            <form onSubmit={handleBookingSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-emerald-300 mb-2">
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={bookingForm.customerName}
+                    onChange={(e) =>
+                      setBookingForm({
+                        ...bookingForm,
+                        customerName: e.target.value,
+                      })
+                    }
+                    className="w-full px-4 py-3 bg-slate-700/50 border border-emerald-400/50 rounded-lg text-white placeholder-gray-400 focus:border-emerald-400 focus:outline-none"
+                    placeholder="Enter your full name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-emerald-300 mb-2">
+                    Email (Optional)
+                  </label>
+                  <input
+                    type="email"
+                    value={bookingForm.customerEmail}
+                    onChange={(e) =>
+                      setBookingForm({
+                        ...bookingForm,
+                        customerEmail: e.target.value,
+                      })
+                    }
+                    className="w-full px-4 py-3 bg-slate-700/50 border border-emerald-400/50 rounded-lg text-white placeholder-gray-400 focus:border-emerald-400 focus:outline-none"
+                    placeholder="Enter your email (optional)"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-emerald-300 mb-2">
+                  Phone Number *
+                </label>
+                <input
+                  type="tel"
+                  required
+                  value={bookingForm.customerPhone}
+                  onChange={(e) =>
+                    setBookingForm({
+                      ...bookingForm,
+                      customerPhone: e.target.value,
+                    })
+                  }
+                  className="w-full px-4 py-3 bg-slate-700/50 border border-emerald-400/50 rounded-lg text-white placeholder-gray-400 focus:border-emerald-400 focus:outline-none"
+                  placeholder="Enter your phone number"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-emerald-300 mb-2">
+                  Special Requests
+                </label>
+                <textarea
+                  value={bookingForm.specialRequests}
+                  onChange={(e) =>
+                    setBookingForm({
+                      ...bookingForm,
+                      specialRequests: e.target.value,
+                    })
+                  }
+                  rows={3}
+                  className="w-full px-4 py-3 bg-slate-700/50 border border-emerald-400/50 rounded-lg text-white placeholder-gray-400 focus:border-emerald-400 focus:outline-none resize-none"
+                  placeholder="Any special requests or notes..."
+                />
+              </div>
+
+              <div className="flex gap-4 pt-4">
+                <button
+                  type="button"
+                  onClick={closeBookingModal}
+                  className="flex-1 px-6 py-3 border border-emerald-400 text-emerald-400 rounded-lg font-semibold hover:bg-emerald-400/10 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 px-6 py-3 bg-emerald-500 text-white rounded-lg font-semibold hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/30"
+                >
+                  Send to WhatsApp
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 }

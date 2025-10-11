@@ -546,6 +546,12 @@ export default function MenuPage() {
               <button className="bg-yellow-400 text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors">
                 Call to Order
               </button>
+              <Link
+                href="/rooms"
+                className="bg-emerald-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-emerald-400 transition-colors text-center"
+              >
+                Book Now
+              </Link>
               <button className="border border-yellow-400 text-yellow-400 px-8 py-3 rounded-lg font-semibold hover:bg-yellow-400/10 transition-colors">
                 Make Reservation
               </button>
