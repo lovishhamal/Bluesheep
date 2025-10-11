@@ -1,17 +1,162 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import {
   MapPinIcon,
   PhoneIcon,
   EnvelopeIcon,
   ClockIcon,
+  Bars3Icon,
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
-
+import { useState } from "react";
 
 export default function ContactPage() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen animated-bg">
+      {/* Navigation */}
+      <nav className="sticky top-0 w-full z-50 bg-slate-900/95 backdrop-blur-sm border-b border-emerald-400/30 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="flex items-center"
+            >
+              <Link href="/">
+                <img
+                  src="/logo.jpg"
+                  alt="Hotel Blue Sheep Inn Logo"
+                  className="h-16 w-auto mr-3 rounded-lg shadow-md cursor-pointer"
+                />
+              </Link>
+            </motion.div>
+            <div className="hidden md:flex space-x-8">
+              <Link
+                href="/"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
+              >
+                Home
+              </Link>
+              <Link
+                href="/rooms"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
+              >
+                Rooms
+              </Link>
+              <Link
+                href="/menu"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
+              >
+                Menu
+              </Link>
+              <Link
+                href="/camping"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
+              >
+                Camping
+              </Link>
+              <Link
+                href="/activities"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
+              >
+                Activities
+              </Link>
+              <button
+                onClick={() => {
+                  const message = `Hi! I'd like to get in touch about your hotel services.`;
+                  const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
+                    message
+                  )}`;
+                  window.open(whatsappUrl, "_blank");
+                }}
+                className="text-emerald-400 font-semibold border-b-2 border-emerald-400 transition-colors duration-300"
+              >
+                Contact
+              </button>
+            </div>
+
+            {/* Mobile menu button */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300"
+              >
+                {isMobileMenuOpen ? (
+                  <XMarkIcon className="h-6 w-6" />
+                ) : (
+                  <Bars3Icon className="h-6 w-6" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile menu */}
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden border-t border-emerald-400/30"
+            >
+              <div className="py-4 space-y-4">
+                <Link
+                  href="/"
+                  className="block text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/rooms"
+                  className="block text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Rooms
+                </Link>
+                <Link
+                  href="/menu"
+                  className="block text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Menu
+                </Link>
+                <Link
+                  href="/camping"
+                  className="block text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Camping
+                </Link>
+                <Link
+                  href="/activities"
+                  className="block text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Activities
+                </Link>
+                <button
+                  onClick={() => {
+                    const message = `Hi! I'd like to get in touch about your hotel services.`;
+                    const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
+                      message
+                    )}`;
+                    window.open(whatsappUrl, "_blank");
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="block text-emerald-400 font-semibold w-full text-left"
+                >
+                  Contact
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </div>
+      </nav>
+
       {/* Header */}
       <section className="relative py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

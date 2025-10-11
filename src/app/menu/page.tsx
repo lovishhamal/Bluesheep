@@ -191,6 +191,12 @@ export default function MenuPage() {
                 Menu
               </Link>
               <Link
+                href="/camping"
+                className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium"
+              >
+                Camping
+              </Link>
+              <Link
                 href="/activities"
                 className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium"
               >
@@ -248,6 +254,13 @@ export default function MenuPage() {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Menu
+                </Link>
+                <Link
+                  href="/camping"
+                  className="block text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Camping
                 </Link>
                 <Link
                   href="/activities"

@@ -234,6 +234,12 @@ Please let me know about availability and booking process.`;
                 Menu
               </Link>
               <Link
+                href="/camping"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
+              >
+                Camping
+              </Link>
+              <Link
                 href="/activities"
                 className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
               >
@@ -297,6 +303,13 @@ Please let me know about availability and booking process.`;
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Menu
+                </Link>
+                <Link
+                  href="/camping"
+                  className="block text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Camping
                 </Link>
                 <Link
                   href="/activities"
