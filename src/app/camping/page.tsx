@@ -71,15 +71,19 @@ Please let me know about availability and the booking process.`;
       <nav className="w-full bg-slate-900/95 backdrop-blur-sm border-b border-emerald-400/30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
-            {/* Logo */}
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-sm">GH</span>
-              </div>
-              <span className="text-white font-bold text-xl font-montserrat">
-                Garden Hotel
-              </span>
-            </Link>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="flex items-center"
+            >
+              <Link href="/" className="flex items-center">
+                <img
+                  src="/logo.jpg"
+                  alt="Hotel Blue Sheep Inn Logo"
+                  className="h-16 w-auto mr-3 rounded-lg shadow-md cursor-pointer"
+                />
+              </Link>
+            </motion.div>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">

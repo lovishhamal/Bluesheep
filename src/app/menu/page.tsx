@@ -217,7 +217,7 @@ export default function MenuPage() {
             <div className="md:hidden">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-gray-300 hover:text-yellow-400 transition-colors duration-300"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300"
               >
                 {isMobileMenuOpen ? (
                   <XMarkIcon className="h-6 w-6" />
@@ -234,7 +234,7 @@ export default function MenuPage() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-yellow-600/30"
+              className="md:hidden border-t border-emerald-400/30"
             >
               <div className="py-4 space-y-4">
                 <Link
