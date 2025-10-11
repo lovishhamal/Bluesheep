@@ -318,8 +318,8 @@ export default function Home() {
           <ChevronRightIcon className="w-6 h-6" />
         </button>
 
-        {/* Image Indicators */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30 flex items-center space-x-4">
+        {/* Image Indicators - Hidden */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30 flex items-center space-x-4 opacity-0">
           <div className="flex space-x-2">
             {galleryImages.map((_, index) => (
               <button
