@@ -193,12 +193,6 @@ export default function Home() {
                 Camping
               </Link>
               <Link
-                href="/activities"
-                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
-              >
-                Activities
-              </Link>
-              <Link
                 href="/contact"
                 className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
               >
@@ -257,13 +251,6 @@ export default function Home() {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Camping
-                </Link>
-                <Link
-                  href="/activities"
-                  className="block text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Activities
                 </Link>
                 <Link
                   href="/contact"
