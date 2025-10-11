@@ -90,11 +90,11 @@ export default function MenuPage() {
   // Format price for display
   const formatPrice = (price: number) => {
     return (
-      new Intl.NumberFormat("en-US", {
+      "Rs. " + new Intl.NumberFormat("en-US", {
         style: "decimal",
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
-      }).format(price) + " Rs."
+      }).format(price)
     );
   };
 
