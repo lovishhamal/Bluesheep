@@ -100,16 +100,16 @@ Please let me know about availability and the booking process.`;
                 Rooms
               </Link>
               <Link
-                href="/camping"
-                className="text-emerald-400 font-semibold border-b-2 border-emerald-400 transition-colors duration-300"
-              >
-                Camping
-              </Link>
-              <Link
                 href="/menu"
                 className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
               >
                 Menu
+              </Link>
+              <Link
+                href="/camping"
+                className="text-emerald-400 font-semibold border-b-2 border-emerald-400 transition-colors duration-300"
+              >
+                Camping
               </Link>
               <Link
                 href="/activities"
@@ -170,18 +170,18 @@ Please let me know about availability and the booking process.`;
                   Rooms
                 </Link>
                 <Link
-                  href="/camping"
-                  className="block text-emerald-400 hover:text-emerald-300 transition-colors duration-300 font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Camping
-                </Link>
-                <Link
                   href="/menu"
                   className="block text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Menu
+                </Link>
+                <Link
+                  href="/camping"
+                  className="block text-emerald-400 hover:text-emerald-300 transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Camping
                 </Link>
                 <Link
                   href="/activities"
