@@ -155,7 +155,7 @@ export default function MenuPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-red-900 to-gray-900 text-white">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-[100] bg-gray-900/95 backdrop-blur-sm border-b border-yellow-600/30 shadow-sm">
+      <nav className="w-full bg-gray-900/95 backdrop-blur-sm border-b border-yellow-600/30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <motion.div
@@ -283,7 +283,7 @@ export default function MenuPage() {
       </nav>
 
       {/* Header */}
-      <section className="relative py-20 pt-32">
+      <section className="relative py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
