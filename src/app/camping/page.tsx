@@ -286,7 +286,7 @@ Please let me know about availability and the booking process.`;
           />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pb-32 sm:pb-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -335,10 +335,10 @@ Please let me know about availability and the booking process.`;
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8 px-4">
               <motion.button
                 onClick={() => setIsBookingModalOpen(true)}
-                className="px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-emerald-500/30 transform hover:scale-105"
+                className="w-full sm:w-auto px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-emerald-500/30 transform hover:scale-105"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -352,7 +352,7 @@ Please let me know about availability and the booking process.`;
                   )}`;
                   window.open(whatsappUrl, "_blank");
                 }}
-                className="px-8 py-4 border-2 border-emerald-400 text-emerald-400 hover:bg-emerald-400 hover:text-white font-semibold rounded-full transition-all duration-300"
+                className="w-full sm:w-auto px-8 py-4 border-2 border-emerald-400 text-emerald-400 hover:bg-emerald-400 hover:text-white font-semibold rounded-full transition-all duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -367,7 +367,7 @@ Please let me know about availability and the booking process.`;
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.8 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-8 sm:bottom-12 left-1/2 transform -translate-x-1/2"
         >
           <div className="w-6 h-10 border-2 border-emerald-400 rounded-full flex justify-center">
             <motion.div
@@ -380,7 +380,7 @@ Please let me know about availability and the booking process.`;
       </section>
 
       {/* Gallery Section - New Design */}
-      <section className="py-20 bg-white">
+      <section className="py-12 sm:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -476,7 +476,7 @@ Please let me know about availability and the booking process.`;
       </section>
 
       {/* Features Section - New Design */}
-      <section className="py-20 bg-gradient-to-br from-emerald-50 to-slate-50">
+      <section className="py-12 sm:py-20 bg-gradient-to-br from-emerald-50 to-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -494,7 +494,7 @@ Please let me know about availability and the booking process.`;
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {[
               {
                 icon: "🌲",
@@ -557,7 +557,7 @@ Please let me know about availability and the booking process.`;
       </section>
 
       {/* Contact Section - New Design */}
-      <section className="py-20 bg-gradient-to-br from-emerald-500 to-emerald-600">
+      <section className="py-12 sm:py-20 bg-gradient-to-br from-emerald-500 to-emerald-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -575,7 +575,7 @@ Please let me know about availability and the booking process.`;
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -631,10 +631,10 @@ Please let me know about availability and the booking process.`;
             viewport={{ once: true }}
             className="text-center mt-12"
           >
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
               <motion.button
                 onClick={() => setIsBookingModalOpen(true)}
-                className="px-8 py-4 bg-white text-emerald-600 font-semibold rounded-full hover:bg-emerald-50 transition-all duration-300 shadow-lg"
+                className="w-full sm:w-auto px-8 py-4 bg-white text-emerald-600 font-semibold rounded-full hover:bg-emerald-50 transition-all duration-300 shadow-lg"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -648,7 +648,7 @@ Please let me know about availability and the booking process.`;
                   )}`;
                   window.open(whatsappUrl, "_blank");
                 }}
-                className="px-8 py-4 border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-emerald-600 transition-all duration-300"
+                className="w-full sm:w-auto px-8 py-4 border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-emerald-600 transition-all duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >

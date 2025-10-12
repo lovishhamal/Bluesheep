@@ -342,16 +342,16 @@ export default function MenuPage() {
                   viewport={{ once: true }}
                 >
                   {/* Section Title */}
-                  <h3
-                    className="text-center text-3xl md:text-4xl text-[#1a3a52] tracking-[0.2em] my-12 px-5 relative"
-                    style={{ fontFamily: "Georgia, serif" }}
-                  >
-                    <span className="relative">
+                  <div className="flex items-center justify-center my-12 px-4">
+                    <div className="flex-1 h-0.5 bg-[#c9a961] max-w-16"></div>
+                    <h3
+                      className="text-center text-3xl md:text-4xl text-[#1a3a52] tracking-[0.2em] px-6"
+                      style={{ fontFamily: "Georgia, serif" }}
+                    >
                       {category.toUpperCase()}
-                      <div className="absolute top-1/2 left-0 w-20 h-0.5 bg-[#c9a961] transform -translate-y-1/2 -translate-x-24"></div>
-                      <div className="absolute top-1/2 right-0 w-20 h-0.5 bg-[#c9a961] transform -translate-y-1/2 translate-x-24"></div>
-                    </span>
-                  </h3>
+                    </h3>
+                    <div className="flex-1 h-0.5 bg-[#c9a961] max-w-16"></div>
+                  </div>
 
                   {/* Menu Items */}
                   <div className="space-y-6">
