@@ -46,64 +46,56 @@ export default function MenuPage() {
     const fetchMenuItems = async () => {
       try {
         console.log("Fetching menu items from database...");
+        console.log("Supabase URL:", process.env.NEXT_PUBLIC_SUPABASE_URL);
         console.log(
-          "Supabase URL:",
-          process.env.NEXT_PUBLIC_SUPABASE_URL ? "Set" : "Not set"
-        );
-        console.log(
-          "Supabase Key:",
-          process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? "Set" : "Not set"
+          "Supabase Anon Key:",
+          process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
         );
 
-        // Check if Supabase is configured
-        if (
-          !process.env.NEXT_PUBLIC_SUPABASE_URL ||
-          !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-        ) {
-          console.warn(
-            "Supabase environment variables not configured, using mock data"
-          );
-          if (isMounted) {
-            // Mock data for development
-            const mockMenuItems = [
-              {
-                id: "1",
-                item_name: "Dal Bhat",
-                description: "Traditional Nepali rice and lentil curry",
-                price: 500,
-                category: "Main Course",
-                images: "/dining-area.jpg", // Changed from array to string
-                is_available: true,
-                created_at: new Date().toISOString(),
-                updated_at: new Date().toISOString(),
-              },
-              {
-                id: "2",
-                item_name: "Momo",
-                description: "Steamed dumplings with meat or vegetables",
-                price: 300,
-                category: "Appetizer",
-                images: "/dining-area.jpg", // Changed from array to string
-                is_available: true,
-                created_at: new Date().toISOString(),
-                updated_at: new Date().toISOString(),
-              },
-              {
-                id: "3",
-                item_name: "Thukpa",
-                description: "Nepali noodle soup with vegetables",
-                price: 400,
-                category: "Soup",
-                images: "/dining-area.jpg", // Changed from array to string
-                is_available: true,
-                created_at: new Date().toISOString(),
-                updated_at: new Date().toISOString(),
-              },
-            ];
-            setMenuItems(mockMenuItems);
-            setError(null);
-            setLoading(false);
-          }
+        // Check if we're in development mode and use mock data
+        if (process.env.NODE_ENV === "development") {
+          console.log("Development mode: Using mock data");
+          const mockMenuItems: MenuItem[] = [
+            {
+              id: "1",
+              item_name: "Dal Bhat",
+              description:
+                "Traditional Nepali rice with lentil soup and seasonal vegetables",
+              price: 250,
+              category: "main",
+              images: "/dining-area.jpg",
+              is_available: true,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString(),
+            },
+            {
+              id: "2",
+              item_name: "Momo",
+              description:
+                "Steamed dumplings filled with vegetables or meat, served with spicy sauce",
+              price: 180,
+              category: "appetizer",
+              images: "/dining-area.jpg",
+              is_available: true,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString(),
+            },
+            {
+              id: "3",
+              item_name: "Thukpa",
+              description:
+                "Traditional Tibetan noodle soup with vegetables and meat",
+              price: 200,
+              category: "soup",
+              images: "/dining-area.jpg",
+              is_available: true,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString(),
+            },
+          ];
+          setMenuItems(mockMenuItems);
+          setError(null);
+          setLoading(false);
           return;
         }
 
@@ -233,9 +225,9 @@ export default function MenuPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-red-900 to-gray-900 text-white">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex justify-center items-center p-4">
       {/* Navigation */}
-      <nav className="w-full bg-slate-900/95 backdrop-blur-sm border-b border-emerald-400/30 shadow-sm">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-sm border-b border-gray-400/30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <motion.div
@@ -247,7 +239,7 @@ export default function MenuPage() {
                 <img
                   src="/logo.jpg"
                   alt="Hotel Blue Sheep Inn Logo"
-                  className="h-16 w-auto mr-3 rounded-lg shadow-md cursor-pointer"
+                  className="h-12 w-auto mr-3 rounded-lg shadow-md cursor-pointer"
                 />
               </Link>
             </motion.div>
@@ -288,7 +280,7 @@ export default function MenuPage() {
             <div className="md:hidden">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300"
+                className="text-gray-300 hover:text-yellow-400 transition-colors duration-300"
               >
                 {isMobileMenuOpen ? (
                   <XMarkIcon className="h-6 w-6" />
@@ -305,7 +297,7 @@ export default function MenuPage() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-emerald-400/30"
+              className="md:hidden border-t border-gray-400/30"
             >
               <div className="py-4 space-y-4">
                 <Link
@@ -349,37 +341,58 @@ export default function MenuPage() {
         </div>
       </nav>
 
-      {/* Header */}
-      <section className="relative py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-widest mb-4 font-montserrat bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 bg-clip-text text-transparent animate-pulse">
-              MENU - RESTAURANT
-            </h1>
-            <p className="text-lg sm:text-xl text-yellow-300 italic tracking-widest font-montserrat">
-              Culinary Excellence
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      {/* Restaurant Menu Card */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="w-full max-w-4xl bg-white shadow-2xl rounded-sm overflow-hidden mt-20"
+      >
+        {/* Menu Header */}
+        <div className="relative bg-gradient-to-br from-gray-900 to-red-900 text-white text-center py-16 px-8 overflow-hidden">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='15' cy='15' r='1'/%3E%3C/g%3E%3C/svg%3E")`,
+                animation: "drift 60s linear infinite",
+              }}
+            />
+          </div>
 
-      {/* Category Filter */}
-      <section className="py-8 border-b border-yellow-600/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1
+            className="text-5xl md:text-6xl font-light mb-4 tracking-widest relative z-10"
+            style={{
+              fontFamily: "serif",
+              background: "linear-gradient(45deg, #ffd700, #ffed4e, #ffd700)",
+              backgroundSize: "200% auto",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              animation: "shimmer 3s linear infinite",
+            }}
+          >
+            GARDEN RESTAURANT
+          </h1>
+          <p
+            className="text-xl font-light tracking-widest relative z-10"
+            style={{ color: "#d4af37", fontStyle: "italic" }}
+          >
+            AUTHENTIC LOCAL CUISINE
+          </p>
+        </div>
+
+        {/* Category Filter */}
+        <div className="bg-gray-50 py-6 px-8 border-b border-gray-200">
           <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+                className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
                   selectedCategory === category
-                    ? "bg-yellow-400 text-gray-900 shadow-lg shadow-yellow-400/30 transform scale-105"
-                    : "bg-white/10 text-gray-300 hover:bg-white/20 border border-yellow-600/30"
+                    ? "bg-yellow-500 text-gray-900 shadow-lg"
+                    : "bg-white text-gray-700 hover:bg-yellow-50 hover:text-yellow-600 border border-gray-200"
                 }`}
               >
                 {category === "All" ? "All" : capitalizeCategory(category)}
@@ -387,25 +400,21 @@ export default function MenuPage() {
             ))}
           </div>
         </div>
-      </section>
 
-      {/* Menu Items */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Menu Content */}
+        <div className="bg-gray-50 py-12 px-8 md:px-16">
           {loading ? (
             <div className="text-center py-20">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-lg p-8 inline-block border border-yellow-600/30">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400 mx-auto mb-4"></div>
-                <p className="text-white text-lg">Loading menu...</p>
-              </div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-700 mx-auto mb-4"></div>
+              <p className="text-gray-600 text-lg">Loading menu...</p>
             </div>
           ) : error ? (
             <div className="text-center py-20">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-lg p-8 inline-block border border-yellow-600/30">
-                <p className="text-red-400 text-lg">{error}</p>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
+                <p className="text-red-600 text-lg">{error}</p>
                 <button
                   onClick={() => window.location.reload()}
-                  className="mt-4 bg-yellow-400 text-gray-900 px-6 py-2 rounded-lg hover:bg-yellow-300 transition-colors"
+                  className="mt-4 bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-400 transition-colors"
                 >
                   Try Again
                 </button>
@@ -413,250 +422,165 @@ export default function MenuPage() {
             </div>
           ) : filteredItems.length === 0 ? (
             <div className="text-center py-20">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-lg p-8 inline-block border border-yellow-600/30">
-                <p className="text-white text-lg mb-4">
+              <div className="bg-white rounded-lg p-8 max-w-md mx-auto border border-gray-200">
+                <p className="text-gray-600 text-lg mb-4">
                   No items available in this category.
                 </p>
-                <p className="text-gray-300">
+                <p className="text-gray-500">
                   Please check back later or try a different category.
                 </p>
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
-              {selectedCategory === "All"
-                ? // Show all categories as cards
-                  categories.slice(1).map((category) => {
-                    const categoryItems = menuItems.filter(
-                      (item) => item.category === category
-                    );
-                    if (categoryItems.length === 0) return null;
-                    const CategoryIcon = getCategoryIcon(category);
+            <div className="space-y-12">
+              {selectedCategory === "All" ? (
+                // Show all categories as sections
+                categories.slice(1).map((category) => {
+                  const categoryItems = menuItems.filter(
+                    (item) => item.category === category
+                  );
+                  if (categoryItems.length === 0) return null;
 
-                    return (
-                      <motion.div
-                        key={category}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        viewport={{ once: true }}
-                        className="bg-white/5 backdrop-blur-sm rounded-2xl p-10 sm:p-12 lg:p-16 border border-yellow-600/30 hover:border-yellow-400/50 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-yellow-400/20 group relative overflow-hidden min-h-[600px] sm:min-h-[700px] lg:min-h-[800px] w-full"
-                      >
-                        {/* Background glow effect */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
-
-                        {/* Category Icon */}
-                        <div className="text-center mb-4 sm:mb-6 relative z-10">
-                          <div className="text-4xl sm:text-5xl lg:text-6xl mb-3 sm:mb-4 animate-bounce">
-                            {category.toLowerCase().includes("breakfast") &&
-                              "🌅"}
-                            {category.toLowerCase().includes("snack") && "🍿"}
-                            {category.toLowerCase().includes("lunch") && "🍽️"}
-                            {category.toLowerCase().includes("dinner") && "🌙"}
-                            {category.toLowerCase().includes("beverage") &&
-                              "🍷"}
-                            {category.toLowerCase().includes("drink") && "🥤"}
-                            {category.toLowerCase().includes("dessert") && "🍰"}
-                            {!category.toLowerCase().includes("breakfast") &&
-                              !category.toLowerCase().includes("snack") &&
-                              !category.toLowerCase().includes("lunch") &&
-                              !category.toLowerCase().includes("dinner") &&
-                              !category.toLowerCase().includes("beverage") &&
-                              !category.toLowerCase().includes("drink") &&
-                              !category.toLowerCase().includes("dessert") &&
-                              "✨"}
-                          </div>
-                          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-yellow-400 tracking-wider font-montserrat break-words">
-                            {capitalizeCategory(category)}
-                          </h2>
-                        </div>
-
-                        {/* Menu Items */}
-                        <div className="space-y-3 sm:space-y-4 relative z-10">
-                          {categoryItems.slice(0, 4).map((item, index) => (
-                            <motion.div
-                              key={item.id}
-                              initial={{ opacity: 0, x: -20 }}
-                              whileInView={{ opacity: 1, x: 0 }}
-                              transition={{ duration: 0.5, delay: index * 0.1 }}
-                              viewport={{ once: true }}
-                              className="border-b border-white/10 pb-3 last:border-b-0"
-                            >
-                              <div className="mb-4">
-                                <div className="flex flex-col gap-3 mb-3">
-                                  <div className="flex flex-col gap-2">
-                                    <div className="flex items-center gap-2">
-                                      <h3 className="text-lg sm:text-xl font-semibold text-white font-montserrat break-words flex-1">
-                                        {capitalizeItemName(item.item_name)}
-                                      </h3>
-
-                                      {/* Yellow dots separator */}
-                                      <div className="flex-1 flex justify-center">
-                                        <div className="flex space-x-1">
-                                          <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
-                                          <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
-                                          <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
-                                          <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
-                                          <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
-                                          <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
-                                          <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
-                                        </div>
-                                      </div>
-
-                                      <span className="text-xl sm:text-2xl font-bold text-yellow-400 whitespace-nowrap">
-                                        {formatPrice(item.price)}
-                                      </span>
-                                    </div>
-                                    {!item.is_available && (
-                                      <span className="text-xs bg-red-500/20 text-red-300 px-2 py-1 rounded border border-red-500/30 self-start w-fit">
-                                        Not Available
-                                      </span>
-                                    )}
-                                  </div>
-                                  <p className="text-gray-300 text-base sm:text-lg leading-relaxed italic break-words">
-                                    {item.description ||
-                                      "Delicious and freshly prepared"}
-                                  </p>
-                                </div>
-                              </div>
-
-                              {/* Item Image - Show database image or fallback */}
-                              <div className="mt-3">
-                                <img
-                                  src={item.images || "/dining-area.jpg"}
-                                  alt={capitalizeItemName(item.item_name)}
-                                  className="w-full h-32 object-cover rounded-lg border border-yellow-600/30"
-                                  onError={(e) => {
-                                    e.currentTarget.src = "/dining-area.jpg";
-                                  }}
-                                />
-                              </div>
-                            </motion.div>
-                          ))}
-
-                          {categoryItems.length > 4 && (
-                            <p className="text-yellow-300 text-sm sm:text-base italic text-center mt-4 break-words">
-                              +{categoryItems.length - 4} more items
-                            </p>
-                          )}
-                        </div>
-                      </motion.div>
-                    );
-                  })
-                : // Show single category as cards
-                  filteredItems.map((item, index) => (
+                  return (
                     <motion.div
-                      key={item.id}
+                      key={category}
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                      transition={{ duration: 0.6 }}
                       viewport={{ once: true }}
-                      className="bg-white/5 backdrop-blur-sm rounded-2xl p-10 sm:p-12 lg:p-16 border border-yellow-600/30 hover:border-yellow-400/50 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-yellow-400/20 group relative overflow-hidden min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] w-full"
+                      className="menu-section"
                     >
-                      {/* Background glow effect */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
+                      <h2
+                        className="text-3xl font-bold text-yellow-500 border-b-2 border-yellow-500 pb-3 mb-8 text-center tracking-wide"
+                        style={{ fontFamily: "serif" }}
+                      >
+                        {capitalizeCategory(category)}
+                      </h2>
 
-                      {/* Item Image - Show database image or fallback */}
-                      <div className="mb-4 sm:mb-6 relative z-10">
-                        <img
-                          src={item.images || "/dining-area.jpg"}
-                          alt={capitalizeItemName(item.item_name)}
-                          className="w-full h-40 sm:h-48 lg:h-56 object-cover rounded-lg border border-yellow-600/30"
-                          onError={(e) => {
-                            e.currentTarget.src = "/dining-area.jpg";
-                          }}
-                        />
-                      </div>
-
-                      {/* Item Details */}
-                      <div className="relative z-10">
-                        <div className="mb-6">
-                          <div className="flex flex-col gap-4 mb-4">
-                            <div className="flex flex-col gap-3">
-                              <div className="flex items-center gap-4">
-                                <h3 className="text-xl sm:text-2xl font-bold text-white font-montserrat break-words flex-1">
+                      <div className="space-y-6">
+                        {categoryItems.map((item, index) => (
+                          <motion.div
+                            key={item.id}
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            viewport={{ once: true }}
+                            className="flex justify-between items-start py-4 border-b border-dashed border-gray-300 hover:transform hover:translate-x-2 transition-all duration-200"
+                          >
+                            <div className="flex-1 pr-6">
+                              <div className="flex items-center gap-3 mb-2">
+                                <h3
+                                  className="text-xl font-semibold text-gray-800"
+                                  style={{ fontFamily: "serif" }}
+                                >
                                   {capitalizeItemName(item.item_name)}
                                 </h3>
-
-                                {/* Yellow dots separator */}
-                                <div className="flex-1 flex justify-center">
-                                  <div className="flex space-x-1">
-                                    <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
-                                    <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
-                                    <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
-                                    <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
-                                    <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
-                                    <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
-                                    <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
-                                    <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
-                                    <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
-                                  </div>
-                                </div>
-
-                                <span className="text-2xl sm:text-3xl font-bold text-yellow-400 whitespace-nowrap">
-                                  {formatPrice(item.price)}
-                                </span>
+                                {!item.is_available && (
+                                  <span className="bg-red-100 text-red-600 px-2 py-1 rounded text-xs font-semibold">
+                                    Not Available
+                                  </span>
+                                )}
                               </div>
-                              {!item.is_available && (
-                                <span className="text-sm bg-red-500/20 text-red-300 px-3 py-1 rounded border border-red-500/30 self-start w-fit">
-                                  Not Available
-                                </span>
-                              )}
+                              <p className="text-gray-600 leading-relaxed">
+                                {item.description ||
+                                  "Delicious and freshly prepared"}
+                              </p>
                             </div>
-                            <p className="text-gray-300 text-lg sm:text-xl leading-relaxed italic break-words">
-                              {item.description ||
-                                "Delicious and freshly prepared"}
-                            </p>
-                          </div>
-                        </div>
-
-                        {/* Category Badge */}
-                        <div className="flex items-center gap-2">
-                          {(() => {
-                            const CategoryIcon = getCategoryIcon(item.category);
-                            return (
-                              <CategoryIcon className="w-4 h-4 text-yellow-400" />
-                            );
-                          })()}
-                          <span className="text-xs sm:text-sm text-yellow-300 uppercase tracking-wider break-words">
-                            {capitalizeCategory(item.category)}
-                          </span>
-                        </div>
+                            <div
+                              className="text-xl font-bold text-yellow-500 whitespace-nowrap"
+                              style={{ fontFamily: "serif" }}
+                            >
+                              {formatPrice(item.price)}
+                            </div>
+                          </motion.div>
+                        ))}
                       </div>
                     </motion.div>
-                  ))}
+                  );
+                })
+              ) : (
+                // Show single category
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  viewport={{ once: true }}
+                  className="menu-section"
+                >
+                  <h2
+                    className="text-3xl font-bold text-yellow-500 border-b-2 border-yellow-500 pb-3 mb-8 text-center tracking-wide"
+                    style={{ fontFamily: "serif" }}
+                  >
+                    {capitalizeCategory(selectedCategory)}
+                  </h2>
+
+                  <div className="space-y-6">
+                    {filteredItems.map((item, index) => (
+                      <motion.div
+                        key={item.id}
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                        viewport={{ once: true }}
+                        className="flex justify-between items-start py-4 border-b border-dashed border-gray-300 hover:transform hover:translate-x-2 transition-all duration-200"
+                      >
+                        <div className="flex-1 pr-6">
+                          <div className="flex items-center gap-3 mb-2">
+                            <h3
+                              className="text-xl font-semibold text-gray-800"
+                              style={{ fontFamily: "serif" }}
+                            >
+                              {capitalizeItemName(item.item_name)}
+                            </h3>
+                            {!item.is_available && (
+                              <span className="bg-red-100 text-red-600 px-2 py-1 rounded text-xs font-semibold">
+                                Not Available
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-gray-600 leading-relaxed">
+                            {item.description ||
+                              "Delicious and freshly prepared"}
+                          </p>
+                        </div>
+                        <div
+                          className="text-xl font-bold text-yellow-500 whitespace-nowrap"
+                          style={{ fontFamily: "serif" }}
+                        >
+                          {formatPrice(item.price)}
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
             </div>
           )}
         </div>
-      </section>
+      </motion.div>
 
-      {/* Footer CTA */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-yellow-600/30"
-          >
-            <h2 className="text-3xl font-bold text-white mb-4 font-montserrat">
-              Ready to Order?
-            </h2>
-            <p className="text-gray-300 mb-6">
-              Contact us to place your order or make a reservation.
-            </p>
-            <div className="flex justify-center">
-              <Link
-                href="/rooms"
-                className="bg-emerald-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-emerald-400 transition-colors text-center"
-              >
-                Book Now
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <style jsx>{`
+        @keyframes drift {
+          0% {
+            transform: translate(0, 0);
+          }
+          100% {
+            transform: translate(30px, 30px);
+          }
+        }
+
+        @keyframes shimmer {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+      `}</style>
     </div>
   );
 }
