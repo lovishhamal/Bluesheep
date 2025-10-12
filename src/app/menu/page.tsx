@@ -2,20 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import {
-  CheckIcon,
-  CurrencyDollarIcon,
-  TagIcon,
-  PhotoIcon,
-  Bars3Icon,
-  XMarkIcon,
-  SunIcon,
-  MoonIcon,
-  BeakerIcon,
-  CakeIcon,
-  FireIcon,
-  SparklesIcon,
-} from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { supabase } from "../util/supabase";
 import { useState, useEffect } from "react";
 
@@ -26,7 +13,7 @@ interface MenuItem {
   description: string;
   price: number;
   category: string;
-  images: string; // Changed from string[] to string
+  images: string;
   is_available: boolean;
   created_at: string;
   updated_at: string;
@@ -36,68 +23,15 @@ export default function MenuPage() {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Fetch menu items from database
   useEffect(() => {
-    let isMounted = true; // Prevent state updates if component unmounts
+    let isMounted = true;
 
     const fetchMenuItems = async () => {
       try {
         console.log("Fetching menu items from database...");
-        console.log("Supabase URL:", process.env.NEXT_PUBLIC_SUPABASE_URL);
-        console.log(
-          "Supabase Anon Key:",
-          process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-        );
-
-        // Check if we're in development mode and use mock data
-        if (process.env.NODE_ENV === "development") {
-          console.log("Development mode: Using mock data");
-          const mockMenuItems: MenuItem[] = [
-            {
-              id: "1",
-              item_name: "Dal Bhat",
-              description:
-                "Traditional Nepali rice with lentil soup and seasonal vegetables",
-              price: 250,
-              category: "main",
-              images: "/dining-area.jpg",
-              is_available: true,
-              created_at: new Date().toISOString(),
-              updated_at: new Date().toISOString(),
-            },
-            {
-              id: "2",
-              item_name: "Momo",
-              description:
-                "Steamed dumplings filled with vegetables or meat, served with spicy sauce",
-              price: 180,
-              category: "appetizer",
-              images: "/dining-area.jpg",
-              is_available: true,
-              created_at: new Date().toISOString(),
-              updated_at: new Date().toISOString(),
-            },
-            {
-              id: "3",
-              item_name: "Thukpa",
-              description:
-                "Traditional Tibetan noodle soup with vegetables and meat",
-              price: 200,
-              category: "soup",
-              images: "/dining-area.jpg",
-              is_available: true,
-              created_at: new Date().toISOString(),
-              updated_at: new Date().toISOString(),
-            },
-          ];
-          setMenuItems(mockMenuItems);
-          setError(null);
-          setLoading(false);
-          return;
-        }
 
         const { data, error } = await supabase
           .from("menu")
@@ -139,7 +73,6 @@ export default function MenuPage() {
 
     fetchMenuItems();
 
-    // Cleanup function
     return () => {
       isMounted = false;
     };
@@ -147,14 +80,7 @@ export default function MenuPage() {
 
   // Format price for display
   const formatPrice = (price: number) => {
-    return (
-      "Rs. " +
-      new Intl.NumberFormat("en-US", {
-        style: "decimal",
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
-      }).format(price)
-    );
+    return "₹" + price;
   };
 
   // Capitalize category names
@@ -168,66 +94,20 @@ export default function MenuPage() {
   };
 
   // Get unique categories
-  const categories = [
-    "All",
-    ...Array.from(
-      new Set(menuItems.map((item) => item.category).filter(Boolean))
-    ),
-  ];
+  const categories = Array.from(
+    new Set(menuItems.map((item) => item.category).filter(Boolean))
+  );
 
-  // Filter items by category
-  const filteredItems =
-    selectedCategory === "All"
-      ? menuItems
-      : menuItems.filter((item) => item.category === selectedCategory);
-
-  // Get first image or fallback
-  const getItemImage = (images: string[]) => {
-    if (images && images.length > 0) {
-      return images[0];
-    }
-    return "/dining-area.jpg"; // Fallback image
-  };
-
-  // Get category icon
-  const getCategoryIcon = (category: string) => {
-    const categoryLower = category.toLowerCase();
-    if (
-      categoryLower.includes("breakfast") ||
-      categoryLower.includes("morning")
-    ) {
-      return SunIcon;
-    } else if (
-      categoryLower.includes("lunch") ||
-      categoryLower.includes("main")
-    ) {
-      return FireIcon;
-    } else if (
-      categoryLower.includes("dinner") ||
-      categoryLower.includes("evening")
-    ) {
-      return MoonIcon;
-    } else if (
-      categoryLower.includes("drink") ||
-      categoryLower.includes("beverage")
-    ) {
-      return BeakerIcon;
-    } else if (categoryLower.includes("snack")) {
-      return CakeIcon;
-    } else if (
-      categoryLower.includes("dessert") ||
-      categoryLower.includes("sweet")
-    ) {
-      return CakeIcon;
-    } else {
-      return SparklesIcon;
-    }
-  };
+  // Group items by category
+  const itemsByCategory = categories.reduce((acc, category) => {
+    acc[category] = menuItems.filter((item) => item.category === category);
+    return acc;
+  }, {} as Record<string, MenuItem[]>);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex justify-center items-center p-4">
+    <div className="min-h-screen bg-[#f5f1e8] flex justify-center items-center p-5">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-sm border-b border-gray-400/30 shadow-sm">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#1a3a52]/95 backdrop-blur-sm border-b border-[#1a3a52]/30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <motion.div
@@ -246,31 +126,31 @@ export default function MenuPage() {
             <div className="hidden md:flex space-x-8">
               <Link
                 href="/"
-                className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium"
+                className="text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
               >
                 Home
               </Link>
               <Link
                 href="/rooms"
-                className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium"
+                className="text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
               >
                 Rooms
               </Link>
               <Link
                 href="/menu"
-                className="text-yellow-400 font-semibold border-b-2 border-yellow-400 transition-colors duration-300"
+                className="text-[#c9a961] font-semibold border-b-2 border-[#c9a961] transition-colors duration-300"
               >
                 Menu
               </Link>
               <Link
                 href="/camping"
-                className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium"
+                className="text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
               >
                 Camping
               </Link>
               <Link
                 href="/contact"
-                className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium"
+                className="text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
               >
                 Contact
               </Link>
@@ -280,7 +160,7 @@ export default function MenuPage() {
             <div className="md:hidden">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-gray-300 hover:text-yellow-400 transition-colors duration-300"
+                className="text-white hover:text-[#c9a961] transition-colors duration-300"
               >
                 {isMobileMenuOpen ? (
                   <XMarkIcon className="h-6 w-6" />
@@ -297,40 +177,40 @@ export default function MenuPage() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-gray-400/30"
+              className="md:hidden border-t border-[#1a3a52]/30"
             >
               <div className="py-4 space-y-4">
                 <Link
                   href="/"
-                  className="block text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium"
+                  className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Home
                 </Link>
                 <Link
                   href="/rooms"
-                  className="block text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium"
+                  className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Rooms
                 </Link>
                 <Link
                   href="/menu"
-                  className="block text-yellow-400 font-semibold"
+                  className="block text-[#c9a961] font-semibold"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Menu
                 </Link>
                 <Link
                   href="/camping"
-                  className="block text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium"
+                  className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Camping
                 </Link>
                 <Link
                   href="/contact"
-                  className="block text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium"
+                  className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Contact
@@ -341,211 +221,184 @@ export default function MenuPage() {
         </div>
       </nav>
 
-      {/* Restaurant Menu Card */}
+      {/* Menu Container */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="w-full max-w-4xl bg-white shadow-2xl rounded-sm overflow-hidden mt-20"
+        className="bg-[#f5f1e8] border-[3px] border-[#1a3a52] max-w-4xl w-full p-10 relative mt-20"
       >
-        {/* Menu Header */}
-        <div className="relative bg-gradient-to-br from-gray-900 to-red-900 text-white text-center py-16 px-8 overflow-hidden">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='15' cy='15' r='1'/%3E%3C/g%3E%3C/svg%3E")`,
-                animation: "drift 60s linear infinite",
-              }}
+        {/* Corner Decorations */}
+        <div className="absolute top-[10px] left-[10px] w-[60px] h-[60px]">
+          <svg
+            viewBox="0 0 60 60"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M5 5 Q5 5 5 15 M5 5 Q5 5 15 5"
+              stroke="#1a3a52"
+              strokeWidth="2"
+              fill="none"
             />
-          </div>
-
-          <h1
-            className="text-5xl md:text-6xl font-light mb-4 tracking-widest relative z-10"
-            style={{
-              fontFamily: "serif",
-              background: "linear-gradient(45deg, #ffd700, #ffed4e, #ffd700)",
-              backgroundSize: "200% auto",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              animation: "shimmer 3s linear infinite",
-            }}
+            <path
+              d="M10 10 Q10 10 10 20 M10 10 Q10 10 20 10"
+              stroke="#1a3a52"
+              strokeWidth="1.5"
+              fill="none"
+            />
+            <path
+              d="M15 15 Q15 15 15 25 M15 15 Q15 15 25 15"
+              stroke="#1a3a52"
+              strokeWidth="1"
+              fill="none"
+            />
+          </svg>
+        </div>
+        <div className="absolute top-[10px] right-[10px] w-[60px] h-[60px]">
+          <svg
+            viewBox="0 0 60 60"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            GARDEN RESTAURANT
-          </h1>
-          <p
-            className="text-xl font-light tracking-widest relative z-10"
-            style={{ color: "#d4af37", fontStyle: "italic" }}
-          >
-            AUTHENTIC LOCAL CUISINE
-          </p>
+            <path
+              d="M55 5 Q55 5 55 15 M55 5 Q55 5 45 5"
+              stroke="#1a3a52"
+              strokeWidth="2"
+              fill="none"
+            />
+            <path
+              d="M50 10 Q50 10 50 20 M50 10 Q50 10 40 10"
+              stroke="#1a3a52"
+              strokeWidth="1.5"
+              fill="none"
+            />
+            <path
+              d="M45 15 Q45 15 45 25 M45 15 Q45 15 35 15"
+              stroke="#1a3a52"
+              strokeWidth="1"
+              fill="none"
+            />
+          </svg>
         </div>
 
-        {/* Category Filter */}
-        <div className="bg-gray-50 py-6 px-8 border-b border-gray-200">
-          <div className="flex flex-wrap justify-center gap-3">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
-                  selectedCategory === category
-                    ? "bg-yellow-500 text-gray-900 shadow-lg"
-                    : "bg-white text-gray-700 hover:bg-yellow-50 hover:text-yellow-600 border border-gray-200"
-                }`}
-              >
-                {category === "All" ? "All" : capitalizeCategory(category)}
-              </button>
-            ))}
-          </div>
+        {/* Header */}
+        <div className="text-center mb-10">
+          <h1
+            className="text-6xl md:text-7xl text-[#1a3a52] tracking-[0.1em] mb-2 font-normal"
+            style={{ fontFamily: "Georgia, serif" }}
+          >
+            BLUE SHEEP
+          </h1>
+          <h2
+            className="text-2xl md:text-3xl text-[#1a3a52] tracking-[0.3em] font-normal mb-8"
+            style={{ fontFamily: "Georgia, serif" }}
+          >
+            HOTEL & RESTAURANT
+          </h2>
+        </div>
+
+        {/* Logo */}
+        <div className="flex justify-center mb-8">
+          <img
+            src="/logo.jpg"
+            alt="Blue Sheep Hotel Logo"
+            className="h-24 w-auto rounded-lg shadow-lg"
+          />
+        </div>
+
+        {/* Mountain Icon */}
+        <div className="flex justify-center my-8">
+          <svg
+            width="300"
+            height="80"
+            viewBox="0 0 300 80"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0 60 L50 20 L100 40 L150 10 L200 30 L250 5 L300 25 L300 80 L0 80 Z"
+              fill="#1a3a52"
+              opacity="0.3"
+            />
+            <path
+              d="M0 70 L30 35 L60 50 L90 25 L120 40 L150 20 L180 35 L210 15 L240 30 L270 10 L300 25 L300 80 L0 80 Z"
+              fill="#c9a961"
+              opacity="0.4"
+            />
+          </svg>
         </div>
 
         {/* Menu Content */}
-        <div className="bg-gray-50 py-12 px-8 md:px-16">
-          {loading ? (
-            <div className="text-center py-20">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-700 mx-auto mb-4"></div>
-              <p className="text-gray-600 text-lg">Loading menu...</p>
+        {loading ? (
+          <div className="text-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1a3a52] mx-auto mb-4"></div>
+            <p className="text-[#1a3a52] text-lg">Loading menu...</p>
+          </div>
+        ) : error ? (
+          <div className="text-center py-20">
+            <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
+              <p className="text-red-600 text-lg">{error}</p>
+              <button
+                onClick={() => window.location.reload()}
+                className="mt-4 bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-400 transition-colors"
+              >
+                Try Again
+              </button>
             </div>
-          ) : error ? (
-            <div className="text-center py-20">
-              <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
-                <p className="text-red-600 text-lg">{error}</p>
-                <button
-                  onClick={() => window.location.reload()}
-                  className="mt-4 bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-400 transition-colors"
-                >
-                  Try Again
-                </button>
-              </div>
-            </div>
-          ) : filteredItems.length === 0 ? (
-            <div className="text-center py-20">
-              <div className="bg-white rounded-lg p-8 max-w-md mx-auto border border-gray-200">
-                <p className="text-gray-600 text-lg mb-4">
-                  No items available in this category.
-                </p>
-                <p className="text-gray-500">
-                  Please check back later or try a different category.
-                </p>
-              </div>
-            </div>
-          ) : (
-            <div className="space-y-12">
-              {selectedCategory === "All" ? (
-                // Show all categories as sections
-                categories.slice(1).map((category) => {
-                  const categoryItems = menuItems.filter(
-                    (item) => item.category === category
-                  );
-                  if (categoryItems.length === 0) return null;
+          </div>
+        ) : (
+          <div className="space-y-12">
+            {categories.map((category) => {
+              const categoryItems = itemsByCategory[category];
+              if (!categoryItems || categoryItems.length === 0) return null;
 
-                  return (
-                    <motion.div
-                      key={category}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6 }}
-                      viewport={{ once: true }}
-                      className="menu-section"
-                    >
-                      <h2
-                        className="text-3xl font-bold text-yellow-500 border-b-2 border-yellow-500 pb-3 mb-8 text-center tracking-wide"
-                        style={{ fontFamily: "serif" }}
-                      >
-                        {capitalizeCategory(category)}
-                      </h2>
-
-                      <div className="space-y-6">
-                        {categoryItems.map((item, index) => (
-                          <motion.div
-                            key={item.id}
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                            viewport={{ once: true }}
-                            className="flex justify-between items-start py-4 border-b border-dashed border-gray-300 hover:transform hover:translate-x-2 transition-all duration-200"
-                          >
-                            <div className="flex-1 pr-6">
-                              <div className="flex items-center gap-3 mb-2">
-                                <h3
-                                  className="text-xl font-semibold text-gray-800"
-                                  style={{ fontFamily: "serif" }}
-                                >
-                                  {capitalizeItemName(item.item_name)}
-                                </h3>
-                                {!item.is_available && (
-                                  <span className="bg-red-100 text-red-600 px-2 py-1 rounded text-xs font-semibold">
-                                    Not Available
-                                  </span>
-                                )}
-                              </div>
-                              <p className="text-gray-600 leading-relaxed">
-                                {item.description ||
-                                  "Delicious and freshly prepared"}
-                              </p>
-                            </div>
-                            <div
-                              className="text-xl font-bold text-yellow-500 whitespace-nowrap"
-                              style={{ fontFamily: "serif" }}
-                            >
-                              {formatPrice(item.price)}
-                            </div>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </motion.div>
-                  );
-                })
-              ) : (
-                // Show single category
+              return (
                 <motion.div
+                  key={category}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
                   viewport={{ once: true }}
-                  className="menu-section"
                 >
-                  <h2
-                    className="text-3xl font-bold text-yellow-500 border-b-2 border-yellow-500 pb-3 mb-8 text-center tracking-wide"
-                    style={{ fontFamily: "serif" }}
+                  {/* Section Title */}
+                  <h3
+                    className="text-center text-3xl md:text-4xl text-[#1a3a52] tracking-[0.2em] my-12 px-5 relative"
+                    style={{ fontFamily: "Georgia, serif" }}
                   >
-                    {capitalizeCategory(selectedCategory)}
-                  </h2>
+                    <span className="relative">
+                      {category.toUpperCase()}
+                      <div className="absolute top-1/2 left-0 w-20 h-0.5 bg-[#c9a961] transform -translate-y-1/2 -translate-x-24"></div>
+                      <div className="absolute top-1/2 right-0 w-20 h-0.5 bg-[#c9a961] transform -translate-y-1/2 translate-x-24"></div>
+                    </span>
+                  </h3>
 
+                  {/* Menu Items */}
                   <div className="space-y-6">
-                    {filteredItems.map((item, index) => (
+                    {categoryItems.map((item, index) => (
                       <motion.div
                         key={item.id}
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.5, delay: index * 0.1 }}
                         viewport={{ once: true }}
-                        className="flex justify-between items-start py-4 border-b border-dashed border-gray-300 hover:transform hover:translate-x-2 transition-all duration-200"
+                        className="flex justify-between items-baseline mb-6"
                       >
-                        <div className="flex-1 pr-6">
-                          <div className="flex items-center gap-3 mb-2">
-                            <h3
-                              className="text-xl font-semibold text-gray-800"
-                              style={{ fontFamily: "serif" }}
-                            >
-                              {capitalizeItemName(item.item_name)}
-                            </h3>
-                            {!item.is_available && (
-                              <span className="bg-red-100 text-red-600 px-2 py-1 rounded text-xs font-semibold">
-                                Not Available
-                              </span>
-                            )}
+                        <div className="flex-1">
+                          <div
+                            className="text-2xl md:text-3xl text-[#1a3a52] font-semibold"
+                            style={{ fontFamily: "Georgia, serif" }}
+                          >
+                            {capitalizeItemName(item.item_name)}
                           </div>
-                          <p className="text-gray-600 leading-relaxed">
+                          <div className="text-base md:text-lg text-[#4a4a4a] mt-1 italic">
                             {item.description ||
                               "Delicious and freshly prepared"}
-                          </p>
+                          </div>
                         </div>
                         <div
-                          className="text-xl font-bold text-yellow-500 whitespace-nowrap"
-                          style={{ fontFamily: "serif" }}
+                          className="text-2xl md:text-3xl text-[#1a3a52] font-semibold whitespace-nowrap ml-5"
+                          style={{ fontFamily: "Georgia, serif" }}
                         >
                           {formatPrice(item.price)}
                         </div>
@@ -553,34 +406,11 @@ export default function MenuPage() {
                     ))}
                   </div>
                 </motion.div>
-              )}
-            </div>
-          )}
-        </div>
+              );
+            })}
+          </div>
+        )}
       </motion.div>
-
-      <style jsx>{`
-        @keyframes drift {
-          0% {
-            transform: translate(0, 0);
-          }
-          100% {
-            transform: translate(30px, 30px);
-          }
-        }
-
-        @keyframes shimmer {
-          0% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-          100% {
-            background-position: 0% 50%;
-          }
-        }
-      `}</style>
     </div>
   );
 }
