@@ -362,8 +362,23 @@ export default function MenuPage() {
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.5, delay: index * 0.1 }}
                         viewport={{ once: true }}
-                        className="flex justify-between items-baseline mb-6"
+                        className="flex items-center gap-6 mb-6"
                       >
+                        {/* Item Image */}
+                        {item.images && (
+                          <div className="flex-shrink-0">
+                            <img
+                              src={item.images}
+                              alt={item.item_name}
+                              className="w-20 h-20 md:w-24 md:h-24 object-cover shadow-md"
+                              onError={(e) => {
+                                e.currentTarget.style.display = "none";
+                              }}
+                            />
+                          </div>
+                        )}
+
+                        {/* Item Details */}
                         <div className="flex-1">
                           <div
                             className="text-2xl md:text-3xl text-[#1a3a52] font-semibold"
@@ -376,8 +391,10 @@ export default function MenuPage() {
                               "Delicious and freshly prepared"}
                           </div>
                         </div>
+
+                        {/* Price */}
                         <div
-                          className="text-2xl md:text-3xl text-[#1a3a52] font-semibold whitespace-nowrap ml-5"
+                          className="text-2xl md:text-3xl text-[#1a3a52] font-semibold whitespace-nowrap"
                           style={{ fontFamily: "Georgia, serif" }}
                         >
                           {formatPrice(item.price)}
