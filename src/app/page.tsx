@@ -541,7 +541,7 @@ export default function Home() {
                 icon: "🚁",
                 title: "Easy Access",
                 description:
-                  "Only 15 minutes drive from Dolpa Airport with convenient transportation",
+                  "Only 30 minutes drive from Dolpa Airport with convenient transportation",
               },
               {
                 icon: "🙏",
