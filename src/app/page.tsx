@@ -260,7 +260,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-800 text-white">
       {/* Navigation */}
-      <nav className="w-full bg-slate-900/95 backdrop-blur-sm border-b border-emerald-400/30 shadow-sm">
+      <nav className="w-full bg-slate-900 border-b border-emerald-400/30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <motion.div
@@ -372,169 +372,115 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent z-10" />
-
-        {/* Image Gallery */}
-        <div className="absolute inset-0">
-          <motion.div
-            key={currentImageIndex}
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="w-full h-full bg-cover bg-center bg-no-repeat"
+      {/* Hero Section - New Design */}
+      <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-800">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div
+            className="absolute inset-0"
             style={{
-              backgroundImage: `url('${galleryImages[currentImageIndex].src}')`,
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
             }}
           />
         </div>
 
-        {/* Navigation Arrows */}
-        <button
-          onClick={prevImage}
-          className="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 glass p-3 rounded-full transition-all duration-300 hover:scale-110 glow"
-          aria-label="Previous image"
-        >
-          <ChevronLeftIcon className="w-6 h-6" />
-        </button>
-
-        <button
-          onClick={nextImage}
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 glass p-3 rounded-full transition-all duration-300 hover:scale-110 glow"
-          aria-label="Next image"
-        >
-          <ChevronRightIcon className="w-6 h-6" />
-        </button>
-
-        {/* Image Indicators - Hidden */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30 flex items-center space-x-4 opacity-0">
-          <div className="flex space-x-2">
-            {galleryImages.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentImageIndex(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentImageIndex
-                    ? "bg-white"
-                    : "bg-white/50 hover:bg-white/75"
-                }`}
-                aria-label={`Go to image ${index + 1}`}
-              />
-            ))}
-          </div>
-
-          {/* Play/Pause Button */}
-          <button
-            onClick={() => setIsAutoPlay(!isAutoPlay)}
-            className="glass p-2 rounded-full transition-all duration-300 hover:scale-110 glow"
-            aria-label={isAutoPlay ? "Pause slideshow" : "Play slideshow"}
-          >
-            {isAutoPlay ? (
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            ) : (
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            )}
-          </button>
-        </div>
-      </section>
-
-      {/* Location Section */}
-      <section className="relative pt-20 pb-20 z-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
+            className="space-y-8"
           >
-            <div className="bg-slate-800/95 backdrop-blur-sm rounded-2xl p-8 text-center border border-emerald-400/30 shadow-xl">
-              <h1 className="text-4xl md:text-5xl font-bold text-white font-poppins mb-6">
-                Best Hotel in Dunai, Phoksundo - Garden Restaurant & Camping
+            {/* Logo */}
+            <div className="flex justify-center mb-8">
+              <div className="relative">
+                <img
+                  src="/logo.jpg"
+                  alt="Hotel Blue Sheep Inn Logo"
+                  className="h-24 w-24 rounded-full shadow-2xl border-4 border-emerald-400"
+                />
+                <div className="absolute -inset-1 bg-emerald-400 rounded-full blur opacity-30"></div>
+              </div>
+            </div>
+
+            {/* Main Title */}
+            <div className="space-y-4">
+              <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
+                <span className="block">Blue Sheep</span>
+                <span className="block bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent">
+                  Hotel
+                </span>
               </h1>
-              <p className="text-xl text-white/90 max-w-3xl mx-auto mb-6">
-                Experience the best hotel in Dunai, Phoksundo with our luxury
-                accommodation, garden restaurant, and camping facilities.
-                Perfectly located for exploring the natural wonders of Dolpa
-                region.
+              <p className="text-xl md:text-2xl text-emerald-200 font-light max-w-3xl mx-auto">
+                Experience luxury in the heart of Dolpa, Nepal
               </p>
-              <div className="flex items-center justify-center gap-3 text-emerald-400 text-2xl font-bold mb-6">
-                <PhoneIcon className="w-8 h-8" />
+            </div>
+
+            {/* Contact Info */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-emerald-300">
+              <div className="flex items-center gap-2">
+                <PhoneIcon className="w-5 h-5" />
                 <a
                   href="tel:9849961927"
-                  className="hover:text-emerald-300 transition-colors duration-300"
+                  className="text-lg font-semibold hover:text-emerald-200 transition-colors"
                 >
                   9849961927
                 </a>
               </div>
+              <div className="hidden sm:block w-px h-6 bg-emerald-400/50"></div>
+              <div className="flex items-center gap-2">
+                <MapPinIcon className="w-5 h-5" />
+                <span className="text-lg">Dunai, Dolpa</span>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
               <motion.button
                 onClick={openCampingPage}
-                className="bg-emerald-500 hover:bg-emerald-400 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 shadow-lg shadow-emerald-500/30 hover:shadow-emerald-400/40 transform hover:scale-105 flex items-center gap-3 mx-auto"
+                className="px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-emerald-500/30 transform hover:scale-105"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span className="text-2xl">🏕️</span>
-                <span>Explore Camping</span>
+                🏕️ Explore Camping
+              </motion.button>
+              <motion.button
+                onClick={() => {
+                  const message = `Hi! I'd like to book a room at Blue Sheep Hotel.`;
+                  const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
+                    message
+                  )}`;
+                  window.open(whatsappUrl, "_blank");
+                }}
+                className="px-8 py-4 border-2 border-emerald-400 text-emerald-400 hover:bg-emerald-400 hover:text-white font-semibold rounded-full transition-all duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                📱 Book Now
               </motion.button>
             </div>
           </motion.div>
-
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <div className="glass-card p-8">
-                <h3 className="text-2xl font-bold text-white mb-6 font-poppins">
-                  Nearby Attractions
-                </h3>
-                <ul className="space-y-4">
-                  {[
-                    "Phoksundo Lake - 5 minutes walk",
-                    "Shey Phoksundo National Park - 10 minutes drive",
-                    "Dolpa Airport - 15 minutes drive",
-                    "Local Monasteries - Walking distance",
-                    "Trekking Trails - Direct access",
-                  ].map((attraction, index) => (
-                    <li key={index} className="flex items-center text-white/90">
-                      <StarIcon className="w-5 h-5 text-yellow-300 mr-3" />
-                      {attraction}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="glass-card h-96 rounded-lg flex items-center justify-center"
-            >
-              <p className="text-white/90">Interactive Map Coming Soon</p>
-            </motion.div>
-          </div>
         </div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 0.8 }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        >
+          <div className="w-6 h-10 border-2 border-emerald-400 rounded-full flex justify-center">
+            <motion.div
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="w-1 h-3 bg-emerald-400 rounded-full mt-2"
+            />
+          </div>
+        </motion.div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-20 relative">
+      {/* Features Section - New Design */}
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -543,15 +489,94 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <div className="glass-card p-8 text-center">
-              <h2 className="text-4xl md:text-5xl font-bold text-white font-poppins mb-6">
-                Best Hotel in Dunai, Phoksundo - Guest Reviews
-              </h2>
-              <p className="text-xl text-white/90 max-w-3xl mx-auto">
-                Discover why guests choose our hotel in Dunai, Phoksundo for the
-                best accommodation experience
-              </p>
-            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+              Why Choose Blue Sheep Hotel?
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Experience the perfect blend of luxury, nature, and authentic
+              Nepalese hospitality
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: "🏔️",
+                title: "Prime Location",
+                description:
+                  "Just 5 minutes walk from the stunning Phoksundo Lake and surrounded by the majestic Himalayas",
+              },
+              {
+                icon: "🏨",
+                title: "Luxury Accommodation",
+                description:
+                  "Comfortable rooms with modern amenities and breathtaking mountain views",
+              },
+              {
+                icon: "🍽️",
+                title: "Garden Restaurant",
+                description:
+                  "Authentic local cuisine and international dishes in our beautiful garden setting",
+              },
+              {
+                icon: "🏕️",
+                title: "Camping Facilities",
+                description:
+                  "Experience nature with our premium camping facilities in the hotel garden",
+              },
+              {
+                icon: "🚁",
+                title: "Easy Access",
+                description:
+                  "Only 15 minutes drive from Dolpa Airport with convenient transportation",
+              },
+              {
+                icon: "🙏",
+                title: "Cultural Heritage",
+                description:
+                  "Walking distance to local monasteries and authentic cultural experiences",
+              },
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200 hover:shadow-xl hover:border-emerald-300 transition-all duration-300 group"
+              >
+                <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-slate-600 leading-relaxed">
+                  {feature.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section - New Design */}
+      <section className="py-20 bg-gradient-to-br from-emerald-50 to-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+              What Our Guests Say
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Real experiences from travelers who chose Blue Sheep Hotel for
+              their Dolpa adventure
+            </p>
           </motion.div>
 
           {/* Loading State */}
@@ -589,23 +614,25 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: index * 0.2 }}
                   viewport={{ once: true }}
-                  className="glass-card p-8 rounded-lg float"
+                  className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200 hover:shadow-xl hover:border-emerald-300 transition-all duration-300"
                 >
                   <div className="flex items-center mb-4">
                     {[...Array(review.rating)].map((_, i) => (
                       <StarIcon key={i} className="w-5 h-5 text-yellow-300" />
                     ))}
                   </div>
-                  <p className="text-white/90 italic mb-6">
+                  <p className="text-slate-600 italic mb-6 text-lg leading-relaxed">
                     &ldquo;{review.review}&rdquo;
                   </p>
                   <div className="flex items-center">
-                    <div className="w-10 h-10 glass rounded-full flex items-center justify-center text-white font-bold navy-glow">
+                    <div className="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
                       {review.name.charAt(0)}
                     </div>
-                    <div className="ml-3">
-                      <p className="font-semibold text-white">{review.name}</p>
-                      <p className="text-sm text-white/70">{review.country}</p>
+                    <div className="ml-4">
+                      <p className="font-semibold text-slate-900 text-lg">
+                        {review.name}
+                      </p>
+                      <p className="text-sm text-slate-500">{review.country}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -616,11 +643,11 @@ export default function Home() {
           {/* No Reviews State */}
           {!isLoadingReviews && !reviewsError && reviews.length === 0 && (
             <div className="text-center py-12">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-emerald-400/30 max-w-md mx-auto">
-                <p className="text-gray-300 text-lg">
+              <div className="bg-white rounded-2xl shadow-lg p-8 border border-slate-200 max-w-md mx-auto">
+                <p className="text-slate-600 text-lg">
                   No reviews available at the moment.
                 </p>
-                <p className="text-gray-400 text-sm mt-2">
+                <p className="text-slate-500 text-sm mt-2">
                   Please check back later for customer reviews.
                 </p>
               </div>
@@ -629,8 +656,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Gallery Section */}
-      <section className="py-20 relative">
+      {/* Gallery Section - New Design */}
+      <section className="py-20 bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -639,15 +666,13 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <div className="glass-card p-8 text-center">
-              <h2 className="text-4xl md:text-5xl font-bold font-poppins mb-6 text-white">
-                Hotel Gallery
-              </h2>
-              <p className="text-xl max-w-3xl mx-auto text-white/90">
-                Explore our beautiful hotel, stunning views, and amazing
-                facilities through our photo gallery.
-              </p>
-            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Hotel Gallery
+            </h2>
+            <p className="text-xl max-w-3xl mx-auto text-slate-300">
+              Discover the beauty of our hotel, stunning mountain views, and
+              world-class facilities
+            </p>
           </motion.div>
 
           {/* Loading State */}
@@ -718,11 +743,11 @@ export default function Home() {
             !hotelGalleryError &&
             hotelGalleryImages.length === 0 && (
               <div className="text-center py-12">
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-emerald-400/30 max-w-md mx-auto">
-                  <p className="text-gray-300 text-lg">
+                <div className="bg-slate-800 rounded-2xl shadow-xl p-8 border border-emerald-400/30 max-w-md mx-auto">
+                  <p className="text-slate-300 text-lg">
                     No gallery images available at the moment.
                   </p>
-                  <p className="text-gray-400 text-sm mt-2">
+                  <p className="text-slate-400 text-sm mt-2">
                     Please check back later for more photos.
                   </p>
                 </div>
@@ -731,8 +756,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="py-20 relative">
+      {/* Contact Section - New Design */}
+      <section className="py-20 bg-gradient-to-br from-emerald-500 to-emerald-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -741,30 +766,28 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <div className="glass-card p-8 text-center">
-              <h2 className="text-4xl md:text-5xl font-bold font-poppins mb-6 text-white">
-                Book Your Stay Today
-              </h2>
-              <p className="text-xl max-w-3xl mx-auto text-white/90">
-                Ready to experience the best hotel in Dunai, Phoksundo? Contact
-                us now to make your reservation.
-              </p>
-            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Ready to Experience Dolpa?
+            </h2>
+            <p className="text-xl max-w-3xl mx-auto text-emerald-100">
+              Book your stay at Blue Sheep Hotel and create unforgettable
+              memories in the heart of the Himalayas
+            </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
               viewport={{ once: true }}
-              className="text-center glass-card p-6 float"
+              className="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300"
             >
-              <MapPinIcon className="w-12 h-12 mx-auto mb-4 text-yellow-300" />
+              <MapPinIcon className="w-12 h-12 mx-auto mb-4 text-white" />
               <h3 className="text-xl font-semibold mb-2 text-white">
                 Location
               </h3>
-              <p className="text-white/90">
+              <p className="text-emerald-100">
                 Dunai, Dolpa
                 <br />
                 Karnali Province, Nepal
@@ -774,15 +797,15 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
-              className="text-center glass-card p-6 float"
+              className="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300"
             >
-              <PhoneIcon className="w-12 h-12 mx-auto mb-4 text-yellow-300" />
+              <PhoneIcon className="w-12 h-12 mx-auto mb-4 text-white" />
               <h3 className="text-xl font-semibold mb-2 text-white">Phone</h3>
               <a
                 href="tel:9849961927"
-                className="text-white/90 hover:text-emerald-400 transition-colors duration-300 text-lg font-semibold"
+                className="text-emerald-100 hover:text-white transition-colors duration-300 text-lg font-semibold"
               >
                 9849961927
               </a>
@@ -791,36 +814,142 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
               viewport={{ once: true }}
-              className="text-center glass-card p-6 float"
+              className="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300"
             >
-              <EnvelopeIcon className="w-12 h-12 mx-auto mb-4 text-yellow-300" />
+              <EnvelopeIcon className="w-12 h-12 mx-auto mb-4 text-white" />
               <h3 className="text-xl font-semibold mb-2 text-white">Email</h3>
-              <p className="text-white/90">info@bluesheephotel.com</p>
+              <p className="text-emerald-100">info@bluesheephotel.com</p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              viewport={{ once: true }}
+              className="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300"
+            >
+              <div className="w-12 h-12 mx-auto mb-4 bg-white/20 rounded-full flex items-center justify-center">
+                <span className="text-white text-xl">🏕️</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2 text-white">Camping</h3>
+              <p className="text-emerald-100">Garden camping available</p>
             </motion.div>
           </div>
+
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            viewport={{ once: true }}
+            className="text-center mt-12"
+          >
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.button
+                onClick={() => {
+                  const message = `Hi! I'd like to book a room at Blue Sheep Hotel.`;
+                  const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
+                    message
+                  )}`;
+                  window.open(whatsappUrl, "_blank");
+                }}
+                className="px-8 py-4 bg-white text-emerald-600 font-semibold rounded-full hover:bg-emerald-50 transition-all duration-300 shadow-lg"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                📱 Book via WhatsApp
+              </motion.button>
+              <motion.button
+                onClick={openCampingPage}
+                className="px-8 py-4 border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-emerald-600 transition-all duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                🏕️ Explore Camping
+              </motion.button>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="glass-dark text-white py-12">
+      {/* Footer - New Design */}
+      <footer className="bg-slate-900 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h3 className="text-2xl font-bold font-poppins mb-4">
-              Blue Sheep Hotel
-            </h3>
-            <p className="text-white/70 mb-4">Best Hotel in Dunai, Phoksundo</p>
-            <div className="flex items-center justify-center gap-2 text-emerald-400 text-lg font-semibold mb-6">
-              <PhoneIcon className="w-5 h-5" />
-              <a
-                href="tel:9849961927"
-                className="hover:text-emerald-300 transition-colors duration-300"
-              >
-                9849961927
-              </a>
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            {/* Hotel Info */}
+            <div className="text-center md:text-left">
+              <div className="flex items-center justify-center md:justify-start mb-4">
+                <img
+                  src="/logo.jpg"
+                  alt="Blue Sheep Hotel Logo"
+                  className="h-12 w-12 rounded-full mr-3"
+                />
+                <h3 className="text-2xl font-bold">Blue Sheep Hotel</h3>
+              </div>
+              <p className="text-slate-300 mb-4">
+                Experience luxury in the heart of Dolpa, Nepal. Your gateway to
+                the Himalayas.
+              </p>
+              <div className="flex items-center justify-center md:justify-start gap-2 text-emerald-400">
+                <PhoneIcon className="w-5 h-5" />
+                <a
+                  href="tel:9849961927"
+                  className="text-lg font-semibold hover:text-emerald-300 transition-colors"
+                >
+                  9849961927
+                </a>
+              </div>
             </div>
-            <p className="text-white/60 mt-8">
+
+            {/* Quick Links */}
+            <div className="text-center">
+              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+              <div className="space-y-2">
+                <Link
+                  href="/rooms"
+                  className="block text-slate-300 hover:text-emerald-400 transition-colors"
+                >
+                  Rooms & Suites
+                </Link>
+                <Link
+                  href="/menu"
+                  className="block text-slate-300 hover:text-emerald-400 transition-colors"
+                >
+                  Restaurant Menu
+                </Link>
+                <Link
+                  href="/camping"
+                  className="block text-slate-300 hover:text-emerald-400 transition-colors"
+                >
+                  Garden Camping
+                </Link>
+                <Link
+                  href="/contact"
+                  className="block text-slate-300 hover:text-emerald-400 transition-colors"
+                >
+                  Contact Us
+                </Link>
+              </div>
+            </div>
+
+            {/* Location */}
+            <div className="text-center md:text-right">
+              <h4 className="text-lg font-semibold mb-4">Location</h4>
+              <div className="text-slate-300 space-y-2">
+                <p>Dunai, Dolpa</p>
+                <p>Karnali Province</p>
+                <p>Nepal</p>
+                <p className="text-sm text-slate-400 mt-4">
+                  Near Phoksundo Lake
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-slate-700 pt-8 text-center">
+            <p className="text-slate-400">
               &copy; {new Date().getFullYear()} Blue Sheep Hotel. All rights
               reserved.
             </p>
@@ -830,7 +959,7 @@ export default function Home() {
 
       {/* Hotel Gallery Modal */}
       {isHotelGalleryModalOpen && selectedHotelGalleryImage && (
-        <div className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -873,7 +1002,7 @@ export default function Home() {
             </div>
 
             {/* Image Info */}
-            <div className="absolute bottom-4 left-4 right-4 bg-black/50 backdrop-blur-sm rounded-lg p-4">
+            <div className="absolute bottom-4 left-4 right-4 bg-black/50 rounded-lg p-4">
               <h3 className="text-white font-semibold text-xl font-montserrat capitalize mb-2">
                 {selectedHotelGalleryImage.alt}
               </h3>
@@ -888,7 +1017,7 @@ export default function Home() {
             </div>
 
             {/* Keyboard Instructions */}
-            <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm rounded-lg p-3 text-white text-sm">
+            <div className="absolute top-4 left-4 bg-black/50 rounded-lg p-3 text-white text-sm">
               <p>Use ← → arrow keys to navigate</p>
               <p>Press ESC to close</p>
             </div>

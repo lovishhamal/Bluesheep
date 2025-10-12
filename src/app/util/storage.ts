@@ -136,25 +136,20 @@ export interface Review {
   country: string;
 }
 
-// Function to fetch reviews from Supabase storage
+// Function to fetch reviews from Supabase database table
 export const getReviews = async (): Promise<Review[]> => {
   try {
-    const { data, error } = await supabase.storage
-      .from("data")
-      .download("reviews.json");
+    const { data, error } = await supabase
+      .from("reviews")
+      .select("*")
+      .order("created_at", { ascending: false });
 
     if (error) {
       console.error("Error fetching reviews:", error);
       return [];
     }
 
-    if (data) {
-      const text = await data.text();
-      const reviews = JSON.parse(text);
-      return reviews;
-    }
-
-    return [];
+    return data || [];
   } catch (error) {
     console.error("Error in getReviews:", error);
     return [];
