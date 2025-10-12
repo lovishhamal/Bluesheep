@@ -560,102 +560,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials Section - New Design */}
-      <section className="py-20 bg-gradient-to-br from-emerald-50 to-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              What Our Guests Say
-            </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Real experiences from travelers who chose Blue Sheep Hotel for
-              their Dolpa adventure
-            </p>
-          </motion.div>
-
-          {/* Loading State */}
-          {isLoadingReviews && (
-            <div className="text-center py-12">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-400"></div>
-              <p className="text-emerald-300 mt-4 text-lg">
-                Loading reviews...
-              </p>
-            </div>
-          )}
-
-          {/* Error State */}
-          {reviewsError && (
-            <div className="text-center py-12">
-              <div className="bg-red-500/20 border border-red-400/30 rounded-lg p-6 max-w-md mx-auto">
-                <p className="text-red-300 text-lg">{reviewsError}</p>
-                <button
-                  onClick={() => window.location.reload()}
-                  className="mt-4 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-400 transition-colors"
-                >
-                  Retry
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Reviews Grid */}
-          {!isLoadingReviews && !reviewsError && reviews.length > 0 && (
-            <div className="grid md:grid-cols-3 gap-8">
-              {reviews.map((review, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: index * 0.2 }}
-                  viewport={{ once: true }}
-                  className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200 hover:shadow-xl hover:border-emerald-300 transition-all duration-300"
-                >
-                  <div className="flex items-center mb-4">
-                    {[...Array(review.rating)].map((_, i) => (
-                      <StarIcon key={i} className="w-5 h-5 text-yellow-300" />
-                    ))}
-                  </div>
-                  <p className="text-slate-600 italic mb-6 text-lg leading-relaxed">
-                    &ldquo;{review.review}&rdquo;
-                  </p>
-                  <div className="flex items-center">
-                    <div className="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                      {review.name.charAt(0)}
-                    </div>
-                    <div className="ml-4">
-                      <p className="font-semibold text-slate-900 text-lg">
-                        {review.name}
-                      </p>
-                      <p className="text-sm text-slate-500">{review.country}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          )}
-
-          {/* No Reviews State */}
-          {!isLoadingReviews && !reviewsError && reviews.length === 0 && (
-            <div className="text-center py-12">
-              <div className="bg-white rounded-2xl shadow-lg p-8 border border-slate-200 max-w-md mx-auto">
-                <p className="text-slate-600 text-lg">
-                  No reviews available at the moment.
-                </p>
-                <p className="text-slate-500 text-sm mt-2">
-                  Please check back later for customer reviews.
-                </p>
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
-
       {/* Gallery Section - New Design */}
       <section className="py-20 bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -753,6 +657,102 @@ export default function Home() {
                 </div>
               </div>
             )}
+        </div>
+      </section>
+
+      {/* Testimonials Section - New Design */}
+      <section className="py-20 bg-gradient-to-br from-emerald-50 to-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+              What Our Guests Say
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Real experiences from travelers who chose Blue Sheep Hotel for
+              their Dolpa adventure
+            </p>
+          </motion.div>
+
+          {/* Loading State */}
+          {isLoadingReviews && (
+            <div className="text-center py-12">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-400"></div>
+              <p className="text-emerald-300 mt-4 text-lg">
+                Loading reviews...
+              </p>
+            </div>
+          )}
+
+          {/* Error State */}
+          {reviewsError && (
+            <div className="text-center py-12">
+              <div className="bg-red-500/20 border border-red-400/30 rounded-lg p-6 max-w-md mx-auto">
+                <p className="text-red-300 text-lg">{reviewsError}</p>
+                <button
+                  onClick={() => window.location.reload()}
+                  className="mt-4 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-400 transition-colors"
+                >
+                  Retry
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Reviews Grid */}
+          {!isLoadingReviews && !reviewsError && reviews.length > 0 && (
+            <div className="grid md:grid-cols-3 gap-8">
+              {reviews.map((review, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: index * 0.2 }}
+                  viewport={{ once: true }}
+                  className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200 hover:shadow-xl hover:border-emerald-300 transition-all duration-300"
+                >
+                  <div className="flex items-center mb-4">
+                    {[...Array(review.rating)].map((_, i) => (
+                      <StarIcon key={i} className="w-5 h-5 text-yellow-300" />
+                    ))}
+                  </div>
+                  <p className="text-slate-600 italic mb-6 text-lg leading-relaxed">
+                    &ldquo;{review.review}&rdquo;
+                  </p>
+                  <div className="flex items-center">
+                    <div className="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                      {review.name.charAt(0)}
+                    </div>
+                    <div className="ml-4">
+                      <p className="font-semibold text-slate-900 text-lg">
+                        {review.name}
+                      </p>
+                      <p className="text-sm text-slate-500">{review.country}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
+
+          {/* No Reviews State */}
+          {!isLoadingReviews && !reviewsError && reviews.length === 0 && (
+            <div className="text-center py-12">
+              <div className="bg-white rounded-2xl shadow-lg p-8 border border-slate-200 max-w-md mx-auto">
+                <p className="text-slate-600 text-lg">
+                  No reviews available at the moment.
+                </p>
+                <p className="text-slate-500 text-sm mt-2">
+                  Please check back later for customer reviews.
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
