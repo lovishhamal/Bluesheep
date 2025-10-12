@@ -1,7 +1,7 @@
 {
   "businessInfo": {
     "name": "Blue Sheep Hotel",
-    "description": "Luxury hotel in Dunai, Phoksundo offering exceptional hospitality and stunning mountain views",
+    "description": "Luxury hotel in Dunai offering exceptional hospitality and stunning mountain views",
     "address": {
       "street": "Dunai, Dolpa",
       "city": "Dunai",
@@ -36,32 +36,32 @@
     ],
     "localKeywords": [
       "hotel in Dunai",
-      "hotel in Phoksundo",
-      "best hotel Phoksundo",
+      "hotel in Dunai",
+      "best hotel Dunai",
       "luxury hotel Dunai",
-      "accommodation Phoksundo",
+      "accommodation Dunai",
       "Dunai hotel booking",
-      "Phoksundo accommodation",
+      "Dunai accommodation",
       "mountain hotel Nepal",
       "Dolpa hotel",
-      "Phoksundo Lake hotel",
-      "Shey Phoksundo hotel",
+      "Dunai hotel",
+      "Dolpa hotel",
       "Dunai accommodation",
-      "Phoksundo lodging",
+      "Dunai lodging",
       "Dolpa accommodation",
       "Himalayan hotel",
       "mountain view hotel Nepal"
     ],
     "nearbyAttractions": [
       {
-        "name": "Phoksundo Lake",
-        "distance": "5 minutes walk",
-        "description": "Crystal clear alpine lake with stunning mountain reflections"
+        "name": "Mountain Views",
+        "distance": "From hotel",
+        "description": "Stunning Himalayan mountain views from our hotel"
       },
       {
         "name": "Shey Phoksundo National Park",
-        "distance": "10 minutes drive",
-        "description": "Protected area with diverse wildlife and pristine landscapes"
+        "distance": "2 days trek",
+        "description": "Protected area with diverse wildlife and pristine landscapes - accessible via trekking"
       },
       {
         "name": "Dolpa Airport",
@@ -91,7 +91,7 @@
         },
         {
           "rating": 5,
-          "review": "Perfect location near Phoksundo Lake. Clean, comfortable, and friendly staff.",
+          "review": "Perfect location in the heart of Dunai. Clean, comfortable, and friendly staff.",
           "author": "John D.",
           "date": "2024-01-10"
         },
@@ -106,19 +106,19 @@
   },
   "seoStrategy": {
     "primaryKeywords": [
-      "best hotel in Phoksundo",
+      "best hotel in Dunai",
       "hotel in Dunai",
-      "luxury accommodation Phoksundo",
+      "luxury accommodation Dunai",
       "mountain hotel Nepal"
     ],
     "longTailKeywords": [
-      "best hotel near Phoksundo Lake",
+      "best hotel in Dunai Dolpa",
       "luxury hotel in Dunai Dolpa",
-      "mountain view hotel Phoksundo",
+      "mountain view hotel Dunai",
       "accommodation near Shey Phoksundo National Park",
-      "hotel with Phoksundo Lake view",
+      "hotel with mountain views",
       "Dunai hotel with mountain views",
-      "best place to stay in Phoksundo",
+      "best place to stay in Dunai",
       "luxury hotel Dolpa Nepal"
     ],
     "contentStrategy": [

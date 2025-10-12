@@ -30,10 +30,9 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title:
-    "Best Hotel in Dunai, Phoksundo | Garden Restaurant & Camping | Blue Sheep Hotel",
+  title: "Best Hotel in Dunai | Garden Restaurant & Camping | Blue Sheep Hotel",
   description:
-    "🏨 Best hotel in Dunai, Phoksundo with garden restaurant & camping. Luxury accommodation in Dolpa with mountain views, WiFi, and exceptional service. Book your stay today!",
+    "🏨 Best hotel in Dunai with garden restaurant & camping. Luxury accommodation in Dolpa with mountain views, WiFi, and exceptional service. Book your stay today!",
   keywords: [
     "best hotel in dunai",
     "hotel in dunai",
@@ -46,10 +45,10 @@ export const metadata: Metadata = {
     "garden restaurant dunai",
     "garden restaurant phoksundo",
     "luxury hotel Dunai",
-    "accommodation Phoksundo",
+    "accommodation Dunai",
     "Blue Sheep Hotel",
     "Dunai hotel booking",
-    "Phoksundo accommodation",
+    "Dunai accommodation",
     "mountain hotel Nepal",
     "Dolpa hotel",
     "restaurant dunai",
@@ -70,9 +69,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Best Hotel in Dunai, Phoksundo | Garden Restaurant & Camping",
+    title: "Best Hotel in Dunai | Garden Restaurant & Camping",
     description:
-      "🏨 Best hotel in Dunai, Phoksundo with garden restaurant & camping. Luxury accommodation with mountain views, WiFi, and exceptional service.",
+      "🏨 Best hotel in Dunai with garden restaurant & camping. Luxury accommodation with mountain views, WiFi, and exceptional service.",
     url: "https://bluesheephotel.com",
     siteName: "Blue Sheep Hotel",
     images: [
@@ -80,7 +79,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Best Hotel in Dunai, Phoksundo - Garden Restaurant & Camping",
+        alt: "Best Hotel in Dunai - Garden Restaurant & Camping",
       },
     ],
     locale: "en_US",
@@ -88,9 +87,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Best Hotel in Dunai, Phoksundo | Garden Restaurant & Camping",
+    title: "Best Hotel in Dunai | Garden Restaurant & Camping",
     description:
-      "🏨 Best hotel in Dunai, Phoksundo with garden restaurant & camping. Luxury accommodation with mountain views and exceptional service.",
+      "🏨 Best hotel in Dunai with garden restaurant & camping. Luxury accommodation with mountain views and exceptional service.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -125,7 +124,7 @@ export default function RootLayout({
               "@type": "Hotel",
               name: "Blue Sheep Hotel",
               description:
-                "Luxury hotel in Dunai, Phoksundo offering exceptional hospitality and stunning mountain views",
+                "Luxury hotel in Dunai offering exceptional hospitality and stunning mountain views",
               url: "https://bluesheephotel.com",
               telephone: "+977-XXXX-XXXX",
               address: {
@@ -170,7 +169,7 @@ export default function RootLayout({
                 "@type": "Restaurant",
                 name: "Garden Restaurant",
                 description:
-                  "Best garden restaurant in Dunai, Phoksundo with mountain views",
+                  "Best garden restaurant in Dunai with mountain views",
                 servesCuisine: ["Nepali", "International", "Local"],
                 amenityFeature: [
                   {
@@ -186,8 +185,7 @@ export default function RootLayout({
               hasCamping: {
                 "@type": "LodgingBusiness",
                 name: "Garden Camping",
-                description:
-                  "Best camping in Dunai, Phoksundo with garden facilities",
+                description: "Best camping in Dunai with garden facilities",
                 amenityFeature: [
                   {
                     "@type": "LocationFeatureSpecification",

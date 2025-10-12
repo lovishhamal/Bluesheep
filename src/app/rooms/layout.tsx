@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Best Hotel Rooms in Dunai, Phoksundo | Luxury Accommodation",
+  title: "Best Hotel Rooms in Dunai | Luxury Accommodation",
   description:
-    "🏨 Book the best hotel rooms in Dunai, Phoksundo. Luxury accommodation with mountain views, modern amenities, and exceptional service. Best hotel in the region!",
+    "🏨 Book the best hotel rooms in Dunai. Luxury accommodation with mountain views, modern amenities, and exceptional service. Best hotel in the region!",
   keywords: [
     "best hotel in dunai",
     "hotel rooms dunai",
@@ -11,30 +11,30 @@ export const metadata: Metadata = {
     "best hotel in phoksundo",
     "luxury accommodation dunai",
     "hotel booking dunai",
-    "Phoksundo accommodation",
+    "Dunai accommodation",
     "Dolpa hotel rooms",
     "mountain view rooms",
     "Blue Sheep Hotel rooms",
   ],
   openGraph: {
-    title: "Best Hotel Rooms in Dunai, Phoksundo | Luxury Accommodation",
+    title: "Best Hotel Rooms in Dunai | Luxury Accommodation",
     description:
-      "🏨 Book the best hotel rooms in Dunai, Phoksundo. Luxury accommodation with mountain views and modern amenities.",
+      "🏨 Book the best hotel rooms in Dunai. Luxury accommodation with mountain views and modern amenities.",
     url: "https://bluesheephotel.com/rooms",
     images: [
       {
         url: "/hotel-room.jpg",
         width: 1200,
         height: 630,
-        alt: "Best Hotel Rooms in Dunai, Phoksundo",
+        alt: "Best Hotel Rooms in Dunai",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Best Hotel Rooms in Dunai, Phoksundo | Luxury Accommodation",
+    title: "Best Hotel Rooms in Dunai | Luxury Accommodation",
     description:
-      "🏨 Book the best hotel rooms in Dunai, Phoksundo. Luxury accommodation with mountain views and modern amenities.",
+      "🏨 Book the best hotel rooms in Dunai. Luxury accommodation with mountain views and modern amenities.",
     images: ["/hotel-room.jpg"],
   },
 };

@@ -162,8 +162,8 @@ export default function ContactPage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-xl max-w-3xl mx-auto text-white/90"
             >
-              Ready to experience the best hotel in Dunai, Phoksundo? Get in
-              touch with us to book your stay or ask any questions.
+              Ready to experience the best hotel in Dunai? Get in touch with us
+              to book your stay or ask any questions.
             </motion.p>
           </div>
         </div>
@@ -197,7 +197,7 @@ export default function ContactPage() {
                         <br />
                         Karnali Province, Nepal
                         <br />
-                        Near Phoksundo Lake
+                        Heart of Dunai
                       </p>
                     </div>
                   </div>
@@ -350,11 +350,11 @@ export default function ContactPage() {
           >
             <div className="glass-card p-8 text-center">
               <h2 className="text-3xl font-bold text-white font-poppins mb-4">
-                Find Us in Dunai, Phoksundo
+                Find Us in Dunai
               </h2>
               <p className="text-lg text-white/90">
-                Located in the heart of Dunai with easy access to Phoksundo Lake
-                and surrounding attractions.
+                Located in the heart of Dunai with easy access to mountain
+                adventures and surrounding attractions.
               </p>
             </div>
           </motion.div>

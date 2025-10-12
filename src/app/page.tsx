@@ -59,9 +59,9 @@ export default function Home() {
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([
     {
       src: "/phoksundo-lake.jpg",
-      alt: "Phoksundo Lake View",
-      title: "Phoksundo Lake",
-      description: "Crystal clear alpine lake just minutes away",
+      alt: "Mountain View",
+      title: "Mountain Views",
+      description: "Stunning Himalayan mountain views from our hotel",
     },
     {
       src: "/hotel-room.jpg",
@@ -191,7 +191,7 @@ export default function Home() {
   // Helper functions to generate titles and descriptions based on image names
   const getImageTitle = (fileName: string, index: number) => {
     const titles = [
-      "Phoksundo Lake",
+      "Mountain Views",
       "Luxury Accommodation",
       "Fine Dining Restaurant",
       "Mountain Adventure",
@@ -504,7 +504,7 @@ export default function Home() {
                 icon: "🏔️",
                 title: "Prime Location",
                 description:
-                  "Just 5 minutes walk from the stunning Phoksundo Lake and surrounded by the majestic Himalayas",
+                  "Located in the heart of Dunai with stunning mountain views and surrounded by the majestic Himalayas",
               },
               {
                 icon: "🏨",
@@ -941,9 +941,7 @@ export default function Home() {
                 <p>Dunai, Dolpa</p>
                 <p>Karnali Province</p>
                 <p>Nepal</p>
-                <p className="text-sm text-slate-400 mt-4">
-                  Near Phoksundo Lake
-                </p>
+                <p className="text-sm text-slate-400 mt-4">Heart of Dunai</p>
               </div>
             </div>
           </div>

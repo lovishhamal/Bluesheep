@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Best Camping in Dunai, Phoksundo | Garden Camping Experience",
+  title: "Best Camping in Dunai | Garden Camping Experience",
   description:
-    "🏕️ Experience the best camping in Dunai, Phoksundo. Garden camping with stunning mountain views and modern facilities. Book your camping spot today!",
+    "🏕️ Experience the best camping in Dunai. Garden camping with stunning mountain views and modern facilities. Book your camping spot today!",
   keywords: [
     "camping",
     "camping dunai",
@@ -19,25 +19,25 @@ export const metadata: Metadata = {
     "Blue Sheep Hotel camping",
   ],
   openGraph: {
-    title: "Best Camping in Dunai, Phoksundo | Garden Camping Experience",
+    title: "Best Camping in Dunai | Garden Camping Experience",
     description:
-      "🏕️ Experience the best camping in Dunai, Phoksundo. Garden camping with stunning mountain views and modern facilities.",
+      "🏕️ Experience the best camping in Dunai. Garden camping with stunning mountain views and modern facilities.",
     url: "https://bluesheephotel.com/camping",
     images: [
       {
         url: "/phoksundo-lake.jpg",
         width: 1200,
         height: 630,
-        alt: "Best Camping in Dunai, Phoksundo",
+        alt: "Best Camping in Dunai",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Best Camping in Dunai, Phoksundo | Garden Camping Experience",
+    title: "Best Camping in Dunai | Garden Camping Experience",
     description:
-      "🏕️ Experience the best camping in Dunai, Phoksundo. Garden camping with stunning mountain views and modern facilities.",
+      "🏕️ Experience the best camping in Dunai. Garden camping with stunning mountain views and modern facilities.",
     images: ["/phoksundo-lake.jpg"],
   },
 };
