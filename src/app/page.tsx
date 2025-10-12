@@ -17,7 +17,12 @@ import {
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { getImagesFromFolder, StorageImage } from "./util/storage";
+import {
+  getImagesFromFolder,
+  StorageImage,
+  getReviews,
+  Review,
+} from "./util/storage";
 
 // Type definitions
 
@@ -33,6 +38,19 @@ export default function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [isLoadingReviews, setIsLoadingReviews] = useState(true);
+  const [reviewsError, setReviewsError] = useState<string | null>(null);
+  const [hotelGalleryImages, setHotelGalleryImages] = useState<StorageImage[]>(
+    []
+  );
+  const [isLoadingHotelGallery, setIsLoadingHotelGallery] = useState(true);
+  const [hotelGalleryError, setHotelGalleryError] = useState<string | null>(
+    null
+  );
+  const [selectedHotelGalleryImage, setSelectedHotelGalleryImage] =
+    useState<StorageImage | null>(null);
+  const [isHotelGalleryModalOpen, setIsHotelGalleryModalOpen] = useState(false);
 
   // Open camping page function
   const openCampingPage = () => {
@@ -100,6 +118,76 @@ export default function Home() {
     fetchImages();
   }, []);
 
+  // Fetch reviews from Supabase
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        setIsLoadingReviews(true);
+        setReviewsError(null);
+        const reviewsData = await getReviews();
+        setReviews(reviewsData);
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+        setReviewsError("Failed to load reviews. Please try again later.");
+      } finally {
+        setIsLoadingReviews(false);
+      }
+    };
+
+    fetchReviews();
+  }, []);
+
+  // Fetch hotel gallery images from Supabase
+  useEffect(() => {
+    const fetchHotelGalleryImages = async () => {
+      try {
+        setIsLoadingHotelGallery(true);
+        setHotelGalleryError(null);
+        const images = await getImagesFromFolder("images", "gallery");
+        setHotelGalleryImages(images);
+      } catch (error) {
+        console.error("Error fetching hotel gallery images:", error);
+        setHotelGalleryError(
+          "Failed to load gallery images. Please try again later."
+        );
+      } finally {
+        setIsLoadingHotelGallery(false);
+      }
+    };
+
+    fetchHotelGalleryImages();
+  }, []);
+
+  // Hotel gallery modal functions
+  const openHotelGalleryModal = (image: StorageImage) => {
+    setSelectedHotelGalleryImage(image);
+    setIsHotelGalleryModalOpen(true);
+  };
+
+  const closeHotelGalleryModal = () => {
+    setIsHotelGalleryModalOpen(false);
+    setSelectedHotelGalleryImage(null);
+  };
+
+  const navigateToNextHotelGalleryImage = () => {
+    if (!selectedHotelGalleryImage) return;
+    const currentIndex = hotelGalleryImages.findIndex(
+      (img) => img.name === selectedHotelGalleryImage.name
+    );
+    const nextIndex = (currentIndex + 1) % hotelGalleryImages.length;
+    setSelectedHotelGalleryImage(hotelGalleryImages[nextIndex]);
+  };
+
+  const navigateToPreviousHotelGalleryImage = () => {
+    if (!selectedHotelGalleryImage) return;
+    const currentIndex = hotelGalleryImages.findIndex(
+      (img) => img.name === selectedHotelGalleryImage.name
+    );
+    const prevIndex =
+      currentIndex === 0 ? hotelGalleryImages.length - 1 : currentIndex - 1;
+    setSelectedHotelGalleryImage(hotelGalleryImages[prevIndex]);
+  };
+
   // Helper functions to generate titles and descriptions based on image names
   const getImageTitle = (fileName: string, index: number) => {
     const titles = [
@@ -149,6 +237,25 @@ export default function Home() {
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
   }, []);
+
+  // Hotel gallery modal keyboard navigation
+  useEffect(() => {
+    const handleHotelGalleryKeyDown = (e: KeyboardEvent) => {
+      if (!isHotelGalleryModalOpen) return;
+
+      if (e.key === "Escape") {
+        closeHotelGalleryModal();
+      } else if (e.key === "ArrowRight") {
+        navigateToNextHotelGalleryImage();
+      } else if (e.key === "ArrowLeft") {
+        navigateToPreviousHotelGalleryImage();
+      }
+    };
+
+    document.addEventListener("keydown", handleHotelGalleryKeyDown);
+    return () =>
+      document.removeEventListener("keydown", handleHotelGalleryKeyDown);
+  }, [isHotelGalleryModalOpen, selectedHotelGalleryImage, hotelGalleryImages]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-800 text-white">
@@ -342,28 +449,6 @@ export default function Home() {
             )}
           </button>
         </div>
-
-        {/* Jumping Animated Camping Button */}
-        <motion.button
-          onClick={openCampingPage}
-          className="absolute bottom-8 right-8 z-30 w-20 h-20 bg-emerald-500 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-emerald-400 transition-colors duration-300 shadow-2xl shadow-emerald-500/50 border-2 border-emerald-300/50"
-          animate={{
-            y: [0, -15, 0],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          whileHover={{
-            scale: 1.15,
-            y: [0, -20, 0],
-            boxShadow: "0 0 30px rgba(16, 185, 129, 0.8)",
-          }}
-          aria-label="Open camping page"
-        >
-          <span className="text-2xl">🏕️</span>
-        </motion.button>
       </section>
 
       {/* Location Section */}
@@ -380,12 +465,30 @@ export default function Home() {
               <h1 className="text-4xl md:text-5xl font-bold text-white font-poppins mb-6">
                 Best Hotel in Dunai, Phoksundo - Garden Restaurant & Camping
               </h1>
-              <p className="text-xl text-white/90 max-w-3xl mx-auto">
+              <p className="text-xl text-white/90 max-w-3xl mx-auto mb-6">
                 Experience the best hotel in Dunai, Phoksundo with our luxury
                 accommodation, garden restaurant, and camping facilities.
                 Perfectly located for exploring the natural wonders of Dolpa
                 region.
               </p>
+              <div className="flex items-center justify-center gap-3 text-emerald-400 text-2xl font-bold mb-6">
+                <PhoneIcon className="w-8 h-8" />
+                <a
+                  href="tel:9849961927"
+                  className="hover:text-emerald-300 transition-colors duration-300"
+                >
+                  9849961927
+                </a>
+              </div>
+              <motion.button
+                onClick={openCampingPage}
+                className="bg-emerald-500 hover:bg-emerald-400 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 shadow-lg shadow-emerald-500/30 hover:shadow-emerald-400/40 transform hover:scale-105 flex items-center gap-3 mx-auto"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="text-2xl">🏕️</span>
+                <span>Explore Camping</span>
+              </motion.button>
             </div>
           </motion.div>
 
@@ -451,62 +554,180 @@ export default function Home() {
             </div>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Sarah Johnson",
-                location: "United States",
-                quote:
-                  "The views from our room were absolutely breathtaking. The staff went above and beyond to make our stay memorable.",
-                rating: 5,
-              },
-              {
-                name: "David Chen",
-                location: "Singapore",
-                quote:
-                  "Perfect location for exploring Phoksundo Lake. The garden restaurant serves amazing local cuisine with a modern twist. Best hotel in Dunai!",
-                rating: 5,
-              },
-              {
-                name: "Emma Wilson",
-                location: "United Kingdom",
-                quote:
-                  "Incredibly comfortable rooms and the most stunning mountain views I've ever experienced. The camping facilities are amazing too! Will definitely return!",
-                rating: 5,
-              },
-            ].map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                className="glass-card p-8 rounded-lg float"
-              >
-                <div className="flex items-center mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <StarIcon key={i} className="w-5 h-5 text-yellow-300" />
-                  ))}
-                </div>
-                <p className="text-white/90 italic mb-6">
-                  &ldquo;{testimonial.quote}&rdquo;
+          {/* Loading State */}
+          {isLoadingReviews && (
+            <div className="text-center py-12">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-400"></div>
+              <p className="text-emerald-300 mt-4 text-lg">
+                Loading reviews...
+              </p>
+            </div>
+          )}
+
+          {/* Error State */}
+          {reviewsError && (
+            <div className="text-center py-12">
+              <div className="bg-red-500/20 border border-red-400/30 rounded-lg p-6 max-w-md mx-auto">
+                <p className="text-red-300 text-lg">{reviewsError}</p>
+                <button
+                  onClick={() => window.location.reload()}
+                  className="mt-4 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-400 transition-colors"
+                >
+                  Retry
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Reviews Grid */}
+          {!isLoadingReviews && !reviewsError && reviews.length > 0 && (
+            <div className="grid md:grid-cols-3 gap-8">
+              {reviews.map((review, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: index * 0.2 }}
+                  viewport={{ once: true }}
+                  className="glass-card p-8 rounded-lg float"
+                >
+                  <div className="flex items-center mb-4">
+                    {[...Array(review.rating)].map((_, i) => (
+                      <StarIcon key={i} className="w-5 h-5 text-yellow-300" />
+                    ))}
+                  </div>
+                  <p className="text-white/90 italic mb-6">
+                    &ldquo;{review.review}&rdquo;
+                  </p>
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 glass rounded-full flex items-center justify-center text-white font-bold navy-glow">
+                      {review.name.charAt(0)}
+                    </div>
+                    <div className="ml-3">
+                      <p className="font-semibold text-white">{review.name}</p>
+                      <p className="text-sm text-white/70">{review.country}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
+
+          {/* No Reviews State */}
+          {!isLoadingReviews && !reviewsError && reviews.length === 0 && (
+            <div className="text-center py-12">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-emerald-400/30 max-w-md mx-auto">
+                <p className="text-gray-300 text-lg">
+                  No reviews available at the moment.
                 </p>
-                <div className="flex items-center">
-                  <div className="w-10 h-10 glass rounded-full flex items-center justify-center text-white font-bold navy-glow">
-                    {testimonial.name.charAt(0)}
-                  </div>
-                  <div className="ml-3">
-                    <p className="font-semibold text-white">
-                      {testimonial.name}
-                    </p>
-                    <p className="text-sm text-white/70">
-                      {testimonial.location}
-                    </p>
-                  </div>
+                <p className="text-gray-400 text-sm mt-2">
+                  Please check back later for customer reviews.
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Gallery Section */}
+      <section className="py-20 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <div className="glass-card p-8 text-center">
+              <h2 className="text-4xl md:text-5xl font-bold font-poppins mb-6 text-white">
+                Hotel Gallery
+              </h2>
+              <p className="text-xl max-w-3xl mx-auto text-white/90">
+                Explore our beautiful hotel, stunning views, and amazing
+                facilities through our photo gallery.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Loading State */}
+          {isLoadingHotelGallery && (
+            <div className="text-center py-12">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-400"></div>
+              <p className="text-emerald-300 mt-4 text-lg">
+                Loading gallery...
+              </p>
+            </div>
+          )}
+
+          {/* Error State */}
+          {hotelGalleryError && (
+            <div className="text-center py-12">
+              <div className="bg-red-500/20 border border-red-400/30 rounded-lg p-6 max-w-md mx-auto">
+                <p className="text-red-300 text-lg">{hotelGalleryError}</p>
+                <button
+                  onClick={() => window.location.reload()}
+                  className="mt-4 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-400 transition-colors"
+                >
+                  Retry
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Masonry Gallery Layout */}
+          {!isLoadingHotelGallery &&
+            !hotelGalleryError &&
+            hotelGalleryImages.length > 0 && (
+              <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
+                {hotelGalleryImages.map((image, index) => (
+                  <motion.div
+                    key={image.name}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="break-inside-avoid mb-6 group cursor-pointer"
+                    onClick={() => openHotelGalleryModal(image)}
+                  >
+                    <div className="relative overflow-hidden rounded-2xl border border-emerald-400/30 hover:border-emerald-300/60 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-400/30">
+                      <img
+                        src={image.url}
+                        alt={image.alt}
+                        className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="absolute bottom-4 left-4 right-4">
+                          <h3 className="text-white font-semibold text-lg font-montserrat capitalize">
+                            {image.alt}
+                          </h3>
+                          <p className="text-emerald-300 text-sm mt-1">
+                            Click to view larger
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            )}
+
+          {/* No Images State */}
+          {!isLoadingHotelGallery &&
+            !hotelGalleryError &&
+            hotelGalleryImages.length === 0 && (
+              <div className="text-center py-12">
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-emerald-400/30 max-w-md mx-auto">
+                  <p className="text-gray-300 text-lg">
+                    No gallery images available at the moment.
+                  </p>
+                  <p className="text-gray-400 text-sm mt-2">
+                    Please check back later for more photos.
+                  </p>
                 </div>
-              </motion.div>
-            ))}
-          </div>
+              </div>
+            )}
         </div>
       </section>
 
@@ -559,7 +780,12 @@ export default function Home() {
             >
               <PhoneIcon className="w-12 h-12 mx-auto mb-4 text-yellow-300" />
               <h3 className="text-xl font-semibold mb-2 text-white">Phone</h3>
-              <p className="text-white/90">+977-XXXX-XXXX</p>
+              <a
+                href="tel:9849961927"
+                className="text-white/90 hover:text-emerald-400 transition-colors duration-300 text-lg font-semibold"
+              >
+                9849961927
+              </a>
             </motion.div>
 
             <motion.div
@@ -584,33 +810,91 @@ export default function Home() {
             <h3 className="text-2xl font-bold font-poppins mb-4">
               Blue Sheep Hotel
             </h3>
-            <p className="text-white/70 mb-6">Best Hotel in Dunai, Phoksundo</p>
-            <div className="flex justify-center space-x-6">
+            <p className="text-white/70 mb-4">Best Hotel in Dunai, Phoksundo</p>
+            <div className="flex items-center justify-center gap-2 text-emerald-400 text-lg font-semibold mb-6">
+              <PhoneIcon className="w-5 h-5" />
               <a
-                href="#"
-                className="text-white/70 hover:text-white transition-colors"
+                href="tel:9849961927"
+                className="hover:text-emerald-300 transition-colors duration-300"
               >
-                Privacy Policy
-              </a>
-              <a
-                href="#"
-                className="text-white/70 hover:text-white transition-colors"
-              >
-                Terms of Service
-              </a>
-              <a
-                href="#"
-                className="text-white/70 hover:text-white transition-colors"
-              >
-                Contact
+                9849961927
               </a>
             </div>
             <p className="text-white/60 mt-8">
-              &copy; 2024 Blue Sheep Hotel. All rights reserved.
+              &copy; {new Date().getFullYear()} Blue Sheep Hotel. All rights
+              reserved.
             </p>
           </div>
         </div>
       </footer>
+
+      {/* Hotel Gallery Modal */}
+      {isHotelGalleryModalOpen && selectedHotelGalleryImage && (
+        <div className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="relative w-full h-full max-w-7xl max-h-[90vh] flex items-center justify-center"
+          >
+            {/* Close Button */}
+            <button
+              onClick={closeHotelGalleryModal}
+              className="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors"
+            >
+              <XMarkIcon className="w-6 h-6" />
+            </button>
+
+            {/* Navigation Buttons */}
+            {hotelGalleryImages.length > 1 && (
+              <>
+                <button
+                  onClick={navigateToPreviousHotelGalleryImage}
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-colors"
+                >
+                  <ChevronLeftIcon className="w-6 h-6" />
+                </button>
+                <button
+                  onClick={navigateToNextHotelGalleryImage}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-colors"
+                >
+                  <ChevronRightIcon className="w-6 h-6" />
+                </button>
+              </>
+            )}
+
+            {/* Image */}
+            <div className="relative w-full h-full flex items-center justify-center">
+              <img
+                src={selectedHotelGalleryImage.url}
+                alt={selectedHotelGalleryImage.alt}
+                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+              />
+            </div>
+
+            {/* Image Info */}
+            <div className="absolute bottom-4 left-4 right-4 bg-black/50 backdrop-blur-sm rounded-lg p-4">
+              <h3 className="text-white font-semibold text-xl font-montserrat capitalize mb-2">
+                {selectedHotelGalleryImage.alt}
+              </h3>
+              {hotelGalleryImages.length > 1 && (
+                <p className="text-gray-300 text-sm">
+                  {hotelGalleryImages.findIndex(
+                    (img) => img.name === selectedHotelGalleryImage.name
+                  ) + 1}{" "}
+                  of {hotelGalleryImages.length}
+                </p>
+              )}
+            </div>
+
+            {/* Keyboard Instructions */}
+            <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm rounded-lg p-3 text-white text-sm">
+              <p>Use ← → arrow keys to navigate</p>
+              <p>Press ESC to close</p>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 }

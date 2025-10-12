@@ -127,3 +127,36 @@ export const getBuckets = async () => {
     return [];
   }
 };
+
+// Type definition for reviews
+export interface Review {
+  name: string;
+  review: string;
+  rating: number;
+  country: string;
+}
+
+// Function to fetch reviews from Supabase storage
+export const getReviews = async (): Promise<Review[]> => {
+  try {
+    const { data, error } = await supabase.storage
+      .from("data")
+      .download("reviews.json");
+
+    if (error) {
+      console.error("Error fetching reviews:", error);
+      return [];
+    }
+
+    if (data) {
+      const text = await data.text();
+      const reviews = JSON.parse(text);
+      return reviews;
+    }
+
+    return [];
+  } catch (error) {
+    console.error("Error in getReviews:", error);
+    return [];
+  }
+};
