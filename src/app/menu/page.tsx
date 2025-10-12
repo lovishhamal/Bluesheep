@@ -88,11 +88,11 @@ export default function MenuPage() {
     return category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
   };
 
-  // Capitalize item names and add hotel name
+  // Capitalize item names
   const capitalizeItemName = (itemName: string) => {
     const capitalizedName =
       itemName.charAt(0).toUpperCase() + itemName.slice(1).toLowerCase();
-    return `Hotel Blue Sheep Inn ${capitalizedName}`;
+    return capitalizedName;
   };
 
   // Get unique categories
