@@ -406,10 +406,7 @@ export default function Home() {
             {/* Main Title */}
             <div className="space-y-4">
               <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
-                <span className="block">Blue Sheep</span>
-                <span className="block bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent">
-                  Hotel
-                </span>
+                <span className="block">Hotel Blue Sheep Inn</span>
               </h1>
               <p className="text-xl md:text-2xl text-emerald-200 font-light max-w-3xl mx-auto">
                 Experience luxury in the heart of Dolpa, Nepal
@@ -446,7 +443,7 @@ export default function Home() {
               </motion.button>
               <motion.button
                 onClick={() => {
-                  const message = `Hi! I'd like to book a room at Blue Sheep Hotel.`;
+                  const message = `Hi! I'd like to book a room at Hotel Blue Sheep Inn.`;
                   const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
                     message
                   )}`;
@@ -503,7 +500,7 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              Why Choose Blue Sheep Hotel?
+              Why Choose Hotel Blue Sheep Inn?
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
               Experience the perfect blend of luxury, nature, and authentic
@@ -687,8 +684,8 @@ export default function Home() {
               What Our Guests Say
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Real experiences from travelers who chose Blue Sheep Hotel for
-              their Dolpa adventure
+              Real experiences from travelers who chose Hotel Blue Sheep Inn
+              Hotel for their Dolpa adventure
             </p>
           </motion.div>
 
@@ -783,7 +780,7 @@ export default function Home() {
               Ready to Experience Dolpa?
             </h2>
             <p className="text-xl max-w-3xl mx-auto text-emerald-100">
-              Book your stay at Blue Sheep Hotel and create unforgettable
+              Book your stay at Hotel Blue Sheep Inn and create unforgettable
               memories in the heart of the Himalayas
             </p>
           </motion.div>
@@ -862,7 +859,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.button
                 onClick={() => {
-                  const message = `Hi! I'd like to book a room at Blue Sheep Hotel.`;
+                  const message = `Hi! I'd like to book a room at Hotel Blue Sheep Inn.`;
                   const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
                     message
                   )}`;
@@ -925,13 +922,13 @@ export default function Home() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Blue Sheep Inn Location"
+                title="Hotel Blue Sheep Inn Location"
               ></iframe>
             </div>
 
             <div className="mt-6 text-center">
               <p className="text-slate-600 mb-4 text-lg">
-                📍 Blue Sheep Inn, Dunai, Dolpa, Nepal
+                📍 Hotel Blue Sheep Inn, Dunai, Dolpa, Nepal
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <motion.button
@@ -976,10 +973,10 @@ export default function Home() {
               <div className="flex items-center justify-center md:justify-start mb-4">
                 <img
                   src="/logo.jpg"
-                  alt="Blue Sheep Hotel Logo"
+                  alt="Hotel Blue Sheep Inn Logo"
                   className="h-12 w-12 rounded-full mr-3"
                 />
-                <h3 className="text-2xl font-bold">Blue Sheep Hotel</h3>
+                <h3 className="text-2xl font-bold">Hotel Blue Sheep Inn</h3>
               </div>
               <p className="text-slate-300 mb-4">
                 Experience luxury in the heart of Dolpa, Nepal. Your gateway to
@@ -1041,7 +1038,7 @@ export default function Home() {
 
           <div className="border-t border-slate-700 pt-8 text-center">
             <p className="text-slate-400">
-              &copy; {new Date().getFullYear()} Blue Sheep Hotel. All rights
+              &copy; {new Date().getFullYear()} Hotel Blue Sheep Inn. All rights
               reserved.
             </p>
           </div>

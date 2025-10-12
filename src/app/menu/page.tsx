@@ -88,9 +88,11 @@ export default function MenuPage() {
     return category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
   };
 
-  // Capitalize item names
+  // Capitalize item names and add hotel name
   const capitalizeItemName = (itemName: string) => {
-    return itemName.charAt(0).toUpperCase() + itemName.slice(1).toLowerCase();
+    const capitalizedName =
+      itemName.charAt(0).toUpperCase() + itemName.slice(1).toLowerCase();
+    return `Hotel Blue Sheep Inn ${capitalizedName}`;
   };
 
   // Get unique categories
@@ -288,7 +290,7 @@ export default function MenuPage() {
             className="text-6xl md:text-7xl text-[#1a3a52] tracking-[0.1em] mb-2 font-normal"
             style={{ fontFamily: "Georgia, serif" }}
           >
-            BLUE SHEEP
+            HOTEL BLUE SHEEP INN
           </h1>
           <h2
             className="text-2xl md:text-3xl text-[#1a3a52] tracking-[0.3em] font-normal mb-8"
