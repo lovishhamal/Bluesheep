@@ -307,28 +307,6 @@ export default function MenuPage() {
           />
         </div>
 
-        {/* Mountain Icon */}
-        <div className="flex justify-center my-8">
-          <svg
-            width="300"
-            height="80"
-            viewBox="0 0 300 80"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M0 60 L50 20 L100 40 L150 10 L200 30 L250 5 L300 25 L300 80 L0 80 Z"
-              fill="#1a3a52"
-              opacity="0.3"
-            />
-            <path
-              d="M0 70 L30 35 L60 50 L90 25 L120 40 L150 20 L180 35 L210 15 L240 30 L270 10 L300 25 L300 80 L0 80 Z"
-              fill="#c9a961"
-              opacity="0.4"
-            />
-          </svg>
-        </div>
-
         {/* Menu Content */}
         {loading ? (
           <div className="text-center py-20">
