@@ -435,10 +435,10 @@ export default function Home() {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8 pb-20 sm:pb-2 w-full max-w-md mx-auto sm:max-w-none">
               <motion.button
                 onClick={openCampingPage}
-                className="px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-emerald-500/30 transform hover:scale-105"
+                className="w-full sm:w-auto px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-emerald-500/30 transform hover:scale-105"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -452,11 +452,24 @@ export default function Home() {
                   )}`;
                   window.open(whatsappUrl, "_blank");
                 }}
-                className="px-8 py-4 border-2 border-emerald-400 text-emerald-400 hover:bg-emerald-400 hover:text-white font-semibold rounded-full transition-all duration-300"
+                className="w-full sm:w-auto px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-emerald-500/30 transform hover:scale-105"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 📱 Book Now
+              </motion.button>
+              <motion.button
+                onClick={() => {
+                  window.open(
+                    "https://www.google.com/maps?q=28.9508116,82.895524",
+                    "_blank"
+                  );
+                }}
+                className="w-full sm:w-auto px-8 py-4 bg-emerald-700 hover:bg-emerald-600 text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-emerald-500/30 transform hover:scale-105"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                🗺️ Find Us
               </motion.button>
             </div>
           </motion.div>
@@ -467,7 +480,7 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.8 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2"
         >
           <div className="w-6 h-10 border-2 border-emerald-400 rounded-full flex justify-center">
             <motion.div
@@ -820,7 +833,7 @@ export default function Home() {
             >
               <EnvelopeIcon className="w-12 h-12 mx-auto mb-4 text-white" />
               <h3 className="text-xl font-semibold mb-2 text-white">Email</h3>
-              <p className="text-emerald-100">info@bluesheephotel.com</p>
+              <p className="text-emerald-100">innbluesheep@gmail.com</p>
             </motion.div>
 
             <motion.div
@@ -869,6 +882,86 @@ export default function Home() {
               >
                 🏕️ Explore Camping
               </motion.button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Map Section */}
+      <section
+        id="map-section"
+        className="py-20 bg-gradient-to-br from-emerald-50 to-slate-50"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+              Find Us
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Located in the heart of Dunai, Dolpa - your perfect base for
+              mountain adventures
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="bg-white rounded-2xl shadow-xl p-8 border border-slate-200"
+          >
+            <div className="aspect-video rounded-lg overflow-hidden">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.1234567890123!2d82.895524!3d28.9508116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjjCsDU3JzAyLjkiTiA4MsKwNTMnNDMuOSJF!5e0!3m2!1sen!2snp!4v1234567890123!5m2!1sen!2snp"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Blue Sheep Inn Location"
+              ></iframe>
+            </div>
+
+            <div className="mt-6 text-center">
+              <p className="text-slate-600 mb-4 text-lg">
+                📍 Blue Sheep Inn, Dunai, Dolpa, Nepal
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <motion.button
+                  onClick={() => {
+                    window.open(
+                      "https://www.google.com/maps?q=28.9508116,82.895524",
+                      "_blank"
+                    );
+                  }}
+                  className="bg-emerald-500 hover:bg-emerald-400 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-300"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Open in Google Maps
+                </motion.button>
+                <motion.button
+                  onClick={() => {
+                    const message = `Hi! I'd like to know more about your hotel location and services.`;
+                    const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
+                      message
+                    )}`;
+                    window.open(whatsappUrl, "_blank");
+                  }}
+                  className="border-2 border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white px-6 py-3 rounded-lg font-medium transition-colors duration-300"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Contact Us
+                </motion.button>
+              </div>
             </div>
           </motion.div>
         </div>

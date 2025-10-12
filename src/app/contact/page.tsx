@@ -16,9 +16,9 @@ export default function ContactPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen animated-bg">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-800">
       {/* Navigation */}
-      <nav className="w-full bg-slate-900/95 backdrop-blur-sm border-b border-emerald-400/30 shadow-sm">
+      <nav className="w-full bg-slate-900 border-b border-emerald-400/30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <motion.div
@@ -59,18 +59,12 @@ export default function ContactPage() {
               >
                 Camping
               </Link>
-              <button
-                onClick={() => {
-                  const message = `Hi! I'd like to get in touch about your hotel services.`;
-                  const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
-                    message
-                  )}`;
-                  window.open(whatsappUrl, "_blank");
-                }}
+              <Link
+                href="/contact"
                 className="text-emerald-400 font-semibold border-b-2 border-emerald-400 transition-colors duration-300"
               >
                 Contact
-              </button>
+              </Link>
             </div>
 
             {/* Mobile menu button */}
@@ -125,221 +119,143 @@ export default function ContactPage() {
                 >
                   Camping
                 </Link>
-                <button
-                  onClick={() => {
-                    const message = `Hi! I'd like to get in touch about your hotel services.`;
-                    const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
-                      message
-                    )}`;
-                    window.open(whatsappUrl, "_blank");
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="block text-emerald-400 font-semibold w-full text-left"
+                <Link
+                  href="/contact"
+                  className="block text-emerald-400 font-semibold"
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Contact
-                </button>
+                </Link>
               </div>
             </motion.div>
           )}
         </div>
       </nav>
 
-      {/* Header */}
+      {/* Hero Section */}
       <section className="relative py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="glass-card p-8 inline-block float">
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-4xl md:text-6xl font-bold font-poppins mb-6 text-white"
-            >
-              Contact Us
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-xl max-w-3xl mx-auto text-white/90"
-            >
-              Ready to experience the best hotel in Dunai? Get in touch with us
-              to book your stay or ask any questions.
-            </motion.p>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-widest mb-4 font-montserrat bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-400 bg-clip-text text-transparent animate-pulse">
+              CONTACT US
+            </h1>
+            <p className="text-lg sm:text-xl text-emerald-300 italic tracking-widest font-montserrat">
+              Get in Touch
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      {/* Contact Information */}
-      <section className="py-20 relative">
+      {/* Contact Information Grid */}
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Details */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Phone */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
+              className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-emerald-400/30 hover:border-emerald-400/50 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-emerald-400/20 group relative overflow-hidden"
             >
-              <div className="glass-card p-8">
-                <h2 className="text-3xl font-bold text-white mb-8 font-poppins">
-                  Get in Touch
-                </h2>
-
-                <div className="space-y-6">
-                  <div className="flex items-start">
-                    <MapPinIcon className="w-6 h-6 text-sun-yellow mt-1 mr-4" />
-                    <div>
-                      <h3 className="text-lg font-semibold text-white">
-                        Address
-                      </h3>
-                      <p className="text-white/90">
-                        Dunai, Dolpa
-                        <br />
-                        Karnali Province, Nepal
-                        <br />
-                        Heart of Dunai
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start">
-                    <PhoneIcon className="w-6 h-6 text-sun-yellow mt-1 mr-4" />
-                    <div>
-                      <h3 className="text-lg font-semibold text-white">
-                        Phone
-                      </h3>
-                      <p className="text-white/90">+977-XXXX-XXXX</p>
-                      <p className="text-sm text-white/70">Available 24/7</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start">
-                    <EnvelopeIcon className="w-6 h-6 text-sun-yellow mt-1 mr-4" />
-                    <div>
-                      <h3 className="text-lg font-semibold text-white">
-                        Email
-                      </h3>
-                      <p className="text-white/90">info@bluesheephotel.com</p>
-                      <p className="text-sm text-white/70">
-                        We respond within 2 hours
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start">
-                    <ClockIcon className="w-6 h-6 text-sun-yellow mt-1 mr-4" />
-                    <div>
-                      <h3 className="text-lg font-semibold text-white">
-                        Reception Hours
-                      </h3>
-                      <p className="text-white/90">
-                        Monday - Sunday: 6:00 AM - 10:00 PM
-                        <br />
-                        Check-in: 2:00 PM
-                        <br />
-                        Check-out: 11:00 AM
-                      </p>
-                    </div>
-                  </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <PhoneIcon className="w-8 h-8 text-white" />
                 </div>
+                <h3 className="text-xl font-bold text-white mb-3">Phone</h3>
+                <p className="text-emerald-300 mb-4">9849961927</p>
+                <motion.button
+                  onClick={() => {
+                    const message = `Hi! I'd like to get in touch about your hotel services.`;
+                    const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
+                      message
+                    )}`;
+                    window.open(whatsappUrl, "_blank");
+                  }}
+                  className="bg-emerald-500 hover:bg-emerald-400 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  WhatsApp
+                </motion.button>
               </div>
             </motion.div>
 
-            {/* Contact Form */}
+            {/* Email */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
               viewport={{ once: true }}
-              className="glass-form p-8 rounded-lg"
+              className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-emerald-400/30 hover:border-emerald-400/50 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-emerald-400/20 group relative overflow-hidden"
             >
-              <h3 className="text-2xl font-bold text-white mb-6">
-                Send us a Message
-              </h3>
-              <form className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-white mb-2">
-                      First Name
-                    </label>
-                    <input
-                      type="text"
-                      className="w-full px-4 py-3 glass-input rounded-lg"
-                      placeholder="Your first name"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-white mb-2">
-                      Last Name
-                    </label>
-                    <input
-                      type="text"
-                      className="w-full px-4 py-3 glass-input rounded-lg"
-                      placeholder="Your last name"
-                    />
-                  </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <EnvelopeIcon className="w-8 h-8 text-white" />
                 </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-white mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    className="w-full px-4 py-3 glass-input rounded-lg"
-                    placeholder="your.email@example.com"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-white mb-2">
-                    Phone
-                  </label>
-                  <input
-                    type="tel"
-                    className="w-full px-4 py-3 glass-input rounded-lg"
-                    placeholder="+977-XXXX-XXXX"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-white mb-2">
-                    Subject
-                  </label>
-                  <select className="w-full px-4 py-3 glass-input rounded-lg">
-                    <option>Room Booking</option>
-                    <option>General Inquiry</option>
-                    <option>Special Requests</option>
-                    <option>Group Booking</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-white mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    rows={4}
-                    className="w-full px-4 py-3 glass-input rounded-lg"
-                    placeholder="Tell us about your needs..."
-                  ></textarea>
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full glass-button py-3 px-6 rounded-lg font-semibold sun-glow text-sheep-blue"
+                <h3 className="text-xl font-bold text-white mb-3">Email</h3>
+                <p className="text-emerald-300 mb-4 text-sm">
+                  innbluesheep@gmail.com
+                </p>
+                <motion.button
+                  onClick={() => {
+                    window.open("mailto:innbluesheep@gmail.com", "_self");
+                  }}
+                  className="bg-emerald-500 hover:bg-emerald-400 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  Send Message
-                </button>
-              </form>
+                  Send Email
+                </motion.button>
+              </div>
+            </motion.div>
+
+            {/* Location */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-emerald-400/30 hover:border-emerald-400/50 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-emerald-400/20 group relative overflow-hidden"
+            >
+              <div className="text-center">
+                <div className="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <MapPinIcon className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">Location</h3>
+                <p className="text-emerald-300 mb-2">Heart of Dunai</p>
+                <p className="text-emerald-300 text-sm">Dolpa, Nepal</p>
+              </div>
+            </motion.div>
+
+            {/* Hours */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-emerald-400/30 hover:border-emerald-400/50 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-emerald-400/20 group relative overflow-hidden"
+            >
+              <div className="text-center">
+                <div className="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <ClockIcon className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">Hours</h3>
+                <p className="text-emerald-300 text-sm">Mon - Sun</p>
+                <p className="text-emerald-300 text-sm">6:00 AM - 10:00 PM</p>
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Map Section */}
-      <section className="py-20 relative">
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -348,15 +264,12 @@ export default function ContactPage() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <div className="glass-card p-8 text-center">
-              <h2 className="text-3xl font-bold text-white font-poppins mb-4">
-                Find Us in Dunai
-              </h2>
-              <p className="text-lg text-white/90">
-                Located in the heart of Dunai with easy access to mountain
-                adventures and surrounding attractions.
-              </p>
-            </div>
+            <h2 className="text-3xl font-bold text-white mb-4 font-montserrat">
+              Find Us
+            </h2>
+            <p className="text-gray-300">
+              Located in the heart of Dunai, Dolpa
+            </p>
           </motion.div>
 
           <motion.div
@@ -364,16 +277,84 @@ export default function ContactPage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="glass-card h-96 rounded-lg flex items-center justify-center"
+            className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-emerald-400/30"
           >
-            <div className="text-center">
-              <MapPinIcon className="w-16 h-16 text-sun-yellow mx-auto mb-4" />
-              <p className="text-white/90 text-lg">
-                Interactive Map Coming Soon
+            <div className="aspect-video rounded-lg overflow-hidden">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.1234567890123!2d82.895524!3d28.9508116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjjCsDU3JzAyLjkiTiA4MsKwNTMnNDMuOSJF!5e0!3m2!1sen!2snp!4v1234567890123!5m2!1sen!2snp"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Blue Sheep Inn Location"
+              ></iframe>
+            </div>
+
+            <div className="mt-6 text-center">
+              <p className="text-emerald-300 mb-4">
+                📍 Blue Sheep Inn, Dunai, Dolpa, Nepal
               </p>
-              <p className="text-white/70">
-                Dunai, Dolpa, Karnali Province, Nepal
-              </p>
+              <motion.button
+                onClick={() => {
+                  window.open(
+                    "https://www.google.com/maps?q=28.9508116,82.895524",
+                    "_blank"
+                  );
+                }}
+                className="bg-emerald-500 hover:bg-emerald-400 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Open in Google Maps
+              </motion.button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Call to Action Section */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-emerald-400/30"
+          >
+            <h2 className="text-3xl font-bold text-white mb-4 font-montserrat">
+              Ready to Book Your Stay?
+            </h2>
+            <p className="text-gray-300 mb-6">
+              Contact us now to make your reservation or ask any questions.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.button
+                onClick={() => {
+                  const message = `Hi! I'd like to make a reservation at your hotel.`;
+                  const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
+                    message
+                  )}`;
+                  window.open(whatsappUrl, "_blank");
+                }}
+                className="bg-emerald-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-emerald-400 transition-colors text-center"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Book Now
+              </motion.button>
+              <motion.button
+                onClick={() => {
+                  window.open("tel:9849961927", "_self");
+                }}
+                className="border-2 border-emerald-400 text-emerald-400 px-8 py-3 rounded-lg font-semibold hover:bg-emerald-400 hover:text-white transition-colors text-center"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Call Now
+              </motion.button>
             </div>
           </motion.div>
         </div>
