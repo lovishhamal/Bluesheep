@@ -1,10 +1,11 @@
-# Deployment Guide for Yeti Cloud (Data Hub)
+# Deployment Guide for Yeti Cloud by DataHub
 
 ## Prerequisites
 
 - Node.js 18+ installed
 - npm or yarn package manager
-- Yeti Cloud account with Data Hub
+- Yeti Cloud by DataHub account
+- Git repository (GitHub/GitLab)
 
 ## Build Configuration
 
@@ -28,25 +29,56 @@ npm run build
 
 This will create an `out` directory with static files.
 
-## Yeti Cloud Deployment Steps
+## Yeti Cloud by DataHub Deployment Steps
 
-### 1. Upload Files
+### Method 1: Git Repository Deployment (Recommended)
 
-Upload the entire `out` directory contents to your Yeti Cloud hosting directory.
+#### 1. Create Environment
 
-### 2. Configure Web Server
+- Log in to your Yeti Cloud dashboard
+- Click "New Environment"
+- Choose technology stack: **Node.js**
+- Select application server: **Apache/Nginx**
+- Configure scaling settings
+- Name your environment (e.g., "bluesheep-hotel")
 
-Ensure your Yeti Cloud hosting supports:
+#### 2. Deploy via Git
 
-- Apache with mod_rewrite enabled
-- Static file serving
-- URL rewriting for SPA routing
+- Navigate to "Deployment Manager"
+- Select "GIT/SVN" option
+- Provide repository details:
+  - **Name**: bluesheep-hotel
+  - **Repository URL**: `https://github.com/Ghoral/Bluesheep_web.git`
+  - **Branch**: `dev` (or `main`)
+  - **Build Command**: `npm run build`
+  - **Output Directory**: `out`
+- If private repository, provide Git credentials
+- Click "Add + Deploy"
+
+### Method 2: ZIP File Upload
+
+#### 1. Prepare Files
+
+```bash
+# Build the project
+npm run build
+
+# Create deployment package
+zip -r bluesheep-deployment.zip out/ package.json package-lock.json
+```
+
+#### 2. Upload to Yeti Cloud
+
+- In Deployment Manager, select "Archive"
+- Upload the ZIP file
+- Deploy to your environment
 
 ### 3. Environment Variables
 
-If using Supabase, ensure these environment variables are set in your build process:
+Set these in your Yeti Cloud environment:
 
 ```
+NODE_ENV=production
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
@@ -93,28 +125,35 @@ After deployment, your directory should look like:
 2. Check for TypeScript errors: `npm run lint`
 3. Verify all dependencies are installed
 
-## Alternative Deployment Methods
+## Yeti Cloud Specific Configuration
 
-### Using Git
+### Configuration File
 
-If Yeti Cloud supports Git deployment:
+The project includes `yeti-cloud-config.json` with deployment settings:
 
-1. Push your code to a Git repository
-2. Connect the repository to Yeti Cloud
-3. Set build command: `npm run build`
-4. Set output directory: `out`
+```json
+{
+  "appName": "bluesheep-hotel",
+  "environment": "production",
+  "buildCommand": "npm run build",
+  "staticFiles": "./out",
+  "deploymentType": "static",
+  "framework": "nextjs",
+  "nodeVersion": "18"
+}
+```
 
-### Manual Upload
+### Deployment Options
 
-1. Run `npm run build` locally
-2. Compress the `out` directory
-3. Upload and extract on Yeti Cloud
-4. Ensure `.htaccess` is in the root directory
+1. **Git Repository**: Connect your GitHub repository directly
+2. **ZIP Upload**: Upload built files as archive
+3. **CLI Deployment**: Use Yeti Cloud CLI tools (if available)
 
 ## Support
 
-For Yeti Cloud specific issues, contact Data Hub support with:
+For Yeti Cloud specific issues, contact DataHub support with:
 
 - Your domain name
 - Error messages from server logs
 - Build output from `npm run build`
+- Repository URL: `https://github.com/Ghoral/Bluesheep_web.git`
