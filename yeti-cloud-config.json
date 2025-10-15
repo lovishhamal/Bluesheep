@@ -1,0 +1,24 @@
+{
+  "appName": "bluesheep-hotel",
+  "environment": "production",
+  "buildCommand": "npm run build",
+  "startCommand": "npm start",
+  "port": 3000,
+  "staticFiles": "./out",
+  "deploymentType": "static",
+  "framework": "nextjs",
+  "nodeVersion": "18",
+  "env": {
+    "NODE_ENV": "production",
+    "NEXT_PUBLIC_SUPABASE_URL": "your_supabase_url_here",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "your_supabase_anon_key_here"
+  },
+  "routing": {
+    "spa": true,
+    "fallback": "/index.html"
+  },
+  "buildSettings": {
+    "outputDirectory": "out",
+    "installCommand": "npm install"
+  }
+}
