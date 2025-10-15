@@ -1,0 +1,40 @@
+{
+  "name": "bluesheep-hotel",
+  "version": "1.0.0",
+  "description": "Hotel Blue Sheep Inn - Website",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build",
+    "start": "npm run start",
+    "dev": "npm run dev"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "build": {
+    "command": "npm run build",
+    "output": "out",
+    "install": "npm install"
+  },
+  "deploy": {
+    "type": "static",
+    "framework": "nextjs",
+    "buildCommand": "npm run build",
+    "outputDirectory": "out",
+    "nodeVersion": "18"
+  },
+  "yetiCloud": {
+    "platform": "datahub",
+    "deploymentType": "static",
+    "buildSettings": {
+      "buildCommand": "npm run build",
+      "outputDirectory": "out",
+      "nodeVersion": "18"
+    },
+    "routing": {
+      "spa": true,
+      "fallback": "/index.html"
+    }
+  }
+}
