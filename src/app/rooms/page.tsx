@@ -384,7 +384,7 @@ Please let me know about availability and booking process.`;
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: index * 0.2 }}
                   viewport={{ once: true }}
-                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-emerald-400/40 hover:border-emerald-300/60 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-emerald-400/30 group relative overflow-hidden min-h-[450px] sm:min-h-[500px] w-full"
+                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-emerald-400/40 hover:border-emerald-300/60 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-emerald-400/30 group relative overflow-hidden min-h-[450px] sm:min-h-[500px] w-full flex flex-col"
                 >
                   {/* Background glow effect */}
                   <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
@@ -450,7 +450,7 @@ Please let me know about availability and booking process.`;
                     )}
                   </div>
 
-                  <div className="relative z-10">
+                  <div className="relative z-10 flex flex-col h-full">
                     {/* Room Header */}
                     <div className="mb-6">
                       <div className="flex flex-col gap-4 mb-4">
@@ -488,7 +488,7 @@ Please let me know about availability and booking process.`;
 
                     {/* Description */}
                     {room.description && (
-                      <p className="text-gray-200 text-sm sm:text-base leading-relaxed mb-4 break-words">
+                      <p className="text-gray-200 text-sm sm:text-base leading-relaxed mb-4 break-words line-clamp-2 h-12">
                         {room.description}
                       </p>
                     )}
@@ -592,16 +592,18 @@ Please let me know about availability and booking process.`;
                     </div>
 
                     {/* Book Now Button */}
-                    <button
-                      onClick={() => handleBooking(room)}
-                      className={`w-full py-3 rounded-lg font-semibold transition-all duration-300 ${
-                        room.is_available
-                          ? "bg-emerald-500 text-white hover:bg-emerald-400 hover:scale-105 shadow-lg shadow-emerald-500/30"
-                          : "bg-red-500/20 text-red-300 border border-red-400/50 hover:bg-red-500/30 hover:scale-105 shadow-lg shadow-red-500/20"
-                      }`}
-                    >
-                      {room.is_available ? "Book Now" : "Occupied"}
-                    </button>
+                    <div className="mt-auto pt-4">
+                      <button
+                        onClick={() => handleBooking(room)}
+                        className={`w-full py-3 rounded-lg font-semibold transition-all duration-300 ${
+                          room.is_available
+                            ? "bg-emerald-500 text-white hover:bg-emerald-400 hover:scale-105 shadow-lg shadow-emerald-500/30"
+                            : "bg-red-500/20 text-red-300 border border-red-400/50 hover:bg-red-500/30 hover:scale-105 shadow-lg shadow-red-500/20"
+                        }`}
+                      >
+                        {room.is_available ? "Book Now" : "Occupied"}
+                      </button>
+                    </div>
                   </div>
                 </motion.div>
               ))}
