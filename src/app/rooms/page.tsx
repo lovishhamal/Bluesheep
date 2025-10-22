@@ -31,6 +31,7 @@ interface Room {
   start_date?: string; // timestamptz
   end_date?: string; // timestamptz
   is_available: boolean;
+  status?: string; // Room status: 'available', 'checked_in', etc.
   created_at: string;
   updated_at: string;
 }
@@ -110,7 +111,7 @@ export default function RoomsPage() {
 
   // Handle booking
   const handleBooking = (room: Room) => {
-    if (room.is_available) {
+    if (room.status !== "checked_in") {
       setSelectedRoom(room);
       setIsBookingModalOpen(true);
     }
@@ -519,41 +520,15 @@ Please let me know about availability and booking process.`;
                       </div>
                     </div>
 
-                    {/* Availability Status */}
-                    <div className="mb-4">
-                      {room.is_available ? (
-                        <div className="flex items-center justify-between">
-                          <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-500/20 border border-green-400/30 text-green-300">
-                            <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
-                            Available Now
-                          </div>
-                          {room.start_date && room.end_date && (
-                            <div className="text-xs text-gray-300">
-                              Until{" "}
-                              {new Date(room.end_date).toLocaleString("en-US", {
-                                timeZone: "Asia/Kathmandu",
-                                year: "numeric",
-                                month: "2-digit",
-                                day: "2-digit",
-                                hour: "2-digit",
-                                minute: "2-digit",
-                                hour12: true,
-                              })}{" "}
-                              NPT
-                            </div>
-                          )}
-                        </div>
-                      ) : (
+                    {/* Booking Dates - Only show for checked-in rooms */}
+                    {room.status === "checked_in" && (
+                      <div className="mb-4">
                         <div className="space-y-2">
-                          <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 border border-red-200 text-red-700">
-                            <div className="w-2 h-2 bg-red-500 rounded-full mr-2"></div>
-                            Occupied
-                          </div>
                           {room.start_date && room.end_date && (
                             <div className="flex flex-wrap gap-2">
-                              <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 border border-green-200 text-green-700">
+                              <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
                                 <CalendarIcon className="w-3 h-3 mr-1" />
-                                From:{" "}
+                                Check-in:{" "}
                                 {new Date(room.start_date).toLocaleString(
                                   "en-US",
                                   {
@@ -570,7 +545,7 @@ Please let me know about availability and booking process.`;
                               </div>
                               <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-500/20 border border-red-400/30 text-red-300">
                                 <CalendarIcon className="w-3 h-3 mr-1" />
-                                Until:{" "}
+                                Check-out:{" "}
                                 {new Date(room.end_date).toLocaleString(
                                   "en-US",
                                   {
@@ -588,20 +563,16 @@ Please let me know about availability and booking process.`;
                             </div>
                           )}
                         </div>
-                      )}
-                    </div>
+                      </div>
+                    )}
 
-                    {/* Book Now Button */}
+                    {/* Book Now Button - Always show */}
                     <div className="mt-auto pt-4">
                       <button
                         onClick={() => handleBooking(room)}
-                        className={`w-full py-3 rounded-lg font-semibold transition-all duration-300 ${
-                          room.is_available
-                            ? "bg-emerald-500 text-white hover:bg-emerald-400 hover:scale-105 shadow-lg shadow-emerald-500/30"
-                            : "bg-red-500/20 text-red-300 border border-red-400/50 hover:bg-red-500/30 hover:scale-105 shadow-lg shadow-red-500/20"
-                        }`}
+                        className="w-full py-3 rounded-lg font-semibold transition-all duration-300 bg-emerald-500 text-white hover:bg-emerald-400 hover:scale-105 shadow-lg shadow-emerald-500/30"
                       >
-                        {room.is_available ? "Book Now" : "Occupied"}
+                        Book Now
                       </button>
                     </div>
                   </div>
