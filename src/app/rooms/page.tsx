@@ -53,6 +53,8 @@ export default function RoomsPage() {
     specialRequests: "",
   });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   // Fetch rooms from database
   useEffect(() => {
@@ -173,6 +175,33 @@ Please let me know about availability and booking process.`;
       customerPhone: "",
       specialRequests: "",
     });
+  };
+
+  const openImageModal = (room: Room, imageIndex: number) => {
+    setSelectedRoom(room);
+    setSelectedImageIndex(imageIndex);
+    setIsImageModalOpen(true);
+  };
+
+  const closeImageModal = () => {
+    setIsImageModalOpen(false);
+    setSelectedRoom(null);
+    setSelectedImageIndex(0);
+  };
+
+  const nextImageModal = () => {
+    if (selectedRoom && selectedRoom.images) {
+      setSelectedImageIndex((prev) => (prev + 1) % selectedRoom.images.length);
+    }
+  };
+
+  const prevImageModal = () => {
+    if (selectedRoom && selectedRoom.images) {
+      setSelectedImageIndex(
+        (prev) =>
+          (prev - 1 + selectedRoom.images.length) % selectedRoom.images.length
+      );
+    }
   };
 
   // Get current image for a room
@@ -391,7 +420,12 @@ Please let me know about availability and booking process.`;
                   <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
 
                   {/* Room Image Gallery */}
-                  <div className="h-40 sm:h-48 relative overflow-hidden rounded-lg border border-emerald-400/40 mb-4 relative z-10">
+                  <div
+                    className="h-40 sm:h-48 relative overflow-hidden rounded-lg border border-emerald-400/40 mb-4 relative z-10 cursor-pointer"
+                    onClick={() =>
+                      openImageModal(room, currentImageIndex[room.id] || 0)
+                    }
+                  >
                     <img
                       src={getCurrentRoomImage(room.id, room.images)}
                       alt={room.room_name}
@@ -867,6 +901,66 @@ Please let me know about availability and booking process.`;
               </div>
             </form>
           </motion.div>
+        </div>
+      )}
+
+      {/* Full-Screen Image Modal */}
+      {isImageModalOpen && selectedRoom && (
+        <div className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="relative w-full h-full max-w-7xl max-h-[90vh] flex items-center justify-center">
+            {/* Close Button */}
+            <button
+              onClick={closeImageModal}
+              className="absolute top-4 right-4 z-10 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300 hover:scale-110 shadow-xl"
+            >
+              <XMarkIcon className="w-6 h-6" />
+            </button>
+
+            {/* Navigation Arrows */}
+            {selectedRoom.images && selectedRoom.images.length > 1 && (
+              <>
+                <button
+                  onClick={prevImageModal}
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 w-14 h-14 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300 hover:scale-110 shadow-xl"
+                >
+                  <ChevronLeftIcon className="w-8 h-8" />
+                </button>
+                <button
+                  onClick={nextImageModal}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 w-14 h-14 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300 hover:scale-110 shadow-xl"
+                >
+                  <ChevronRightIcon className="w-8 h-8" />
+                </button>
+              </>
+            )}
+
+            {/* Main Image */}
+            <div className="relative w-full h-full flex items-center justify-center">
+              <img
+                src={selectedRoom.images[selectedImageIndex]}
+                alt={`${selectedRoom.room_name} - Image ${
+                  selectedImageIndex + 1
+                }`}
+                className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = "/hotel-room.jpg";
+                }}
+              />
+            </div>
+
+            {/* Image Counter */}
+            {selectedRoom.images && selectedRoom.images.length > 1 && (
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full text-white font-semibold shadow-xl">
+                {selectedImageIndex + 1} / {selectedRoom.images.length}
+              </div>
+            )}
+
+            {/* Room Name */}
+            <div className="absolute bottom-4 left-4 bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full text-white font-semibold shadow-xl">
+              {selectedRoom.room_name}
+            </div>
+          </div>
         </div>
       )}
     </div>
