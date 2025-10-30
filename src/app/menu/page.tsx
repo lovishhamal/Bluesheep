@@ -362,11 +362,12 @@ export default function MenuPage() {
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.5, delay: index * 0.1 }}
                         viewport={{ once: true }}
-                        className="flex items-center gap-6 mb-6"
+                        className="flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-6 mb-6"
                       >
                         {/* Item Image */}
                         {item.images && (
-                          <div className="flex-shrink-0">
+                          <div className="flex-shrink-0"
+                          >
                             <img
                               src={item.images}
                               alt={item.item_name}
@@ -386,7 +387,7 @@ export default function MenuPage() {
                           >
                             {capitalizeItemName(item.item_name)}
                           </div>
-                          <div className="text-base md:text-lg text-[#4a4a4a] mt-1 italic">
+                          <div className="text-sm md:text-lg text-[#4a4a4a] mt-1 italic break-words">
                             {item.description ||
                               "Delicious and freshly prepared"}
                           </div>
@@ -394,7 +395,7 @@ export default function MenuPage() {
 
                         {/* Price */}
                         <div
-                          className="text-2xl md:text-3xl text-[#1a3a52] font-semibold whitespace-nowrap"
+                          className="text-2xl md:text-3xl text-[#1a3a52] font-semibold whitespace-nowrap mt-2 md:mt-0 self-end md:self-auto"
                           style={{ fontFamily: "Georgia, serif" }}
                         >
                           {formatPrice(item.price)}

@@ -63,14 +63,6 @@ export default function RoomsPage() {
         setLoading(true);
         console.log("Fetching rooms from database...");
 
-        // Check if Supabase is configured
-        if (
-          !process.env.NEXT_PUBLIC_SUPABASE_URL ||
-          !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-        ) {
-          throw new Error("Supabase environment variables not configured");
-        }
-
         const { data, error } = await supabase
           .from("rooms")
           .select("*")
