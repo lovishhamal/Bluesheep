@@ -16,6 +16,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { supabase } from "../util/supabase";
+import { getWhatsAppUrl, PHONE_NUMBER } from "../util/constants";
 import { useState, useEffect } from "react";
 
 // Room interface matching your database schema
@@ -122,7 +123,9 @@ export default function RoomsPage() {
     }
 
     // Create WhatsApp message with form data
-    const message = `Hi! I'm interested in booking the ${selectedRoom.room_name} room.
+    const message = `Hi! I'm interested in booking the ${
+      selectedRoom.room_name
+    } room.
 
 Room Details:
 - Room: ${selectedRoom.room_name}
@@ -142,9 +145,7 @@ ${
 
 Please let me know about availability and booking process.`;
 
-    const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
-      message
-    )}`;
+    const whatsappUrl = getWhatsAppUrl(message);
     window.open(whatsappUrl, "_blank");
 
     // Close modal after opening WhatsApp
@@ -261,9 +262,7 @@ Please let me know about availability and booking process.`;
               <button
                 onClick={() => {
                   const message = `Hi! I'd like to get in touch about your hotel services.`;
-                  const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
-                    message
-                  )}`;
+                  const whatsappUrl = getWhatsAppUrl(message);
                   window.open(whatsappUrl, "_blank");
                 }}
                 className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
@@ -646,9 +645,7 @@ Please let me know about availability and booking process.`;
               <button
                 onClick={() => {
                   const message = `Hi! I'd like to get in touch about your hotel services.`;
-                  const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
-                    message
-                  )}`;
+                  const whatsappUrl = getWhatsAppUrl(message);
                   window.open(whatsappUrl, "_blank");
                 }}
                 className="border border-emerald-400 text-emerald-400 px-8 py-3 rounded-lg font-semibold hover:bg-emerald-400/10 transition-colors"

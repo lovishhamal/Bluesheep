@@ -133,7 +133,7 @@ export default function RootLayout({
               description:
                 "Hotel Blue Sheep Inn - Luxury hotel in Dunai offering exceptional hospitality and stunning mountain views",
               url: "https://bluesheephotel.com",
-              telephone: "+977-984-996-1927",
+              telephone: "+977-985-806-1927",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Dunai, Dolpa",
