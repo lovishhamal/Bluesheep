@@ -9,7 +9,6 @@ import {
   EyeIcon,
   CheckIcon,
   UserIcon,
-  CalendarIcon,
   CurrencyDollarIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -45,7 +44,6 @@ export default function RoomsPage() {
   }>({});
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
-  const [bookingType, setBookingType] = useState<"book" | "reserve">("book");
   const [bookingForm, setBookingForm] = useState({
     customerName: "",
     customerEmail: "",
@@ -105,10 +103,8 @@ export default function RoomsPage() {
 
   // Handle booking
   const handleBooking = (room: Room) => {
-    if (room.status !== "checked_in") {
-      setSelectedRoom(room);
-      setIsBookingModalOpen(true);
-    }
+    setSelectedRoom(room);
+    setIsBookingModalOpen(true);
   };
 
   const handleBookingSubmit = async (e: React.FormEvent) => {
@@ -126,9 +122,7 @@ export default function RoomsPage() {
     }
 
     // Create WhatsApp message with form data
-    const message = `Hi! I'm interested in ${
-      bookingType === "book" ? "booking" : "reserving"
-    } the ${selectedRoom.room_name} room.
+    const message = `Hi! I'm interested in booking the ${selectedRoom.room_name} room.
 
 Room Details:
 - Room: ${selectedRoom.room_name}
@@ -140,7 +134,6 @@ Customer Details:
 - Name: ${bookingForm.customerName}
 - Phone: ${bookingForm.customerPhone}
 - Email: ${bookingForm.customerEmail || "Not provided"}
-- Booking Type: ${bookingType === "book" ? "Book Now" : "Reserve"}
 ${
   bookingForm.specialRequests
     ? `- Special Requests: ${bookingForm.specialRequests}`
@@ -546,52 +539,6 @@ Please let me know about availability and booking process.`;
                       </div>
                     </div>
 
-                    {/* Booking Dates - Only show for checked-in rooms */}
-                    {room.status === "checked_in" && (
-                      <div className="mb-4">
-                        <div className="space-y-2">
-                          {room.start_date && room.end_date && (
-                            <div className="flex flex-wrap gap-2">
-                              <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
-                                <CalendarIcon className="w-3 h-3 mr-1" />
-                                Check-in:{" "}
-                                {new Date(room.start_date).toLocaleString(
-                                  "en-US",
-                                  {
-                                    timeZone: "Asia/Kathmandu",
-                                    year: "numeric",
-                                    month: "2-digit",
-                                    day: "2-digit",
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                    hour12: true,
-                                  }
-                                )}{" "}
-                                NPT
-                              </div>
-                              <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-500/20 border border-red-400/30 text-red-300">
-                                <CalendarIcon className="w-3 h-3 mr-1" />
-                                Check-out:{" "}
-                                {new Date(room.end_date).toLocaleString(
-                                  "en-US",
-                                  {
-                                    timeZone: "Asia/Kathmandu",
-                                    year: "numeric",
-                                    month: "2-digit",
-                                    day: "2-digit",
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                    hour12: true,
-                                  }
-                                )}{" "}
-                                NPT
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    )}
-
                     {/* Book Now Button - Always show */}
                     <div className="mt-auto pt-4">
                       <button
@@ -724,8 +671,7 @@ Please let me know about availability and booking process.`;
           >
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold text-white font-montserrat">
-                {bookingType === "book" ? "Book" : "Reserve"}{" "}
-                {selectedRoom.room_name}
+                Book {selectedRoom.room_name}
               </h2>
               <button
                 onClick={closeBookingModal}
@@ -733,32 +679,6 @@ Please let me know about availability and booking process.`;
               >
                 <XMarkIcon className="w-6 h-6" />
               </button>
-            </div>
-
-            {/* Booking Type Selection */}
-            <div className="mb-6">
-              <div className="flex gap-4">
-                <button
-                  onClick={() => setBookingType("book")}
-                  className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
-                    bookingType === "book"
-                      ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/30"
-                      : "bg-slate-700/50 text-gray-300 border border-emerald-400/50 hover:bg-emerald-500/20"
-                  }`}
-                >
-                  Book Now
-                </button>
-                <button
-                  onClick={() => setBookingType("reserve")}
-                  className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
-                    bookingType === "reserve"
-                      ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/30"
-                      : "bg-slate-700/50 text-gray-300 border border-emerald-400/50 hover:bg-emerald-500/20"
-                  }`}
-                >
-                  Reserve
-                </button>
-              </div>
             </div>
 
             {/* Booking Notice */}
