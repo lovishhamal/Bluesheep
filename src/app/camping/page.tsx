@@ -10,6 +10,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 import { getImagesFromFolder, StorageImage } from "../util/storage";
+import { getWhatsAppUrl, PHONE_NUMBER } from "../util/constants";
 
 export default function CampingPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -119,9 +120,7 @@ Booking Details:
 
 Please let me know about availability and the booking process.`;
 
-    const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
-      message
-    )}`;
+    const whatsappUrl = getWhatsAppUrl(message);
     window.open(whatsappUrl, "_blank");
 
     // Close modal and reset form
@@ -192,9 +191,7 @@ Please let me know about availability and the booking process.`;
               <button
                 onClick={() => {
                   const message = `Hi! I'd like to get in touch about your hotel services.`;
-                  const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
-                    message
-                  )}`;
+                  const whatsappUrl = getWhatsAppUrl(message);
                   window.open(whatsappUrl, "_blank");
                 }}
                 className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
@@ -258,9 +255,7 @@ Please let me know about availability and the booking process.`;
                 <button
                   onClick={() => {
                     const message = `Hi! I'd like to get in touch about your hotel services.`;
-                    const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
-                      message
-                    )}`;
+                    const whatsappUrl = getWhatsAppUrl(message);
                     window.open(whatsappUrl, "_blank");
                     setIsMobileMenuOpen(false);
                   }}
@@ -347,9 +342,7 @@ Please let me know about availability and the booking process.`;
               <motion.button
                 onClick={() => {
                   const message = `Hi! I'd like to know more about your garden camping facilities.`;
-                  const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
-                    message
-                  )}`;
+                  const whatsappUrl = getWhatsAppUrl(message);
                   window.open(whatsappUrl, "_blank");
                 }}
                 className="w-full sm:w-auto px-8 py-4 border-2 border-emerald-400 text-emerald-400 hover:bg-emerald-400 hover:text-white font-semibold rounded-full transition-all duration-300"
@@ -605,7 +598,7 @@ Please let me know about availability and the booking process.`;
                 <span className="text-white text-xl">📱</span>
               </div>
               <h3 className="text-xl font-semibold mb-2 text-white">Contact</h3>
-              <p className="text-emerald-100">WhatsApp: 9849961927</p>
+              <p className="text-emerald-100">WhatsApp: {PHONE_NUMBER}</p>
             </motion.div>
 
             <motion.div
@@ -643,9 +636,7 @@ Please let me know about availability and the booking process.`;
               <motion.button
                 onClick={() => {
                   const message = `Hi! I'd like to know more about your garden camping facilities.`;
-                  const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
-                    message
-                  )}`;
+                  const whatsappUrl = getWhatsAppUrl(message);
                   window.open(whatsappUrl, "_blank");
                 }}
                 className="w-full sm:w-auto px-8 py-4 border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-emerald-600 transition-all duration-300"

@@ -11,6 +11,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { getWhatsAppUrl, getTelUrl, PHONE_NUMBER } from "../util/constants";
 
 export default function ContactPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -168,13 +169,11 @@ export default function ContactPage() {
                   <PhoneIcon className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3">Phone</h3>
-                <p className="text-emerald-300 mb-4">9849961927</p>
+                <p className="text-emerald-300 mb-4">{PHONE_NUMBER}</p>
                 <motion.button
                   onClick={() => {
                     const message = `Hi! I'd like to get in touch about your hotel services.`;
-                    const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
-                      message
-                    )}`;
+                    const whatsappUrl = getWhatsAppUrl(message);
                     window.open(whatsappUrl, "_blank");
                   }}
                   className="bg-emerald-500 hover:bg-emerald-400 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300"
@@ -334,9 +333,7 @@ export default function ContactPage() {
               <motion.button
                 onClick={() => {
                   const message = `Hi! I'd like to make a reservation at your hotel.`;
-                  const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
-                    message
-                  )}`;
+                  const whatsappUrl = getWhatsAppUrl(message);
                   window.open(whatsappUrl, "_blank");
                 }}
                 className="bg-emerald-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-emerald-400 transition-colors text-center"
@@ -347,7 +344,7 @@ export default function ContactPage() {
               </motion.button>
               <motion.button
                 onClick={() => {
-                  window.open("tel:9849961927", "_self");
+                  window.open(getTelUrl(), "_self");
                 }}
                 className="border-2 border-emerald-400 text-emerald-400 px-8 py-3 rounded-lg font-semibold hover:bg-emerald-400 hover:text-white transition-colors text-center"
                 whileHover={{ scale: 1.05 }}

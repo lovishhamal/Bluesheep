@@ -23,6 +23,7 @@ import {
   getReviews,
   Review,
 } from "./util/storage";
+import { getWhatsAppUrl, getTelUrl, PHONE_NUMBER } from "./util/constants";
 
 // Type definitions
 
@@ -418,10 +419,10 @@ export default function Home() {
               <div className="flex items-center gap-2">
                 <PhoneIcon className="w-5 h-5" />
                 <a
-                  href="tel:9849961927"
+                  href={getTelUrl()}
                   className="text-lg font-semibold hover:text-emerald-200 transition-colors"
                 >
-                  9849961927
+                  {PHONE_NUMBER}
                 </a>
               </div>
               <div className="hidden sm:block w-px h-6 bg-emerald-400/50"></div>
@@ -444,9 +445,7 @@ export default function Home() {
               <motion.button
                 onClick={() => {
                   const message = `Hi! I'd like to book a room at Hotel Blue Sheep Inn.`;
-                  const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
-                    message
-                  )}`;
+                  const whatsappUrl = getWhatsAppUrl(message);
                   window.open(whatsappUrl, "_blank");
                 }}
                 className="w-full sm:w-auto px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-emerald-500/30 transform hover:scale-105"
@@ -814,10 +813,10 @@ export default function Home() {
               <PhoneIcon className="w-12 h-12 mx-auto mb-4 text-white" />
               <h3 className="text-xl font-semibold mb-2 text-white">Phone</h3>
               <a
-                href="tel:9849961927"
+                href={getTelUrl()}
                 className="text-emerald-100 hover:text-white transition-colors duration-300 text-lg font-semibold"
               >
-                9849961927
+                {PHONE_NUMBER}
               </a>
             </motion.div>
 
@@ -860,9 +859,7 @@ export default function Home() {
               <motion.button
                 onClick={() => {
                   const message = `Hi! I'd like to book a room at Hotel Blue Sheep Inn.`;
-                  const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
-                    message
-                  )}`;
+                  const whatsappUrl = getWhatsAppUrl(message);
                   window.open(whatsappUrl, "_blank");
                 }}
                 className="px-8 py-4 bg-white text-emerald-600 font-semibold rounded-full hover:bg-emerald-50 transition-all duration-300 shadow-lg"
@@ -947,7 +944,7 @@ export default function Home() {
                 <motion.button
                   onClick={() => {
                     const message = `Hi! I'd like to know more about your hotel location and services.`;
-                    const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
+                    const whatsappUrl = `https://wa.me/{PHONE_NUMBER}?text=${encodeURIComponent(
                       message
                     )}`;
                     window.open(whatsappUrl, "_blank");
@@ -985,10 +982,10 @@ export default function Home() {
               <div className="flex items-center justify-center md:justify-start gap-2 text-emerald-400">
                 <PhoneIcon className="w-5 h-5" />
                 <a
-                  href="tel:9849961927"
+                  href={getTelUrl()}
                   className="text-lg font-semibold hover:text-emerald-300 transition-colors"
                 >
-                  9849961927
+                  {PHONE_NUMBER}
                 </a>
               </div>
             </div>
