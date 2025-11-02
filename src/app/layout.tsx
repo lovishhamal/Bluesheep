@@ -30,10 +30,16 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Best Hotel in Dunai | Garden Restaurant & Camping | Blue Sheep Hotel",
+  title: "Hotel Blue Sheep Inn | Best Hotel in Dunai | Garden Restaurant & Camping",
   description:
-    "🏨 Best hotel in Dunai with garden restaurant & camping. Luxury accommodation in Dolpa with mountain views, WiFi, and exceptional service. Book your stay today!",
+    "🏨 Hotel Blue Sheep Inn - Best hotel in Dunai with garden restaurant & camping. Luxury accommodation in Dolpa with mountain views, WiFi, and exceptional service. Book your stay today!",
   keywords: [
+    "hotel bluesheep inn",
+    "hotel blue sheep inn",
+    "Blue Sheep Inn",
+    "bluesheep inn",
+    "Blue Sheep Inn hotel",
+    "Hotel Blue Sheep Inn Dunai",
     "best hotel in dunai",
     "hotel in dunai",
     "hotel in phoksundo",
@@ -69,11 +75,11 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Best Hotel in Dunai | Garden Restaurant & Camping",
+    title: "Hotel Blue Sheep Inn | Best Hotel in Dunai | Garden Restaurant & Camping",
     description:
-      "🏨 Best hotel in Dunai with garden restaurant & camping. Luxury accommodation with mountain views, WiFi, and exceptional service.",
+      "🏨 Hotel Blue Sheep Inn - Best hotel in Dunai with garden restaurant & camping. Luxury accommodation with mountain views, WiFi, and exceptional service.",
     url: "https://bluesheephotel.com",
-    siteName: "Blue Sheep Hotel",
+    siteName: "Hotel Blue Sheep Inn",
     images: [
       {
         url: "/og-image.jpg",
@@ -87,9 +93,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Best Hotel in Dunai | Garden Restaurant & Camping",
+    title: "Hotel Blue Sheep Inn | Best Hotel in Dunai | Garden Restaurant & Camping",
     description:
-      "🏨 Best hotel in Dunai with garden restaurant & camping. Luxury accommodation with mountain views and exceptional service.",
+      "🏨 Hotel Blue Sheep Inn - Best hotel in Dunai with garden restaurant & camping. Luxury accommodation with mountain views and exceptional service.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -122,11 +128,12 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Hotel",
-              name: "Blue Sheep Hotel",
+              name: "Hotel Blue Sheep Inn",
+              alternateName: ["Blue Sheep Hotel", "Blue Sheep Inn", "Hotel Blue Sheep Inn"],
               description:
-                "Luxury hotel in Dunai offering exceptional hospitality and stunning mountain views",
+                "Hotel Blue Sheep Inn - Luxury hotel in Dunai offering exceptional hospitality and stunning mountain views",
               url: "https://bluesheephotel.com",
-              telephone: "+977-XXXX-XXXX",
+              telephone: "+977-984-996-1927",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Dunai, Dolpa",
@@ -167,9 +174,10 @@ export default function RootLayout({
               },
               hasRestaurant: {
                 "@type": "Restaurant",
-                name: "Garden Restaurant",
+                name: "Hotel Blue Sheep Inn Garden Restaurant",
+                alternateName: "Garden Restaurant",
                 description:
-                  "Best garden restaurant in Dunai with mountain views",
+                  "Hotel Blue Sheep Inn - Best garden restaurant in Dunai with mountain views",
                 servesCuisine: ["Nepali", "International", "Local"],
                 amenityFeature: [
                   {
@@ -184,8 +192,9 @@ export default function RootLayout({
               },
               hasCamping: {
                 "@type": "LodgingBusiness",
-                name: "Garden Camping",
-                description: "Best camping in Dunai with garden facilities",
+                name: "Hotel Blue Sheep Inn Garden Camping",
+                alternateName: "Garden Camping",
+                description: "Hotel Blue Sheep Inn - Best camping in Dunai with garden facilities",
                 amenityFeature: [
                   {
                     "@type": "LocationFeatureSpecification",
