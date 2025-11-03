@@ -456,7 +456,10 @@ export default function Home() {
               </motion.button>
               <motion.button
                 onClick={() => {
-                  router.push("/contact");
+                  const mapSection = document.getElementById("map-section");
+                  if (mapSection) {
+                    mapSection.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }
                 }}
                 className="w-full sm:w-auto px-8 py-4 bg-emerald-700 hover:bg-emerald-600 text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-emerald-500/30 transform hover:scale-105"
                 whileHover={{ scale: 1.05 }}
