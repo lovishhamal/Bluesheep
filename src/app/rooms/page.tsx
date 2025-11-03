@@ -55,6 +55,31 @@ export default function RoomsPage() {
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [hoveredRoomId, setHoveredRoomId] = useState<string | null>(null);
+  const [visibleRooms, setVisibleRooms] = useState<Set<string>>(new Set());
+
+  // Intersection Observer for room cards
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const roomId = entry.target.getAttribute('data-room-id');
+            if (roomId) {
+              setVisibleRooms((prev) => new Set([...prev, roomId]));
+            }
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const roomCards = document.querySelectorAll('[data-room-id]');
+    roomCards.forEach((card) => observer.observe(card));
+
+    return () => {
+      roomCards.forEach((card) => observer.unobserve(card));
+    };
+  }, [rooms]);
 
   // Fetch rooms from database
   useEffect(() => {
@@ -393,13 +418,12 @@ Please let me know about availability and booking process.`;
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {rooms.map((room, index) => (
-                <motion.div
+                <div
                   key={room.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-emerald-400/40 hover:border-emerald-300/60 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-emerald-400/30 group relative overflow-hidden min-h-[450px] sm:min-h-[500px] w-full flex flex-col"
+                  data-room-id={room.id}
+                  className={`bg-white/15 rounded-2xl p-6 sm:p-8 border border-emerald-400/40 hover:border-emerald-300/60 hover:shadow-2xl hover:shadow-emerald-400/30 group relative overflow-hidden min-h-[450px] sm:min-h-[500px] w-full flex flex-col transition-opacity duration-500 ${
+                    visibleRooms.has(room.id) ? 'opacity-100' : 'opacity-0'
+                  }`}
                 >
                   {/* Background glow effect */}
                   <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
@@ -417,14 +441,16 @@ Please let me know about availability and booking process.`;
                       width={400}
                       height={300}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      loading="lazy"
-                      decoding="async"
+                      style={{
+                        WebkitTransform: 'translateZ(0)',
+                        transform: 'translateZ(0)',
+                        WebkitBackfaceVisibility: 'hidden',
+                        backfaceVisibility: 'hidden',
+                        imageRendering: 'auto'
+                      }}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.src = "/hotel-room.jpg";
-                      }}
-                      onLoad={() => {
-                        // Image loaded, prevent flicker
                       }}
                     />
 
@@ -578,7 +604,7 @@ Please let me know about availability and booking process.`;
                       </button>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           )}
