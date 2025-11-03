@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   MapPinIcon,
   PhoneIcon,
@@ -35,6 +36,7 @@ interface GalleryImage {
 }
 
 export default function Home() {
+  const router = useRouter();
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
@@ -53,9 +55,9 @@ export default function Home() {
     useState<StorageImage | null>(null);
   const [isHotelGalleryModalOpen, setIsHotelGalleryModalOpen] = useState(false);
 
-  // Open camping page function
+  // Navigate to camping page
   const openCampingPage = () => {
-    window.open("/camping", "_blank");
+    router.push("/camping");
   };
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([
     {
@@ -444,9 +446,7 @@ export default function Home() {
               </motion.button>
               <motion.button
                 onClick={() => {
-                  const message = `Hi! I'd like to book a room at Hotel Blue Sheep Inn.`;
-                  const whatsappUrl = getWhatsAppUrl(message);
-                  window.open(whatsappUrl, "_blank");
+                  router.push("/rooms");
                 }}
                 className="w-full sm:w-auto px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-emerald-500/30 transform hover:scale-105"
                 whileHover={{ scale: 1.05 }}
@@ -456,10 +456,7 @@ export default function Home() {
               </motion.button>
               <motion.button
                 onClick={() => {
-                  window.open(
-                    "https://www.google.com/maps?q=28.9508116,82.895524",
-                    "_blank"
-                  );
+                  router.push("/contact");
                 }}
                 className="w-full sm:w-auto px-8 py-4 bg-emerald-700 hover:bg-emerald-600 text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-emerald-500/30 transform hover:scale-105"
                 whileHover={{ scale: 1.05 }}

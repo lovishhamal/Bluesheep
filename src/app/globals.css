@@ -63,6 +63,16 @@ body {
   overflow: hidden;
 }
 
+/* Desktop 2-line clamp with ellipsis */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+  text-overflow: ellipsis;
+}
+
 /* Mobile-only 2-line clamp utility */
 @media (max-width: 767px) {
   .mobile-clamp-2 {
