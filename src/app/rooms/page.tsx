@@ -54,6 +54,7 @@ export default function RoomsPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [hoveredRoomId, setHoveredRoomId] = useState<string | null>(null);
 
   // Fetch rooms from database
   useEffect(() => {
@@ -507,9 +508,31 @@ Please let me know about availability and booking process.`;
 
                     {/* Description */}
                     {room.description && (
-                      <p className="text-gray-200 text-sm sm:text-base leading-relaxed mb-4 break-words line-clamp-2 h-12">
-                        {room.description}
-                      </p>
+                      <div className="relative mb-4">
+                        {/* Mobile: Show full description, no ellipse */}
+                        <p className="block sm:hidden text-gray-200 text-sm leading-relaxed break-words">
+                          {room.description}
+                        </p>
+                        {/* Desktop: Show truncated with hover tooltip */}
+                        <div
+                          className="hidden sm:block relative"
+                          onMouseEnter={() => setHoveredRoomId(room.id)}
+                          onMouseLeave={() => setHoveredRoomId(null)}
+                        >
+                          <p className="text-gray-200 text-sm sm:text-base leading-relaxed break-words line-clamp-2 h-12 cursor-pointer select-none overflow-hidden">
+                            {room.description}
+                          </p>
+                          {/* Desktop: Hover tooltip above */}
+                          {hoveredRoomId === room.id && (
+                            <div className="absolute z-50 bottom-full left-0 mb-2 p-4 bg-slate-800/95 backdrop-blur-sm rounded-lg border border-emerald-400/50 shadow-2xl w-full max-w-xs">
+                              <p className="text-gray-200 text-sm leading-relaxed">
+                                {room.description}
+                              </p>
+                              <div className="absolute bottom-0 left-4 transform translate-y-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-slate-800/95"></div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
                     )}
 
                     {/* Facilities */}

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   MapPinIcon,
   PhoneIcon,
@@ -35,6 +36,7 @@ interface GalleryImage {
 }
 
 export default function Home() {
+  const router = useRouter();
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
@@ -53,9 +55,9 @@ export default function Home() {
     useState<StorageImage | null>(null);
   const [isHotelGalleryModalOpen, setIsHotelGalleryModalOpen] = useState(false);
 
-  // Open camping page function
+  // Navigate to camping page
   const openCampingPage = () => {
-    window.open("/camping", "_blank");
+    router.push("/camping");
   };
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([
     {
@@ -444,9 +446,7 @@ export default function Home() {
               </motion.button>
               <motion.button
                 onClick={() => {
-                  const message = `Hi! I'd like to book a room at Hotel Blue Sheep Inn.`;
-                  const whatsappUrl = getWhatsAppUrl(message);
-                  window.open(whatsappUrl, "_blank");
+                  router.push("/rooms");
                 }}
                 className="w-full sm:w-auto px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-emerald-500/30 transform hover:scale-105"
                 whileHover={{ scale: 1.05 }}
@@ -456,10 +456,10 @@ export default function Home() {
               </motion.button>
               <motion.button
                 onClick={() => {
-                  window.open(
-                    "https://www.google.com/maps?q=28.9508116,82.895524",
-                    "_blank"
-                  );
+                  const mapSection = document.getElementById("map-section");
+                  if (mapSection) {
+                    mapSection.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }
                 }}
                 className="w-full sm:w-auto px-8 py-4 bg-emerald-700 hover:bg-emerald-600 text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-emerald-500/30 transform hover:scale-105"
                 whileHover={{ scale: 1.05 }}
@@ -498,16 +498,16 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
               Why Choose Hotel Blue Sheep Inn?
             </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+            <p className="text-sm md:text-base text-slate-600 max-w-3xl mx-auto">
               Experience the perfect blend of luxury, nature, and authentic
               Nepalese hospitality
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
             {[
               {
                 icon: "🏔️",
@@ -552,15 +552,15 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200 hover:shadow-xl hover:border-emerald-300 transition-all duration-300 group"
+                className="bg-white rounded-2xl p-4 md:p-6 shadow-lg border border-slate-200 hover:shadow-xl hover:border-emerald-300 transition-all duration-300 group"
               >
-                <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="text-2xl md:text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">
+                <h3 className="text-base md:text-lg font-bold text-slate-900 mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-slate-600 leading-relaxed">
+                <p className="text-xs md:text-sm text-slate-600 leading-relaxed">
                   {feature.description}
                 </p>
               </motion.div>
@@ -617,7 +617,7 @@ export default function Home() {
           {!isLoadingHotelGallery &&
             !hotelGalleryError &&
             hotelGalleryImages.length > 0 && (
-              <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
+              <div className="columns-2 md:columns-2 lg:columns-3 xl:columns-4 gap-4 md:gap-6 space-y-4 md:space-y-6">
                 {hotelGalleryImages.map((image, index) => (
                   <motion.div
                     key={image.name}
@@ -625,7 +625,7 @@ export default function Home() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    className="break-inside-avoid mb-6 group cursor-pointer"
+                    className="break-inside-avoid mb-4 md:mb-6 group cursor-pointer"
                     onClick={() => openHotelGalleryModal(image)}
                   >
                     <div className="relative overflow-hidden rounded-2xl border border-emerald-400/30 hover:border-emerald-300/60 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-400/30">
@@ -637,10 +637,10 @@ export default function Home() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div className="absolute bottom-4 left-4 right-4">
-                          <h3 className="text-white font-semibold text-lg font-montserrat capitalize">
+                          <h3 className="text-white font-semibold text-sm md:text-lg font-montserrat capitalize">
                             {image.alt}
                           </h3>
-                          <p className="text-emerald-300 text-sm mt-1">
+                          <p className="text-emerald-300 text-xs md:text-sm mt-1">
                             Click to view larger
                           </p>
                         </div>
@@ -666,6 +666,84 @@ export default function Home() {
                 </div>
               </div>
             )}
+        </div>
+      </section>
+
+      {/* Map Section */}
+      <section
+        id="map-section"
+        className="py-20 bg-gradient-to-br from-emerald-50 to-slate-50"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+              Find Us
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Located in the heart of Dunai, Dolpa - your perfect base for
+              mountain adventures
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="bg-white rounded-2xl shadow-xl p-8 border border-slate-200"
+          >
+            <div className="aspect-video rounded-lg overflow-hidden">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.1234567890123!2d82.895524!3d28.9508116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjjCsDU3JzAyLjkiTiA4MsKwNTMnNDMuOSJF!5e0!3m2!1sen!2snp!4v1234567890123!5m2!1sen!2snp"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Hotel Blue Sheep Inn Location"
+              ></iframe>
+            </div>
+
+            <div className="mt-6 text-center">
+              <p className="text-slate-600 mb-4 text-lg">
+                📍 Hotel Blue Sheep Inn, Dunai, Dolpa, Nepal
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <motion.button
+                  onClick={() => {
+                    window.open(
+                      "https://www.google.com/maps?q=28.9508116,82.895524",
+                      "_blank"
+                    );
+                  }}
+                  className="bg-emerald-500 hover:bg-emerald-400 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-300"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Open in Google Maps
+                </motion.button>
+                <motion.button
+                  onClick={() => {
+                    const message = `Hi! I'd like to know more about your hotel location and services.`;
+                    const whatsappUrl = getWhatsAppUrl(message);
+                    window.open(whatsappUrl, "_blank");
+                  }}
+                  className="border-2 border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white px-6 py-3 rounded-lg font-medium transition-colors duration-300"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Contact Us
+                </motion.button>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -876,86 +954,6 @@ export default function Home() {
               >
                 🏕️ Explore Camping
               </motion.button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Map Section */}
-      <section
-        id="map-section"
-        className="py-20 bg-gradient-to-br from-emerald-50 to-slate-50"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              Find Us
-            </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Located in the heart of Dunai, Dolpa - your perfect base for
-              mountain adventures
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="bg-white rounded-2xl shadow-xl p-8 border border-slate-200"
-          >
-            <div className="aspect-video rounded-lg overflow-hidden">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.1234567890123!2d82.895524!3d28.9508116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjjCsDU3JzAyLjkiTiA4MsKwNTMnNDMuOSJF!5e0!3m2!1sen!2snp!4v1234567890123!5m2!1sen!2snp"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Hotel Blue Sheep Inn Location"
-              ></iframe>
-            </div>
-
-            <div className="mt-6 text-center">
-              <p className="text-slate-600 mb-4 text-lg">
-                📍 Hotel Blue Sheep Inn, Dunai, Dolpa, Nepal
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <motion.button
-                  onClick={() => {
-                    window.open(
-                      "https://www.google.com/maps?q=28.9508116,82.895524",
-                      "_blank"
-                    );
-                  }}
-                  className="bg-emerald-500 hover:bg-emerald-400 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-300"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Open in Google Maps
-                </motion.button>
-                <motion.button
-                  onClick={() => {
-                    const message = `Hi! I'd like to know more about your hotel location and services.`;
-                    const whatsappUrl = `https://wa.me/{PHONE_NUMBER}?text=${encodeURIComponent(
-                      message
-                    )}`;
-                    window.open(whatsappUrl, "_blank");
-                  }}
-                  className="border-2 border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white px-6 py-3 rounded-lg font-medium transition-colors duration-300"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Contact Us
-                </motion.button>
-              </div>
             </div>
           </motion.div>
         </div>
