@@ -406,7 +406,7 @@ Please let me know about availability and booking process.`;
 
                   {/* Room Image Gallery */}
                   <div
-                    className="h-40 sm:h-48 relative overflow-hidden rounded-lg border border-emerald-400/40 mb-4 relative z-10 cursor-pointer"
+                    className="h-40 sm:h-48 relative overflow-hidden rounded-lg border border-emerald-400/40 mb-4 relative z-10 cursor-pointer bg-slate-700/20"
                     onClick={() =>
                       openImageModal(room, currentImageIndex[room.id] || 0)
                     }
@@ -414,10 +414,17 @@ Please let me know about availability and booking process.`;
                     <img
                       src={getCurrentRoomImage(room.id, room.images)}
                       alt={room.room_name}
+                      width={400}
+                      height={300}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                      decoding="async"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.src = "/hotel-room.jpg";
+                      }}
+                      onLoad={() => {
+                        // Image loaded, prevent flicker
                       }}
                     />
 
