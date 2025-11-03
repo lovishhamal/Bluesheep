@@ -53,6 +53,46 @@ body {
   background-attachment: fixed;
   font-weight: 400;
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* iOS/Safari scroll optimizations */
+@supports (-webkit-touch-callout: none) {
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Disable backdrop-blur on iOS to prevent flicker */
+  .backdrop-blur-sm {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: rgba(255, 255, 255, 0.15) !important;
+  }
+  
+  /* Prevent layout shifts and improve image rendering */
+  img {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+  
+  /* Disable hover transforms on iOS to prevent flicker */
+  *:hover {
+    transition: opacity 0.2s ease !important;
+  }
+  
+  /* Disable scale transforms on hover for iOS */
+  .group:hover img,
+  .group:hover div,
+  *:hover[class*="scale"] {
+    transform: translateZ(0) !important;
+    -webkit-transform: translateZ(0) !important;
+  }
 }
 
 /* Utility classes for text truncation */

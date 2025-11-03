@@ -54,6 +54,29 @@ export default function Home() {
   const [selectedHotelGalleryImage, setSelectedHotelGalleryImage] =
     useState<StorageImage | null>(null);
   const [isHotelGalleryModalOpen, setIsHotelGalleryModalOpen] = useState(false);
+  const [visibleFeatures, setVisibleFeatures] = useState<Set<number>>(new Set());
+
+  // Intersection Observer for feature cards
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const featureIndex = parseInt(entry.target.getAttribute('data-feature-index') || '0');
+            setVisibleFeatures((prev) => new Set([...prev, featureIndex]));
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const featureCards = document.querySelectorAll('[data-feature-index]');
+    featureCards.forEach((card) => observer.observe(card));
+
+    return () => {
+      featureCards.forEach((card) => observer.unobserve(card));
+    };
+  }, []);
 
   // Navigate to camping page
   const openCampingPage = () => {
@@ -275,6 +298,12 @@ export default function Home() {
                 src="/logo.jpg"
                 alt="Hotel Blue Sheep Inn Logo"
                 className="h-16 w-auto mr-3 rounded-lg shadow-md"
+                style={{
+                  WebkitTransform: 'translateZ(0)',
+                  transform: 'translateZ(0)',
+                  WebkitBackfaceVisibility: 'hidden',
+                  backfaceVisibility: 'hidden'
+                }}
               />
             </motion.div>
             <div className="hidden md:flex space-x-8">
@@ -401,6 +430,12 @@ export default function Home() {
                   src="/logo.jpg"
                   alt="Hotel Blue Sheep Inn Logo"
                   className="h-24 w-24 rounded-full shadow-2xl border-4 border-emerald-400"
+                  style={{
+                    WebkitTransform: 'translateZ(0)',
+                    transform: 'translateZ(0)',
+                    WebkitBackfaceVisibility: 'hidden',
+                    backfaceVisibility: 'hidden'
+                  }}
                 />
                 <div className="absolute -inset-1 bg-emerald-400 rounded-full blur opacity-30"></div>
               </div>
@@ -546,15 +581,24 @@ export default function Home() {
                   "Walking distance to local monasteries and authentic cultural experiences",
               },
             ].map((feature, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                viewport={{ once: true, amount: 0.2 }}
-                className="bg-white rounded-2xl p-4 md:p-6 shadow-lg border border-slate-200 hover:shadow-xl hover:border-emerald-300 transition-all duration-300 group"
+                data-feature-index={index}
+                className={`bg-white rounded-2xl p-4 md:p-6 shadow-lg border border-slate-200 hover:shadow-xl hover:border-emerald-300 transition-all duration-500 group ${
+                  visibleFeatures.has(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+                }`}
+                style={{
+                  transition: 'opacity 0.5s ease-out, transform 0.5s ease-out'
+                }}
               >
-                <div className="text-2xl md:text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                <div 
+                  className="text-2xl md:text-3xl mb-3 group-hover:scale-110 transition-transform duration-300"
+                  style={{
+                    WebkitTransform: 'translateZ(0)',
+                    transform: 'translateZ(0)',
+                    willChange: 'auto'
+                  }}
+                >
                   {feature.icon}
                 </div>
                 <h3 className="text-base md:text-lg font-bold text-slate-900 mb-2">
@@ -563,7 +607,7 @@ export default function Home() {
                 <p className="text-xs md:text-sm text-slate-600 leading-relaxed">
                   {feature.description}
                 </p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -633,7 +677,13 @@ export default function Home() {
                         src={image.url}
                         alt={image.alt}
                         className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
-                        loading="lazy"
+                        style={{
+                          WebkitTransform: 'translateZ(0)',
+                          transform: 'translateZ(0)',
+                          WebkitBackfaceVisibility: 'hidden',
+                          backfaceVisibility: 'hidden',
+                          imageRendering: 'auto'
+                        }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div className="absolute bottom-4 left-4 right-4">
@@ -970,6 +1020,12 @@ export default function Home() {
                   src="/logo.jpg"
                   alt="Hotel Blue Sheep Inn Logo"
                   className="h-12 w-12 rounded-full mr-3"
+                  style={{
+                    WebkitTransform: 'translateZ(0)',
+                    transform: 'translateZ(0)',
+                    WebkitBackfaceVisibility: 'hidden',
+                    backfaceVisibility: 'hidden'
+                  }}
                 />
                 <h3 className="text-2xl font-bold">Hotel Blue Sheep Inn</h3>
               </div>
@@ -1081,6 +1137,13 @@ export default function Home() {
                 src={selectedHotelGalleryImage.url}
                 alt={selectedHotelGalleryImage.alt}
                 className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                style={{
+                  WebkitTransform: 'translateZ(0)',
+                  transform: 'translateZ(0)',
+                  WebkitBackfaceVisibility: 'hidden',
+                  backfaceVisibility: 'hidden',
+                  imageRendering: 'auto'
+                }}
               />
             </div>
 
