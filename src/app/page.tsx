@@ -507,8 +507,7 @@ export default function Home() {
             </p>
           </motion.div>
 
-          {/* Mobile: Masonry Layout, Desktop: Grid Layout */}
-          <div className="columns-2 md:columns-none md:grid md:grid-cols-3 gap-4 md:gap-8 space-y-4 md:space-y-0">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
             {[
               {
                 icon: "🏔️",
@@ -553,7 +552,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="break-inside-avoid mb-4 md:mb-0 bg-white rounded-2xl p-4 md:p-6 shadow-lg border border-slate-200 hover:shadow-xl hover:border-emerald-300 transition-all duration-300 group"
+                className="bg-white rounded-2xl p-4 md:p-6 shadow-lg border border-slate-200 hover:shadow-xl hover:border-emerald-300 transition-all duration-300 group"
               >
                 <div className="text-2xl md:text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">
                   {feature.icon}
