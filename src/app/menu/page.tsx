@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { supabase } from "../util/supabase";
 import { useState, useEffect } from "react";
@@ -335,8 +336,12 @@ export default function MenuPage() {
                   {/* Menu Items */}
                   <div className="space-y-6">
                     {categoryItems.map((item, index) => (
-                      <div
+                      <motion.div
                         key={item.id}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: index * 0.1 }}
+                        viewport={{ once: true }}
                         className="flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-6 mb-6"
                       >
                         {/* Item Image */}
@@ -374,7 +379,7 @@ export default function MenuPage() {
                         >
                           {formatPrice(item.price)}
                         </div>
-                      </div>
+                      </motion.div>
                     ))}
                   </div>
                 </div>
