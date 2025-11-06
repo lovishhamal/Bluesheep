@@ -54,7 +54,9 @@ export default function Home() {
   const [selectedHotelGalleryImage, setSelectedHotelGalleryImage] =
     useState<StorageImage | null>(null);
   const [isHotelGalleryModalOpen, setIsHotelGalleryModalOpen] = useState(false);
-  const [visibleFeatures, setVisibleFeatures] = useState<Set<number>>(new Set());
+  const [visibleFeatures, setVisibleFeatures] = useState<Set<number>>(
+    new Set()
+  );
 
   // Intersection Observer for feature cards
   useEffect(() => {
@@ -62,7 +64,9 @@ export default function Home() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const featureIndex = parseInt(entry.target.getAttribute('data-feature-index') || '0');
+            const featureIndex = parseInt(
+              entry.target.getAttribute("data-feature-index") || "0"
+            );
             setVisibleFeatures((prev) => new Set([...prev, featureIndex]));
           }
         });
@@ -70,7 +74,7 @@ export default function Home() {
       { threshold: 0.1 }
     );
 
-    const featureCards = document.querySelectorAll('[data-feature-index]');
+    const featureCards = document.querySelectorAll("[data-feature-index]");
     featureCards.forEach((card) => observer.observe(card));
 
     return () => {
@@ -299,10 +303,10 @@ export default function Home() {
                 alt="Hotel Blue Sheep Inn Logo"
                 className="h-16 w-auto mr-3 rounded-lg shadow-md"
                 style={{
-                  WebkitTransform: 'translateZ(0)',
-                  transform: 'translateZ(0)',
-                  WebkitBackfaceVisibility: 'hidden',
-                  backfaceVisibility: 'hidden'
+                  WebkitTransform: "translateZ(0)",
+                  transform: "translateZ(0)",
+                  WebkitBackfaceVisibility: "hidden",
+                  backfaceVisibility: "hidden",
                 }}
               />
             </motion.div>
@@ -431,10 +435,10 @@ export default function Home() {
                   alt="Hotel Blue Sheep Inn Logo"
                   className="h-24 w-24 rounded-full shadow-2xl border-4 border-emerald-400"
                   style={{
-                    WebkitTransform: 'translateZ(0)',
-                    transform: 'translateZ(0)',
-                    WebkitBackfaceVisibility: 'hidden',
-                    backfaceVisibility: 'hidden'
+                    WebkitTransform: "translateZ(0)",
+                    transform: "translateZ(0)",
+                    WebkitBackfaceVisibility: "hidden",
+                    backfaceVisibility: "hidden",
                   }}
                 />
                 <div className="absolute -inset-1 bg-emerald-400 rounded-full blur opacity-30"></div>
@@ -480,9 +484,7 @@ export default function Home() {
                 🏕️ Explore Camping
               </motion.button>
               <motion.button
-                onClick={() => {
-                  router.push("/rooms");
-                }}
+                onClick={() => router.push("/rooms")}
                 className="w-full sm:w-auto px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-emerald-500/30 transform hover:scale-105"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -493,7 +495,10 @@ export default function Home() {
                 onClick={() => {
                   const mapSection = document.getElementById("map-section");
                   if (mapSection) {
-                    mapSection.scrollIntoView({ behavior: "smooth", block: "start" });
+                    mapSection.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    });
                   }
                 }}
                 className="w-full sm:w-auto px-8 py-4 bg-emerald-700 hover:bg-emerald-600 text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-emerald-500/30 transform hover:scale-105"
@@ -585,18 +590,20 @@ export default function Home() {
                 key={index}
                 data-feature-index={index}
                 className={`bg-white rounded-2xl p-4 md:p-6 shadow-lg border border-slate-200 hover:shadow-xl hover:border-emerald-300 transition-all duration-500 group ${
-                  visibleFeatures.has(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+                  visibleFeatures.has(index)
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-5"
                 }`}
                 style={{
-                  transition: 'opacity 0.5s ease-out, transform 0.5s ease-out'
+                  transition: "opacity 0.5s ease-out, transform 0.5s ease-out",
                 }}
               >
-                <div 
+                <div
                   className="text-2xl md:text-3xl mb-3 group-hover:scale-110 transition-transform duration-300"
                   style={{
-                    WebkitTransform: 'translateZ(0)',
-                    transform: 'translateZ(0)',
-                    willChange: 'auto'
+                    WebkitTransform: "translateZ(0)",
+                    transform: "translateZ(0)",
+                    willChange: "auto",
                   }}
                 >
                   {feature.icon}
@@ -678,11 +685,11 @@ export default function Home() {
                         alt={image.alt}
                         className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
                         style={{
-                          WebkitTransform: 'translateZ(0)',
-                          transform: 'translateZ(0)',
-                          WebkitBackfaceVisibility: 'hidden',
-                          backfaceVisibility: 'hidden',
-                          imageRendering: 'auto'
+                          WebkitTransform: "translateZ(0)",
+                          transform: "translateZ(0)",
+                          WebkitBackfaceVisibility: "hidden",
+                          backfaceVisibility: "hidden",
+                          imageRendering: "auto",
                         }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -1021,10 +1028,10 @@ export default function Home() {
                   alt="Hotel Blue Sheep Inn Logo"
                   className="h-12 w-12 rounded-full mr-3"
                   style={{
-                    WebkitTransform: 'translateZ(0)',
-                    transform: 'translateZ(0)',
-                    WebkitBackfaceVisibility: 'hidden',
-                    backfaceVisibility: 'hidden'
+                    WebkitTransform: "translateZ(0)",
+                    transform: "translateZ(0)",
+                    WebkitBackfaceVisibility: "hidden",
+                    backfaceVisibility: "hidden",
                   }}
                 />
                 <h3 className="text-2xl font-bold">Hotel Blue Sheep Inn</h3>
@@ -1138,11 +1145,11 @@ export default function Home() {
                 alt={selectedHotelGalleryImage.alt}
                 className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
                 style={{
-                  WebkitTransform: 'translateZ(0)',
-                  transform: 'translateZ(0)',
-                  WebkitBackfaceVisibility: 'hidden',
-                  backfaceVisibility: 'hidden',
-                  imageRendering: 'auto'
+                  WebkitTransform: "translateZ(0)",
+                  transform: "translateZ(0)",
+                  WebkitBackfaceVisibility: "hidden",
+                  backfaceVisibility: "hidden",
+                  imageRendering: "auto",
                 }}
               />
             </div>

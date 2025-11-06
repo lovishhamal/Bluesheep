@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { supabase } from "../util/supabase";
 import { useState, useEffect } from "react";
@@ -109,14 +109,10 @@ export default function MenuPage() {
   return (
     <div className="min-h-screen bg-[#f5f1e8] flex justify-center items-center p-5">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#1a3a52]/95 backdrop-blur-sm border-b border-[#1a3a52]/30 shadow-sm">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#1a3a52] border-b border-[#1a3a52]/30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="flex items-center"
-            >
+            <div className="flex items-center">
               <Link href="/">
                 <img
                   src="/logo.jpg"
@@ -124,7 +120,7 @@ export default function MenuPage() {
                   className="h-12 w-auto mr-3 rounded-lg shadow-md cursor-pointer"
                 />
               </Link>
-            </motion.div>
+            </div>
             <div className="hidden md:flex space-x-8">
               <Link
                 href="/"
@@ -175,12 +171,7 @@ export default function MenuPage() {
 
           {/* Mobile menu */}
           {isMobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-[#1a3a52]/30"
-            >
+            <div className="md:hidden border-t border-[#1a3a52]/30">
               <div className="py-4 space-y-4">
                 <Link
                   href="/"
@@ -218,18 +209,13 @@ export default function MenuPage() {
                   Contact
                 </Link>
               </div>
-            </motion.div>
+            </div>
           )}
         </div>
       </nav>
 
       {/* Menu Container */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="bg-[#f5f1e8] border-[3px] border-[#1a3a52] max-w-4xl w-full p-10 relative mt-20"
-      >
+      <div className="bg-[#f5f1e8] border-[3px] border-[#1a3a52] max-w-4xl w-full p-10 relative mt-20">
         {/* Corner Decorations */}
         <div className="absolute top-[10px] left-[10px] w-[60px] h-[60px]">
           <svg
@@ -334,13 +320,7 @@ export default function MenuPage() {
               if (!categoryItems || categoryItems.length === 0) return null;
 
               return (
-                <motion.div
-                  key={category}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                  viewport={{ once: true }}
-                >
+                <div key={category}>
                   {/* Section Title */}
                   <div className="flex items-center justify-center my-12 px-4">
                     <div className="flex-1 h-0.5 bg-[#c9a961] max-w-16"></div>
@@ -358,16 +338,15 @@ export default function MenuPage() {
                     {categoryItems.map((item, index) => (
                       <motion.div
                         key={item.id}
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: index * 0.1 }}
                         viewport={{ once: true }}
                         className="flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-6 mb-6"
                       >
                         {/* Item Image */}
                         {item.images && (
-                          <div className="flex-shrink-0"
-                          >
+                          <div className="flex-shrink-0">
                             <img
                               src={item.images}
                               alt={item.item_name}
@@ -403,12 +382,12 @@ export default function MenuPage() {
                       </motion.div>
                     ))}
                   </div>
-                </motion.div>
+                </div>
               );
             })}
           </div>
         )}
-      </motion.div>
+      </div>
     </div>
   );
 }
