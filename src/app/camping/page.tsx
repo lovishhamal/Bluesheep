@@ -746,7 +746,7 @@ Please let me know about availability and the booking process.`;
                     })
                   }
                   min={new Date().toISOString().split("T")[0]}
-                  className="w-full px-4 py-3 bg-slate-700/50 border border-emerald-400/50 rounded-lg text-white placeholder-gray-400 focus:border-emerald-400 focus:outline-none"
+                  className="w-full md:w-full max-w-[280px] md:max-w-none px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base bg-slate-700/50 border border-emerald-400/50 rounded-lg text-white placeholder-gray-400 focus:border-emerald-400 focus:outline-none"
                 />
               </div>
 
