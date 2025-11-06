@@ -63,7 +63,7 @@ export default function RoomsPage() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const roomId = entry.target.getAttribute('data-room-id');
+            const roomId = entry.target.getAttribute("data-room-id");
             if (roomId) {
               setVisibleRooms((prev) => new Set([...prev, roomId]));
             }
@@ -73,7 +73,7 @@ export default function RoomsPage() {
       { threshold: 0.1 }
     );
 
-    const roomCards = document.querySelectorAll('[data-room-id]');
+    const roomCards = document.querySelectorAll("[data-room-id]");
     roomCards.forEach((card) => observer.observe(card));
 
     return () => {
@@ -244,7 +244,7 @@ Please let me know about availability and booking process.`;
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-800 text-white">
       {/* Navigation */}
-      <nav className="w-full bg-slate-900/95 backdrop-blur-sm border-b border-emerald-400/30 shadow-sm">
+      <nav className="w-full bg-slate-900 border-b border-emerald-400/30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <motion.div
@@ -422,7 +422,7 @@ Please let me know about availability and booking process.`;
                   key={room.id}
                   data-room-id={room.id}
                   className={`bg-white/15 rounded-2xl p-6 sm:p-8 border border-emerald-400/40 hover:border-emerald-300/60 hover:shadow-2xl hover:shadow-emerald-400/30 group relative overflow-hidden min-h-[450px] sm:min-h-[500px] w-full flex flex-col transition-opacity duration-500 ${
-                    visibleRooms.has(room.id) ? 'opacity-100' : 'opacity-0'
+                    visibleRooms.has(room.id) ? "opacity-100" : "opacity-0"
                   }`}
                 >
                   {/* Background glow effect */}
@@ -442,11 +442,11 @@ Please let me know about availability and booking process.`;
                       height={300}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       style={{
-                        WebkitTransform: 'translateZ(0)',
-                        transform: 'translateZ(0)',
-                        WebkitBackfaceVisibility: 'hidden',
-                        backfaceVisibility: 'hidden',
-                        imageRendering: 'auto'
+                        WebkitTransform: "translateZ(0)",
+                        transform: "translateZ(0)",
+                        WebkitBackfaceVisibility: "hidden",
+                        backfaceVisibility: "hidden",
+                        imageRendering: "auto",
                       }}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
@@ -720,7 +720,7 @@ Please let me know about availability and booking process.`;
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
-            className="bg-slate-800 rounded-2xl p-8 border border-emerald-400/50 shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+            className="bg-slate-800 p-8 border border-emerald-400/50 shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
           >
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold text-white font-montserrat">

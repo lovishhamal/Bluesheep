@@ -221,7 +221,7 @@ Please let me know about availability and the booking process.`;
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-slate-800/95 backdrop-blur-sm border-t border-emerald-400/30"
+              className="md:hidden bg-slate-800 border-t border-emerald-400/30"
             >
               <div className="px-2 pt-2 pb-3 space-y-1">
                 <Link
@@ -746,7 +746,7 @@ Please let me know about availability and the booking process.`;
                     })
                   }
                   min={new Date().toISOString().split("T")[0]}
-                  className="w-full px-4 py-3 bg-slate-700/50 border border-emerald-400/50 rounded-lg text-white focus:border-emerald-400 focus:outline-none"
+                  className="w-full px-4 py-3 bg-slate-700/50 border border-emerald-400/50 rounded-lg text-white placeholder-gray-400 focus:border-emerald-400 focus:outline-none"
                 />
               </div>
 
