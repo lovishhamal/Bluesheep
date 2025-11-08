@@ -30,15 +30,20 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Hotel Blue Sheep Inn | Best Hotel in Dunai Dolpa | Garden Restaurant & Camping",
+  title: "Bluesheep | Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Garden Restaurant & Camping",
   description:
-    "🏨 Hotel Blue Sheep Inn - Best hotel in Dunai Dolpa with garden restaurant & camping. Luxury accommodation in Dolpa with mountain views, WiFi, and exceptional service. Book your stay today!",
+    "🏨 Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa with garden restaurant & camping. Luxury accommodation in Dolpa with mountain views, WiFi, and exceptional service. Book your stay today!",
   keywords: [
+    "bluesheep",
+    "blue sheep",
+    "hotel bluesheep",
+    "hotel blue sheep",
     "hotel bluesheep inn",
     "hotel blue sheep inn",
     "Blue Sheep Inn",
     "bluesheep inn",
     "Blue Sheep Inn hotel",
+    "Hotel Blue Sheep Inn",
     "Hotel Blue Sheep Inn Dunai",
     "best hotel in dunai",
     "best hotel in dunai dolpa",
@@ -113,9 +118,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Hotel Blue Sheep Inn | Best Hotel in Dunai Dolpa | Garden Restaurant & Camping",
+    title: "Bluesheep | Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Garden Restaurant & Camping",
     description:
-      "🏨 Hotel Blue Sheep Inn - Best hotel in Dunai Dolpa with garden restaurant & camping. Luxury accommodation with mountain views, WiFi, and exceptional service.",
+      "🏨 Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa with garden restaurant & camping. Luxury accommodation with mountain views, WiFi, and exceptional service.",
     url: "https://bluesheephotel.com",
     siteName: "Hotel Blue Sheep Inn",
     images: [
@@ -131,9 +136,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hotel Blue Sheep Inn | Best Hotel in Dunai Dolpa | Garden Restaurant & Camping",
+    title: "Bluesheep | Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Garden Restaurant & Camping",
     description:
-      "🏨 Hotel Blue Sheep Inn - Best hotel in Dunai Dolpa with garden restaurant & camping. Luxury accommodation with mountain views and exceptional service.",
+      "🏨 Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa with garden restaurant & camping. Luxury accommodation with mountain views and exceptional service.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -167,9 +172,20 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Hotel",
               name: "Hotel Blue Sheep Inn",
-              alternateName: ["Blue Sheep Hotel", "Blue Sheep Inn", "Hotel Blue Sheep Inn"],
+              alternateName: [
+                "Bluesheep",
+                "bluesheep",
+                "Blue Sheep",
+                "Blue Sheep Hotel",
+                "Blue Sheep Inn",
+                "Hotel Blue Sheep",
+                "Hotel Bluesheep",
+                "Hotel Blue Sheep Inn",
+                "Bluesheep Hotel",
+                "Bluesheep Inn",
+              ],
               description:
-                "Hotel Blue Sheep Inn - Best hotel in Dunai Dolpa offering exceptional hospitality and stunning mountain views",
+                "Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa offering exceptional hospitality and stunning mountain views",
               url: "https://bluesheephotel.com",
               telephone: "+977-985-806-1927",
               address: {
@@ -248,6 +264,81 @@ export default function RootLayout({
                   },
                 ],
               },
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Hotel Blue Sheep Inn",
+              alternateName: [
+                "Bluesheep",
+                "bluesheep",
+                "Blue Sheep",
+                "Blue Sheep Hotel",
+                "Blue Sheep Inn",
+                "Hotel Blue Sheep",
+                "Hotel Bluesheep",
+                "Hotel Blue Sheep Inn",
+                "Bluesheep Hotel",
+                "Bluesheep Inn",
+              ],
+              url: "https://bluesheephotel.com",
+              logo: "https://bluesheephotel.com/logo.jpg",
+              telephone: "+977-985-806-1927",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Dunai, Dolpa",
+                addressLocality: "Dunai",
+                addressRegion: "Karnali Province",
+                addressCountry: "Nepal",
+              },
+              sameAs: [],
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              "@id": "https://bluesheephotel.com",
+              name: "Hotel Blue Sheep Inn",
+              alternateName: [
+                "Bluesheep",
+                "bluesheep",
+                "Blue Sheep",
+                "Blue Sheep Hotel",
+                "Blue Sheep Inn",
+                "Hotel Blue Sheep",
+                "Hotel Bluesheep",
+                "Hotel Blue Sheep Inn",
+                "Bluesheep Hotel",
+                "Bluesheep Inn",
+              ],
+              description:
+                "Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa with garden restaurant and camping facilities",
+              url: "https://bluesheephotel.com",
+              telephone: "+977-985-806-1927",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Dunai, Dolpa",
+                addressLocality: "Dunai",
+                addressRegion: "Karnali Province",
+                postalCode: "",
+                addressCountry: "Nepal",
+              },
+              geo: {
+                "@type": "GeoCoordinates",
+                latitude: "28.9167",
+                longitude: "82.8333",
+              },
+              priceRange: "$$",
+              servesCuisine: ["Nepali", "International", "Local"],
             }),
           }}
         />
