@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+  <!-- Background Circle -->
+  <circle cx="500" cy="500" r="500" fill="#F9B949"/>
+  
+  <!-- Dark Foreground Shape -->
+  <path d="M150 300 L850 300 L700 800 L300 800 Z" fill="#2D3E50"/>
+  
+  <!-- Blue Sheep Silhouettes -->
+  <g fill="#1A5276">
+    <!-- First Sheep (Left) -->
+    <path d="M250 200 C270 180 300 170 330 180 C340 170 350 150 370 150 C390 150 400 170 410 180 C440 170 470 180 490 200 C510 220 520 250 520 280 C520 310 510 340 490 360 C470 380 440 390 410 380 C400 390 390 410 370 410 C350 410 340 390 330 380 C300 390 270 380 250 360 C230 340 220 310 220 280 C220 250 230 220 250 200 Z"/>
+    
+    <!-- Second Sheep (Middle) -->
+    <path d="M450 250 C470 230 500 220 530 230 C540 220 550 200 570 200 C590 200 600 220 610 230 C640 220 670 230 690 250 C710 270 720 300 720 330 C720 360 710 390 690 410 C670 430 640 440 610 430 C600 440 590 460 570 460 C550 460 540 440 530 430 C500 440 470 430 450 410 C430 390 420 360 420 330 C420 300 430 270 450 250 Z" fill="#0D2D42"/>
+    
+    <!-- Third Sheep (Right, Sitting) -->
+    <path d="M650 300 C670 280 700 270 730 280 C740 270 750 250 770 250 C790 250 800 270 810 280 C840 270 870 280 890 300 C910 320 920 350 920 380 C920 410 910 440 890 460 C870 480 840 490 810 480 C800 490 790 510 770 510 C750 510 740 490 730 480 C700 490 670 480 650 460 C630 440 620 410 620 380 C620 350 630 320 650 300 Z" fill="#0D2D42"/>
+  </g>
+  
+  <!-- Text Banner -->
+  <path d="M300 600 L700 600 L650 750 L350 750 Z" fill="#0D2D42"/>
+  
+  <!-- Hotel Blue Sheep Text -->
+  <text x="500" y="650" font-family="Arial, sans-serif" font-size="45" font-weight="bold" text-anchor="middle" fill="#FFFFFF">HOTEL BLUE SHEEP</text>
+  
+  <!-- Inn Text -->
+  <text x="500" y="720" font-family="Arial, sans-serif" font-size="70" font-weight="bold" text-anchor="middle" fill="#FFFFFF">INN</text>
+</svg>
