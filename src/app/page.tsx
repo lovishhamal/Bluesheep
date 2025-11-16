@@ -817,7 +817,9 @@ export default function Home() {
                     <div className="text-xl md:text-3xl font-bold text-white mb-1">
                       3,611m
                     </div>
-                    <div className="text-xs md:text-sm text-emerald-200">Elevation</div>
+                    <div className="text-xs md:text-sm text-emerald-200">
+                      Elevation
+                    </div>
                   </motion.div>
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
@@ -826,8 +828,12 @@ export default function Home() {
                     viewport={{ once: true }}
                     className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-2 md:p-4 border border-white/20 shadow-xl"
                   >
-                    <div className="text-xl md:text-3xl font-bold text-white mb-1">💧</div>
-                    <div className="text-xs md:text-sm text-emerald-200">Freshwater</div>
+                    <div className="text-xl md:text-3xl font-bold text-white mb-1">
+                      💧
+                    </div>
+                    <div className="text-xs md:text-sm text-emerald-200">
+                      Freshwater
+                    </div>
                   </motion.div>
                 </div>
 
@@ -933,7 +939,9 @@ export default function Home() {
                     viewport={{ once: true }}
                     className="bg-white/20 backdrop-blur-md rounded-full p-2 md:p-4 border border-white/30 shadow-xl"
                   >
-                    <div className="text-lg md:text-2xl font-bold text-white">4,200m</div>
+                    <div className="text-lg md:text-2xl font-bold text-white">
+                      4,200m
+                    </div>
                     <div className="text-xs text-emerald-100">Elevation</div>
                   </motion.div>
                 </div>
@@ -1010,11 +1018,15 @@ export default function Home() {
                 viewport={{ once: true }}
                 className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-3 md:p-6 border border-white/20 text-center hover:bg-white/20 transition-all duration-300"
               >
-                <div className="text-2xl md:text-4xl mb-2 md:mb-3">{stat.icon}</div>
+                <div className="text-2xl md:text-4xl mb-2 md:mb-3">
+                  {stat.icon}
+                </div>
                 <div className="text-lg md:text-2xl lg:text-3xl font-bold text-white mb-1">
                   {stat.value}
                 </div>
-                <div className="text-xs md:text-sm text-emerald-200">{stat.label}</div>
+                <div className="text-xs md:text-sm text-emerald-200">
+                  {stat.label}
+                </div>
               </motion.div>
             ))}
           </motion.div>
