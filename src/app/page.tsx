@@ -740,7 +740,7 @@ export default function Home() {
       </section>
 
       {/* Discover Dolpa's Wonders Section - Creative Design */}
-      <section className="relative py-32 overflow-hidden">
+      <section className="relative py-16 md:py-32 overflow-hidden">
         {/* Background with parallax effect */}
         <div className="absolute inset-0">
           <div
@@ -762,19 +762,19 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-20"
+            className="text-center mb-12 md:mb-20"
           >
-            <div className="inline-block mb-6">
-              <span className="text-6xl md:text-8xl">🏔️</span>
+            <div className="inline-block mb-4 md:mb-6">
+              <span className="text-4xl md:text-8xl">🏔️</span>
             </div>
-            <h2 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+            <h2 className="text-3xl md:text-5xl lg:text-7xl font-bold text-white mb-4 md:mb-6 leading-tight">
               Discover Dolpa&apos;s
               <br />
               <span className="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent">
                 Natural Wonders
               </span>
             </h2>
-            <p className="text-xl md:text-2xl text-emerald-200 max-w-3xl mx-auto font-light">
+            <p className="text-base md:text-xl lg:text-2xl text-emerald-200 max-w-3xl mx-auto font-light px-4">
               Experience the breathtaking beauty of Phoksundo Lake and Dho Tarap
               - the highest village in Nepal
             </p>
@@ -786,11 +786,11 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
             viewport={{ once: true }}
-            className="mb-20"
+            className="mb-12 md:mb-20"
           >
-            <div className="relative rounded-3xl overflow-hidden border-2 border-emerald-400/30 shadow-2xl">
+            <div className="relative rounded-2xl md:rounded-3xl overflow-hidden border-2 border-emerald-400/30 shadow-2xl">
               {/* Background Image */}
-              <div className="relative h-[500px] md:h-[600px] overflow-hidden">
+              <div className="relative h-[400px] sm:h-[500px] md:h-[600px] overflow-hidden">
                 <img
                   src="/phoksundo.jpg"
                   alt="Phoksundo Lake Dolpa Nepal - Crystal Clear Alpine Lake at 3611m elevation - Best attraction in Dolpa"
@@ -805,53 +805,53 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/20 to-transparent"></div>
 
-                {/* Floating Stats */}
-                <div className="absolute top-8 right-8 flex flex-col gap-4">
+                {/* Floating Stats - Mobile Optimized */}
+                <div className="absolute top-4 right-4 md:top-8 md:right-8 flex flex-col gap-2 md:gap-4">
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
                     viewport={{ once: true }}
-                    className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 shadow-xl"
+                    className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-2 md:p-4 border border-white/20 shadow-xl"
                   >
-                    <div className="text-3xl font-bold text-white mb-1">
+                    <div className="text-xl md:text-3xl font-bold text-white mb-1">
                       3,611m
                     </div>
-                    <div className="text-sm text-emerald-200">Elevation</div>
+                    <div className="text-xs md:text-sm text-emerald-200">Elevation</div>
                   </motion.div>
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8, delay: 0.5 }}
                     viewport={{ once: true }}
-                    className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 shadow-xl"
+                    className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-2 md:p-4 border border-white/20 shadow-xl"
                   >
-                    <div className="text-3xl font-bold text-white mb-1">💧</div>
-                    <div className="text-sm text-emerald-200">Freshwater</div>
+                    <div className="text-xl md:text-3xl font-bold text-white mb-1">💧</div>
+                    <div className="text-xs md:text-sm text-emerald-200">Freshwater</div>
                   </motion.div>
                 </div>
 
-                {/* Content Overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
+                {/* Content Overlay - Mobile Optimized */}
+                <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8 lg:p-12">
                   <div className="max-w-2xl">
                     <motion.div
                       initial={{ opacity: 0, x: -30 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.8, delay: 0.2 }}
                       viewport={{ once: true }}
-                      className="mb-4"
+                      className="mb-3 md:mb-4"
                     >
-                      <h3 className="text-4xl md:text-6xl font-bold text-white mb-3">
+                      <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-2 md:mb-3">
                         Phoksundo Lake
                       </h3>
-                      <div className="w-24 h-1 bg-emerald-400 rounded-full"></div>
+                      <div className="w-16 md:w-24 h-1 bg-emerald-400 rounded-full"></div>
                     </motion.div>
                     <motion.p
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: 0.4 }}
                       viewport={{ once: true }}
-                      className="text-lg md:text-xl text-emerald-100 mb-6 leading-relaxed"
+                      className="text-sm sm:text-base md:text-lg lg:text-xl text-emerald-100 mb-4 md:mb-6 leading-relaxed"
                     >
                       One of Nepal&apos;s most stunning high-altitude lakes,
                       renowned for its crystal-clear turquoise waters that
@@ -866,10 +866,10 @@ export default function Home() {
                     >
                       <Link
                         href="/attractions"
-                        className="inline-flex items-center gap-3 px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-emerald-500/50 transform hover:scale-105"
+                        className="inline-flex items-center gap-2 md:gap-3 px-4 md:px-8 py-2 md:py-4 bg-emerald-500 hover:bg-emerald-400 text-white text-sm md:text-base font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-emerald-500/50 transform hover:scale-105"
                       >
                         Explore Phoksundo
-                        <span className="text-xl">→</span>
+                        <span className="text-lg md:text-xl">→</span>
                       </Link>
                     </motion.div>
                   </div>
@@ -884,11 +884,11 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
             viewport={{ once: true }}
-            className="mb-20"
+            className="mb-12 md:mb-20"
           >
-            <div className="grid md:grid-cols-2 gap-0 rounded-3xl overflow-hidden border-2 border-emerald-400/30 shadow-2xl overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl md:rounded-3xl overflow-hidden border-2 border-emerald-400/30 shadow-2xl">
               {/* Left Side - Image Background */}
-              <div className="relative h-[400px] md:h-[500px] overflow-hidden">
+              <div className="relative h-[300px] sm:h-[350px] md:h-[500px] overflow-hidden order-2 md:order-1">
                 <img
                   src="/dho.jpg"
                   alt="Dho Tarap - Highest Village in Nepal at 4200m elevation - Traditional Tibetan Buddhist culture"
@@ -901,14 +901,14 @@ export default function Home() {
                   }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/60 via-emerald-800/50 to-emerald-700/60"></div>
-                <div className="absolute inset-0 flex items-center justify-center p-8 md:p-12">
+                <div className="absolute inset-0 flex items-center justify-center p-4 sm:p-6 md:p-8 lg:p-12">
                   <div className="text-center relative z-10">
                     <motion.h3
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: 0.2 }}
                       viewport={{ once: true }}
-                      className="text-4xl md:text-5xl font-bold text-white mb-4"
+                      className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 md:mb-4"
                     >
                       Dho Tarap
                     </motion.h3>
@@ -917,52 +917,52 @@ export default function Home() {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: 0.4 }}
                       viewport={{ once: true }}
-                      className="text-xl text-emerald-100"
+                      className="text-base sm:text-lg md:text-xl text-emerald-100"
                     >
                       Highest Village in Nepal
                     </motion.p>
                   </div>
                 </div>
 
-                {/* Floating Elements */}
-                <div className="absolute top-8 left-8">
+                {/* Floating Elements - Mobile Optimized */}
+                <div className="absolute top-4 left-4 md:top-8 md:left-8">
                   <motion.div
                     initial={{ opacity: 0, scale: 0 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8, delay: 0.6, type: "spring" }}
                     viewport={{ once: true }}
-                    className="bg-white/20 backdrop-blur-md rounded-full p-4 border border-white/30 shadow-xl"
+                    className="bg-white/20 backdrop-blur-md rounded-full p-2 md:p-4 border border-white/30 shadow-xl"
                   >
-                    <div className="text-2xl font-bold text-white">4,200m</div>
+                    <div className="text-lg md:text-2xl font-bold text-white">4,200m</div>
                     <div className="text-xs text-emerald-100">Elevation</div>
                   </motion.div>
                 </div>
               </div>
 
               {/* Right Side - Content */}
-              <div className="relative h-[400px] md:h-[500px] bg-slate-900/95 backdrop-blur-sm flex items-center p-8 md:p-12">
-                <div>
+              <div className="relative min-h-[300px] sm:min-h-[350px] md:h-[500px] bg-slate-900/95 backdrop-blur-sm flex items-center p-4 sm:p-6 md:p-8 lg:p-12 order-1 md:order-2">
+                <div className="w-full">
                   <motion.div
                     initial={{ opacity: 0, x: 30 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8 }}
                     viewport={{ once: true }}
-                    className="mb-6"
+                    className="mb-4 md:mb-6"
                   >
-                    <div className="inline-block bg-emerald-500/20 text-emerald-400 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                    <div className="inline-block bg-emerald-500/20 text-emerald-400 px-3 md:px-4 py-1 md:py-2 rounded-full text-xs md:text-sm font-semibold mb-3 md:mb-4">
                       🏛️ Tibetan Culture
                     </div>
-                    <h4 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                    <h4 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 md:mb-4">
                       Ancient Heritage
                     </h4>
-                    <div className="w-20 h-1 bg-emerald-400 rounded-full mb-4"></div>
+                    <div className="w-16 md:w-20 h-1 bg-emerald-400 rounded-full mb-3 md:mb-4"></div>
                   </motion.div>
                   <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
                     viewport={{ once: true }}
-                    className="text-lg text-slate-300 mb-8 leading-relaxed"
+                    className="text-sm sm:text-base md:text-lg text-slate-300 mb-4 md:mb-8 leading-relaxed"
                   >
                     The highest permanently inhabited village in Nepal, offering
                     a unique glimpse into traditional Tibetan Buddhist culture
@@ -977,10 +977,10 @@ export default function Home() {
                   >
                     <Link
                       href="/attractions"
-                      className="inline-flex items-center gap-3 px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-emerald-500/50 transform hover:scale-105"
+                      className="inline-flex items-center gap-2 md:gap-3 px-4 md:px-8 py-2 md:py-4 bg-emerald-500 hover:bg-emerald-400 text-white text-sm md:text-base font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-emerald-500/50 transform hover:scale-105"
                     >
                       Discover Dho Tarap
-                      <span className="text-xl">→</span>
+                      <span className="text-lg md:text-xl">→</span>
                     </Link>
                   </motion.div>
                 </div>
@@ -988,13 +988,13 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* Stats Bar */}
+          {/* Stats Bar - Mobile Optimized */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12"
+            className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8 md:mb-12"
           >
             {[
               { icon: "⛰️", label: "Highest Village", value: "4,200m" },
@@ -1008,18 +1008,18 @@ export default function Home() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 text-center hover:bg-white/20 transition-all duration-300"
+                className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-3 md:p-6 border border-white/20 text-center hover:bg-white/20 transition-all duration-300"
               >
-                <div className="text-4xl mb-3">{stat.icon}</div>
-                <div className="text-2xl md:text-3xl font-bold text-white mb-1">
+                <div className="text-2xl md:text-4xl mb-2 md:mb-3">{stat.icon}</div>
+                <div className="text-lg md:text-2xl lg:text-3xl font-bold text-white mb-1">
                   {stat.value}
                 </div>
-                <div className="text-sm text-emerald-200">{stat.label}</div>
+                <div className="text-xs md:text-sm text-emerald-200">{stat.label}</div>
               </motion.div>
             ))}
           </motion.div>
 
-          {/* CTA Section */}
+          {/* CTA Section - Mobile Optimized */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -1027,25 +1027,25 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-12 border-2 border-emerald-400/30 shadow-2xl">
-              <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-12 border-2 border-emerald-400/30 shadow-2xl">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 md:mb-4">
                 Ready to Explore Dolpa?
               </h3>
-              <p className="text-xl text-emerald-200 mb-8 max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg md:text-xl text-emerald-200 mb-6 md:mb-8 max-w-2xl mx-auto px-2">
                 Plan your adventure to Phoksundo Lake and Dho Tarap from the
                 comfort of Hotel Blue Sheep Inn
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
                 <Link
                   href="/attractions"
-                  className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-emerald-500/50 transform hover:scale-105"
+                  className="inline-flex items-center justify-center gap-2 md:gap-3 px-4 md:px-8 py-2 md:py-4 bg-emerald-500 hover:bg-emerald-400 text-white text-sm md:text-base font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-emerald-500/50 transform hover:scale-105"
                 >
                   🏔️ Explore All Attractions
-                  <span className="text-xl">→</span>
+                  <span className="text-lg md:text-xl">→</span>
                 </Link>
                 <Link
                   href="/rooms"
-                  className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-full transition-all duration-300 border-2 border-white/30 hover:border-white/50"
+                  className="inline-flex items-center justify-center gap-2 md:gap-3 px-4 md:px-8 py-2 md:py-4 bg-white/10 hover:bg-white/20 text-white text-sm md:text-base font-semibold rounded-full transition-all duration-300 border-2 border-white/30 hover:border-white/50"
                 >
                   🏨 Book Your Stay
                 </Link>
