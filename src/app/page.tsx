@@ -853,10 +853,10 @@ export default function Home() {
                       viewport={{ once: true }}
                       className="text-lg md:text-xl text-emerald-100 mb-6 leading-relaxed"
                     >
-                      One of Nepal&apos;s most stunning high-altitude lakes, renowned
-                      for its crystal-clear turquoise waters that reflect the
-                      surrounding snow-capped peaks. A sacred destination in the
-                      heart of Dolpa.
+                      One of Nepal&apos;s most stunning high-altitude lakes,
+                      renowned for its crystal-clear turquoise waters that
+                      reflect the surrounding snow-capped peaks. A sacred
+                      destination in the heart of Dolpa.
                     </motion.p>
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
@@ -964,9 +964,10 @@ export default function Home() {
                     viewport={{ once: true }}
                     className="text-lg text-slate-300 mb-8 leading-relaxed"
                   >
-                    The highest permanently inhabited village in Nepal, offering a
-                    unique glimpse into traditional Tibetan Buddhist culture and
-                    stunning high-altitude landscapes preserved for centuries.
+                    The highest permanently inhabited village in Nepal, offering
+                    a unique glimpse into traditional Tibetan Buddhist culture
+                    and stunning high-altitude landscapes preserved for
+                    centuries.
                   </motion.p>
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -1176,36 +1177,67 @@ export default function Home() {
             </div>
           )}
 
-          {/* Reviews Grid */}
+          {/* Reviews Grid - Modern Animations */}
           {!isLoadingReviews && !reviewsError && reviews.length > 0 && (
             <div className="grid md:grid-cols-3 gap-8">
               {reviews.map((review, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: index * 0.2 }}
+                  initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{
+                    duration: 0.6,
+                    delay: index * 0.15,
+                    type: "spring",
+                  }}
                   viewport={{ once: true }}
-                  className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200 hover:shadow-xl hover:border-emerald-300 transition-all duration-300"
+                  className="group relative"
                 >
-                  <div className="flex items-center mb-4">
-                    {[...Array(review.rating)].map((_, i) => (
-                      <StarIcon key={i} className="w-5 h-5 text-yellow-300" />
-                    ))}
-                  </div>
-                  <p className="text-slate-600 italic mb-6 text-lg leading-relaxed">
-                    &ldquo;{review.review}&rdquo;
-                  </p>
-                  <div className="flex items-center">
-                    <div className="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                      {review.name.charAt(0)}
-                    </div>
-                    <div className="ml-4">
-                      <p className="font-semibold text-slate-900 text-lg">
-                        {review.name}
+                  <div className="bg-white rounded-3xl p-8 shadow-lg border border-slate-200 hover:shadow-2xl hover:border-emerald-300 transition-all duration-500 card-modern h-full">
+                    {/* Shimmer Effect */}
+                    <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 shimmer"></div>
+
+                    <div className="relative z-10">
+                      <div className="flex items-center mb-6">
+                        {[...Array(review.rating)].map((_, i) => (
+                          <motion.div
+                            key={i}
+                            initial={{ scale: 0, rotate: -180 }}
+                            whileInView={{ scale: 1, rotate: 0 }}
+                            transition={{
+                              delay: index * 0.15 + i * 0.1,
+                              type: "spring",
+                              stiffness: 200,
+                            }}
+                            viewport={{ once: true }}
+                          >
+                            <StarIcon className="w-6 h-6 text-yellow-400 fill-yellow-400" />
+                          </motion.div>
+                        ))}
+                      </div>
+                      <p className="text-slate-600 italic mb-8 text-lg leading-relaxed font-light">
+                        &ldquo;{review.review}&rdquo;
                       </p>
-                      <p className="text-sm text-slate-500">{review.country}</p>
+                      <div className="flex items-center gap-4">
+                        <motion.div
+                          whileHover={{ scale: 1.1, rotate: 5 }}
+                          className="w-14 h-14 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-lg shadow-emerald-500/30"
+                        >
+                          {review.name.charAt(0)}
+                        </motion.div>
+                        <div>
+                          <p className="font-black text-slate-900 text-lg">
+                            {review.name}
+                          </p>
+                          <p className="text-sm text-slate-500">
+                            {review.country}
+                          </p>
+                        </div>
+                      </div>
                     </div>
+
+                    {/* Glow Effect on Hover */}
+                    <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500/0 via-emerald-400/50 to-emerald-500/0 rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10"></div>
                   </div>
                 </motion.div>
               ))}
