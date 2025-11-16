@@ -285,6 +285,12 @@ Please let me know about availability and booking process.`;
               >
                 Camping
               </Link>
+              <Link
+                href="/attractions"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
+              >
+                Attractions
+              </Link>
               <button
                 onClick={() => {
                   const message = `Hi! I'd like to get in touch about your hotel services.`;
@@ -348,6 +354,13 @@ Please let me know about availability and booking process.`;
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Camping
+                </Link>
+                <Link
+                  href="/attractions"
+                  className="block text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Attractions
                 </Link>
                 <Link
                   href="/contact"
