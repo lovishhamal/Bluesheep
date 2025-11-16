@@ -61,6 +61,12 @@ export default function ContactPage() {
                 Camping
               </Link>
               <Link
+                href="/attractions"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
+              >
+                Attractions
+              </Link>
+              <Link
                 href="/contact"
                 className="text-emerald-400 font-semibold border-b-2 border-emerald-400 transition-colors duration-300"
               >
@@ -119,6 +125,13 @@ export default function ContactPage() {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Camping
+                </Link>
+                <Link
+                  href="/attractions"
+                  className="block text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Attractions
                 </Link>
                 <Link
                   href="/contact"
