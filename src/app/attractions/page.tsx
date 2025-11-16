@@ -6,11 +6,8 @@ import Link from "next/link";
 import {
   Bars3Icon,
   XMarkIcon,
-  MapPinIcon,
-  MountainIcon,
-  SparklesIcon,
 } from "@heroicons/react/24/outline";
-import { getWhatsAppUrl, PHONE_NUMBER } from "../util/constants";
+import { getWhatsAppUrl } from "../util/constants";
 
 export default function AttractionsPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -214,7 +211,7 @@ export default function AttractionsPage() {
               <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
                 <span className="block">Discover</span>
                 <span className="block bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent">
-                  Dolpa's Wonders
+                  Dolpa&apos;s Wonders
                 </span>
               </h1>
               <p className="text-xl md:text-2xl text-emerald-200 font-light max-w-3xl mx-auto">
@@ -308,7 +305,7 @@ export default function AttractionsPage() {
               <div className="space-y-4 text-slate-700 text-lg leading-relaxed">
                 <p>
                   <strong className="text-slate-900">Phoksundo Lake</strong> is
-                  one of Nepal's most stunning high-altitude lakes, located at
+                  one of Nepal&apos;s most stunning high-altitude lakes, located at
                   an elevation of 3,611 meters (11,849 feet) in the Dolpa
                   district. This pristine alpine lake is renowned for its
                   crystal-clear turquoise waters that change color throughout the
@@ -316,7 +313,7 @@ export default function AttractionsPage() {
                 </p>
                 <p>
                   The lake is considered sacred by the local people and is part
-                  of the Shey Phoksundo National Park. It's a perfect
+                  of the Shey Phoksundo National Park. It&apos;s a perfect
                   destination for trekkers and nature enthusiasts seeking
                   breathtaking mountain scenery and peaceful natural beauty.
                 </p>

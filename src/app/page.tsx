@@ -768,7 +768,7 @@ export default function Home() {
               <span className="text-6xl md:text-8xl">🏔️</span>
             </div>
             <h2 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-              Discover Dolpa's
+              Discover Dolpa&apos;s
               <br />
               <span className="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent">
                 Natural Wonders
@@ -853,7 +853,7 @@ export default function Home() {
                       viewport={{ once: true }}
                       className="text-lg md:text-xl text-emerald-100 mb-6 leading-relaxed"
                     >
-                      One of Nepal's most stunning high-altitude lakes, renowned
+                      One of Nepal&apos;s most stunning high-altitude lakes, renowned
                       for its crystal-clear turquoise waters that reflect the
                       surrounding snow-capped peaks. A sacred destination in the
                       heart of Dolpa.
