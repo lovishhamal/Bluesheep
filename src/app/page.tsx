@@ -107,17 +107,6 @@ export default function Home() {
     },
   ]);
 
-  // Hero Image Stack State
-  const [heroImageStackIndex, setHeroImageStackIndex] = useState(0);
-  const [prevHeroImageStackIndex, setPrevHeroImageStackIndex] = useState(0);
-  // Using only confirmed images from public folder
-  const heroImages = [
-    "/phoksundo.jpg",
-    "/dho.jpg",
-    "/hotel-room.jpg",
-    "/hotel-exterior.jpg",
-    "/dining-area.jpg",
-  ];
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length);
@@ -266,17 +255,6 @@ export default function Home() {
     return () => clearInterval(interval);
   }, [galleryImages.length, isAutoPlay]);
 
-  // Auto-rotate hero image stack
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setHeroImageStackIndex((prev) => {
-        setPrevHeroImageStackIndex(prev);
-        return (prev + 1) % heroImages.length;
-      });
-    }, 4000); // Change image every 4 seconds
-
-    return () => clearInterval(interval);
-  }, [heroImages.length]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -505,39 +483,39 @@ export default function Home() {
           />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Side - Content */}
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col items-center justify-center min-h-[85vh] py-20 lg:py-32">
+            {/* Content - Centered */}
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-center lg:text-left space-y-8"
+              className="text-center space-y-10 lg:space-y-14 w-full max-w-4xl"
             >
               {/* Badge */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-100 to-blue-100 rounded-full border border-emerald-200/50 shadow-sm"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-emerald-100 to-blue-100 rounded-full border border-emerald-200/50 shadow-md mb-4"
               >
-                <span className="text-emerald-600 font-semibold text-sm">
+                <span className="text-emerald-600 font-semibold text-sm md:text-base">
                   🏔️ Luxury in the Himalayas
                 </span>
               </motion.div>
 
               {/* Main Title with Creative Typography */}
-              <div className="space-y-6">
+              <div className="space-y-6 lg:space-y-8 mb-6 lg:mb-8">
                 <motion.h1
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3, duration: 0.8 }}
-                  className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold leading-tight"
+                  className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-tight"
                 >
                   <span className="block bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
                     Hotel Blue
                   </span>
-                  <span className="block bg-gradient-to-r from-emerald-600 via-blue-600 to-emerald-600 bg-clip-text text-transparent">
+                  <span className="block bg-gradient-to-r from-emerald-600 via-blue-600 to-emerald-600 bg-clip-text text-transparent mt-2">
                     Sheep Inn
                   </span>
                 </motion.h1>
@@ -545,50 +523,19 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, duration: 0.8 }}
-                  className="text-xl md:text-2xl text-gray-700 font-light max-w-xl mx-auto lg:mx-0 leading-relaxed"
+                  className="text-xl sm:text-2xl md:text-3xl text-gray-700 font-light max-w-3xl mx-auto leading-relaxed"
                 >
                   Experience luxury in the heart of Dolpa, Nepal. Your gateway
                   to the majestic Himalayas.
                 </motion.p>
               </div>
 
-              {/* Stats Cards */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7, duration: 0.8 }}
-                className="grid grid-cols-3 gap-2 sm:gap-4 pt-4"
-              >
-                {[
-                  { label: "Rooms", value: "20+", icon: "🏨" },
-                  { label: "Guests", value: "500+", icon: "👥" },
-                  { label: "Rating", value: "4.8★", icon: "⭐" },
-                ].map((stat, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.8 + index * 0.1, duration: 0.5 }}
-                    whileHover={{ scale: 1.05, y: -5 }}
-                    className="bg-gradient-to-br from-white to-gray-50 rounded-lg md:rounded-xl p-3 md:p-4 border border-gray-200/50 shadow-sm hover:shadow-md transition-all duration-300"
-                  >
-                    <div className="text-xl mb-1 md:hidden">{stat.icon}</div>
-                    <div className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
-                      {stat.value}
-                    </div>
-                    <div className="text-xs text-gray-600 mt-1">
-                      {stat.label}
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-
               {/* Contact Info */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 0.8 }}
-                className="flex flex-col sm:flex-row items-center lg:items-start gap-3 sm:gap-4 text-gray-600"
+                className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-gray-600 mb-4 lg:mb-6"
               >
                 <motion.div
                   whileHover={{ scale: 1.05 }}
@@ -619,31 +566,86 @@ export default function Home() {
                 </motion.div>
               </motion.div>
 
-              {/* Action Buttons */}
+              {/* Action Buttons - Ultra Creative Design */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.2, duration: 0.8 }}
-                className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4"
+                className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5 pt-4 lg:pt-6 w-full"
               >
+                {/* Book Now Button - Primary with Creative Effects */}
                 <motion.button
                   onClick={() => router.push("/rooms")}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-xl sm:rounded-lg transition-all duration-200 shadow-xl hover:shadow-2xl shadow-emerald-500/40 text-sm sm:text-base"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 text-white font-bold rounded-2xl overflow-hidden transition-all duration-300 shadow-2xl shadow-emerald-500/50 text-lg sm:text-xl"
+                  whileHover={{ scale: 1.05, y: -3 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  <span>Book Now</span>
-                  <span className="text-lg sm:text-xl">→</span>
+                  {/* Animated Background Shine */}
+                  <motion.div
+                    animate={{
+                      x: ["-100%", "200%"],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                  />
+                  
+                  {/* Glow Effect */}
+                  <div className="absolute -inset-1 bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-2xl blur opacity-75 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                  
+                  {/* Content */}
+                  <span className="relative z-10">Book Now</span>
+                  <motion.span
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                    className="relative z-10 text-2xl"
+                  >
+                    →
+                  </motion.span>
+                  
+                  {/* Decorative Dots */}
+                  <div className="absolute top-2 right-2 w-2 h-2 bg-white/40 rounded-full"></div>
+                  <div className="absolute bottom-2 left-2 w-1.5 h-1.5 bg-white/30 rounded-full"></div>
                 </motion.button>
+
+                {/* Explore Camping Button - Secondary with Creative Design */}
                 <motion.button
                   onClick={openCampingPage}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-white to-gray-50 border-2 border-gray-300 text-gray-900 font-semibold rounded-xl sm:rounded-lg hover:border-gray-400 hover:from-gray-50 hover:to-white transition-all duration-200 shadow-sm text-sm sm:text-base"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-5 bg-white/95 backdrop-blur-sm border-2 border-emerald-300/50 text-gray-900 font-bold rounded-2xl overflow-hidden transition-all duration-300 shadow-lg hover:shadow-xl hover:border-emerald-400 text-lg sm:text-xl"
+                  whileHover={{ scale: 1.05, y: -3 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  <span>Explore Camping</span>
-                  <span>🏕️</span>
+                  {/* Animated Gradient Background */}
+                  <motion.div
+                    animate={{
+                      backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                    className="absolute inset-0 bg-gradient-to-r from-emerald-50/0 via-emerald-50/50 to-emerald-50/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                  
+                  {/* Content */}
+                  <span className="relative z-10">Explore Camping</span>
+                  <motion.span
+                    animate={{ rotate: [0, 15, -15, 0] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="relative z-10 text-2xl"
+                  >
+                    🏕️
+                  </motion.span>
+                  
+                  {/* Corner Accent */}
+                  <div className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-br from-emerald-200/30 to-transparent rounded-bl-2xl"></div>
                 </motion.button>
+
+                {/* Find Us Button - Secondary with Creative Design */}
                 <motion.button
                   onClick={() => {
                     const mapSection = document.getElementById("map-section");
@@ -654,451 +656,37 @@ export default function Home() {
                       });
                     }
                   }}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-white to-gray-50 border-2 border-gray-300 text-gray-900 font-semibold rounded-xl sm:rounded-lg hover:border-gray-400 hover:from-gray-50 hover:to-white transition-all duration-200 shadow-sm text-sm sm:text-base"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-5 bg-white/95 backdrop-blur-sm border-2 border-blue-300/50 text-gray-900 font-bold rounded-2xl overflow-hidden transition-all duration-300 shadow-lg hover:shadow-xl hover:border-blue-400 text-lg sm:text-xl"
+                  whileHover={{ scale: 1.05, y: -3 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  <span>Find Us</span>
-                  <MapPinIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+                  {/* Animated Gradient Background */}
+                  <motion.div
+                    animate={{
+                      backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                    className="absolute inset-0 bg-gradient-to-r from-blue-50/0 via-blue-50/50 to-blue-50/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                  
+                  {/* Content */}
+                  <span className="relative z-10">Find Us</span>
+                  <motion.div
+                    animate={{ y: [0, -3, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                    className="relative z-10"
+                  >
+                    <MapPinIcon className="w-6 h-6 text-blue-600" />
+                  </motion.div>
+                  
+                  {/* Corner Accent */}
+                  <div className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-br from-blue-200/30 to-transparent rounded-bl-2xl"></div>
                 </motion.button>
               </motion.div>
-            </motion.div>
-
-            {/* Right Side - Visual Element with Image Stack */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="relative hidden lg:block"
-            >
-              {/* Image Stack Container */}
-              <div className="relative">
-                <motion.div
-                  animate={{ y: [0, -20, 0] }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="relative z-10"
-                >
-                  {/* Image Stack - Ultra Creative Book Stack Effect */}
-                  <div
-                    className="relative w-full h-[500px]"
-                    style={{
-                      perspective: "1500px",
-                      perspectiveOrigin: "center center",
-                    }}
-                  >
-                    {heroImages.length > 0 ? (
-                      heroImages.map((imageSrc, index) => {
-                        // Calculate position relative to current active image
-                        let relativeIndex =
-                          (index - heroImageStackIndex + heroImages.length) %
-                          heroImages.length;
-
-                        // Only render visible images (show max 5 images)
-                        if (relativeIndex > 4) {
-                          return null;
-                        }
-
-                        // Calculate transforms for creative stack effect
-                        let zIndex = 5;
-                        let translateX = 0;
-                        let translateY = 0;
-                        let translateZ = 0;
-                        let rotateY = 0;
-                        let rotateX = 0;
-                        let scale = 1;
-                        let opacity = 1;
-                        let blur = 0;
-                        let shadowIntensity = 0;
-
-                        if (relativeIndex === 0) {
-                          // Active image (front) - Center stage with dramatic effect
-                          zIndex = 50;
-                          translateX = 0;
-                          translateY = 0;
-                          translateZ = 0;
-                          rotateY = 0;
-                          rotateX = 0;
-                          scale = 1;
-                          opacity = 1;
-                          blur = 0;
-                          shadowIntensity = 1;
-                        } else if (relativeIndex === 1) {
-                          // Next image (peeking from right) - Dramatic angle
-                          zIndex = 45;
-                          translateX = 40;
-                          translateY = -20;
-                          translateZ = -50;
-                          rotateY = -35;
-                          rotateX = 5;
-                          scale = 0.88;
-                          opacity = 0.85;
-                          blur = 2;
-                          shadowIntensity = 0.6;
-                        } else if (relativeIndex === 2) {
-                          // Second next (further right) - More dramatic
-                          zIndex = 40;
-                          translateX = 70;
-                          translateY = -35;
-                          translateZ = -100;
-                          rotateY = -50;
-                          rotateX = 8;
-                          scale = 0.75;
-                          opacity = 0.6;
-                          blur = 4;
-                          shadowIntensity = 0.4;
-                        } else if (
-                          relativeIndex === heroImages.length - 1 ||
-                          relativeIndex === 3
-                        ) {
-                          // Previous image (peeking from left) - Dramatic angle
-                          zIndex = 48;
-                          translateX = -40;
-                          translateY = -20;
-                          translateZ = -50;
-                          rotateY = 35;
-                          rotateX = 5;
-                          scale = 0.88;
-                          opacity = 0.85;
-                          blur = 2;
-                          shadowIntensity = 0.6;
-                        } else if (relativeIndex === 4) {
-                          // Fourth image (far left)
-                          zIndex = 35;
-                          translateX = -70;
-                          translateY = -35;
-                          translateZ = -100;
-                          rotateY = 50;
-                          rotateX = 8;
-                          scale = 0.75;
-                          opacity = 0.5;
-                          blur = 4;
-                          shadowIntensity = 0.3;
-                        }
-
-                        // Determine animation states for swipe effect
-                        const isCurrentlyActive = relativeIndex === 0;
-                        const wasPreviouslyActive =
-                          index === prevHeroImageStackIndex;
-                        const isBecomingActive =
-                          isCurrentlyActive && index === heroImageStackIndex;
-                        const isLeavingActive =
-                          wasPreviouslyActive && index !== heroImageStackIndex;
-
-                        // Calculate animation start/end positions for back-to-front flip
-                        let startTranslateZ = translateZ;
-                        let startOpacity = opacity;
-                        let startScale = scale;
-                        let startRotateY = rotateY;
-
-                        // If becoming active, start from back (behind, rotated like book page)
-                        if (
-                          isBecomingActive &&
-                          heroImageStackIndex !== prevHeroImageStackIndex
-                        ) {
-                          startTranslateZ = -400; // Start from behind
-                          startOpacity = 0.3;
-                          startScale = 0.6;
-                          startRotateY = 180; // Start rotated (back side visible)
-                        }
-                        // If leaving active, go to back (behind, rotated)
-                        else if (
-                          isLeavingActive &&
-                          heroImageStackIndex !== prevHeroImageStackIndex
-                        ) {
-                          // This will be handled in animate
-                        }
-
-                        return (
-                          <motion.div
-                            key={`${imageSrc}-${index}-${heroImageStackIndex}`}
-                            initial={
-                              isBecomingActive &&
-                              heroImageStackIndex !== prevHeroImageStackIndex
-                                ? {
-                                    scale: startScale,
-                                    opacity: startOpacity,
-                                  }
-                                : undefined
-                            }
-                            animate={{
-                              x: translateX,
-                              y: translateY,
-                              scale: scale,
-                              opacity:
-                                isLeavingActive &&
-                                heroImageStackIndex !== prevHeroImageStackIndex
-                                  ? 0.2
-                                  : opacity,
-                              filter: `blur(${blur}px) brightness(${
-                                1 + shadowIntensity * 0.2
-                              })`,
-                            }}
-                            transition={{
-                              duration:
-                                (isBecomingActive || isLeavingActive) &&
-                                heroImageStackIndex !== prevHeroImageStackIndex
-                                  ? 1.2
-                                  : 1.2,
-                              ease:
-                                (isBecomingActive || isLeavingActive) &&
-                                heroImageStackIndex !== prevHeroImageStackIndex
-                                  ? [0.4, 0, 0.2, 1] // Smooth ease for back-to-front transitions
-                                  : [0.25, 0.46, 0.45, 0.94], // Custom easing for smooth book flip
-                            }}
-                            style={
-                              {
-                                position: "absolute",
-                                zIndex: zIndex,
-                                transformStyle: "preserve-3d",
-                                width: "100%",
-                                height: "100%",
-                                top: 0,
-                                left: 0,
-                                "--translateZ":
-                                  isLeavingActive &&
-                                  heroImageStackIndex !==
-                                    prevHeroImageStackIndex
-                                    ? -400
-                                    : isBecomingActive &&
-                                      heroImageStackIndex !==
-                                        prevHeroImageStackIndex
-                                    ? startTranslateZ
-                                    : translateZ,
-                                "--rotateY":
-                                  isLeavingActive &&
-                                  heroImageStackIndex !==
-                                    prevHeroImageStackIndex
-                                    ? 180
-                                    : isBecomingActive &&
-                                      heroImageStackIndex !==
-                                        prevHeroImageStackIndex
-                                    ? startRotateY
-                                    : rotateY,
-                                transform: `perspective(1500px) translateZ(var(--translateZ, ${translateZ}px)) rotateY(var(--rotateY, ${rotateY}deg)) rotateX(${rotateX}deg)`,
-                                transition:
-                                  (isBecomingActive || isLeavingActive) &&
-                                  heroImageStackIndex !==
-                                    prevHeroImageStackIndex
-                                    ? "transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), --translateZ 1.2s cubic-bezier(0.4, 0, 0.2, 1), --rotateY 1.2s cubic-bezier(0.4, 0, 0.2, 1)"
-                                    : "transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-                                boxShadow:
-                                  relativeIndex === 0
-                                    ? `0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1), 0 0 60px rgba(16, 185, 129, ${
-                                        shadowIntensity * 0.3
-                                      })`
-                                    : `0 ${10 + shadowIntensity * 20}px ${
-                                        20 + shadowIntensity * 30
-                                      }px -5px rgba(0, 0, 0, ${
-                                        0.3 + shadowIntensity * 0.2
-                                      })`,
-                              } as React.CSSProperties & {
-                                "--translateZ": number;
-                                "--rotateY": number;
-                              }
-                            }
-                            data-image-index={index}
-                            className="rounded-2xl overflow-hidden border-4 border-white/90 cursor-pointer"
-                            whileHover={
-                              relativeIndex === 0
-                                ? {
-                                    scale: 1.03,
-                                    rotateY: [0, -5, 5, 0],
-                                    transition: { duration: 0.6 },
-                                  }
-                                : {}
-                            }
-                          >
-                            {/* Image with parallax effect */}
-                            <motion.div
-                              animate={{
-                                scale: relativeIndex === 0 ? [1, 1.05, 1] : 1,
-                              }}
-                              transition={{
-                                duration: 4,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                              }}
-                              className="w-full h-full"
-                            >
-                              <img
-                                src={imageSrc}
-                                alt={`Hotel Blue Sheep Inn - Image ${
-                                  index + 1
-                                }`}
-                                className="w-full h-full object-cover"
-                                style={{
-                                  WebkitTransform: "translateZ(0)",
-                                  transform: "translateZ(0)",
-                                  WebkitBackfaceVisibility: "hidden",
-                                  backfaceVisibility: "hidden",
-                                }}
-                                onError={(e) => {
-                                  console.error(
-                                    `Failed to load image: ${imageSrc}`
-                                  );
-                                  const target = e.target as HTMLImageElement;
-                                  if (!target.src.includes("phoksundo.jpg")) {
-                                    target.src = "/phoksundo.jpg";
-                                  }
-                                }}
-                              />
-                            </motion.div>
-
-                            {/* Dynamic gradient overlay */}
-                            <div
-                              className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"
-                              style={{
-                                opacity: 0.7 - relativeIndex * 0.1,
-                              }}
-                            />
-
-                            {/* Shine effect on active image */}
-                            {relativeIndex === 0 && (
-                              <motion.div
-                                animate={{
-                                  x: ["-100%", "200%"],
-                                }}
-                                transition={{
-                                  duration: 3,
-                                  repeat: Infinity,
-                                  ease: "linear",
-                                }}
-                                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                                style={{
-                                  width: "50%",
-                                  height: "100%",
-                                }}
-                              />
-                            )}
-
-                            {/* Page corner fold effect for next image */}
-                            {relativeIndex === 1 && (
-                              <motion.div
-                                animate={{
-                                  rotateY: [-5, 5, -5],
-                                }}
-                                transition={{
-                                  duration: 3,
-                                  repeat: Infinity,
-                                  ease: "easeInOut",
-                                }}
-                                className="absolute right-0 top-0 w-20 h-20 bg-gradient-to-br from-white/30 to-transparent"
-                                style={{
-                                  clipPath: "polygon(100% 0, 100% 100%, 0 0)",
-                                }}
-                              />
-                            )}
-
-                            {/* Floating particles effect on active image */}
-                            {relativeIndex === 0 && (
-                              <>
-                                {[...Array(3)].map((_, i) => (
-                                  <motion.div
-                                    key={i}
-                                    animate={{
-                                      y: [0, -30, 0],
-                                      x: [0, Math.sin(i) * 20, 0],
-                                      opacity: [0.3, 0.7, 0.3],
-                                      scale: [0.8, 1.2, 0.8],
-                                    }}
-                                    transition={{
-                                      duration: 2 + i * 0.5,
-                                      repeat: Infinity,
-                                      delay: i * 0.3,
-                                      ease: "easeInOut",
-                                    }}
-                                    className="absolute w-2 h-2 bg-emerald-400 rounded-full blur-sm"
-                                    style={{
-                                      top: `${20 + i * 30}%`,
-                                      left: `${30 + i * 20}%`,
-                                    }}
-                                  />
-                                ))}
-                              </>
-                            )}
-
-                            {/* Page number indicator */}
-                            {relativeIndex === 0 && (
-                              <motion.div
-                                initial={{ opacity: 0, scale: 0 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.3, duration: 0.5 }}
-                                className="absolute bottom-4 right-4 bg-gradient-to-br from-emerald-500/90 to-blue-500/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-xl border border-white/20"
-                              >
-                                <span className="text-white text-xs font-bold">
-                                  {heroImageStackIndex + 1} /{" "}
-                                  {heroImages.length}
-                                </span>
-                              </motion.div>
-                            )}
-
-                            {/* Glow effect on edges */}
-                            <div
-                              className="absolute inset-0 pointer-events-none"
-                              style={{
-                                boxShadow:
-                                  relativeIndex === 0
-                                    ? "inset 0 0 40px rgba(16, 185, 129, 0.3)"
-                                    : "none",
-                              }}
-                            />
-                          </motion.div>
-                        );
-                      })
-                    ) : (
-                      // Fallback if no images
-                      <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white w-full h-full">
-                        <img
-                          src="/phoksundo.jpg"
-                          alt="Hotel Blue Sheep Inn - Dolpa Nepal"
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-                      </div>
-                    )}
-                  </div>
-                </motion.div>
-
-                {/* Floating Cards */}
-                <motion.div
-                  animate={{ y: [0, 15, 0], rotate: [0, 5, 0] }}
-                  transition={{
-                    duration: 8,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="absolute -top-8 -right-8 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl p-4 shadow-xl border-2 border-white z-20"
-                >
-                  <div className="text-white">
-                    <div className="text-2xl font-bold">4.8★</div>
-                    <div className="text-xs opacity-90">Guest Rating</div>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  animate={{ y: [0, -15, 0], rotate: [0, -5, 0] }}
-                  transition={{
-                    duration: 7,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="absolute -bottom-8 -left-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-4 shadow-xl border-2 border-white z-20"
-                >
-                  <div className="text-white">
-                    <div className="text-2xl font-bold">500+</div>
-                    <div className="text-xs opacity-90">Happy Guests</div>
-                  </div>
-                </motion.div>
-
-                {/* Decorative Elements */}
-                <div className="absolute -z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full">
-                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-200/30 to-blue-200/30 rounded-2xl blur-2xl"></div>
-                </div>
-              </div>
             </motion.div>
           </div>
         </div>
@@ -1290,182 +878,6 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Gallery Section - Ultra Creative */}
-      <section className="py-32 bg-gradient-to-br from-emerald-50/50 via-white to-blue-50/50 relative overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0">
-          <motion.div
-            animate={{
-              rotate: [0, 360],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 30,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="absolute top-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-emerald-200/15 to-blue-200/15 rounded-full blur-3xl"
-          />
-          <motion.div
-            animate={{
-              rotate: [360, 0],
-              scale: [1, 1.3, 1],
-            }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-blue-200/15 to-emerald-200/15 rounded-full blur-3xl"
-          />
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Creative Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, type: "spring" }}
-              viewport={{ once: true }}
-              className="inline-flex items-center gap-3 mb-6 px-6 py-3 bg-gradient-to-r from-emerald-100 to-blue-100 rounded-full border border-emerald-200/50"
-            >
-              <span className="text-2xl">📸</span>
-              <span className="text-emerald-700 font-semibold">
-                Visual Journey
-              </span>
-            </motion.div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                Hotel Gallery
-              </span>
-            </h2>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto font-light">
-              Discover the beauty of our hotel, stunning mountain views, and
-              world-class facilities through our visual collection
-            </p>
-          </motion.div>
-
-          {/* Loading State */}
-          {isLoadingHotelGallery && (
-            <div className="text-center py-12">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-2 border-gray-300 border-t-gray-900"></div>
-              <p className="text-gray-600 mt-4 text-lg">Loading gallery...</p>
-            </div>
-          )}
-
-          {/* Error State */}
-          {hotelGalleryError && (
-            <div className="text-center py-12">
-              <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 max-w-md mx-auto">
-                <p className="text-gray-900 text-lg">{hotelGalleryError}</p>
-                <button
-                  onClick={() => window.location.reload()}
-                  className="mt-4 px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
-                >
-                  Retry
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Creative Masonry Gallery Layout */}
-          {!isLoadingHotelGallery &&
-            !hotelGalleryError &&
-            hotelGalleryImages.length > 0 && (
-              <div className="columns-2 md:columns-3 lg:columns-4 gap-4 md:gap-6 space-y-4 md:space-y-6">
-                {hotelGalleryImages.map((image, index) => (
-                  <motion.div
-                    key={image.name}
-                    initial={{ opacity: 0, y: 50, scale: 0.9, rotate: -5 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
-                    transition={{
-                      duration: 0.6,
-                      delay: index * 0.08,
-                      type: "spring",
-                      stiffness: 100,
-                    }}
-                    viewport={{ once: true }}
-                    whileHover={{ y: -10, scale: 1.02 }}
-                    className="break-inside-avoid mb-4 md:mb-6 group cursor-pointer relative"
-                    onClick={() => openHotelGalleryModal(image)}
-                  >
-                    {/* Card Container */}
-                    <div className="relative overflow-hidden rounded-2xl border-2 border-gray-200/50 hover:border-emerald-400/50 transition-all duration-500 hover:shadow-2xl">
-                      {/* Image */}
-                      <div className="relative overflow-hidden">
-                        <img
-                          src={image.url}
-                          alt={image.alt}
-                          className="w-full h-auto object-cover transition-all duration-500 group-hover:scale-110"
-                          style={{
-                            WebkitTransform: "translateZ(0)",
-                            transform: "translateZ(0)",
-                            WebkitBackfaceVisibility: "hidden",
-                            backfaceVisibility: "hidden",
-                            imageRendering: "auto",
-                          }}
-                        />
-                        {/* Gradient Overlay on Hover */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                          <div className="absolute bottom-4 left-4 right-4">
-                            <motion.div
-                              initial={{ y: 20, opacity: 0 }}
-                              whileHover={{ y: 0, opacity: 1 }}
-                              transition={{ duration: 0.3 }}
-                              className="text-white"
-                            >
-                              <h3 className="font-bold text-lg mb-1 capitalize">
-                                {image.alt}
-                              </h3>
-                              <p className="text-sm text-emerald-200">
-                                Click to view larger
-                              </p>
-                            </motion.div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Decorative Corner Badge */}
-                      <div className="absolute top-3 right-3 w-8 h-8 bg-gradient-to-br from-emerald-500 to-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center shadow-lg">
-                        <span className="text-white text-sm">👁️</span>
-                      </div>
-
-                      {/* Animated Border Glow */}
-                      <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500/0 via-emerald-400/50 to-emerald-500/0 rounded-2xl opacity-0 group-hover:opacity-100 blur-md transition-opacity duration-500 -z-10"></div>
-                    </div>
-
-                    {/* Floating Shadow Effect */}
-                    <div className="absolute -inset-2 bg-gradient-to-r from-emerald-500/10 to-blue-500/10 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-20"></div>
-                  </motion.div>
-                ))}
-              </div>
-            )}
-
-          {/* No Images State */}
-          {!isLoadingHotelGallery &&
-            !hotelGalleryError &&
-            hotelGalleryImages.length === 0 && (
-              <div className="text-center py-12">
-                <div className="bg-gray-50 rounded-lg shadow-sm p-8 border border-gray-200 max-w-md mx-auto">
-                  <p className="text-gray-900 text-lg">
-                    No gallery images available at the moment.
-                  </p>
-                  <p className="text-gray-600 text-sm mt-2">
-                    Please check back later for more photos.
-                  </p>
-                </div>
-              </div>
-            )}
         </div>
       </section>
 
