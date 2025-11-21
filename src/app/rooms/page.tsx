@@ -643,12 +643,25 @@ Please let me know about availability and booking process.`;
                       }}
                       className="absolute top-2 -right-4 bg-gradient-to-br from-emerald-500 via-emerald-600 to-blue-500 rounded-xl p-3 shadow-2xl border-2 border-white z-30"
                     >
-                      <div className="text-white text-center">
-                        <div className="text-xs opacity-90 mb-1">From</div>
-                        <div className="text-xl font-bold">
+                      <div className="text-center">
+                        <div
+                          className="text-xs mb-1 font-bold text-white"
+                          style={{ textShadow: "0 2px 4px rgba(0,0,0,0.3)" }}
+                        >
+                          From
+                        </div>
+                        <div
+                          className="text-xl font-black text-white"
+                          style={{ textShadow: "0 2px 4px rgba(0,0,0,0.5)" }}
+                        >
                           {formatPrice(room.price_per_night)}
                         </div>
-                        <div className="text-xs opacity-90 mt-1">/night</div>
+                        <div
+                          className="text-xs mt-1 font-bold text-white"
+                          style={{ textShadow: "0 2px 4px rgba(0,0,0,0.3)" }}
+                        >
+                          /night
+                        </div>
                       </div>
                       {/* Glow Effect */}
                       <div className="absolute -inset-1 bg-gradient-to-br from-emerald-400 to-blue-400 rounded-xl blur opacity-50"></div>
@@ -831,19 +844,35 @@ Please let me know about availability and booking process.`;
 
       {/* Amenities Section - Ultra Creative */}
       <section className="py-24 lg:py-32 bg-gradient-to-br from-emerald-50/50 via-white to-blue-50/50 relative overflow-hidden">
-        {/* Animated Background */}
+        {/* Animated Background Orbs */}
         <div className="absolute inset-0">
           <motion.div
             animate={{
               rotate: [0, 360],
               scale: [1, 1.2, 1],
+              x: [0, 50, 0],
+              y: [0, 30, 0],
             }}
             transition={{
               duration: 30,
               repeat: Infinity,
               ease: "linear",
             }}
-            className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-emerald-200/15 to-blue-200/15 rounded-full blur-3xl"
+            className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-3xl"
+          />
+          <motion.div
+            animate={{
+              rotate: [360, 0],
+              scale: [1, 1.3, 1],
+              x: [0, -40, 0],
+              y: [0, -50, 0],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-3xl"
           />
         </div>
 
@@ -860,18 +889,61 @@ Please let me know about availability and booking process.`;
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, type: "spring" }}
               viewport={{ once: true }}
-              className="inline-block"
+              className="inline-block relative"
             >
-              <div className="bg-gradient-to-br from-white via-emerald-50/50 to-blue-50/50 rounded-2xl shadow-xl p-8 lg:p-12 border-2 border-gray-200/50">
-                <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-                  <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                    Room Amenities
-                  </span>
-                </h2>
-                <p className="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto font-light">
-                  Every room is equipped with modern amenities to ensure your
-                  comfort and convenience.
-                </p>
+              {/* Decorative Badge */}
+              <motion.div
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 3, repeat: Infinity }}
+                className="absolute -top-3 left-1/2 transform -translate-x-1/2 px-4 py-1.5 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full shadow-lg"
+              >
+                <span className="text-white text-xs font-bold">
+                  ✨ Premium Features
+                </span>
+              </motion.div>
+
+              <div className="bg-white rounded-3xl shadow-2xl p-8 lg:p-12 border-2 border-gray-200 relative overflow-hidden">
+                {/* Top Gradient Bar */}
+                <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-emerald-500 via-blue-500 to-emerald-500"></div>
+
+                {/* Decorative Elements */}
+                <div className="absolute top-4 right-4 w-24 h-24 bg-gradient-to-br from-emerald-100/50 to-transparent rounded-full blur-2xl"></div>
+                <div className="absolute bottom-4 left-4 w-24 h-24 bg-gradient-to-tr from-blue-100/50 to-transparent rounded-full blur-2xl"></div>
+
+                <div className="relative z-10">
+                  <motion.div
+                    animate={{ rotate: [0, 10, -10, 0] }}
+                    transition={{ duration: 4, repeat: Infinity }}
+                    className="inline-block mb-4"
+                  >
+                    <span className="text-5xl">🏨</span>
+                  </motion.div>
+                  <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
+                    <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
+                      Room Amenities
+                    </span>
+                  </h2>
+                  <p className="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto font-medium">
+                    Every room is equipped with modern amenities to ensure your
+                    comfort and convenience.
+                  </p>
+
+                  {/* Decorative Dots */}
+                  <div className="flex justify-center gap-2 mt-6">
+                    {[...Array(3)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          delay: i * 0.2,
+                        }}
+                        className="w-2 h-2 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full"
+                      />
+                    ))}
+                  </div>
+                </div>
               </div>
             </motion.div>
           </motion.div>
@@ -882,65 +954,147 @@ Please let me know about availability and booking process.`;
                 icon: WifiIcon,
                 title: "Free WiFi",
                 description: "High-speed internet access",
-                gradient: "from-emerald-100 to-blue-100",
+                gradient: "from-emerald-500 to-emerald-600",
+                iconBg: "from-emerald-100 to-emerald-200",
                 iconColor: "text-emerald-600",
+                emoji: "📶",
               },
               {
                 icon: ViewfinderCircleIcon,
                 title: "Mountain Views",
                 description: "Panoramic Himalayan views",
-                gradient: "from-blue-100 to-emerald-100",
+                gradient: "from-blue-500 to-blue-600",
+                iconBg: "from-blue-100 to-blue-200",
                 iconColor: "text-blue-600",
+                emoji: "🏔️",
               },
               {
                 icon: HomeIcon,
                 title: "Premium Beds",
                 description: "Luxury bedding and mattresses",
-                gradient: "from-emerald-100 to-blue-100",
+                gradient: "from-emerald-500 to-emerald-600",
+                iconBg: "from-emerald-100 to-emerald-200",
                 iconColor: "text-emerald-600",
+                emoji: "🛏️",
               },
               {
                 icon: EyeIcon,
                 title: "Garden Restaurant",
                 description: "On-site restaurant with garden views",
-                gradient: "from-blue-100 to-emerald-100",
+                gradient: "from-blue-500 to-blue-600",
+                iconBg: "from-blue-100 to-blue-200",
                 iconColor: "text-blue-600",
+                emoji: "🍽️",
               },
             ].map((amenity, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                initial={{ opacity: 0, y: 50, scale: 0.9, rotateY: -15 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1, rotateY: 0 }}
                 transition={{
                   duration: 0.6,
                   delay: index * 0.1,
                   type: "spring",
+                  stiffness: 100,
                 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -10, scale: 1.05 }}
-                className="text-center bg-gradient-to-br from-white via-emerald-50/30 to-blue-50/30 rounded-2xl shadow-lg p-6 lg:p-8 border-2 border-gray-200/50 hover:border-emerald-300/50 hover:shadow-2xl transition-all duration-500 group relative overflow-hidden"
+                whileHover={{ y: -12, scale: 1.05, rotateY: 5 }}
+                className="text-center bg-white rounded-2xl shadow-xl p-6 lg:p-8 border-2 border-gray-200 hover:border-emerald-300 hover:shadow-2xl transition-all duration-500 group relative overflow-hidden"
               >
-                {/* Animated Background Pattern */}
+                {/* Animated Background Gradient */}
+                <motion.div
+                  animate={{
+                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                  className={`absolute inset-0 bg-gradient-to-r ${amenity.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl`}
+                ></motion.div>
+
+                {/* Glow Effect on Hover */}
                 <div
-                  className={`absolute inset-0 bg-gradient-to-br ${amenity.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl`}
+                  className={`absolute -inset-1 bg-gradient-to-r ${amenity.gradient} rounded-2xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10`}
                 ></div>
 
                 <div className="relative z-10">
+                  {/* Icon Container with Creative Design */}
                   <motion.div
-                    whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
+                    whileHover={{
+                      rotate: [0, -15, 15, 0],
+                      scale: 1.15,
+                    }}
                     transition={{ duration: 0.5 }}
-                    className={`w-16 h-16 bg-gradient-to-br ${amenity.gradient} rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg border-2 border-white/50`}
+                    className={`relative w-20 h-20 bg-gradient-to-br ${amenity.iconBg} rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg border-2 border-white group-hover:shadow-xl`}
                   >
-                    <amenity.icon className={`w-8 h-8 ${amenity.iconColor}`} />
+                    {/* Animated Shine Effect */}
+                    <motion.div
+                      animate={{
+                        x: ["-100%", "200%"],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent rounded-2xl"
+                    />
+
+                    {/* Icon */}
+                    <amenity.icon
+                      className={`w-10 h-10 ${amenity.iconColor} relative z-10`}
+                    />
+
+                    {/* Emoji Badge */}
+                    <motion.div
+                      animate={{
+                        scale: [1, 1.2, 1],
+                        rotate: [0, 10, -10, 0],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        delay: index * 0.3,
+                      }}
+                      className="absolute -top-2 -right-2 text-2xl"
+                    >
+                      {amenity.emoji}
+                    </motion.div>
                   </motion.div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">
-                    {amenity.title}
+
+                  {/* Title with Gradient */}
+                  <h3 className="text-xl font-bold mb-2.5">
+                    <span
+                      className={`bg-gradient-to-r ${amenity.gradient} bg-clip-text text-transparent`}
+                    >
+                      {amenity.title}
+                    </span>
                   </h3>
-                  <p className="text-gray-600 text-sm">{amenity.description}</p>
+
+                  {/* Description */}
+                  <p className="text-gray-600 text-sm font-medium leading-relaxed">
+                    {amenity.description}
+                  </p>
                 </div>
 
-                {/* Decorative Corner */}
-                <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-emerald-200/30 to-transparent rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                {/* Decorative Corner Elements */}
+                <div
+                  className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-br ${amenity.gradient} opacity-0 group-hover:opacity-10 rounded-bl-2xl transition-opacity duration-500`}
+                ></div>
+                <div
+                  className={`absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr ${amenity.gradient} opacity-0 group-hover:opacity-10 rounded-tr-2xl transition-opacity duration-500`}
+                ></div>
+
+                {/* Bottom Accent Line */}
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileInView={{ width: "100%" }}
+                  transition={{ duration: 0.8, delay: index * 0.1 + 0.3 }}
+                  viewport={{ once: true }}
+                  className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r ${amenity.gradient} rounded-b-2xl`}
+                ></motion.div>
               </motion.div>
             ))}
           </div>
