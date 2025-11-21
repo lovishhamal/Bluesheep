@@ -1626,7 +1626,12 @@ export default function Home() {
             >
               <span className="text-3xl animate-pulse">⭐</span>
               <span className="text-emerald-700 font-bold">Guest Reviews</span>
-              <span className="text-3xl animate-pulse" style={{ animationDelay: "0.2s" }}>⭐</span>
+              <span
+                className="text-3xl animate-pulse"
+                style={{ animationDelay: "0.2s" }}
+              >
+                ⭐
+              </span>
             </motion.div>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
@@ -1902,101 +1907,198 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer - Clean & Minimal */}
-      <footer className="bg-white border-t border-gray-200 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-8 mb-8">
-            {/* Hotel Info */}
-            <div className="text-center md:text-left">
-              <div className="flex items-center justify-center md:justify-start mb-4">
-                <img
-                  src="/logo.jpg"
-                  alt="Hotel Blue Sheep Inn Logo"
-                  className="h-10 w-10 rounded-full mr-3"
-                  style={{
-                    WebkitTransform: "translateZ(0)",
-                    transform: "translateZ(0)",
-                    WebkitBackfaceVisibility: "hidden",
-                    backfaceVisibility: "hidden",
-                  }}
-                />
-                <h3 className="text-xl font-bold text-gray-900">
+      {/* Footer - Ultra Creative */}
+      <footer className="relative bg-gradient-to-br from-emerald-600 via-emerald-700 to-emerald-800 text-white overflow-hidden">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0">
+          <motion.div
+            animate={{
+              x: [0, 100, 0],
+              y: [0, 50, 0],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-emerald-400/20 to-blue-400/20 rounded-full blur-3xl"
+          />
+          <motion.div
+            animate={{
+              x: [0, -80, 0],
+              y: [0, -60, 0],
+              scale: [1, 1.3, 1],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-blue-400/20 to-emerald-400/20 rounded-full blur-3xl"
+          />
+        </div>
+
+        {/* Decorative Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            }}
+          />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="grid md:grid-cols-3 gap-12 mb-12">
+            {/* Hotel Info - Creative Design */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center md:text-left"
+            >
+              <motion.div
+                whileHover={{ scale: 1.05, rotate: 5 }}
+                className="flex items-center justify-center md:justify-start mb-6"
+              >
+                <div className="relative">
+                  <img
+                    src="/logo.jpg"
+                    alt="Hotel Blue Sheep Inn Logo"
+                    className="h-16 w-16 rounded-2xl mr-4 border-4 border-white/20 shadow-xl"
+                    style={{
+                      WebkitTransform: "translateZ(0)",
+                      transform: "translateZ(0)",
+                      WebkitBackfaceVisibility: "hidden",
+                      backfaceVisibility: "hidden",
+                    }}
+                  />
+                  <div className="absolute -inset-2 bg-gradient-to-br from-emerald-400 to-blue-400 rounded-2xl blur opacity-50"></div>
+                </div>
+                <h3 className="text-2xl font-bold bg-gradient-to-r from-white to-emerald-100 bg-clip-text text-transparent">
                   Hotel Blue Sheep Inn
                 </h3>
-              </div>
-              <p className="text-gray-600 mb-4 text-sm">
+              </motion.div>
+              <p className="text-emerald-50 mb-6 text-base leading-relaxed">
                 Experience luxury in the heart of Dolpa, Nepal. Your gateway to
                 the Himalayas.
               </p>
-              <div className="flex items-center justify-center md:justify-start gap-2 text-gray-600">
-                <PhoneIcon className="w-4 h-4" />
+              <motion.div
+                whileHover={{ scale: 1.05, x: 5 }}
+                className="flex items-center justify-center md:justify-start gap-3 bg-white/10 backdrop-blur-sm px-4 py-3 rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300"
+              >
+                <PhoneIcon className="w-5 h-5 text-emerald-200" />
                 <a
                   href={getTelUrl()}
-                  className="text-sm font-medium hover:text-gray-900 transition-colors"
+                  className="text-base font-semibold hover:text-white transition-colors"
                 >
                   {PHONE_NUMBER}
                 </a>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
-            {/* Quick Links */}
-            <div className="text-center">
-              <h4 className="text-base font-semibold mb-4 text-gray-900">
+            {/* Quick Links - Creative Design */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <h4 className="text-lg font-bold mb-6 text-white flex items-center justify-center gap-2">
+                <span>🔗</span>
                 Quick Links
               </h4>
-              <div className="space-y-2">
-                <Link
-                  href="/rooms"
-                  className="block text-gray-600 hover:text-gray-900 transition-colors text-sm"
-                >
-                  Rooms & Suites
-                </Link>
-                <Link
-                  href="/menu"
-                  className="block text-gray-600 hover:text-gray-900 transition-colors text-sm"
-                >
-                  Restaurant Menu
-                </Link>
-                <Link
-                  href="/camping"
-                  className="block text-gray-600 hover:text-gray-900 transition-colors text-sm"
-                >
-                  Garden Camping
-                </Link>
-                <Link
-                  href="/attractions"
-                  className="block text-gray-600 hover:text-gray-900 transition-colors text-sm"
-                >
-                  Attractions
-                </Link>
-                <Link
-                  href="/contact"
-                  className="block text-gray-600 hover:text-gray-900 transition-colors text-sm"
-                >
-                  Contact Us
-                </Link>
+              <div className="space-y-3">
+                {[
+                  { href: "/rooms", label: "Rooms & Suites", icon: "🏨" },
+                  { href: "/menu", label: "Restaurant Menu", icon: "🍽️" },
+                  { href: "/camping", label: "Garden Camping", icon: "🏕️" },
+                  { href: "/attractions", label: "Attractions", icon: "🏔️" },
+                  { href: "/contact", label: "Contact Us", icon: "📞" },
+                ].map((link, index) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
+                    viewport={{ once: true }}
+                    whileHover={{ x: 5 }}
+                  >
+                    <Link
+                      href={link.href}
+                      className="flex items-center justify-center gap-2 text-emerald-50 hover:text-white transition-all duration-300 text-sm font-medium group"
+                    >
+                      <span className="text-lg group-hover:scale-125 transition-transform duration-300">
+                        {link.icon}
+                      </span>
+                      <span className="group-hover:underline">
+                        {link.label}
+                      </span>
+                      <motion.span
+                        initial={{ opacity: 0, x: -10 }}
+                        whileHover={{ opacity: 1, x: 0 }}
+                        className="text-emerald-200"
+                      >
+                        →
+                      </motion.span>
+                    </Link>
+                  </motion.div>
+                ))}
               </div>
-            </div>
+            </motion.div>
 
-            {/* Location */}
-            <div className="text-center md:text-right">
-              <h4 className="text-base font-semibold mb-4 text-gray-900">
+            {/* Location - Creative Design */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              viewport={{ once: true }}
+              className="text-center md:text-right"
+            >
+              <h4 className="text-lg font-bold mb-6 text-white flex items-center justify-center md:justify-end gap-2">
+                <span>📍</span>
                 Location
               </h4>
-              <div className="text-gray-600 space-y-1 text-sm">
-                <p>Dunai, Dolpa</p>
-                <p>Karnali Province</p>
-                <p>Nepal</p>
+              <div className="space-y-3">
+                {[
+                  { text: "Dunai, Dolpa", icon: "🏘️" },
+                  { text: "Karnali Province", icon: "🗺️" },
+                  { text: "Nepal", icon: "🇳🇵" },
+                ].map((item, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.5 + index * 0.1, duration: 0.5 }}
+                    viewport={{ once: true }}
+                    className="flex items-center justify-center md:justify-end gap-2 text-emerald-50 text-base"
+                  >
+                    <span>{item.icon}</span>
+                    <span>{item.text}</span>
+                  </motion.div>
+                ))}
               </div>
-            </div>
+            </motion.div>
           </div>
 
-          <div className="border-t border-gray-200 pt-8 text-center">
-            <p className="text-gray-500 text-sm">
-              &copy; {new Date().getFullYear()} Hotel Blue Sheep Inn. All rights
-              reserved.
-            </p>
-          </div>
+          {/* Bottom Section - Creative */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="border-t border-emerald-500/30 pt-8"
+          >
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <p className="text-emerald-100 text-sm">
+                &copy; {new Date().getFullYear()} Hotel Blue Sheep Inn. All
+                rights reserved.
+              </p>
+            </div>
+          </motion.div>
         </div>
       </footer>
 
