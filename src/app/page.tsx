@@ -107,6 +107,18 @@ export default function Home() {
     },
   ]);
 
+  // Hero Image Stack State
+  const [heroImageStackIndex, setHeroImageStackIndex] = useState(0);
+  const [prevHeroImageStackIndex, setPrevHeroImageStackIndex] = useState(0);
+  // Using only confirmed images from public folder
+  const heroImages = [
+    "/phoksundo.jpg",
+    "/dho.jpg",
+    "/hotel-room.jpg",
+    "/hotel-exterior.jpg",
+    "/dining-area.jpg",
+  ];
+
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length);
   };
@@ -253,6 +265,18 @@ export default function Home() {
 
     return () => clearInterval(interval);
   }, [galleryImages.length, isAutoPlay]);
+
+  // Auto-rotate hero image stack
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHeroImageStackIndex((prev) => {
+        setPrevHeroImageStackIndex(prev);
+        return (prev + 1) % heroImages.length;
+      });
+    }, 4000); // Change image every 4 seconds
+
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -508,7 +532,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3, duration: 0.8 }}
-                  className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight"
+                  className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold leading-tight"
                 >
                   <span className="block bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
                     Hotel Blue
@@ -533,12 +557,12 @@ export default function Home() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7, duration: 0.8 }}
-                className="grid grid-cols-3 gap-4 pt-4"
+                className="grid grid-cols-3 gap-2 sm:gap-4 pt-4"
               >
                 {[
-                  { label: "Rooms", value: "20+" },
-                  { label: "Guests", value: "500+" },
-                  { label: "Rating", value: "4.8★" },
+                  { label: "Rooms", value: "20+", icon: "🏨" },
+                  { label: "Guests", value: "500+", icon: "👥" },
+                  { label: "Rating", value: "4.8★", icon: "⭐" },
                 ].map((stat, index) => (
                   <motion.div
                     key={index}
@@ -546,9 +570,10 @@ export default function Home() {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.8 + index * 0.1, duration: 0.5 }}
                     whileHover={{ scale: 1.05, y: -5 }}
-                    className="bg-gradient-to-br from-white to-gray-50 rounded-xl p-4 border border-gray-200/50 shadow-sm hover:shadow-md transition-all duration-300"
+                    className="bg-gradient-to-br from-white to-gray-50 rounded-lg md:rounded-xl p-3 md:p-4 border border-gray-200/50 shadow-sm hover:shadow-md transition-all duration-300"
                   >
-                    <div className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
+                    <div className="text-xl mb-1 md:hidden">{stat.icon}</div>
+                    <div className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
                       {stat.value}
                     </div>
                     <div className="text-xs text-gray-600 mt-1">
@@ -563,21 +588,35 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 0.8 }}
-                className="flex flex-col sm:flex-row items-center lg:items-start gap-4 text-gray-600"
+                className="flex flex-col sm:flex-row items-center lg:items-start gap-3 sm:gap-4 text-gray-600"
               >
-                <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-lg border border-gray-200/50">
-                  <PhoneIcon className="w-5 h-5 text-emerald-600" />
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="flex items-center gap-2 bg-gradient-to-r from-emerald-50 to-blue-50 backdrop-blur-sm px-3 py-2 rounded-lg border border-emerald-200/50 shadow-sm md:bg-white/80 md:border-gray-200/50 md:px-4"
+                >
+                  <div className="p-1.5 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-md md:hidden">
+                    <PhoneIcon className="w-3.5 h-3.5 text-white" />
+                  </div>
+                  <PhoneIcon className="w-5 h-5 text-emerald-600 hidden md:block" />
                   <a
                     href={getTelUrl()}
-                    className="hover:text-gray-900 transition-colors font-medium"
+                    className="hover:text-gray-900 transition-colors font-medium text-sm md:text-base"
                   >
                     {PHONE_NUMBER}
                   </a>
-                </div>
-                <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-lg border border-gray-200/50">
-                  <MapPinIcon className="w-5 h-5 text-emerald-600" />
-                  <span className="font-medium">Dunai, Dolpa</span>
-                </div>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="flex items-center gap-2 bg-gradient-to-r from-blue-50 to-emerald-50 backdrop-blur-sm px-3 py-2 rounded-lg border border-blue-200/50 shadow-sm md:bg-white/80 md:border-gray-200/50 md:px-4"
+                >
+                  <div className="p-1.5 bg-gradient-to-br from-blue-500 to-blue-600 rounded-md md:hidden">
+                    <MapPinIcon className="w-3.5 h-3.5 text-white" />
+                  </div>
+                  <MapPinIcon className="w-5 h-5 text-emerald-600 hidden md:block" />
+                  <span className="font-medium text-sm md:text-base">
+                    Dunai, Dolpa
+                  </span>
+                </motion.div>
               </motion.div>
 
               {/* Action Buttons */}
@@ -585,37 +624,54 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.2, duration: 0.8 }}
-                className="flex flex-col sm:flex-row gap-4 pt-4"
+                className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4"
               >
                 <motion.button
                   onClick={() => router.push("/rooms")}
-                  className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-lg transition-all duration-200 shadow-xl hover:shadow-2xl shadow-emerald-500/40 flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-xl sm:rounded-lg transition-all duration-200 shadow-xl hover:shadow-2xl shadow-emerald-500/40 text-sm sm:text-base"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <span>Book Now</span>
-                  <span className="text-xl">→</span>
+                  <span className="text-lg sm:text-xl">→</span>
                 </motion.button>
                 <motion.button
                   onClick={openCampingPage}
-                  className="px-8 py-4 bg-white/90 backdrop-blur-sm border-2 border-gray-300 text-gray-900 font-semibold rounded-lg hover:border-emerald-400 hover:bg-white transition-all duration-200 shadow-lg flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-white to-gray-50 border-2 border-gray-300 text-gray-900 font-semibold rounded-xl sm:rounded-lg hover:border-gray-400 hover:from-gray-50 hover:to-white transition-all duration-200 shadow-sm text-sm sm:text-base"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <span>Explore Camping</span>
                   <span>🏕️</span>
                 </motion.button>
+                <motion.button
+                  onClick={() => {
+                    const mapSection = document.getElementById("map-section");
+                    if (mapSection) {
+                      mapSection.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      });
+                    }
+                  }}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-white to-gray-50 border-2 border-gray-300 text-gray-900 font-semibold rounded-xl sm:rounded-lg hover:border-gray-400 hover:from-gray-50 hover:to-white transition-all duration-200 shadow-sm text-sm sm:text-base"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span>Find Us</span>
+                  <MapPinIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+                </motion.button>
               </motion.div>
             </motion.div>
 
-            {/* Right Side - Visual Element */}
+            {/* Right Side - Visual Element with Image Stack */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
               className="relative hidden lg:block"
             >
-              {/* Main Image Container */}
+              {/* Image Stack Container */}
               <div className="relative">
                 <motion.div
                   animate={{ y: [0, -20, 0] }}
@@ -626,19 +682,384 @@ export default function Home() {
                   }}
                   className="relative z-10"
                 >
-                  <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
-                    <img
-                      src="/phoksundo.jpg"
-                      alt="Hotel Blue Sheep Inn - Dolpa Nepal"
-                      className="w-full h-[500px] object-cover"
-                      style={{
-                        WebkitTransform: "translateZ(0)",
-                        transform: "translateZ(0)",
-                        WebkitBackfaceVisibility: "hidden",
-                        backfaceVisibility: "hidden",
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                  {/* Image Stack - Ultra Creative Book Stack Effect */}
+                  <div
+                    className="relative w-full h-[500px]"
+                    style={{
+                      perspective: "1500px",
+                      perspectiveOrigin: "center center",
+                    }}
+                  >
+                    {heroImages.length > 0 ? (
+                      heroImages.map((imageSrc, index) => {
+                        // Calculate position relative to current active image
+                        let relativeIndex =
+                          (index - heroImageStackIndex + heroImages.length) %
+                          heroImages.length;
+
+                        // Only render visible images (show max 5 images)
+                        if (relativeIndex > 4) {
+                          return null;
+                        }
+
+                        // Calculate transforms for creative stack effect
+                        let zIndex = 5;
+                        let translateX = 0;
+                        let translateY = 0;
+                        let translateZ = 0;
+                        let rotateY = 0;
+                        let rotateX = 0;
+                        let scale = 1;
+                        let opacity = 1;
+                        let blur = 0;
+                        let shadowIntensity = 0;
+
+                        if (relativeIndex === 0) {
+                          // Active image (front) - Center stage with dramatic effect
+                          zIndex = 50;
+                          translateX = 0;
+                          translateY = 0;
+                          translateZ = 0;
+                          rotateY = 0;
+                          rotateX = 0;
+                          scale = 1;
+                          opacity = 1;
+                          blur = 0;
+                          shadowIntensity = 1;
+                        } else if (relativeIndex === 1) {
+                          // Next image (peeking from right) - Dramatic angle
+                          zIndex = 45;
+                          translateX = 40;
+                          translateY = -20;
+                          translateZ = -50;
+                          rotateY = -35;
+                          rotateX = 5;
+                          scale = 0.88;
+                          opacity = 0.85;
+                          blur = 2;
+                          shadowIntensity = 0.6;
+                        } else if (relativeIndex === 2) {
+                          // Second next (further right) - More dramatic
+                          zIndex = 40;
+                          translateX = 70;
+                          translateY = -35;
+                          translateZ = -100;
+                          rotateY = -50;
+                          rotateX = 8;
+                          scale = 0.75;
+                          opacity = 0.6;
+                          blur = 4;
+                          shadowIntensity = 0.4;
+                        } else if (
+                          relativeIndex === heroImages.length - 1 ||
+                          relativeIndex === 3
+                        ) {
+                          // Previous image (peeking from left) - Dramatic angle
+                          zIndex = 48;
+                          translateX = -40;
+                          translateY = -20;
+                          translateZ = -50;
+                          rotateY = 35;
+                          rotateX = 5;
+                          scale = 0.88;
+                          opacity = 0.85;
+                          blur = 2;
+                          shadowIntensity = 0.6;
+                        } else if (relativeIndex === 4) {
+                          // Fourth image (far left)
+                          zIndex = 35;
+                          translateX = -70;
+                          translateY = -35;
+                          translateZ = -100;
+                          rotateY = 50;
+                          rotateX = 8;
+                          scale = 0.75;
+                          opacity = 0.5;
+                          blur = 4;
+                          shadowIntensity = 0.3;
+                        }
+
+                        // Determine animation states for swipe effect
+                        const isCurrentlyActive = relativeIndex === 0;
+                        const wasPreviouslyActive =
+                          index === prevHeroImageStackIndex;
+                        const isBecomingActive =
+                          isCurrentlyActive && index === heroImageStackIndex;
+                        const isLeavingActive =
+                          wasPreviouslyActive && index !== heroImageStackIndex;
+
+                        // Calculate animation start/end positions for back-to-front flip
+                        let startTranslateZ = translateZ;
+                        let startOpacity = opacity;
+                        let startScale = scale;
+                        let startRotateY = rotateY;
+
+                        // If becoming active, start from back (behind, rotated like book page)
+                        if (
+                          isBecomingActive &&
+                          heroImageStackIndex !== prevHeroImageStackIndex
+                        ) {
+                          startTranslateZ = -400; // Start from behind
+                          startOpacity = 0.3;
+                          startScale = 0.6;
+                          startRotateY = 180; // Start rotated (back side visible)
+                        }
+                        // If leaving active, go to back (behind, rotated)
+                        else if (
+                          isLeavingActive &&
+                          heroImageStackIndex !== prevHeroImageStackIndex
+                        ) {
+                          // This will be handled in animate
+                        }
+
+                        return (
+                          <motion.div
+                            key={`${imageSrc}-${index}-${heroImageStackIndex}`}
+                            initial={
+                              isBecomingActive &&
+                              heroImageStackIndex !== prevHeroImageStackIndex
+                                ? {
+                                    scale: startScale,
+                                    opacity: startOpacity,
+                                  }
+                                : undefined
+                            }
+                            animate={{
+                              x: translateX,
+                              y: translateY,
+                              scale: scale,
+                              opacity:
+                                isLeavingActive &&
+                                heroImageStackIndex !== prevHeroImageStackIndex
+                                  ? 0.2
+                                  : opacity,
+                              filter: `blur(${blur}px) brightness(${
+                                1 + shadowIntensity * 0.2
+                              })`,
+                            }}
+                            transition={{
+                              duration:
+                                (isBecomingActive || isLeavingActive) &&
+                                heroImageStackIndex !== prevHeroImageStackIndex
+                                  ? 1.2
+                                  : 1.2,
+                              ease:
+                                (isBecomingActive || isLeavingActive) &&
+                                heroImageStackIndex !== prevHeroImageStackIndex
+                                  ? [0.4, 0, 0.2, 1] // Smooth ease for back-to-front transitions
+                                  : [0.25, 0.46, 0.45, 0.94], // Custom easing for smooth book flip
+                            }}
+                            style={
+                              {
+                                position: "absolute",
+                                zIndex: zIndex,
+                                transformStyle: "preserve-3d",
+                                width: "100%",
+                                height: "100%",
+                                top: 0,
+                                left: 0,
+                                "--translateZ":
+                                  isLeavingActive &&
+                                  heroImageStackIndex !==
+                                    prevHeroImageStackIndex
+                                    ? -400
+                                    : isBecomingActive &&
+                                      heroImageStackIndex !==
+                                        prevHeroImageStackIndex
+                                    ? startTranslateZ
+                                    : translateZ,
+                                "--rotateY":
+                                  isLeavingActive &&
+                                  heroImageStackIndex !==
+                                    prevHeroImageStackIndex
+                                    ? 180
+                                    : isBecomingActive &&
+                                      heroImageStackIndex !==
+                                        prevHeroImageStackIndex
+                                    ? startRotateY
+                                    : rotateY,
+                                transform: `perspective(1500px) translateZ(var(--translateZ, ${translateZ}px)) rotateY(var(--rotateY, ${rotateY}deg)) rotateX(${rotateX}deg)`,
+                                transition:
+                                  (isBecomingActive || isLeavingActive) &&
+                                  heroImageStackIndex !==
+                                    prevHeroImageStackIndex
+                                    ? "transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), --translateZ 1.2s cubic-bezier(0.4, 0, 0.2, 1), --rotateY 1.2s cubic-bezier(0.4, 0, 0.2, 1)"
+                                    : "transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+                                boxShadow:
+                                  relativeIndex === 0
+                                    ? `0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1), 0 0 60px rgba(16, 185, 129, ${
+                                        shadowIntensity * 0.3
+                                      })`
+                                    : `0 ${10 + shadowIntensity * 20}px ${
+                                        20 + shadowIntensity * 30
+                                      }px -5px rgba(0, 0, 0, ${
+                                        0.3 + shadowIntensity * 0.2
+                                      })`,
+                              } as React.CSSProperties & {
+                                "--translateZ": number;
+                                "--rotateY": number;
+                              }
+                            }
+                            data-image-index={index}
+                            className="rounded-2xl overflow-hidden border-4 border-white/90 cursor-pointer"
+                            whileHover={
+                              relativeIndex === 0
+                                ? {
+                                    scale: 1.03,
+                                    rotateY: [0, -5, 5, 0],
+                                    transition: { duration: 0.6 },
+                                  }
+                                : {}
+                            }
+                          >
+                            {/* Image with parallax effect */}
+                            <motion.div
+                              animate={{
+                                scale: relativeIndex === 0 ? [1, 1.05, 1] : 1,
+                              }}
+                              transition={{
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                              }}
+                              className="w-full h-full"
+                            >
+                              <img
+                                src={imageSrc}
+                                alt={`Hotel Blue Sheep Inn - Image ${
+                                  index + 1
+                                }`}
+                                className="w-full h-full object-cover"
+                                style={{
+                                  WebkitTransform: "translateZ(0)",
+                                  transform: "translateZ(0)",
+                                  WebkitBackfaceVisibility: "hidden",
+                                  backfaceVisibility: "hidden",
+                                }}
+                                onError={(e) => {
+                                  console.error(
+                                    `Failed to load image: ${imageSrc}`
+                                  );
+                                  const target = e.target as HTMLImageElement;
+                                  if (!target.src.includes("phoksundo.jpg")) {
+                                    target.src = "/phoksundo.jpg";
+                                  }
+                                }}
+                              />
+                            </motion.div>
+
+                            {/* Dynamic gradient overlay */}
+                            <div
+                              className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"
+                              style={{
+                                opacity: 0.7 - relativeIndex * 0.1,
+                              }}
+                            />
+
+                            {/* Shine effect on active image */}
+                            {relativeIndex === 0 && (
+                              <motion.div
+                                animate={{
+                                  x: ["-100%", "200%"],
+                                }}
+                                transition={{
+                                  duration: 3,
+                                  repeat: Infinity,
+                                  ease: "linear",
+                                }}
+                                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                                style={{
+                                  width: "50%",
+                                  height: "100%",
+                                }}
+                              />
+                            )}
+
+                            {/* Page corner fold effect for next image */}
+                            {relativeIndex === 1 && (
+                              <motion.div
+                                animate={{
+                                  rotateY: [-5, 5, -5],
+                                }}
+                                transition={{
+                                  duration: 3,
+                                  repeat: Infinity,
+                                  ease: "easeInOut",
+                                }}
+                                className="absolute right-0 top-0 w-20 h-20 bg-gradient-to-br from-white/30 to-transparent"
+                                style={{
+                                  clipPath: "polygon(100% 0, 100% 100%, 0 0)",
+                                }}
+                              />
+                            )}
+
+                            {/* Floating particles effect on active image */}
+                            {relativeIndex === 0 && (
+                              <>
+                                {[...Array(3)].map((_, i) => (
+                                  <motion.div
+                                    key={i}
+                                    animate={{
+                                      y: [0, -30, 0],
+                                      x: [0, Math.sin(i) * 20, 0],
+                                      opacity: [0.3, 0.7, 0.3],
+                                      scale: [0.8, 1.2, 0.8],
+                                    }}
+                                    transition={{
+                                      duration: 2 + i * 0.5,
+                                      repeat: Infinity,
+                                      delay: i * 0.3,
+                                      ease: "easeInOut",
+                                    }}
+                                    className="absolute w-2 h-2 bg-emerald-400 rounded-full blur-sm"
+                                    style={{
+                                      top: `${20 + i * 30}%`,
+                                      left: `${30 + i * 20}%`,
+                                    }}
+                                  />
+                                ))}
+                              </>
+                            )}
+
+                            {/* Page number indicator */}
+                            {relativeIndex === 0 && (
+                              <motion.div
+                                initial={{ opacity: 0, scale: 0 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.3, duration: 0.5 }}
+                                className="absolute bottom-4 right-4 bg-gradient-to-br from-emerald-500/90 to-blue-500/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-xl border border-white/20"
+                              >
+                                <span className="text-white text-xs font-bold">
+                                  {heroImageStackIndex + 1} /{" "}
+                                  {heroImages.length}
+                                </span>
+                              </motion.div>
+                            )}
+
+                            {/* Glow effect on edges */}
+                            <div
+                              className="absolute inset-0 pointer-events-none"
+                              style={{
+                                boxShadow:
+                                  relativeIndex === 0
+                                    ? "inset 0 0 40px rgba(16, 185, 129, 0.3)"
+                                    : "none",
+                              }}
+                            />
+                          </motion.div>
+                        );
+                      })
+                    ) : (
+                      // Fallback if no images
+                      <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white w-full h-full">
+                        <img
+                          src="/phoksundo.jpg"
+                          alt="Hotel Blue Sheep Inn - Dolpa Nepal"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                      </div>
+                    )}
                   </div>
                 </motion.div>
 
@@ -681,29 +1102,6 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 0.8 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="flex flex-col items-center gap-2"
-          >
-            <span className="text-gray-400 text-sm">Scroll</span>
-            <div className="w-6 h-10 border-2 border-emerald-400/50 rounded-full flex justify-center">
-              <motion.div
-                animate={{ y: [0, 12, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-                className="w-1.5 h-3 bg-emerald-500 rounded-full mt-2"
-              />
-            </div>
-          </motion.div>
-        </motion.div>
       </section>
 
       {/* Features Section - Ultra Creative */}
@@ -779,8 +1177,8 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* Creative Grid Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Creative Grid Layout - 2 columns on mobile */}
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
             {[
               {
                 icon: "🏔️",
@@ -853,7 +1251,7 @@ export default function Home() {
               >
                 {/* Card */}
                 <div
-                  className={`relative bg-gradient-to-br ${feature.gradient} rounded-2xl p-8 border border-gray-200/50 hover:border-emerald-300/50 transition-all duration-500 h-full overflow-hidden`}
+                  className={`relative bg-gradient-to-br ${feature.gradient} rounded-xl md:rounded-2xl p-4 md:p-8 border border-gray-200/50 hover:border-emerald-300/50 transition-all duration-500 h-full overflow-hidden`}
                 >
                   {/* Animated Background Pattern */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -864,20 +1262,20 @@ export default function Home() {
                   <motion.div
                     whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
                     transition={{ duration: 0.5 }}
-                    className={`relative mb-6 w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.iconBg} flex items-center justify-center shadow-lg`}
+                    className={`relative mb-3 md:mb-6 w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br ${feature.iconBg} flex items-center justify-center shadow-lg`}
                   >
-                    <span className="text-3xl relative z-10">
+                    <span className="text-2xl md:text-3xl relative z-10">
                       {feature.icon}
                     </span>
-                    <div className="absolute inset-0 bg-white/20 rounded-2xl blur-sm"></div>
+                    <div className="absolute inset-0 bg-white/20 rounded-xl md:rounded-2xl blur-sm"></div>
                   </motion.div>
 
                   {/* Content */}
                   <div className="relative z-10">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-emerald-700 transition-colors">
+                    <h3 className="text-base md:text-2xl font-bold text-gray-900 mb-2 md:mb-4 group-hover:text-emerald-700 transition-colors">
                       {feature.title}
                     </h3>
-                    <p className="text-gray-700 leading-relaxed">
+                    <p className="text-xs md:text-base text-gray-700 leading-relaxed">
                       {feature.description}
                     </p>
                   </div>
