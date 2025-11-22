@@ -7,10 +7,11 @@ export function useIsMobile(): boolean {
     const checkMobile = () => {
       const width = window.innerWidth;
       const userAgent = navigator.userAgent;
-      const isMobileDevice = 
+      const isMobileDevice = Boolean(
         width <= 768 ||
         /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent) ||
-        (navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && width <= 1024);
+        (navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && width <= 1024)
+      );
       
       setIsMobile(isMobileDevice);
     };

@@ -69,8 +69,7 @@ export function Motion({
             hasAnimatedRef.current = true;
             animateElement(whileInView);
           }
-        },
-        { margin: viewport?.margin || "0px" }
+        }
       );
       return () => {
         stop();
@@ -87,20 +86,17 @@ export function Motion({
         if (whileHover.scale !== undefined) {
           animate(element, { scale: whileHover.scale }, {
             duration: transition?.duration || 0.3,
-            easing: "ease-out",
           } as AnimationOptions);
         }
         if (whileHover.y !== undefined) {
           animate(element, { y: whileHover.y }, {
             duration: transition?.duration || 0.3,
-            easing: "ease-out",
           } as AnimationOptions);
         }
       };
       const handleMouseLeave = () => {
         animate(element, { scale: 1, y: 0 }, {
           duration: transition?.duration || 0.3,
-          easing: "ease-out",
         } as AnimationOptions);
       };
       element.addEventListener("mouseenter", handleMouseEnter);
@@ -121,7 +117,7 @@ export function Motion({
     const element = ref.current;
     if (!element) return;
 
-    const animations: any = {};
+    const animations: Record<string, number | string | number[] | string[]> = {};
     if (target.opacity !== undefined) animations.opacity = target.opacity;
     if (target.y !== undefined) animations.y = target.y;
     if (target.x !== undefined) animations.x = target.x;
@@ -143,7 +139,6 @@ export function Motion({
     const options: AnimationOptions = {
       duration: transition?.duration || 0.6,
       delay: transition?.delay || 0,
-      easing: transition?.ease || (transition?.type === "spring" ? [0.43, 0.13, 0.23, 0.96] : transition?.type === "linear" ? "linear" : "ease-out"),
       repeat: transition?.repeat || (transition?.repeat === Infinity ? Infinity : undefined),
     };
 
