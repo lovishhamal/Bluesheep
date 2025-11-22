@@ -495,7 +495,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
-                className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 bg-gradient-to-r from-emerald-100 to-blue-100 rounded-full border border-emerald-200/50 shadow-md mb-8 sm:mb-3"
+                className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 bg-gradient-to-r from-emerald-100 to-blue-100 rounded-full border border-emerald-200/50 shadow-md mb-6 sm:mb-3"
               >
                 <span className="text-emerald-600 font-semibold text-xs sm:text-sm md:text-base">
                   🏔️ Luxury in the Himalayas
@@ -657,7 +657,7 @@ export default function Home() {
                       });
                     }
                   }}
-                  className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 sm:px-10 sm:py-5 bg-white/95 backdrop-blur-sm border-2 border-blue-300/50 text-gray-900 font-bold rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-300 shadow-lg hover:shadow-xl hover:border-blue-400 text-base sm:text-lg md:text-xl"
+                  className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2.5 sm:gap-3 px-6 py-3.5 sm:px-10 sm:py-5 bg-white/95 backdrop-blur-sm border-2 border-emerald-300/50 text-gray-900 font-bold rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-300 shadow-lg hover:shadow-xl hover:border-emerald-400 text-base sm:text-lg md:text-xl"
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -671,21 +671,21 @@ export default function Home() {
                       repeat: Infinity,
                       ease: "linear",
                     }}
-                    className="absolute inset-0 bg-gradient-to-r from-blue-50/0 via-blue-50/50 to-blue-50/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    className="absolute inset-0 bg-gradient-to-r from-emerald-50/0 via-emerald-50/50 to-emerald-50/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   />
 
                   {/* Content */}
                   <span className="relative z-10">Find Us</span>
-                  <motion.div
+                  <motion.span
                     animate={{ y: [0, -3, 0] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
-                    className="relative z-10"
+                    className="relative z-10 text-lg sm:text-2xl"
                   >
-                    <MapPinIcon className="w-6 h-6 text-blue-600" />
-                  </motion.div>
+                    📍
+                  </motion.span>
 
                   {/* Corner Accent */}
-                  <div className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-br from-blue-200/30 to-transparent rounded-bl-2xl"></div>
+                  <div className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-br from-emerald-200/30 to-transparent rounded-bl-2xl"></div>
                 </motion.button>
               </motion.div>
             </motion.div>
