@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "build:export": "NEXT_EXPORT=true next build",
     "start": "next start",
     "lint": "eslint",
     "ngrok": "ngrok http 3000"

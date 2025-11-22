@@ -2,7 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   trailingSlash: true,
-  output: "export", // Static export for hosting
+  // Only use static export when explicitly enabled via NEXT_EXPORT env variable
+  ...(process.env.NEXT_EXPORT === "true" && { output: "export" }),
   images: {
     unoptimized: true, // Required for static export
     formats: ["image/webp", "image/avif"],
@@ -16,6 +17,29 @@ const nextConfig: NextConfig = {
   generateEtags: true,
   // Note: async headers() is not compatible with static export
   // Headers should be configured at server/hosting level instead
+  ...(process.env.NODE_ENV !== "production" && {
+    async headers() {
+      return [
+        {
+          source: "/(.*)",
+          headers: [
+            {
+              key: "X-Frame-Options",
+              value: "DENY",
+            },
+            {
+              key: "X-Content-Type-Options",
+              value: "nosniff",
+            },
+            {
+              key: "Referrer-Policy",
+              value: "origin-when-cross-origin",
+            },
+          ],
+        },
+      ];
+    },
+  }),
 };
 
 export default nextConfig;
