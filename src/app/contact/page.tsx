@@ -149,7 +149,7 @@ export default function ContactPage() {
       </nav>
 
       {/* Header Section - Creative Design */}
-      <section className="relative min-h-[550px] pt-2 pb-0 sm:py-8 md:py-12 lg:py-16 bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden">
+      <section className="relative pt-2 pb-0 sm:py-8 md:py-12 lg:py-16 bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
           <motion.div
@@ -192,14 +192,14 @@ export default function ContactPage() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="inline-flex mt-3 items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full text-sm font-semibold mb-8 sm:mb-3 shadow-lg"
+              className="inline-flex mt-3 items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full text-sm font-semibold mb-3 shadow-lg"
             >
               <span>📞</span>
               <span>Get in Touch</span>
             </motion.div>
 
             {/* Title */}
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-4">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-2">
               <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
                 Contact Us
               </span>
@@ -211,189 +211,97 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact Information Grid - Creative Design */}
-      <section className="pt-0 pb-6 sm:pt-4 sm:pb-8 md:py-12 lg:py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+      {/* Contact Information - Simple Design */}
+      <section className="pt-6 pb-8 sm:pt-8 sm:pb-12 md:py-12 lg:py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="space-y-6">
             {/* Phone */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="group relative bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 hover:border-emerald-400 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-400/20"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="flex items-center gap-4 p-4 bg-emerald-50 rounded-xl border border-emerald-200"
             >
-              {/* Gradient Background on Hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
-
-              <div className="text-center relative z-10">
-                <motion.div
-                  whileHover={{ rotate: [0, -15, 15, 0], scale: 1.1 }}
-                  transition={{ duration: 0.5 }}
-                  className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg border-2 border-white group-hover:shadow-xl"
-                >
-                  {/* Animated Shine Effect */}
-                  <motion.div
-                    animate={{
-                      x: ["-100%", "200%"],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent rounded-2xl"
-                  />
-                  <PhoneIcon className="w-10 h-10 text-white relative z-10" />
-                </motion.div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-emerald-700 transition-colors">
-                  Phone
-                </h3>
-                <p className="text-gray-700 mb-3 font-medium">{PHONE_NUMBER}</p>
-                <motion.button
-                  onClick={() => {
-                    const message = `Hi! I'd like to get in touch about your hotel services.`;
-                    const whatsappUrl = getWhatsAppUrl(message);
-                    window.open(whatsappUrl, "_blank");
-                  }}
-                  className="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  WhatsApp
-                </motion.button>
+              <div className="w-12 h-12 bg-emerald-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                <PhoneIcon className="w-6 h-6 text-white" />
               </div>
+              <div className="flex-1">
+                <p className="text-sm text-gray-600 mb-1">Phone</p>
+                <p className="text-lg font-semibold text-gray-900">
+                  {PHONE_NUMBER}
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  const message = `Hi! I'd like to get in touch about your hotel services.`;
+                  const whatsappUrl = getWhatsAppUrl(message);
+                  window.open(whatsappUrl, "_blank");
+                }}
+                className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg text-sm font-semibold transition-colors"
+              >
+                WhatsApp
+              </button>
             </motion.div>
 
             {/* Email */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="group relative bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 hover:border-blue-400 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-400/20"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="flex items-center gap-4 p-4 bg-blue-50 rounded-xl border border-blue-200"
             >
-              {/* Gradient Background on Hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
-
-              <div className="text-center relative z-10">
-                <motion.div
-                  whileHover={{ rotate: [0, -15, 15, 0], scale: 1.1 }}
-                  transition={{ duration: 0.5 }}
-                  className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg border-2 border-white group-hover:shadow-xl"
-                >
-                  {/* Animated Shine Effect */}
-                  <motion.div
-                    animate={{
-                      x: ["-100%", "200%"],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent rounded-2xl"
-                  />
-                  <EnvelopeIcon className="w-10 h-10 text-white relative z-10" />
-                </motion.div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-700 transition-colors">
-                  Email
-                </h3>
-                <p className="text-gray-700 mb-3 text-sm font-medium break-all">
+              <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                <EnvelopeIcon className="w-6 h-6 text-white" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm text-gray-600 mb-1">Email</p>
+                <p className="text-lg font-semibold text-gray-900 truncate">
                   innbluesheep@gmail.com
                 </p>
-                <motion.button
-                  onClick={() => {
-                    window.open("mailto:innbluesheep@gmail.com", "_self");
-                  }}
-                  className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Send Email
-                </motion.button>
               </div>
+              <button
+                onClick={() => {
+                  window.open("mailto:innbluesheep@gmail.com", "_self");
+                }}
+                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm font-semibold transition-colors flex-shrink-0"
+              >
+                Email
+              </button>
             </motion.div>
 
             {/* Location */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="group relative bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 hover:border-purple-400 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-400/20"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="flex items-center gap-4 p-4 bg-purple-50 rounded-xl border border-purple-200"
             >
-              {/* Gradient Background on Hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-pink-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
-
-              <div className="text-center relative z-10">
-                <motion.div
-                  whileHover={{ rotate: [0, -15, 15, 0], scale: 1.1 }}
-                  transition={{ duration: 0.5 }}
-                  className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg border-2 border-white group-hover:shadow-xl"
-                >
-                  {/* Animated Shine Effect */}
-                  <motion.div
-                    animate={{
-                      x: ["-100%", "200%"],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent rounded-2xl"
-                  />
-                  <MapPinIcon className="w-10 h-10 text-white relative z-10" />
-                </motion.div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-purple-700 transition-colors">
-                  Location
-                </h3>
-                <p className="text-gray-700 mb-1 font-semibold">
-                  Heart of Dunai
+              <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                <MapPinIcon className="w-6 h-6 text-white" />
+              </div>
+              <div className="flex-1">
+                <p className="text-sm text-gray-600 mb-1">Location</p>
+                <p className="text-lg font-semibold text-gray-900">
+                  Dunai, Dolpa, Nepal
                 </p>
-                <p className="text-gray-600 text-sm">Dolpa, Nepal</p>
               </div>
             </motion.div>
 
             {/* Hours */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="group relative bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 hover:border-orange-400 transition-all duration-300 hover:shadow-2xl hover:shadow-orange-400/20"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex items-center gap-4 p-4 bg-orange-50 rounded-xl border border-orange-200"
             >
-              {/* Gradient Background on Hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-50 to-amber-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
-
-              <div className="text-center relative z-10">
-                <motion.div
-                  whileHover={{ rotate: [0, -15, 15, 0], scale: 1.1 }}
-                  transition={{ duration: 0.5 }}
-                  className="w-20 h-20 bg-gradient-to-br from-orange-500 to-amber-500 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg border-2 border-white group-hover:shadow-xl"
-                >
-                  {/* Animated Shine Effect */}
-                  <motion.div
-                    animate={{
-                      x: ["-100%", "200%"],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent rounded-2xl"
-                  />
-                  <ClockIcon className="w-10 h-10 text-white relative z-10" />
-                </motion.div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-700 transition-colors">
-                  Hours
-                </h3>
-                <p className="text-gray-700 text-sm font-semibold mb-1">
-                  Mon - Sun
+              <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                <ClockIcon className="w-6 h-6 text-white" />
+              </div>
+              <div className="flex-1">
+                <p className="text-sm text-gray-600 mb-1">Hours</p>
+                <p className="text-lg font-semibold text-gray-900">
+                  Mon - Sun: 6:00 AM - 10:00 PM
                 </p>
-                <p className="text-gray-600 text-sm">6:00 AM - 10:00 PM</p>
               </div>
             </motion.div>
           </div>
@@ -401,16 +309,16 @@ export default function ContactPage() {
       </section>
 
       {/* Map Section - Creative Design */}
-      <section className="py-12 lg:py-16 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
+      <section className="pt-8 pb-8 sm:pt-12 sm:pb-12 md:py-12 lg:py-16 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-6 sm:mb-12"
+            className="text-center mb-4 sm:mb-8"
           >
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
               <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
                 Find Us
               </span>
