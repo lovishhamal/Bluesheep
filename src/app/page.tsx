@@ -482,38 +482,38 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center justify-center min-h-[70vh] py-12 lg:py-16">
+          <div className="flex flex-col items-center justify-center min-h-[70vh] py-8 sm:py-12 lg:py-16">
             {/* Content - Centered */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-center space-y-6 lg:space-y-8 w-full max-w-4xl"
+              className="text-center space-y-5 sm:space-y-6 lg:space-y-8 w-full max-w-4xl"
             >
-              {/* Badge */}
+              {/* Badge - Enhanced for Mobile */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-emerald-100 to-blue-100 rounded-full border border-emerald-200/50 shadow-md mb-3"
+                className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 bg-gradient-to-r from-emerald-100 to-blue-100 rounded-full border border-emerald-200/50 shadow-md mb-2 sm:mb-3"
               >
-                <span className="text-emerald-600 font-semibold text-sm md:text-base">
+                <span className="text-emerald-600 font-semibold text-xs sm:text-sm md:text-base">
                   🏔️ Luxury in the Himalayas
                 </span>
               </motion.div>
 
-              {/* Main Title with Creative Typography */}
-              <div className="space-y-4 lg:space-y-6 mb-4 lg:mb-6">
+              {/* Main Title with Creative Typography - Optimized for Mobile */}
+              <div className="space-y-3 sm:space-y-4 lg:space-y-6 mb-4 sm:mb-5 lg:mb-6">
                 <motion.h1
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3, duration: 0.8 }}
-                  className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-tight"
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.1] sm:leading-tight"
                 >
                   <span className="block bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
                     Hotel Blue
                   </span>
-                  <span className="block bg-gradient-to-r from-emerald-600 via-blue-600 to-emerald-600 bg-clip-text text-transparent mt-2">
+                  <span className="block bg-gradient-to-r from-emerald-600 via-blue-600 to-emerald-600 bg-clip-text text-transparent mt-1 sm:mt-2">
                     Sheep Inn
                   </span>
                 </motion.h1>
@@ -521,61 +521,62 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, duration: 0.8 }}
-                  className="text-xl sm:text-2xl md:text-3xl text-gray-700 font-light max-w-3xl mx-auto leading-relaxed"
+                  className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-gray-700 font-light max-w-3xl mx-auto leading-relaxed px-2 sm:px-0"
                 >
                   Experience luxury in the heart of Dolpa, Nepal. Your gateway
                   to the majestic Himalayas.
                 </motion.p>
               </div>
 
-              {/* Contact Info */}
+              {/* Contact Info - Enhanced Button Style for Mobile */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 0.8 }}
-                className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-gray-600 mb-3 lg:mb-4"
+                className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 md:gap-6 mb-4 sm:mb-3 lg:mb-4 w-full sm:w-auto"
               >
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className="flex items-center gap-2 bg-gradient-to-r from-emerald-50 to-blue-50 backdrop-blur-sm px-3 py-2 rounded-lg border border-emerald-200/50 shadow-sm md:bg-white/80 md:border-gray-200/50 md:px-4"
+                {/* Phone Button - Full Width on Mobile */}
+                <motion.a
+                  href={getTelUrl()}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="group flex items-center justify-center gap-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-semibold px-6 py-3.5 sm:px-4 sm:py-2 rounded-xl sm:rounded-lg border-0 sm:border sm:bg-gradient-to-r sm:from-emerald-50 sm:to-blue-50 sm:text-gray-600 sm:border-emerald-200/50 sm:shadow-sm md:bg-white/80 md:border-gray-200/50 transition-all duration-300 shadow-lg sm:shadow-sm hover:shadow-xl sm:hover:shadow-md"
                 >
-                  <div className="p-1.5 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-md md:hidden">
-                    <PhoneIcon className="w-3.5 h-3.5 text-white" />
+                  <div className="p-1.5 sm:p-1 bg-white/20 sm:bg-gradient-to-br sm:from-emerald-500 sm:to-emerald-600 rounded-lg sm:rounded-md">
+                    <PhoneIcon className="w-5 h-5 sm:w-4 sm:h-4 text-white sm:text-emerald-600" />
                   </div>
-                  <PhoneIcon className="w-5 h-5 text-emerald-600 hidden md:block" />
-                  <a
-                    href={getTelUrl()}
-                    className="hover:text-gray-900 transition-colors font-medium text-sm md:text-base"
-                  >
+                  <span className="text-base sm:text-sm md:text-base font-semibold sm:font-medium">
                     {PHONE_NUMBER}
-                  </a>
-                </motion.div>
+                  </span>
+                </motion.a>
+
+                {/* Location Button - Full Width on Mobile */}
                 <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className="flex items-center gap-2 bg-gradient-to-r from-blue-50 to-emerald-50 backdrop-blur-sm px-3 py-2 rounded-lg border border-blue-200/50 shadow-sm md:bg-white/80 md:border-gray-200/50 md:px-4"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="group flex items-center justify-center gap-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold px-6 py-3.5 sm:px-4 sm:py-2 rounded-xl sm:rounded-lg border-0 sm:border sm:bg-gradient-to-r sm:from-blue-50 sm:to-emerald-50 sm:text-gray-600 sm:border-blue-200/50 sm:shadow-sm md:bg-white/80 md:border-gray-200/50 transition-all duration-300 shadow-lg sm:shadow-sm hover:shadow-xl sm:hover:shadow-md cursor-pointer"
                 >
-                  <div className="p-1.5 bg-gradient-to-br from-blue-500 to-blue-600 rounded-md md:hidden">
-                    <MapPinIcon className="w-3.5 h-3.5 text-white" />
+                  <div className="p-1.5 sm:p-1 bg-white/20 sm:bg-gradient-to-br sm:from-blue-500 sm:to-blue-600 rounded-lg sm:rounded-md">
+                    <MapPinIcon className="w-5 h-5 sm:w-4 sm:h-4 text-white sm:text-emerald-600" />
                   </div>
-                  <MapPinIcon className="w-5 h-5 text-emerald-600 hidden md:block" />
-                  <span className="font-medium text-sm md:text-base">
+                  <span className="text-base sm:text-sm md:text-base font-semibold sm:font-medium">
                     Dunai, Dolpa
                   </span>
                 </motion.div>
               </motion.div>
 
-              {/* Action Buttons - Ultra Creative Design */}
+              {/* Action Buttons - Ultra Creative Design - Optimized for Mobile */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.2, duration: 0.8 }}
-                className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5 pt-2 lg:pt-3 w-full"
+                className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 md:gap-5 pt-2 sm:pt-2 lg:pt-3 w-full"
               >
                 {/* Book Now Button - Primary with Creative Effects */}
                 <motion.button
                   onClick={() => router.push("/rooms")}
-                  className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 text-white font-bold rounded-2xl overflow-hidden transition-all duration-300 shadow-2xl shadow-emerald-500/50 text-lg sm:text-xl"
-                  whileHover={{ scale: 1.05, y: -3 }}
+                  className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 sm:px-10 sm:py-5 bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 text-white font-bold rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-300 shadow-2xl shadow-emerald-500/50 text-base sm:text-lg md:text-xl"
+                  whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   {/* Animated Background Shine */}
@@ -612,8 +613,8 @@ export default function Home() {
                 {/* Explore Camping Button - Secondary with Creative Design */}
                 <motion.button
                   onClick={openCampingPage}
-                  className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-5 bg-white/95 backdrop-blur-sm border-2 border-emerald-300/50 text-gray-900 font-bold rounded-2xl overflow-hidden transition-all duration-300 shadow-lg hover:shadow-xl hover:border-emerald-400 text-lg sm:text-xl"
-                  whileHover={{ scale: 1.05, y: -3 }}
+                  className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 sm:px-10 sm:py-5 bg-white/95 backdrop-blur-sm border-2 border-emerald-300/50 text-gray-900 font-bold rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-300 shadow-lg hover:shadow-xl hover:border-emerald-400 text-base sm:text-lg md:text-xl"
+                  whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   {/* Animated Gradient Background */}
@@ -654,8 +655,8 @@ export default function Home() {
                       });
                     }
                   }}
-                  className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-5 bg-white/95 backdrop-blur-sm border-2 border-blue-300/50 text-gray-900 font-bold rounded-2xl overflow-hidden transition-all duration-300 shadow-lg hover:shadow-xl hover:border-blue-400 text-lg sm:text-xl"
-                  whileHover={{ scale: 1.05, y: -3 }}
+                  className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 sm:px-10 sm:py-5 bg-white/95 backdrop-blur-sm border-2 border-blue-300/50 text-gray-900 font-bold rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-300 shadow-lg hover:shadow-xl hover:border-blue-400 text-base sm:text-lg md:text-xl"
+                  whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   {/* Animated Gradient Background */}
@@ -876,6 +877,107 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Hotel Gallery Section - Masonry Grid */}
+      <section className="py-16 lg:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
+                Hotel Gallery
+              </span>
+            </h2>
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto font-light">
+              Explore our beautiful hotel facilities and stunning surroundings
+            </p>
+          </motion.div>
+
+          {/* Loading State */}
+          {isLoadingHotelGallery && (
+            <div className="text-center py-12">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
+              <p className="text-gray-600 mt-4 text-lg">
+                Loading gallery images...
+              </p>
+            </div>
+          )}
+
+          {/* Error State */}
+          {hotelGalleryError && (
+            <div className="text-center py-12">
+              <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
+                <p className="text-red-600 text-lg">{hotelGalleryError}</p>
+                <button
+                  onClick={() => window.location.reload()}
+                  className="mt-4 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-400 transition-colors"
+                >
+                  Retry
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Masonry Layout */}
+          {!isLoadingHotelGallery &&
+            !hotelGalleryError &&
+            hotelGalleryImages.length > 0 && (
+              <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 gap-4 sm:gap-6 space-y-4 sm:space-y-6">
+                {hotelGalleryImages.map((image, index) => (
+                  <motion.div
+                    key={image.name}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="break-inside-avoid mb-6 group cursor-pointer"
+                    onClick={() => openHotelGalleryModal(image)}
+                  >
+                    <div className="relative overflow-hidden rounded-2xl border-2 border-gray-200 hover:border-emerald-400 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-400/20 group">
+                      <img
+                        src={image.url}
+                        alt={image.alt}
+                        className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-110"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="absolute bottom-4 left-4 right-4">
+                          <h3 className="text-white font-bold text-lg capitalize mb-1">
+                            {image.alt}
+                          </h3>
+                          <p className="text-emerald-300 text-sm font-medium">
+                            Click to view larger
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            )}
+
+          {/* No Images State */}
+          {!isLoadingHotelGallery &&
+            !hotelGalleryError &&
+            hotelGalleryImages.length === 0 && (
+              <div className="text-center py-12">
+                <div className="bg-gray-50 rounded-2xl shadow-lg p-8 border border-gray-200 max-w-md mx-auto">
+                  <p className="text-gray-600 text-lg">
+                    No gallery images available at the moment.
+                  </p>
+                  <p className="text-gray-500 text-sm mt-2">
+                    Please check back later or contact us for more information.
+                  </p>
+                </div>
+              </div>
+            )}
         </div>
       </section>
 

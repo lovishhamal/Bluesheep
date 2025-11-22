@@ -143,9 +143,9 @@ Please let me know about availability and the booking process.`;
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-800">
-      {/* Navigation */}
-      <nav className="w-full bg-slate-900 border-b border-emerald-400/30 shadow-sm">
+    <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-emerald-50/30">
+      {/* Navigation - With Green Gradient */}
+      <nav className="w-full bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 border-b border-emerald-700/30 sticky top-0 z-50 backdrop-blur-sm shadow-lg shadow-emerald-500/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <motion.div
@@ -153,64 +153,58 @@ Please let me know about availability and the booking process.`;
               animate={{ opacity: 1, x: 0 }}
               className="flex items-center"
             >
-              <Link href="/" className="flex items-center">
+              <Link href="/">
                 <img
                   src="/logo.jpg"
                   alt="Hotel Blue Sheep Inn Logo"
-                  className="h-16 w-auto mr-3 rounded-lg shadow-md cursor-pointer"
+                  className="h-12 w-auto rounded-lg shadow-md cursor-pointer"
                 />
               </Link>
             </motion.div>
-
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex space-x-8">
               <Link
                 href="/"
-                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
+                className="text-white font-medium transition-colors duration-200 hover:text-emerald-100"
               >
                 Home
               </Link>
               <Link
                 href="/rooms"
-                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
+                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
               >
                 Rooms
               </Link>
               <Link
                 href="/menu"
-                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
+                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
               >
                 Menu
               </Link>
               <Link
                 href="/camping"
-                className="text-emerald-400 font-semibold border-b-2 border-emerald-400 transition-colors duration-300"
+                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium border-b-2 border-emerald-50"
               >
                 Camping
               </Link>
               <Link
                 href="/attractions"
-                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
+                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
               >
                 Attractions
               </Link>
-              <button
-                onClick={() => {
-                  const message = `Hi! I'd like to get in touch about your hotel services.`;
-                  const whatsappUrl = getWhatsAppUrl(message);
-                  window.open(whatsappUrl, "_blank");
-                }}
-                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
+              <Link
+                href="/contact"
+                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
               >
                 Contact
-              </button>
+              </Link>
             </div>
 
             {/* Mobile menu button */}
             <div className="md:hidden">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300"
+                className="text-white hover:text-emerald-100 transition-colors duration-200"
               >
                 {isMobileMenuOpen ? (
                   <XMarkIcon className="h-6 w-6" />
@@ -221,184 +215,143 @@ Please let me know about availability and the booking process.`;
             </div>
           </div>
 
-          {/* Mobile Navigation */}
+          {/* Mobile menu */}
           {isMobileMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-slate-800 border-t border-emerald-400/30"
+              className="md:hidden border-t border-emerald-700/30"
             >
-              <div className="px-2 pt-2 pb-3 space-y-1">
+              <div className="py-4 space-y-4">
                 <Link
                   href="/"
-                  className="block text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
+                  className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Home
                 </Link>
                 <Link
                   href="/rooms"
-                  className="block text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
+                  className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Rooms
                 </Link>
                 <Link
                   href="/menu"
-                  className="block text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
+                  className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Menu
                 </Link>
                 <Link
                   href="/camping"
-                  className="block text-emerald-400 hover:text-emerald-300 transition-colors duration-300 font-medium"
+                  className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Camping
                 </Link>
                 <Link
                   href="/attractions"
-                  className="block text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
+                  className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Attractions
                 </Link>
-                <button
-                  onClick={() => {
-                    const message = `Hi! I'd like to get in touch about your hotel services.`;
-                    const whatsappUrl = getWhatsAppUrl(message);
-                    window.open(whatsappUrl, "_blank");
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="block text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
+                <Link
+                  href="/contact"
+                  className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Contact
-                </button>
+                </Link>
               </div>
             </motion.div>
           )}
         </div>
       </nav>
 
-      {/* Hero Section - New Design */}
-      <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-800">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+      {/* Header Section - Creative Design */}
+      <section className="relative py-16 lg:py-24 bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0">
+          <motion.div
+            animate={{
+              x: [0, 100, 0],
+              y: [0, 50, 0],
+              scale: [1, 1.1, 1],
             }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-3xl"
+          />
+          <motion.div
+            animate={{
+              x: [0, -80, 0],
+              y: [0, -60, 0],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-3xl"
           />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pb-32 sm:pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="space-y-8"
+            className="text-center"
           >
-            {/* Camping Icon */}
-            <div className="flex justify-center mb-8">
-              <div className="relative">
-                <div className="w-24 h-24 bg-emerald-500 rounded-full flex items-center justify-center text-white text-4xl shadow-2xl border-4 border-emerald-400">
-                  🏕️
-                </div>
-                <div className="absolute -inset-1 bg-emerald-400 rounded-full blur opacity-30"></div>
-              </div>
-            </div>
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full text-sm font-semibold mb-3 shadow-lg"
+            >
+              <span>🏕️</span>
+              <span>Garden Camping Experience</span>
+            </motion.div>
 
-            {/* Main Title */}
-            <div className="space-y-4">
-              <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
-                <span className="block">Garden</span>
-                <span className="block bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent">
-                  Camping
-                </span>
-              </h1>
-              <p className="text-xl md:text-2xl text-emerald-200 font-light max-w-3xl mx-auto">
-                Experience nature in our beautiful garden setting
-              </p>
-            </div>
-
-            {/* Features */}
-            <div className="flex flex-wrap justify-center gap-6 text-emerald-300">
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">🌲</span>
-                <span className="text-lg">Garden Setting</span>
-              </div>
-              <div className="hidden sm:block w-px h-6 bg-emerald-400/50"></div>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">🏕️</span>
-                <span className="text-lg">Tent Camping</span>
-              </div>
-              <div className="hidden sm:block w-px h-6 bg-emerald-400/50"></div>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">🌙</span>
-                <span className="text-lg">Night Experience</span>
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8 px-4">
-              <motion.button
-                onClick={() => setIsBookingModalOpen(true)}
-                className="w-full sm:w-auto px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-emerald-500/30 transform hover:scale-105"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                📅 Book Camping
-              </motion.button>
-              <motion.button
-                onClick={() => {
-                  const message = `Hi! I'd like to know more about your garden camping facilities.`;
-                  const whatsappUrl = getWhatsAppUrl(message);
-                  window.open(whatsappUrl, "_blank");
-                }}
-                className="w-full sm:w-auto px-8 py-4 border-2 border-emerald-400 text-emerald-400 hover:bg-emerald-400 hover:text-white font-semibold rounded-full transition-all duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                📱 Contact Us
-              </motion.button>
-            </div>
+            {/* Title */}
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-6">
+              <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
+                Garden Camping
+              </span>
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto font-light leading-relaxed">
+              Experience nature in our beautiful garden setting with stunning
+              mountain views
+            </p>
           </motion.div>
         </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.8 }}
-          className="absolute bottom-8 sm:bottom-12 left-1/2 transform -translate-x-1/2"
-        >
-          <div className="w-6 h-10 border-2 border-emerald-400 rounded-full flex justify-center">
-            <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-1 h-3 bg-emerald-400 rounded-full mt-2"
-            />
-          </div>
-        </motion.div>
       </section>
 
-      {/* Gallery Section - New Design */}
-      <section className="py-12 sm:py-20 bg-white">
+      {/* Gallery Section - Creative Design */}
+      <section className="py-16 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              Camping Gallery
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
+                Camping Gallery
+              </span>
             </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto font-light">
               Discover our beautiful garden camping experience through these
               stunning photos
             </p>
@@ -407,8 +360,8 @@ Please let me know about availability and the booking process.`;
           {/* Loading State */}
           {isLoadingImages && (
             <div className="text-center py-12">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-400"></div>
-              <p className="text-slate-600 mt-4 text-lg">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
+              <p className="text-gray-600 mt-4 text-lg">
                 Loading camping images...
               </p>
             </div>
@@ -442,19 +395,19 @@ Please let me know about availability and the booking process.`;
                   className="break-inside-avoid mb-6 group cursor-pointer"
                   onClick={() => openImageModal(image)}
                 >
-                  <div className="relative overflow-hidden rounded-2xl border border-slate-200 hover:border-emerald-300 transition-all duration-300 hover:shadow-xl hover:shadow-emerald-400/20">
+                  <div className="relative overflow-hidden rounded-2xl border-2 border-gray-200 hover:border-emerald-400 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-400/20 group">
                     <img
                       src={image.url}
                       alt={image.alt}
-                      className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-110"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <div className="absolute bottom-4 left-4 right-4">
-                        <h3 className="text-white font-semibold text-lg capitalize">
+                        <h3 className="text-white font-bold text-lg capitalize mb-1">
                           {image.alt}
                         </h3>
-                        <p className="text-emerald-300 text-sm mt-1">
+                        <p className="text-emerald-300 text-sm font-medium">
                           Click to view larger
                         </p>
                       </div>
@@ -468,11 +421,11 @@ Please let me know about availability and the booking process.`;
           {/* No Images State */}
           {!isLoadingImages && !imageError && campingImages.length === 0 && (
             <div className="text-center py-12">
-              <div className="bg-slate-50 rounded-2xl shadow-lg p-8 border border-slate-200 max-w-md mx-auto">
-                <p className="text-slate-600 text-lg">
+              <div className="bg-gray-50 rounded-2xl shadow-lg p-8 border border-gray-200 max-w-md mx-auto">
+                <p className="text-gray-600 text-lg">
                   No camping images available at the moment.
                 </p>
-                <p className="text-slate-500 text-sm mt-2">
+                <p className="text-gray-500 text-sm mt-2">
                   Please check back later or contact us for more information.
                 </p>
               </div>
@@ -481,62 +434,76 @@ Please let me know about availability and the booking process.`;
         </div>
       </section>
 
-      {/* Features Section - New Design */}
-      <section className="py-12 sm:py-20 bg-gradient-to-br from-emerald-50 to-slate-50">
+      {/* Features Section - Creative Design */}
+      <section className="py-16 lg:py-24 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              Why Choose Our Garden Camping?
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
+                Why Choose Our Garden Camping?
+              </span>
             </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto font-light">
               Experience the perfect blend of nature and comfort in our
               beautiful garden setting
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {[
               {
                 icon: "🌲",
                 title: "Natural Garden Setting",
                 description:
-                  "Camp surrounded by beautiful trees and natural garden landscape",
+                  "Camp surrounded by beautiful trees and natural garden landscape with stunning mountain views",
+                gradient: "from-emerald-50 to-blue-50",
+                iconBg: "from-emerald-500 to-blue-500",
               },
               {
                 icon: "🏕️",
                 title: "Tent Camping",
                 description:
-                  "Bring your own tent or rent one of our quality camping tents",
+                  "Bring your own tent or rent one of our quality camping tents for a comfortable experience",
+                gradient: "from-blue-50 to-emerald-50",
+                iconBg: "from-blue-500 to-emerald-500",
               },
               {
                 icon: "🌙",
                 title: "Peaceful Nights",
                 description:
-                  "Enjoy quiet nights under the stars in our serene garden environment",
+                  "Enjoy quiet nights under the stars in our serene garden environment away from city noise",
+                gradient: "from-purple-50 to-emerald-50",
+                iconBg: "from-purple-500 to-emerald-500",
               },
               {
                 icon: "🚿",
                 title: "Basic Facilities",
                 description:
-                  "Access to clean restrooms and basic amenities for your comfort",
+                  "Access to clean restrooms and basic amenities for your comfort during your stay",
+                gradient: "from-emerald-50 to-teal-50",
+                iconBg: "from-emerald-500 to-teal-500",
               },
               {
                 icon: "🍽️",
                 title: "Restaurant Access",
                 description:
                   "Enjoy meals at our garden restaurant just steps away from your tent",
+                gradient: "from-orange-50 to-emerald-50",
+                iconBg: "from-orange-500 to-emerald-500",
               },
               {
                 icon: "📍",
                 title: "Prime Location",
                 description:
                   "Located in the heart of Dunai with easy access to trekking trails and mountain adventures",
+                gradient: "from-emerald-50 to-blue-50",
+                iconBg: "from-emerald-500 to-blue-500",
               },
             ].map((feature, index) => (
               <motion.div
@@ -545,156 +512,201 @@ Please let me know about availability and the booking process.`;
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200 hover:shadow-xl hover:border-emerald-300 transition-all duration-300 group"
+                className="group relative bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 hover:border-emerald-400 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-400/20"
               >
-                <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                  {feature.icon}
+                {/* Gradient Background on Hover */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl`}
+                ></div>
+
+                {/* Icon Container with Gradient */}
+                <motion.div
+                  whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
+                  transition={{ duration: 0.5 }}
+                  className={`relative w-20 h-20 bg-gradient-to-br ${feature.iconBg} rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg border-2 border-white group-hover:shadow-xl`}
+                >
+                  {/* Animated Shine Effect */}
+                  <motion.div
+                    animate={{
+                      x: ["-100%", "200%"],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent rounded-2xl"
+                  />
+                  <span className="text-4xl relative z-10">{feature.icon}</span>
+                </motion.div>
+
+                {/* Content */}
+                <div className="relative z-10">
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-emerald-700 transition-colors">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-700 leading-relaxed font-light">
+                    {feature.description}
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-slate-600 leading-relaxed">
-                  {feature.description}
-                </p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Contact Section - New Design */}
-      <section className="py-12 sm:py-20 bg-gradient-to-br from-emerald-500 to-emerald-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* CTA Section - Creative Design */}
+      <section className="py-16 lg:py-24 bg-gradient-to-br from-emerald-500 via-emerald-600 to-emerald-700 relative overflow-hidden">
+        {/* Animated Background Orbs */}
+        <div className="absolute inset-0">
+          <motion.div
+            animate={{
+              x: [0, 100, 0],
+              y: [0, 50, 0],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute top-20 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl"
+          />
+          <motion.div
+            animate={{
+              x: [0, -80, 0],
+              y: [0, -60, 0],
+              scale: [1, 1.3, 1],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute bottom-20 right-20 w-96 h-96 bg-white/10 rounded-full blur-3xl"
+          />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
               Ready to Experience Garden Camping?
             </h2>
-            <p className="text-xl max-w-3xl mx-auto text-emerald-100">
+            <p className="text-xl md:text-2xl max-w-3xl mx-auto text-emerald-100 mb-10 font-light">
               Book your camping spot in our beautiful garden and create
               unforgettable memories in nature
             </p>
-          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300"
-            >
-              <div className="w-12 h-12 mx-auto mb-4 bg-white/20 rounded-full flex items-center justify-center">
-                <span className="text-white text-xl">📅</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-white">
-                Book Now
-              </h3>
-              <p className="text-emerald-100">
-                Reserve your camping spot in advance
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300"
-            >
-              <div className="w-12 h-12 mx-auto mb-4 bg-white/20 rounded-full flex items-center justify-center">
-                <span className="text-white text-xl">📱</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-white">Contact</h3>
-              <p className="text-emerald-100">WhatsApp: {PHONE_NUMBER}</p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 md:col-span-2 lg:col-span-1"
-            >
-              <div className="w-12 h-12 mx-auto mb-4 bg-white/20 rounded-full flex items-center justify-center">
-                <span className="text-white text-xl">🏕️</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-white">Camping</h3>
-              <p className="text-emerald-100">Garden tent camping experience</p>
-            </motion.div>
-          </div>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="text-center mt-12"
-          >
-            <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.button
                 onClick={() => setIsBookingModalOpen(true)}
-                className="w-full sm:w-auto px-8 py-4 bg-white text-emerald-600 font-semibold rounded-full hover:bg-emerald-50 transition-all duration-300 shadow-lg"
+                className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-5 bg-white text-emerald-600 font-bold rounded-2xl overflow-hidden transition-all duration-300 shadow-2xl text-lg sm:text-xl"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                📅 Book Camping
+                {/* Shine Effect */}
+                <motion.div
+                  animate={{
+                    x: ["-100%", "200%"],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                />
+                <span className="relative z-10">📅 Book Camping</span>
+                <motion.span
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="relative z-10"
+                >
+                  →
+                </motion.span>
               </motion.button>
+
               <motion.button
                 onClick={() => {
                   const message = `Hi! I'd like to know more about your garden camping facilities.`;
                   const whatsappUrl = getWhatsAppUrl(message);
                   window.open(whatsappUrl, "_blank");
                 }}
-                className="w-full sm:w-auto px-8 py-4 border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-emerald-600 transition-all duration-300"
+                className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-5 bg-white/10 backdrop-blur-sm border-2 border-white text-white font-bold rounded-2xl overflow-hidden transition-all duration-300 hover:bg-white/20 text-lg sm:text-xl"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                📱 Contact Us
+                <span className="relative z-10">📱 Contact Us</span>
+                <motion.span
+                  animate={{ rotate: [0, 10, -10, 0] }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="relative z-10 text-2xl"
+                >
+                  📱
+                </motion.span>
               </motion.button>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Booking Modal */}
+      {/* Booking Modal - Creative Design */}
       {isBookingModalOpen && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={closeBookingModal}
+        >
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
-            className="bg-slate-800 rounded-2xl p-8 border border-emerald-400/50 shadow-2xl w-full max-w-md"
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white rounded-3xl p-8 border-4 border-emerald-500 shadow-2xl w-full max-w-md"
           >
+            {/* Header with Gradient Bar */}
+            <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 rounded-t-3xl"></div>
+
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-white font-montserrat">
-                Book Camping
-              </h2>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center text-white font-bold">
+                  🏕️
+                </div>
+                <h2 className="text-2xl font-bold text-gray-900">Book Camping</h2>
+              </div>
               <button
                 onClick={closeBookingModal}
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-gray-600 transition-colors"
               >
                 <XMarkIcon className="w-6 h-6" />
               </button>
             </div>
 
             {/* Booking Notice */}
-            <div className="mb-6 p-4 bg-amber-500/20 border border-amber-400/30 rounded-lg">
-              <div className="flex items-center gap-3">
-                <div className="w-6 h-6 bg-amber-500 rounded-full flex items-center justify-center">
-                  <span className="text-white text-sm font-bold">!</span>
+            <div className="mb-6 p-4 bg-amber-50 border-l-4 border-amber-400 rounded-lg">
+              <div className="flex items-start gap-3">
+                <div className="w-6 h-6 bg-amber-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="text-white text-xs font-bold">!</span>
                 </div>
                 <div>
-                  <h4 className="text-amber-300 font-semibold mb-1">
+                  <h4 className="text-amber-900 font-semibold mb-1 text-sm">
                     Important Notice
                   </h4>
-                  <p className="text-amber-200 text-sm">
+                  <p className="text-amber-800 text-sm">
                     Bookings must be made at least 1 day in advance. This will
                     open WhatsApp with your booking details.
                   </p>
@@ -703,10 +715,10 @@ Please let me know about availability and the booking process.`;
             </div>
 
             {/* Booking Form */}
-            <form onSubmit={handleBookingSubmit} className="space-y-4">
+            <form onSubmit={handleBookingSubmit} className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-emerald-300 mb-2">
-                  Full Name *
+                <label className="block text-sm font-semibold text-gray-900 mb-2">
+                  Full Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -718,14 +730,14 @@ Please let me know about availability and the booking process.`;
                       name: e.target.value,
                     })
                   }
-                  className="w-full px-4 py-3 bg-slate-700/50 border border-emerald-400/50 rounded-lg text-white placeholder-gray-400 focus:border-emerald-400 focus:outline-none"
+                  className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
                   placeholder="Enter your full name"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-emerald-300 mb-2">
-                  Number of People *
+                <label className="block text-sm font-semibold text-gray-900 mb-2">
+                  Number of People <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="number"
@@ -739,14 +751,14 @@ Please let me know about availability and the booking process.`;
                       numberOfPeople: e.target.value,
                     })
                   }
-                  className="w-full px-4 py-3 bg-slate-700/50 border border-emerald-400/50 rounded-lg text-white placeholder-gray-400 focus:border-emerald-400 focus:outline-none"
+                  className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
                   placeholder="How many people?"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-emerald-300 mb-2">
-                  Arrival Date *
+                <label className="block text-sm font-semibold text-gray-900 mb-2">
+                  Arrival Date <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="date"
@@ -759,7 +771,7 @@ Please let me know about availability and the booking process.`;
                     })
                   }
                   min={new Date().toISOString().split("T")[0]}
-                  className="w-full md:w-full max-w-[300px] md:max-w-none px-4 py-3 bg-slate-700/50 border border-emerald-400/50 rounded-lg text-white placeholder-gray-400 focus:border-emerald-400 focus:outline-none"
+                  className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
                 />
               </div>
 
@@ -767,13 +779,13 @@ Please let me know about availability and the booking process.`;
                 <button
                   type="button"
                   onClick={closeBookingModal}
-                  className="flex-1 px-6 py-3 border border-emerald-400 text-emerald-400 rounded-lg font-semibold hover:bg-emerald-400/10 transition-colors"
+                  className="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-6 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg font-semibold hover:from-emerald-400 hover:to-emerald-500 transition-all duration-300 shadow-lg shadow-emerald-500/30 hover:shadow-emerald-400/40 transform hover:scale-105"
+                  className="flex-1 px-6 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-semibold hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 transform hover:scale-105"
                 >
                   Send to WhatsApp
                 </button>
@@ -783,9 +795,9 @@ Please let me know about availability and the booking process.`;
         </div>
       )}
 
-      {/* Image Modal */}
+      {/* Image Modal - Creative Design */}
       {isImageModalOpen && selectedImage && (
-        <div className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/95 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -795,7 +807,7 @@ Please let me know about availability and the booking process.`;
             {/* Close Button */}
             <button
               onClick={closeImageModal}
-              className="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors"
+              className="absolute top-4 right-4 z-10 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white p-3 rounded-full transition-colors border-2 border-white/20"
             >
               <XMarkIcon className="w-6 h-6" />
             </button>
@@ -805,13 +817,13 @@ Please let me know about availability and the booking process.`;
               <>
                 <button
                   onClick={navigateToPreviousImage}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-colors"
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white p-3 rounded-full transition-colors border-2 border-white/20"
                 >
                   <ChevronLeftIcon className="w-6 h-6" />
                 </button>
                 <button
                   onClick={navigateToNextImage}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-colors"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white p-3 rounded-full transition-colors border-2 border-white/20"
                 >
                   <ChevronRightIcon className="w-6 h-6" />
                 </button>
@@ -828,8 +840,8 @@ Please let me know about availability and the booking process.`;
             </div>
 
             {/* Image Info */}
-            <div className="absolute bottom-4 left-4 right-4 bg-black/50 backdrop-blur-sm rounded-lg p-4">
-              <h3 className="text-white font-semibold text-xl font-montserrat capitalize mb-2">
+            <div className="absolute bottom-4 left-4 right-4 bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
+              <h3 className="text-white font-bold text-xl capitalize mb-2">
                 {selectedImage.alt}
               </h3>
               {campingImages.length > 1 && (
@@ -843,7 +855,7 @@ Please let me know about availability and the booking process.`;
             </div>
 
             {/* Keyboard Instructions */}
-            <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm rounded-lg p-3 text-white text-sm">
+            <div className="absolute top-4 left-4 bg-white/10 backdrop-blur-md rounded-lg p-3 text-white text-sm border border-white/20">
               <p>Use ← → arrow keys to navigate</p>
               <p>Press ESC to close</p>
             </div>
