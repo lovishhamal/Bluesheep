@@ -383,32 +383,8 @@ Please let me know about availability and booking process.`;
       <section className="relative pt-2 pb-4 sm:py-8 md:py-12 lg:py-16 bg-gradient-to-br from-emerald-50/50 via-white to-blue-50/50 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
-          <motion.div
-            animate={{
-              x: [0, 100, 0],
-              y: [0, 50, 0],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-3xl"
-          />
-          <motion.div
-            animate={{
-              x: [0, -80, 0],
-              y: [0, -60, 0],
-              scale: [1, 1.3, 1],
-            }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-3xl"
-          />
+          <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-2xl"></div>
+          <div className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-2xl"></div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -457,30 +433,8 @@ Please let me know about availability and booking process.`;
       <section className="py-12 lg:py-16 bg-gradient-to-br from-white via-emerald-50/30 to-blue-50/30 relative overflow-hidden">
         {/* Animated Background */}
         <div className="absolute inset-0">
-          <motion.div
-            animate={{
-              rotate: [0, 360],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 30,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="absolute top-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-emerald-200/15 to-blue-200/15 rounded-full blur-3xl"
-          />
-          <motion.div
-            animate={{
-              rotate: [360, 0],
-              scale: [1, 1.3, 1],
-            }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-blue-200/15 to-emerald-200/15 rounded-full blur-3xl"
-          />
+          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-emerald-200/15 to-blue-200/15 rounded-full blur-2xl"></div>
+          <div className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-blue-200/15 to-emerald-200/15 rounded-full blur-2xl"></div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -521,8 +475,12 @@ Please let me know about availability and booking process.`;
                   key={room.id}
                   data-room-id={room.id}
                   initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                  animate={index === 0 ? { opacity: 1, y: 0, scale: 1 } : undefined}
-                  whileInView={index > 0 ? { opacity: 1, y: 0, scale: 1 } : undefined}
+                  animate={
+                    index === 0 ? { opacity: 1, y: 0, scale: 1 } : undefined
+                  }
+                  whileInView={
+                    index > 0 ? { opacity: 1, y: 0, scale: 1 } : undefined
+                  }
                   transition={{
                     duration: 0.6,
                     delay: index * 0.1,
@@ -530,7 +488,6 @@ Please let me know about availability and booking process.`;
                     stiffness: 100,
                   }}
                   viewport={index > 0 ? { once: true } : undefined}
-                  whileHover={{ y: -10, scale: 1.02 }}
                   className="group relative"
                 >
                   {/* Card Container */}
@@ -553,7 +510,6 @@ Please let me know about availability and booking process.`;
                         width={400}
                         height={300}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover/image:scale-110"
-                        whileHover={{ scale: 1.1 }}
                         style={{
                           WebkitTransform: "translateZ(0)",
                           transform: "translateZ(0)",
@@ -578,7 +534,6 @@ Please let me know about availability and booking process.`;
                               e.stopPropagation();
                               prevImage(room.id, room.images.length);
                             }}
-                            whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
                             className="absolute left-3 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-900 hover:bg-white transition-all duration-300 shadow-xl border border-gray-200 z-20"
                           >
@@ -589,7 +544,6 @@ Please let me know about availability and booking process.`;
                               e.stopPropagation();
                               nextImage(room.id, room.images.length);
                             }}
-                            whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
                             className="absolute right-3 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-900 hover:bg-white transition-all duration-300 shadow-xl border border-gray-200 z-20"
                           >
@@ -623,7 +577,6 @@ Please let me know about availability and booking process.`;
                                   [room.id]: imgIndex,
                                 }));
                               }}
-                              whileHover={{ scale: 1.2 }}
                               whileTap={{ scale: 0.9 }}
                               className={`w-2 h-2 rounded-full transition-all duration-300 ${
                                 (currentImageIndex[room.id] || 0) === imgIndex
@@ -637,15 +590,7 @@ Please let me know about availability and booking process.`;
                     </div>
 
                     {/* Creative Price Chip - Floating (Outside Image Container) */}
-                    <motion.div
-                      animate={{ y: [0, -8, 0], rotate: [0, 3, 0] }}
-                      transition={{
-                        duration: 4,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                      className="absolute top-2 -right-4 bg-gradient-to-br from-emerald-500 via-emerald-600 to-blue-500 rounded-xl p-3 shadow-2xl border-2 border-white z-30"
-                    >
+                    <div className="absolute top-2 -right-4 bg-gradient-to-br from-emerald-500 via-emerald-600 to-blue-500 rounded-xl p-3 shadow-2xl border-2 border-white z-30">
                       <div className="text-center">
                         <div
                           className="text-xs mb-1 font-bold text-white"
@@ -668,7 +613,7 @@ Please let me know about availability and booking process.`;
                       </div>
                       {/* Glow Effect */}
                       <div className="absolute -inset-1 bg-gradient-to-br from-emerald-400 to-blue-400 rounded-xl blur opacity-50"></div>
-                    </motion.div>
+                    </div>
 
                     <div className="relative z-10 flex flex-col flex-1">
                       {/* Room Header - Creative */}
@@ -692,17 +637,8 @@ Please let me know about availability and booking process.`;
                         <div className="flex justify-center py-3 mb-4">
                           <div className="flex space-x-2">
                             {[...Array(3)].map((_, i) => (
-                              <motion.div
+                              <div
                                 key={i}
-                                animate={{
-                                  scale: [1, 1.2, 1],
-                                  opacity: [0.5, 1, 0.5],
-                                }}
-                                transition={{
-                                  duration: 2,
-                                  repeat: Infinity,
-                                  delay: i * 0.2,
-                                }}
                                 className="w-2 h-2 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full"
                               />
                             ))}
@@ -776,7 +712,6 @@ Please let me know about availability and booking process.`;
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: facilityIndex * 0.05 }}
-                                whileHover={{ scale: 1.05, y: -2 }}
                                 className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-medium bg-gradient-to-r from-emerald-50 to-blue-50 text-emerald-700 border border-emerald-200/50 hover:border-emerald-300 hover:shadow-md transition-all duration-200"
                               >
                                 <CheckIcon className="w-3 h-3 text-emerald-600 mr-1.5 flex-shrink-0" />
@@ -799,36 +734,16 @@ Please let me know about availability and booking process.`;
                       <div className="mt-auto pt-4">
                         <motion.button
                           onClick={() => handleBooking(room)}
-                          whileHover={{ scale: 1.02, y: -2 }}
                           whileTap={{ scale: 0.98 }}
                           className="group relative w-full py-4 rounded-xl font-bold text-white transition-all duration-300 bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 hover:from-emerald-600 hover:via-emerald-700 hover:to-emerald-600 shadow-lg shadow-emerald-500/30 hover:shadow-xl hover:shadow-emerald-500/50 overflow-hidden"
                         >
-                          {/* Animated Background Shine */}
-                          <motion.div
-                            animate={{
-                              x: ["-100%", "200%"],
-                            }}
-                            transition={{
-                              duration: 3,
-                              repeat: Infinity,
-                              ease: "linear",
-                            }}
-                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                          />
-
                           {/* Glow Effect */}
                           <div className="absolute -inset-1 bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300 -z-10"></div>
 
                           {/* Content */}
                           <span className="relative z-10 text-base sm:text-lg flex items-center justify-center gap-2">
                             Book Now
-                            <motion.span
-                              animate={{ x: [0, 5, 0] }}
-                              transition={{ duration: 1.5, repeat: Infinity }}
-                              className="text-xl"
-                            >
-                              →
-                            </motion.span>
+                            <span className="text-xl">→</span>
                           </span>
                         </motion.button>
                       </div>
@@ -849,34 +764,8 @@ Please let me know about availability and booking process.`;
       <section className="py-24 lg:py-32 bg-gradient-to-br from-emerald-50/50 via-white to-blue-50/50 relative overflow-hidden">
         {/* Animated Background Orbs */}
         <div className="absolute inset-0">
-          <motion.div
-            animate={{
-              rotate: [0, 360],
-              scale: [1, 1.2, 1],
-              x: [0, 50, 0],
-              y: [0, 30, 0],
-            }}
-            transition={{
-              duration: 30,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-3xl"
-          />
-          <motion.div
-            animate={{
-              rotate: [360, 0],
-              scale: [1, 1.3, 1],
-              x: [0, -40, 0],
-              y: [0, -50, 0],
-            }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-3xl"
-          />
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-2xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-2xl"></div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -895,15 +784,11 @@ Please let me know about availability and booking process.`;
               className="inline-block relative"
             >
               {/* Decorative Badge */}
-              <motion.div
-                animate={{ y: [0, -5, 0] }}
-                transition={{ duration: 3, repeat: Infinity }}
-                className="absolute -top-3 left-1/2 transform -translate-x-1/2 px-4 py-1.5 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full shadow-lg"
-              >
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 px-4 py-1.5 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full shadow-lg">
                 <span className="text-white text-xs font-bold">
                   ✨ Premium Features
                 </span>
-              </motion.div>
+              </div>
 
               <div className="bg-white rounded-3xl shadow-2xl p-8 lg:p-12 border-2 border-gray-200 relative overflow-hidden">
                 {/* Top Gradient Bar */}
@@ -914,13 +799,9 @@ Please let me know about availability and booking process.`;
                 <div className="absolute bottom-4 left-4 w-24 h-24 bg-gradient-to-tr from-blue-100/50 to-transparent rounded-full blur-2xl"></div>
 
                 <div className="relative z-10">
-                  <motion.div
-                    animate={{ rotate: [0, 10, -10, 0] }}
-                    transition={{ duration: 4, repeat: Infinity }}
-                    className="inline-block mb-4"
-                  >
+                  <div className="inline-block mb-4">
                     <span className="text-5xl">🏨</span>
-                  </motion.div>
+                  </div>
                   <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
                     <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
                       Room Amenities
@@ -934,14 +815,8 @@ Please let me know about availability and booking process.`;
                   {/* Decorative Dots */}
                   <div className="flex justify-center gap-2 mt-6">
                     {[...Array(3)].map((_, i) => (
-                      <motion.div
+                      <div
                         key={i}
-                        animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          delay: i * 0.2,
-                        }}
                         className="w-2 h-2 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full"
                       />
                     ))}
@@ -992,7 +867,11 @@ Please let me know about availability and booking process.`;
             ].map((amenity, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: isMobile ? 20 : 50, scale: isMobile ? 1 : 0.9 }}
+                initial={{
+                  opacity: 0,
+                  y: isMobile ? 20 : 50,
+                  scale: isMobile ? 1 : 0.9,
+                }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{
                   duration: isMobile ? 0.3 : 0.6,
@@ -1001,75 +880,37 @@ Please let me know about availability and booking process.`;
                   stiffness: isMobile ? undefined : 100,
                 }}
                 viewport={{ once: true }}
-                whileHover={isMobile ? {} : { y: -12, scale: 1.05 }}
-                className="text-center bg-white rounded-2xl shadow-xl p-6 lg:p-8 border-2 border-gray-200 hover:border-emerald-300 hover:shadow-2xl transition-all duration-500 group relative overflow-hidden"
+                className="text-center bg-white rounded-2xl shadow-xl p-6 lg:p-8 border-2 border-gray-200 hover:border-emerald-300 hover:shadow-2xl transition-all duration-300 group relative overflow-hidden"
               >
-                {/* Animated Background Gradient - Disabled on mobile */}
-                {!isMobile && (
-                  <motion.div
-                    animate={{
-                      backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                    }}
-                    transition={{
-                      duration: 5,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                    className={`absolute inset-0 bg-gradient-to-r ${amenity.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl`}
-                  ></motion.div>
-                )}
+                {/* Background Gradient - Static for performance */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-r ${amenity.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-2xl`}
+                ></div>
 
                 {/* Glow Effect on Hover - Simplified on mobile */}
                 <div
-                  className={`absolute -inset-1 bg-gradient-to-r ${amenity.gradient} rounded-2xl ${isMobile ? '' : 'blur'} opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10`}
+                  className={`absolute -inset-1 bg-gradient-to-r ${
+                    amenity.gradient
+                  } rounded-2xl ${
+                    isMobile ? "" : "blur"
+                  } opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10`}
                 ></div>
 
                 <div className="relative z-10">
                   {/* Icon Container with Creative Design */}
-                  <motion.div
-                    whileHover={isMobile ? {} : {
-                      rotate: [0, -15, 15, 0],
-                      scale: 1.15,
-                    }}
-                    transition={{ duration: isMobile ? 0 : 0.5 }}
-                    className={`relative w-20 h-20 bg-gradient-to-br ${amenity.iconBg} rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg border-2 border-white group-hover:shadow-xl`}
+                  <div
+                    className={`relative w-20 h-20 bg-gradient-to-br ${amenity.iconBg} rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg border-2 border-white group-hover:shadow-xl transition-shadow duration-300`}
                   >
-                    {/* Animated Shine Effect - Disabled on mobile */}
-                    {!isMobile && (
-                      <motion.div
-                        animate={{
-                          x: ["-100%", "200%"],
-                        }}
-                        transition={{
-                          duration: 3,
-                          repeat: Infinity,
-                          ease: "linear",
-                        }}
-                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent rounded-2xl"
-                      />
-                    )}
-
                     {/* Icon */}
                     <amenity.icon
                       className={`w-10 h-10 ${amenity.iconColor} relative z-10`}
                     />
 
-                    {/* Emoji Badge - Simplified animation on mobile */}
-                    <motion.div
-                      animate={isMobile ? {} : {
-                        scale: [1, 1.2, 1],
-                        rotate: [0, 10, -10, 0],
-                      }}
-                      transition={isMobile ? {} : {
-                        duration: 3,
-                        repeat: Infinity,
-                        delay: index * 0.3,
-                      }}
-                      className="absolute -top-2 -right-2 text-2xl"
-                    >
+                    {/* Emoji Badge - Static for performance */}
+                    <div className="absolute -top-2 -right-2 text-2xl">
                       {amenity.emoji}
-                    </motion.div>
-                  </motion.div>
+                    </div>
+                  </div>
 
                   {/* Title with Gradient */}
                   <h3 className="text-xl font-bold mb-2.5">
@@ -1098,7 +939,10 @@ Please let me know about availability and booking process.`;
                 <motion.div
                   initial={{ width: 0 }}
                   whileInView={{ width: "100%" }}
-                  transition={{ duration: isMobile ? 0.3 : 0.8, delay: isMobile ? 0 : index * 0.1 + 0.3 }}
+                  transition={{
+                    duration: isMobile ? 0.3 : 0.8,
+                    delay: isMobile ? 0 : index * 0.1 + 0.3,
+                  }}
                   viewport={{ once: true }}
                   className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r ${amenity.gradient} rounded-b-2xl`}
                 ></motion.div>
@@ -1112,18 +956,7 @@ Please let me know about availability and booking process.`;
       <section className="py-24 lg:py-32 bg-gradient-to-br from-emerald-50/50 via-white to-blue-50/50 relative overflow-hidden">
         {/* Animated Background Orbs */}
         <div className="absolute inset-0">
-          <motion.div
-            animate={{
-              rotate: [0, 360],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 30,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-3xl"
-          />
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-2xl"></div>
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -1135,8 +968,8 @@ Please let me know about availability and booking process.`;
             className="bg-gradient-to-br from-white via-emerald-50/50 to-blue-50/50 rounded-3xl shadow-2xl p-8 lg:p-12 border-2 border-gray-200/50 relative overflow-hidden"
           >
             {/* Decorative Elements */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-emerald-200/20 to-transparent rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-blue-200/20 to-transparent rounded-full blur-3xl"></div>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-emerald-200/20 to-transparent rounded-full blur-2xl"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-blue-200/20 to-transparent rounded-full blur-2xl"></div>
 
             <div className="relative z-10">
               <motion.div
@@ -1154,10 +987,7 @@ Please let me know about availability and booking process.`;
               <p className="text-lg sm:text-xl text-gray-700 mb-8 font-light max-w-2xl mx-auto">
                 Contact us to make a reservation or book your perfect room.
               </p>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
+              <motion.div whileTap={{ scale: 0.95 }}>
                 <motion.button
                   onClick={() => {
                     const message = `Hi! I'd like to get in touch about your hotel services.`;
@@ -1183,13 +1013,7 @@ Please let me know about availability and booking process.`;
                   <div className="absolute -inset-1 bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300 -z-10"></div>
 
                   <span className="relative z-10 text-lg">Contact Us</span>
-                  <motion.span
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                    className="relative z-10 text-xl"
-                  >
-                    →
-                  </motion.span>
+                  <span className="relative z-10 text-xl">→</span>
                 </motion.button>
               </motion.div>
             </div>
@@ -1212,7 +1036,7 @@ Please let me know about availability and booking process.`;
                 repeat: Infinity,
                 ease: "linear",
               }}
-              className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-emerald-400/20 to-blue-400/20 rounded-full blur-3xl"
+              className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-emerald-400/20 to-blue-400/20 rounded-full blur-2xl"
             />
             <motion.div
               animate={{
@@ -1224,7 +1048,7 @@ Please let me know about availability and booking process.`;
                 repeat: Infinity,
                 ease: "linear",
               }}
-              className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-gradient-to-br from-blue-400/20 to-emerald-400/20 rounded-full blur-3xl"
+              className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-gradient-to-br from-blue-400/20 to-emerald-400/20 rounded-full blur-2xl"
             />
           </div>
 
@@ -1296,13 +1120,9 @@ Please let me know about availability and booking process.`;
                 className="mb-6 p-5 bg-amber-50 border-l-4 border-amber-500 rounded-xl shadow-md"
               >
                 <div className="flex items-start gap-4">
-                  <motion.div
-                    animate={{ scale: [1, 1.1, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                    className="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center flex-shrink-0 shadow-md"
-                  >
+                  <div className="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center flex-shrink-0 shadow-md">
                     <span className="text-white text-lg font-bold">!</span>
-                  </motion.div>
+                  </div>
                   <div className="flex-1">
                     <h4 className="text-amber-900 font-bold mb-1.5 text-base">
                       Important Notice
@@ -1465,7 +1285,6 @@ Please let me know about availability and booking process.`;
             {/* Close Button */}
             <motion.button
               onClick={closeImageModal}
-              whileHover={{ scale: 1.1, rotate: 90 }}
               whileTap={{ scale: 0.9 }}
               className="absolute top-4 right-4 z-10 w-12 h-12 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-900 hover:bg-white transition-all duration-300 shadow-xl border-2 border-gray-200"
             >
@@ -1477,7 +1296,6 @@ Please let me know about availability and booking process.`;
               <>
                 <motion.button
                   onClick={prevImageModal}
-                  whileHover={{ scale: 1.1, x: -5 }}
                   whileTap={{ scale: 0.9 }}
                   className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 w-14 h-14 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-900 hover:bg-white transition-all duration-300 shadow-xl border-2 border-gray-200"
                 >
@@ -1485,7 +1303,6 @@ Please let me know about availability and booking process.`;
                 </motion.button>
                 <motion.button
                   onClick={nextImageModal}
-                  whileHover={{ scale: 1.1, x: 5 }}
                   whileTap={{ scale: 0.9 }}
                   className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 w-14 h-14 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-900 hover:bg-white transition-all duration-300 shadow-xl border-2 border-gray-200"
                 >
