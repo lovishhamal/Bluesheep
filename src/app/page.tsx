@@ -422,7 +422,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section - Creative & Dynamic */}
-      <section className="relative min-h-[95vh] flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden">
+      <section className="relative min-h-[550px] flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
           {/* Large animated gradient orbs */}
