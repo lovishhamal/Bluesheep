@@ -190,7 +190,7 @@ export default function ContactPage() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="inline-flex mt-6 items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full text-sm font-semibold mb-3 shadow-lg"
+              className="inline-flex mt-6 items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full text-sm font-semibold mb-10 sm:mb-3 shadow-lg"
             >
               <span>📞</span>
               <span>Get in Touch</span>

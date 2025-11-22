@@ -421,7 +421,7 @@ Please let me know about availability and booking process.`;
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, type: "spring" }}
-              className="inline-flex items-center mt-6 gap-3 mb-3 px-6 py-3 bg-gradient-to-r from-emerald-100 to-blue-100 rounded-full border border-emerald-200/50 shadow-md"
+              className="inline-flex items-center mt-6 gap-3 mb-10 sm:mb-3 px-6 py-3 bg-gradient-to-r from-emerald-100 to-blue-100 rounded-full border border-emerald-200/50 shadow-md"
             >
               <span className="text-2xl">🏨</span>
               <span className="text-emerald-700 font-semibold">

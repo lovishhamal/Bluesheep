@@ -185,7 +185,7 @@ export default function AttractionsPage() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="inline-flex  mt-6 items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full text-sm font-semibold mb-3 shadow-lg"
+              className="inline-flex  mt-6 items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full text-sm font-semibold mb-10 sm:mb-3 shadow-lg"
             >
               <span>🏔️</span>
               <span>Discover Dolpa&apos;s Wonders</span>
@@ -212,9 +212,8 @@ export default function AttractionsPage() {
             {/* Image */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
               className="order-2 md:order-1"
             >
               <div className="relative overflow-hidden rounded-3xl shadow-2xl group">
@@ -239,9 +238,8 @@ export default function AttractionsPage() {
             {/* Content */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
               className="order-1 md:order-2 space-y-6"
             >
               <div className="flex items-center gap-4 mb-4">
