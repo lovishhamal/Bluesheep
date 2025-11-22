@@ -142,7 +142,7 @@ export default function AttractionsPage() {
       </nav>
 
       {/* Header Section - Creative Design */}
-      <section className="relative pt-2 pb-4 sm:py-12 md:py-16 lg:py-24 bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden">
+      <section className="relative pt-2 pb-4 sm:py-8 md:py-12 lg:py-16 bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
           <motion.div
@@ -192,7 +192,7 @@ export default function AttractionsPage() {
             </motion.div>
 
             {/* Title */}
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-6">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-4">
               <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
                 Discover Dolpa&apos;s Wonders
               </span>
@@ -206,7 +206,7 @@ export default function AttractionsPage() {
       </section>
 
       {/* Phoksundo Lake Section - Creative Design */}
-      <section className="py-16 lg:py-24 bg-white">
+      <section className="py-12 lg:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Image */}
@@ -351,7 +351,7 @@ export default function AttractionsPage() {
       </section>
 
       {/* Dho Tarap Section - Creative Design */}
-      <section className="py-16 lg:py-24 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
+      <section className="py-24 lg:py-32 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Content */}
@@ -496,14 +496,14 @@ export default function AttractionsPage() {
       </section>
 
       {/* Why Visit Section - Creative Design */}
-      <section className="py-16 lg:py-24 bg-white">
+      <section className="py-12 lg:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-6 sm:mb-12"
           >
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
@@ -616,7 +616,7 @@ export default function AttractionsPage() {
       </section>
 
       {/* CTA Section - Creative Design */}
-      <section className="py-16 lg:py-24 bg-gradient-to-br from-emerald-500 via-emerald-600 to-emerald-700 relative overflow-hidden">
+      <section className="py-24 lg:py-32 bg-gradient-to-br from-emerald-500 via-emerald-600 to-emerald-700 relative overflow-hidden">
         {/* Animated Background Orbs */}
         <div className="absolute inset-0">
           <motion.div

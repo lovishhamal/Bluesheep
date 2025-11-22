@@ -147,7 +147,7 @@ export default function ContactPage() {
       </nav>
 
       {/* Header Section - Creative Design */}
-      <section className="relative pt-2 pb-4 sm:py-12 md:py-16 lg:py-24 bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden">
+      <section className="relative min-h-[550px] pt-2 pb-4 sm:py-12 md:py-16 lg:py-24 bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
           <motion.div
@@ -210,7 +210,7 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Information Grid - Creative Design */}
-      <section className="py-16 lg:py-24 bg-white">
+      <section className="py-8 sm:py-12 md:py-16 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {/* Phone */}
@@ -399,14 +399,14 @@ export default function ContactPage() {
       </section>
 
       {/* Map Section - Creative Design */}
-      <section className="py-16 lg:py-24 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
+      <section className="py-8 sm:py-12 md:py-16 lg:py-24 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-6 sm:mb-12"
           >
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
@@ -484,7 +484,7 @@ export default function ContactPage() {
       </section>
 
       {/* CTA Section - Creative Design */}
-      <section className="py-16 lg:py-24 bg-gradient-to-br from-emerald-500 via-emerald-600 to-emerald-700 relative overflow-hidden">
+      <section className="py-8 sm:py-12 md:py-16 lg:py-24 bg-gradient-to-br from-emerald-500 via-emerald-600 to-emerald-700 relative overflow-hidden">
         {/* Animated Background Orbs */}
         <div className="absolute inset-0">
           <motion.div
