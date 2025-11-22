@@ -3,10 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import {
-  Bars3Icon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { getWhatsAppUrl } from "../util/constants";
 
 export default function AttractionsPage() {
@@ -188,7 +185,7 @@ export default function AttractionsPage() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full text-sm font-semibold mb-3 shadow-lg"
+              className="inline-flex  mt-6 items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full text-sm font-semibold mb-3 shadow-lg"
             >
               <span>🏔️</span>
               <span>Discover Dolpa&apos;s Wonders</span>
@@ -662,8 +659,8 @@ export default function AttractionsPage() {
               Ready to Explore Dolpa?
             </h2>
             <p className="text-xl md:text-2xl max-w-3xl mx-auto text-emerald-100 mb-10 font-light">
-              Book your stay at Hotel Blue Sheep Inn and start your adventure
-              to Phoksundo Lake and Dho Tarap
+              Book your stay at Hotel Blue Sheep Inn and start your adventure to
+              Phoksundo Lake and Dho Tarap
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -190,7 +190,7 @@ export default function ContactPage() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full text-sm font-semibold mb-3 shadow-lg"
+              className="inline-flex mt-6 items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full text-sm font-semibold mb-3 shadow-lg"
             >
               <span>📞</span>
               <span>Get in Touch</span>
@@ -347,7 +347,9 @@ export default function ContactPage() {
                 <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-purple-700 transition-colors">
                   Location
                 </h3>
-                <p className="text-gray-700 mb-1 font-semibold">Heart of Dunai</p>
+                <p className="text-gray-700 mb-1 font-semibold">
+                  Heart of Dunai
+                </p>
                 <p className="text-gray-600 text-sm">Dolpa, Nepal</p>
               </div>
             </motion.div>

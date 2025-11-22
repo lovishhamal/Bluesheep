@@ -316,7 +316,7 @@ Please let me know about availability and the booking process.`;
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full text-sm font-semibold mb-3 shadow-lg"
+              className="inline-flex mt-6 items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full text-sm font-semibold mb-3 shadow-lg"
             >
               <span>🏕️</span>
               <span>Garden Camping Experience</span>
@@ -686,7 +686,9 @@ Please let me know about availability and the booking process.`;
                 <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center text-white font-bold">
                   🏕️
                 </div>
-                <h2 className="text-2xl font-bold text-gray-900">Book Camping</h2>
+                <h2 className="text-2xl font-bold text-gray-900">
+                  Book Camping
+                </h2>
               </div>
               <button
                 onClick={closeBookingModal}
