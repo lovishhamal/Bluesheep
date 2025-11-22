@@ -273,7 +273,7 @@ Please let me know about availability and the booking process.`;
       </nav>
 
       {/* Header Section - Creative Design */}
-      <section className="relative py-16 lg:py-24 bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden">
+      <section className="relative pt-2 pb-4 sm:py-12 md:py-16 lg:py-24 bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
           <motion.div

@@ -482,7 +482,7 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center justify-center min-h-[70vh] py-8 sm:py-12 lg:py-16">
+          <div className="flex flex-col items-center justify-center min-h-[70vh] pt-2 pb-4 sm:py-8 md:py-12 lg:py-16">
             {/* Content - Centered */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -528,12 +528,12 @@ export default function Home() {
                 </motion.p>
               </div>
 
-              {/* Contact Info - Enhanced Button Style for Mobile */}
+              {/* Contact Info - Enhanced Button Style for Mobile - Hidden on Mobile */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 0.8 }}
-                className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 md:gap-6 mb-4 sm:mb-3 lg:mb-4 w-full sm:w-auto"
+                className="hidden sm:flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 md:gap-6 mb-4 sm:mb-3 lg:mb-4 w-full sm:w-auto"
               >
                 {/* Phone Button - Full Width on Mobile */}
                 <motion.a
