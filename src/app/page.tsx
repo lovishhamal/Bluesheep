@@ -540,12 +540,13 @@ export default function Home() {
                   href={getTelUrl()}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="group flex items-center justify-center gap-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-semibold px-6 py-3.5 sm:px-4 sm:py-2 rounded-xl sm:rounded-lg border-0 sm:border sm:bg-gradient-to-r sm:from-emerald-50 sm:to-blue-50 sm:text-gray-600 sm:border-emerald-200/50 sm:shadow-sm md:bg-white/80 md:border-gray-200/50 transition-all duration-300 shadow-lg sm:shadow-sm hover:shadow-xl sm:hover:shadow-md"
+                  className="group flex items-center justify-center gap-2.5 sm:gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-semibold px-4 py-2.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-lg border-0 sm:border sm:bg-gradient-to-r sm:from-emerald-50 sm:to-blue-50 sm:text-gray-600 sm:border-emerald-200/50 sm:shadow-sm md:bg-white/80 md:border-gray-200/50 transition-all duration-300 shadow-md sm:shadow-sm hover:shadow-lg sm:hover:shadow-md"
                 >
-                  <div className="p-1.5 sm:p-1 bg-white/20 sm:bg-gradient-to-br sm:from-emerald-500 sm:to-emerald-600 rounded-lg sm:rounded-md">
-                    <PhoneIcon className="w-5 h-5 sm:w-4 sm:h-4 text-white sm:text-emerald-600" />
+                  <div className="p-1 bg-white/20 rounded-md flex-shrink-0 sm:hidden">
+                    <PhoneIcon className="w-4 h-4 text-white" />
                   </div>
-                  <span className="text-base sm:text-sm md:text-base font-semibold sm:font-medium">
+                  <PhoneIcon className="w-5 h-5 text-emerald-600 hidden sm:block flex-shrink-0" />
+                  <span className="text-sm sm:text-sm md:text-base font-semibold sm:font-medium">
                     {PHONE_NUMBER}
                   </span>
                 </motion.a>
@@ -554,12 +555,13 @@ export default function Home() {
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="group flex items-center justify-center gap-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold px-6 py-3.5 sm:px-4 sm:py-2 rounded-xl sm:rounded-lg border-0 sm:border sm:bg-gradient-to-r sm:from-blue-50 sm:to-emerald-50 sm:text-gray-600 sm:border-blue-200/50 sm:shadow-sm md:bg-white/80 md:border-gray-200/50 transition-all duration-300 shadow-lg sm:shadow-sm hover:shadow-xl sm:hover:shadow-md cursor-pointer"
+                  className="group flex items-center justify-center gap-2.5 sm:gap-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold px-4 py-2.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-lg border-0 sm:border sm:bg-gradient-to-r sm:from-blue-50 sm:to-emerald-50 sm:text-gray-600 sm:border-blue-200/50 sm:shadow-sm md:bg-white/80 md:border-gray-200/50 transition-all duration-300 shadow-md sm:shadow-sm hover:shadow-lg sm:hover:shadow-md cursor-pointer"
                 >
-                  <div className="p-1.5 sm:p-1 bg-white/20 sm:bg-gradient-to-br sm:from-blue-500 sm:to-blue-600 rounded-lg sm:rounded-md">
-                    <MapPinIcon className="w-5 h-5 sm:w-4 sm:h-4 text-white sm:text-emerald-600" />
+                  <div className="p-1 bg-white/20 rounded-md flex-shrink-0 sm:hidden">
+                    <MapPinIcon className="w-4 h-4 text-white" />
                   </div>
-                  <span className="text-base sm:text-sm md:text-base font-semibold sm:font-medium">
+                  <MapPinIcon className="w-5 h-5 text-emerald-600 hidden sm:block flex-shrink-0" />
+                  <span className="text-sm sm:text-sm md:text-base font-semibold sm:font-medium">
                     Dunai, Dolpa
                   </span>
                 </motion.div>
