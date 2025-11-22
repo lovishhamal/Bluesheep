@@ -11,8 +11,10 @@ import {
 import { useState, useEffect } from "react";
 import { getImagesFromFolder, StorageImage } from "../util/storage";
 import { getWhatsAppUrl, PHONE_NUMBER } from "../util/constants";
+import { useIsMobile } from "../util/useIsMobile";
 
 export default function CampingPage() {
+  const isMobile = useIsMobile();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [bookingForm, setBookingForm] = useState({
@@ -341,9 +343,8 @@ Please let me know about availability and the booking process.`;
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
             className="text-center mb-12"
           >
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
@@ -389,9 +390,10 @@ Please let me know about availability and the booking process.`;
                 <motion.div
                   key={image.name}
                   initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  animate={index === 0 ? { opacity: 1, y: 0 } : undefined}
+                  whileInView={index > 0 ? { opacity: 1, y: 0 } : undefined}
                   transition={{ duration: 0.8, delay: index * 0.1 }}
-                  viewport={{ once: true }}
+                  viewport={index > 0 ? { once: true } : undefined}
                   className="break-inside-avoid mb-6 group cursor-pointer"
                   onClick={() => openImageModal(image)}
                 >

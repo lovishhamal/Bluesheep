@@ -58,6 +58,66 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+/* Performance optimizations for all devices */
+/* Reduce blur effects - very expensive on GPU */
+.blur-3xl {
+  filter: blur(24px) !important;
+  -webkit-filter: blur(24px) !important;
+}
+.blur-2xl {
+  filter: blur(16px) !important;
+  -webkit-filter: blur(16px) !important;
+}
+
+/* Optimize Framer Motion animations */
+[data-framer-motion] {
+  will-change: transform, opacity;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Limit will-change to reduce memory usage */
+* {
+  will-change: auto;
+}
+
+[data-framer-motion] {
+  will-change: transform, opacity;
+}
+
+/* Performance optimizations for mobile and Safari */
+@media (max-width: 768px) {
+  /* Simplify blur effects on mobile - reduce performance cost */
+  .blur-3xl {
+    filter: blur(20px) !important;
+    -webkit-filter: blur(20px) !important;
+  }
+  .blur-2xl {
+    filter: blur(15px) !important;
+    -webkit-filter: blur(15px) !important;
+  }
+
+  /* Optimize transforms for mobile */
+  * {
+    transform-style: flat !important;
+    perspective: none !important;
+  }
+}
+
+/* Prefers reduced motion - completely disable animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* iOS/Safari scroll optimizations */
 @supports (-webkit-touch-callout: none) {
   body {
@@ -65,7 +125,9 @@ body {
   }
 
   /* Disable backdrop-blur on iOS to prevent flicker */
-  .backdrop-blur-sm {
+  .backdrop-blur-sm,
+  .backdrop-blur-md,
+  .backdrop-blur-lg {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
     background-color: rgba(255, 255, 255, 0.15) !important;
@@ -92,6 +154,30 @@ body {
   *:hover[class*="scale"] {
     transform: translateZ(0) !important;
     -webkit-transform: translateZ(0) !important;
+  }
+
+  /* Disable 3D transforms on iOS */
+  * {
+    transform-style: flat !important;
+    -webkit-transform-style: flat !important;
+  }
+
+  /* GPU acceleration for smooth scrolling */
+  * {
+    -webkit-transform: translateZ(0);
+    will-change: auto;
+  }
+}
+
+/* Prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

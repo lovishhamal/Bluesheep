@@ -25,6 +25,7 @@ import {
   Review,
 } from "./util/storage";
 import { getWhatsAppUrl, getTelUrl, PHONE_NUMBER } from "./util/constants";
+import { useIsMobile } from "./util/useIsMobile";
 
 // Type definitions
 
@@ -37,6 +38,7 @@ interface GalleryImage {
 
 export default function Home() {
   const router = useRouter();
+  const isMobile = useIsMobile();
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
@@ -425,61 +427,42 @@ export default function Home() {
       <section className="relative min-h-[550px] flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
-          {/* Large animated gradient orbs */}
-          <motion.div
-            animate={{
-              x: [0, 100, 0],
-              y: [0, 50, 0],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute top-10 left-10 w-96 h-96 bg-gradient-to-br from-emerald-300/30 to-blue-300/30 rounded-full blur-3xl"
-          />
-          <motion.div
-            animate={{
-              x: [0, -80, 0],
-              y: [0, -60, 0],
-              scale: [1, 1.3, 1],
-            }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-gradient-to-br from-blue-300/30 to-emerald-300/30 rounded-full blur-3xl"
-          />
-          <motion.div
-            animate={{
-              x: [0, 50, 0],
-              y: [0, -40, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 18,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute top-1/2 left-1/2 w-80 h-80 bg-gradient-to-br from-purple-200/20 to-emerald-200/20 rounded-full blur-3xl"
-          />
+          {/* Large animated gradient orbs - Simplified for performance */}
+          {!isMobile && (
+            <>
+              <motion.div
+                animate={{
+                  opacity: [0.3, 0.5, 0.3],
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="absolute top-10 left-10 w-96 h-96 bg-gradient-to-br from-emerald-300/30 to-blue-300/30 rounded-full blur-2xl"
+              />
+              <motion.div
+                animate={{
+                  opacity: [0.3, 0.5, 0.3],
+                }}
+                transition={{
+                  duration: 10,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-gradient-to-br from-blue-300/30 to-emerald-300/30 rounded-full blur-2xl"
+              />
+            </>
+          )}
         </div>
 
-        {/* Geometric shapes */}
-        <div className="absolute inset-0 overflow-hidden">
-          <motion.div
-            animate={{ rotate: [0, 360] }}
-            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-            className="absolute top-20 right-32 w-32 h-32 border-2 border-emerald-300/20 rounded-lg"
-          />
-          <motion.div
-            animate={{ rotate: [360, 0] }}
-            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-            className="absolute bottom-32 left-32 w-24 h-24 border-2 border-blue-300/20 rounded-full"
-          />
-        </div>
+        {/* Geometric shapes - Static for better performance */}
+        {!isMobile && (
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-20 right-32 w-32 h-32 border-2 border-emerald-300/20 rounded-lg opacity-30" />
+            <div className="absolute bottom-32 left-32 w-24 h-24 border-2 border-blue-300/20 rounded-full opacity-30" />
+          </div>
+        )}
 
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-center min-h-[70vh] pt-2 pb-4 sm:py-8 md:py-12 lg:py-16">
@@ -487,14 +470,17 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: isMobile ? 0 : 0.8 }}
               className="text-center space-y-5 sm:space-y-6 lg:space-y-8 w-full max-w-4xl"
             >
               {/* Badge - Enhanced for Mobile */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.6 }}
+                transition={{
+                  delay: isMobile ? 0 : 0.2,
+                  duration: isMobile ? 0 : 0.6,
+                }}
                 className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 bg-gradient-to-r from-emerald-100 to-blue-100 rounded-full border border-emerald-200/50 shadow-md mb-6 sm:mb-3"
               >
                 <span className="text-emerald-600 font-semibold text-xs sm:text-sm md:text-base">
@@ -653,8 +639,13 @@ export default function Home() {
                     if (mapSection) {
                       const navbar = document.querySelector("nav");
                       const navbarHeight = navbar ? navbar.offsetHeight : 80;
-                      const elementPosition = mapSection.getBoundingClientRect().top;
-                      const offsetPosition = elementPosition + window.pageYOffset - navbarHeight - 20;
+                      const elementPosition =
+                        mapSection.getBoundingClientRect().top;
+                      const offsetPosition =
+                        elementPosition +
+                        window.pageYOffset -
+                        navbarHeight -
+                        20;
                       window.scrollTo({
                         top: offsetPosition,
                         behavior: "smooth",
@@ -712,7 +703,7 @@ export default function Home() {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-3xl"
+            className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-2xl"
           />
           <motion.div
             animate={{
@@ -725,7 +716,7 @@ export default function Home() {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-3xl"
+            className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-2xl"
           />
         </div>
 
@@ -733,16 +724,14 @@ export default function Home() {
           {/* Header with Creative Design */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
             className="text-center mb-20"
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
               className="inline-block mb-6"
             >
               <span className="text-6xl">✨</span>
@@ -831,14 +820,17 @@ export default function Home() {
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                animate={index < 2 ? { opacity: 1, y: 0, scale: 1 } : undefined}
+                whileInView={
+                  index >= 2 ? { opacity: 1, y: 0, scale: 1 } : undefined
+                }
                 transition={{
                   duration: 0.6,
                   delay: feature.delay,
                   type: "spring",
                   stiffness: 100,
                 }}
-                viewport={{ once: true }}
+                viewport={index >= 2 ? { once: true } : undefined}
                 whileHover={{ y: -10, scale: 1.02 }}
                 className="group relative"
               >
@@ -891,9 +883,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
             className="text-center mb-12"
           >
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
@@ -940,9 +931,10 @@ export default function Home() {
                   <motion.div
                     key={image.name}
                     initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    animate={index === 0 ? { opacity: 1, y: 0 } : undefined}
+                    whileInView={index > 0 ? { opacity: 1, y: 0 } : undefined}
                     transition={{ duration: 0.8, delay: index * 0.1 }}
-                    viewport={{ once: true }}
+                    viewport={index > 0 ? { once: true } : undefined}
                     className="break-inside-avoid mb-6 group cursor-pointer"
                     onClick={() => openHotelGalleryModal(image)}
                   >
@@ -1002,7 +994,7 @@ export default function Home() {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute top-0 left-0 w-[600px] h-[600px] bg-gradient-to-br from-emerald-200/25 to-blue-200/25 rounded-full blur-3xl"
+            className="absolute top-0 left-0 w-[600px] h-[600px] bg-gradient-to-br from-emerald-200/25 to-blue-200/25 rounded-full blur-2xl"
           />
           <motion.div
             animate={{
@@ -1015,7 +1007,7 @@ export default function Home() {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute bottom-0 right-0 w-[700px] h-[700px] bg-gradient-to-br from-blue-200/25 to-emerald-200/25 rounded-full blur-3xl"
+            className="absolute bottom-0 right-0 w-[700px] h-[700px] bg-gradient-to-br from-blue-200/25 to-emerald-200/25 rounded-full blur-2xl"
           />
         </div>
 
@@ -1331,30 +1323,34 @@ export default function Home() {
           >
             {/* Animated Background */}
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-100 via-blue-100 to-purple-100 rounded-3xl"></div>
-            <motion.div
-              animate={{
-                rotate: [0, 360],
-                scale: [1, 1.1, 1],
-              }}
-              transition={{
-                duration: 20,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br from-emerald-300/30 to-blue-300/30 rounded-full blur-3xl"
-            />
-            <motion.div
-              animate={{
-                rotate: [360, 0],
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                duration: 25,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute -bottom-20 -left-20 w-80 h-80 bg-gradient-to-br from-blue-300/30 to-purple-300/30 rounded-full blur-3xl"
-            />
+            {!isMobile && (
+              <>
+                <motion.div
+                  animate={{
+                    rotate: [0, 360],
+                    scale: [1, 1.1, 1],
+                  }}
+                  transition={{
+                    duration: 20,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                  className="absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br from-emerald-300/30 to-blue-300/30 rounded-full blur-2xl"
+                />
+                <motion.div
+                  animate={{
+                    rotate: [360, 0],
+                    scale: [1, 1.2, 1],
+                  }}
+                  transition={{
+                    duration: 25,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                  className="absolute -bottom-20 -left-20 w-80 h-80 bg-gradient-to-br from-blue-300/30 to-purple-300/30 rounded-full blur-2xl"
+                />
+              </>
+            )}
 
             <div className="relative z-10 p-12 md:p-16 border-2 border-emerald-200/50 rounded-3xl shadow-2xl">
               <motion.div
@@ -1507,7 +1503,7 @@ export default function Home() {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-3xl"
+            className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-2xl"
           />
           <motion.div
             animate={{
@@ -1520,7 +1516,7 @@ export default function Home() {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-3xl"
+            className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-2xl"
           />
         </div>
 
@@ -1698,8 +1694,8 @@ export default function Home() {
       {/* Contact Section - With Gradients */}
       <section className="py-24 bg-gradient-to-br from-emerald-50 via-white to-blue-50 relative overflow-hidden">
         {/* Decorative gradient circles */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-emerald-100/40 to-blue-100/40 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-br from-blue-100/40 to-emerald-100/40 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-emerald-100/40 to-blue-100/40 rounded-full blur-2xl"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-br from-blue-100/40 to-emerald-100/40 rounded-full blur-2xl"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
@@ -1838,7 +1834,7 @@ export default function Home() {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-emerald-400/20 to-blue-400/20 rounded-full blur-3xl"
+            className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-emerald-400/20 to-blue-400/20 rounded-full blur-2xl"
           />
           <motion.div
             animate={{
@@ -1851,7 +1847,7 @@ export default function Home() {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-blue-400/20 to-emerald-400/20 rounded-full blur-3xl"
+            className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-blue-400/20 to-emerald-400/20 rounded-full blur-2xl"
           />
         </div>
 

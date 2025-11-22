@@ -30,7 +30,8 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Bluesheep | Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Garden Restaurant & Camping",
+  title:
+    "Bluesheep | Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Garden Restaurant & Camping",
   description:
     "🏨 Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa with garden restaurant & camping. Luxury accommodation in Dolpa with mountain views, WiFi, and exceptional service. Book your stay today!",
   keywords: [
@@ -128,7 +129,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Bluesheep | Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Garden Restaurant & Camping",
+    title:
+      "Bluesheep | Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Garden Restaurant & Camping",
     description:
       "🏨 Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa with garden restaurant & camping. Luxury accommodation with mountain views, WiFi, and exceptional service.",
     url: "https://bluesheephotel.com",
@@ -146,7 +148,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bluesheep | Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Garden Restaurant & Camping",
+    title:
+      "Bluesheep | Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Garden Restaurant & Camping",
     description:
       "🏨 Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa with garden restaurant & camping. Luxury accommodation with mountain views and exceptional service.",
     images: ["/logo.jpg"],
@@ -167,13 +170,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/favicon.ico", type: "image/x-icon" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
-    apple: [
-      { url: "/logo.jpg", type: "image/jpeg" },
-    ],
-    shortcut: "/favicon.ico",
+    apple: [{ url: "/logo.jpg", type: "image/jpeg" }],
+    shortcut: "/favicon-32x32.png",
   },
 };
 
@@ -183,10 +184,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${montserrat.variable}`}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${montserrat.variable}`}
+    >
       <head>
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="any" />
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <link
+          rel="icon"
+          href="/favicon-16x16.png"
+          type="image/png"
+          sizes="16x16"
+        />
+        <link
+          rel="icon"
+          href="/favicon-32x32.png"
+          type="image/png"
+          sizes="32x32"
+        />
+        <link rel="shortcut icon" href="/favicon-32x32.png" type="image/png" />
         <link rel="apple-touch-icon" href="/logo.jpg" />
         <script
           type="application/ld+json"
@@ -276,7 +291,8 @@ export default function RootLayout({
                 "@type": "LodgingBusiness",
                 name: "Hotel Blue Sheep Inn Garden Camping",
                 alternateName: "Garden Camping",
-                description: "Hotel Blue Sheep Inn - Best camping in Dunai Dolpa with garden facilities",
+                description:
+                  "Hotel Blue Sheep Inn - Best camping in Dunai Dolpa with garden facilities",
                 amenityFeature: [
                   {
                     "@type": "LocationFeatureSpecification",

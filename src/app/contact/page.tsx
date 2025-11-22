@@ -12,8 +12,10 @@ import {
 } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { getWhatsAppUrl, getTelUrl, PHONE_NUMBER } from "../util/constants";
+import { useIsMobile } from "../util/useIsMobile";
 
 export default function ContactPage() {
+  const isMobile = useIsMobile();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -147,7 +149,7 @@ export default function ContactPage() {
       </nav>
 
       {/* Header Section - Creative Design */}
-      <section className="relative min-h-[550px] pt-2 pb-4 sm:py-12 md:py-16 lg:py-24 bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden">
+      <section className="relative min-h-[550px] pt-2 pb-0 sm:py-8 md:py-12 lg:py-16 bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
           <motion.div
@@ -190,14 +192,14 @@ export default function ContactPage() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="inline-flex mt-6 items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full text-sm font-semibold mb-8 sm:mb-3 shadow-lg"
+              className="inline-flex mt-3 items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full text-sm font-semibold mb-8 sm:mb-3 shadow-lg"
             >
               <span>📞</span>
               <span>Get in Touch</span>
             </motion.div>
 
             {/* Title */}
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-6">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-4">
               <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
                 Contact Us
               </span>
@@ -210,9 +212,9 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Information Grid - Creative Design */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-24 bg-white">
+      <section className="pt-0 pb-6 sm:pt-4 sm:pb-8 md:py-12 lg:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {/* Phone */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -228,7 +230,7 @@ export default function ContactPage() {
                 <motion.div
                   whileHover={{ rotate: [0, -15, 15, 0], scale: 1.1 }}
                   transition={{ duration: 0.5 }}
-                  className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg border-2 border-white group-hover:shadow-xl"
+                  className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg border-2 border-white group-hover:shadow-xl"
                 >
                   {/* Animated Shine Effect */}
                   <motion.div
@@ -244,10 +246,10 @@ export default function ContactPage() {
                   />
                   <PhoneIcon className="w-10 h-10 text-white relative z-10" />
                 </motion.div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-emerald-700 transition-colors">
+                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-emerald-700 transition-colors">
                   Phone
                 </h3>
-                <p className="text-gray-700 mb-5 font-medium">{PHONE_NUMBER}</p>
+                <p className="text-gray-700 mb-3 font-medium">{PHONE_NUMBER}</p>
                 <motion.button
                   onClick={() => {
                     const message = `Hi! I'd like to get in touch about your hotel services.`;
@@ -297,7 +299,7 @@ export default function ContactPage() {
                 <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-700 transition-colors">
                   Email
                 </h3>
-                <p className="text-gray-700 mb-5 text-sm font-medium break-all">
+                <p className="text-gray-700 mb-3 text-sm font-medium break-all">
                   innbluesheep@gmail.com
                 </p>
                 <motion.button
@@ -399,7 +401,7 @@ export default function ContactPage() {
       </section>
 
       {/* Map Section - Creative Design */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-24 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
+      <section className="py-12 lg:py-16 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -484,7 +486,7 @@ export default function ContactPage() {
       </section>
 
       {/* CTA Section - Creative Design */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-24 bg-gradient-to-br from-emerald-500 via-emerald-600 to-emerald-700 relative overflow-hidden">
+      <section className="py-24 lg:py-32 bg-gradient-to-br from-emerald-500 via-emerald-600 to-emerald-700 relative overflow-hidden">
         {/* Animated Background Orbs */}
         <div className="absolute inset-0">
           <motion.div

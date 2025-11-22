@@ -5,8 +5,10 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { getWhatsAppUrl } from "../util/constants";
+import { useIsMobile } from "../util/useIsMobile";
 
 export default function AttractionsPage() {
+  const isMobile = useIsMobile();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (

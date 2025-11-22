@@ -18,6 +18,7 @@ import {
 import { supabase } from "../util/supabase";
 import { getWhatsAppUrl, PHONE_NUMBER } from "../util/constants";
 import { useState, useEffect } from "react";
+import { useIsMobile } from "../util/useIsMobile";
 
 // Room interface matching your database schema
 interface Room {
@@ -37,6 +38,7 @@ interface Room {
 }
 
 export default function RoomsPage() {
+  const isMobile = useIsMobile();
   const [rooms, setRooms] = useState<Room[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -519,14 +521,15 @@ Please let me know about availability and booking process.`;
                   key={room.id}
                   data-room-id={room.id}
                   initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  animate={index === 0 ? { opacity: 1, y: 0, scale: 1 } : undefined}
+                  whileInView={index > 0 ? { opacity: 1, y: 0, scale: 1 } : undefined}
                   transition={{
                     duration: 0.6,
                     delay: index * 0.1,
                     type: "spring",
                     stiffness: 100,
                   }}
-                  viewport={{ once: true }}
+                  viewport={index > 0 ? { once: true } : undefined}
                   whileHover={{ y: -10, scale: 1.02 }}
                   className="group relative"
                 >
@@ -989,71 +992,75 @@ Please let me know about availability and booking process.`;
             ].map((amenity, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 50, scale: 0.9, rotateY: -15 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1, rotateY: 0 }}
+                initial={{ opacity: 0, y: isMobile ? 20 : 50, scale: isMobile ? 1 : 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{
-                  duration: 0.6,
-                  delay: index * 0.1,
-                  type: "spring",
-                  stiffness: 100,
+                  duration: isMobile ? 0.3 : 0.6,
+                  delay: isMobile ? 0 : index * 0.1,
+                  type: isMobile ? "tween" : "spring",
+                  stiffness: isMobile ? undefined : 100,
                 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -12, scale: 1.05, rotateY: 5 }}
+                whileHover={isMobile ? {} : { y: -12, scale: 1.05 }}
                 className="text-center bg-white rounded-2xl shadow-xl p-6 lg:p-8 border-2 border-gray-200 hover:border-emerald-300 hover:shadow-2xl transition-all duration-500 group relative overflow-hidden"
               >
-                {/* Animated Background Gradient */}
-                <motion.div
-                  animate={{
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                  }}
-                  transition={{
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  className={`absolute inset-0 bg-gradient-to-r ${amenity.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl`}
-                ></motion.div>
+                {/* Animated Background Gradient - Disabled on mobile */}
+                {!isMobile && (
+                  <motion.div
+                    animate={{
+                      backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                    }}
+                    transition={{
+                      duration: 5,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                    className={`absolute inset-0 bg-gradient-to-r ${amenity.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl`}
+                  ></motion.div>
+                )}
 
-                {/* Glow Effect on Hover */}
+                {/* Glow Effect on Hover - Simplified on mobile */}
                 <div
-                  className={`absolute -inset-1 bg-gradient-to-r ${amenity.gradient} rounded-2xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10`}
+                  className={`absolute -inset-1 bg-gradient-to-r ${amenity.gradient} rounded-2xl ${isMobile ? '' : 'blur'} opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10`}
                 ></div>
 
                 <div className="relative z-10">
                   {/* Icon Container with Creative Design */}
                   <motion.div
-                    whileHover={{
+                    whileHover={isMobile ? {} : {
                       rotate: [0, -15, 15, 0],
                       scale: 1.15,
                     }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: isMobile ? 0 : 0.5 }}
                     className={`relative w-20 h-20 bg-gradient-to-br ${amenity.iconBg} rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg border-2 border-white group-hover:shadow-xl`}
                   >
-                    {/* Animated Shine Effect */}
-                    <motion.div
-                      animate={{
-                        x: ["-100%", "200%"],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent rounded-2xl"
-                    />
+                    {/* Animated Shine Effect - Disabled on mobile */}
+                    {!isMobile && (
+                      <motion.div
+                        animate={{
+                          x: ["-100%", "200%"],
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent rounded-2xl"
+                      />
+                    )}
 
                     {/* Icon */}
                     <amenity.icon
                       className={`w-10 h-10 ${amenity.iconColor} relative z-10`}
                     />
 
-                    {/* Emoji Badge */}
+                    {/* Emoji Badge - Simplified animation on mobile */}
                     <motion.div
-                      animate={{
+                      animate={isMobile ? {} : {
                         scale: [1, 1.2, 1],
                         rotate: [0, 10, -10, 0],
                       }}
-                      transition={{
+                      transition={isMobile ? {} : {
                         duration: 3,
                         repeat: Infinity,
                         delay: index * 0.3,
@@ -1091,7 +1098,7 @@ Please let me know about availability and booking process.`;
                 <motion.div
                   initial={{ width: 0 }}
                   whileInView={{ width: "100%" }}
-                  transition={{ duration: 0.8, delay: index * 0.1 + 0.3 }}
+                  transition={{ duration: isMobile ? 0.3 : 0.8, delay: isMobile ? 0 : index * 0.1 + 0.3 }}
                   viewport={{ once: true }}
                   className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r ${amenity.gradient} rounded-b-2xl`}
                 ></motion.div>
