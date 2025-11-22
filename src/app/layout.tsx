@@ -170,12 +170,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: "/favicon.ico", type: "image/x-icon" },
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/logo.jpg", sizes: "512x512", type: "image/jpeg" },
     ],
-    apple: [{ url: "/logo.jpg", type: "image/jpeg", sizes: "512x512" }],
-    shortcut: "/favicon-32x32.png",
+    apple: [{ url: "/logo.jpg", sizes: "512x512", type: "image/jpeg" }],
+    shortcut: "/favicon.ico",
   },
 };
 
@@ -190,21 +190,28 @@ export default function RootLayout({
       className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${montserrat.variable}`}
     >
       <head>
-        <link rel="icon" href="/logo.jpg" type="image/jpeg" />
-        <link
-          rel="icon"
-          href="/favicon-16x16.png"
-          type="image/png"
-          sizes="16x16"
-        />
+        {/* Favicon - Primary */}
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+        {/* PNG Favicons */}
         <link
           rel="icon"
           href="/favicon-32x32.png"
           type="image/png"
           sizes="32x32"
         />
-        <link rel="shortcut icon" href="/logo.jpg" type="image/jpeg" />
+        <link
+          rel="icon"
+          href="/favicon-16x16.png"
+          type="image/png"
+          sizes="16x16"
+        />
+
+        {/* Apple Touch Icon */}
         <link rel="apple-touch-icon" href="/logo.jpg" sizes="512x512" />
+
+        {/* Structured Data Scripts */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -214,9 +221,9 @@ export default function RootLayout({
               name: "Hotel Blue Sheep Inn",
               logo: {
                 "@type": "ImageObject",
-                url: "/logo.jpg",
+                url: "https://hotelbluesheepinn.com/logo.jpg",
               },
-              image: "/logo.jpg",
+              image: "https://hotelbluesheepinn.com/logo.jpg",
               alternateName: [
                 "Bluesheep",
                 "bluesheep",
@@ -335,11 +342,11 @@ export default function RootLayout({
               url: "https://hotelbluesheepinn.com",
               logo: {
                 "@type": "ImageObject",
-                url: "/logo.jpg",
+                url: "https://hotelbluesheepinn.com/logo.jpg",
                 width: 512,
                 height: 512,
               },
-              image: "/logo.jpg",
+              image: "https://hotelbluesheepinn.com/logo.jpg",
               telephone: "+977-985-806-1927",
               address: {
                 "@type": "PostalAddress",
@@ -362,9 +369,9 @@ export default function RootLayout({
               name: "Hotel Blue Sheep Inn",
               logo: {
                 "@type": "ImageObject",
-                url: "/logo.jpg",
+                url: "https://hotelbluesheepinn.com/logo.jpg",
               },
-              image: "/logo.jpg",
+              image: "https://hotelbluesheepinn.com/logo.jpg",
               alternateName: [
                 "Bluesheep",
                 "bluesheep",
