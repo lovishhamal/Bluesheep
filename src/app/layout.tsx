@@ -167,12 +167,13 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/logo.jpg", type: "image/jpeg", sizes: "any" },
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.ico", type: "image/x-icon" },
     ],
     apple: [
       { url: "/logo.jpg", type: "image/jpeg" },
     ],
-    shortcut: "/logo.jpg",
+    shortcut: "/favicon.ico",
   },
 };
 
@@ -184,8 +185,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${montserrat.variable}`}>
       <head>
-        <link rel="icon" href="/logo.jpg" type="image/jpeg" sizes="any" />
-        <link rel="shortcut icon" href="/logo.jpg" type="image/jpeg" />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="any" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="/logo.jpg" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
