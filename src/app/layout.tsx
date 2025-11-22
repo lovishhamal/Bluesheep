@@ -168,7 +168,6 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/logo.jpg", type: "image/jpeg", sizes: "any" },
-      { url: "/logo.svg", type: "image/svg+xml" },
     ],
     apple: [
       { url: "/logo.jpg", type: "image/jpeg" },
@@ -185,7 +184,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${montserrat.variable}`}>
       <head>
-        <link rel="icon" href="/logo.jpg" type="image/jpeg" />
+        <link rel="icon" href="/logo.jpg" type="image/jpeg" sizes="any" />
         <link rel="shortcut icon" href="/logo.jpg" type="image/jpeg" />
         <script
           type="application/ld+json"

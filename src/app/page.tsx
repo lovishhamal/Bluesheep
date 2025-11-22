@@ -651,9 +651,13 @@ export default function Home() {
                   onClick={() => {
                     const mapSection = document.getElementById("map-section");
                     if (mapSection) {
-                      mapSection.scrollIntoView({
+                      const navbar = document.querySelector("nav");
+                      const navbarHeight = navbar ? navbar.offsetHeight : 80;
+                      const elementPosition = mapSection.getBoundingClientRect().top;
+                      const offsetPosition = elementPosition + window.pageYOffset - navbarHeight - 20;
+                      window.scrollTo({
+                        top: offsetPosition,
                         behavior: "smooth",
-                        block: "start",
                       });
                     }
                   }}
