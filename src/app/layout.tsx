@@ -124,7 +124,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://bluesheephotel.com"),
+  metadataBase: new URL("https://hotelbluesheepinn.com"),
   alternates: {
     canonical: "/",
   },
@@ -133,13 +133,13 @@ export const metadata: Metadata = {
       "Bluesheep | Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Garden Restaurant & Camping",
     description:
       "🏨 Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa with garden restaurant & camping. Luxury accommodation with mountain views, WiFi, and exceptional service.",
-    url: "https://bluesheephotel.com",
+    url: "https://hotelbluesheepinn.com",
     siteName: "Hotel Blue Sheep Inn",
     images: [
       {
         url: "/logo.jpg",
-        width: 1200,
-        height: 630,
+        width: 512,
+        height: 512,
         alt: "Hotel Blue Sheep Inn - Best Hotel in Dunai - Garden Restaurant & Camping",
       },
     ],
@@ -172,8 +172,9 @@ export const metadata: Metadata = {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/logo.jpg", sizes: "512x512", type: "image/jpeg" },
     ],
-    apple: [{ url: "/logo.jpg", type: "image/jpeg" }],
+    apple: [{ url: "/logo.jpg", type: "image/jpeg", sizes: "512x512" }],
     shortcut: "/favicon-32x32.png",
   },
 };
@@ -189,6 +190,7 @@ export default function RootLayout({
       className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${montserrat.variable}`}
     >
       <head>
+        <link rel="icon" href="/logo.jpg" type="image/jpeg" />
         <link
           rel="icon"
           href="/favicon-16x16.png"
@@ -201,8 +203,8 @@ export default function RootLayout({
           type="image/png"
           sizes="32x32"
         />
-        <link rel="shortcut icon" href="/favicon-32x32.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/logo.jpg" />
+        <link rel="shortcut icon" href="/logo.jpg" type="image/jpeg" />
+        <link rel="apple-touch-icon" href="/logo.jpg" sizes="512x512" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -212,9 +214,9 @@ export default function RootLayout({
               name: "Hotel Blue Sheep Inn",
               logo: {
                 "@type": "ImageObject",
-                url: "https://bluesheephotel.com/logo.jpg",
+                url: "/logo.jpg",
               },
-              image: "https://bluesheephotel.com/logo.jpg",
+              image: "/logo.jpg",
               alternateName: [
                 "Bluesheep",
                 "bluesheep",
@@ -229,7 +231,7 @@ export default function RootLayout({
               ],
               description:
                 "Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa offering exceptional hospitality and stunning mountain views",
-              url: "https://bluesheephotel.com",
+              url: "https://hotelbluesheepinn.com",
               telephone: "+977-985-806-1927",
               address: {
                 "@type": "PostalAddress",
@@ -330,14 +332,14 @@ export default function RootLayout({
                 "Bluesheep Hotel",
                 "Bluesheep Inn",
               ],
-              url: "https://bluesheephotel.com",
+              url: "https://hotelbluesheepinn.com",
               logo: {
                 "@type": "ImageObject",
-                url: "https://bluesheephotel.com/logo.jpg",
+                url: "/logo.jpg",
                 width: 512,
                 height: 512,
               },
-              image: "https://bluesheephotel.com/logo.jpg",
+              image: "/logo.jpg",
               telephone: "+977-985-806-1927",
               address: {
                 "@type": "PostalAddress",
@@ -356,13 +358,13 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
-              "@id": "https://bluesheephotel.com",
+              "@id": "https://hotelbluesheepinn.com",
               name: "Hotel Blue Sheep Inn",
               logo: {
                 "@type": "ImageObject",
-                url: "https://bluesheephotel.com/logo.jpg",
+                url: "/logo.jpg",
               },
-              image: "https://bluesheephotel.com/logo.jpg",
+              image: "/logo.jpg",
               alternateName: [
                 "Bluesheep",
                 "bluesheep",
@@ -377,7 +379,7 @@ export default function RootLayout({
               ],
               description:
                 "Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa with garden restaurant and camping facilities",
-              url: "https://bluesheephotel.com",
+              url: "https://hotelbluesheepinn.com",
               telephone: "+977-985-806-1927",
               address: {
                 "@type": "PostalAddress",
