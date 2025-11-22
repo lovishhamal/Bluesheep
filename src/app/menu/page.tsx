@@ -352,9 +352,10 @@ export default function MenuPage() {
                       <motion.div
                         key={item.id}
                         initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                        animate={index === 0 ? { opacity: 1, y: 0 } : undefined}
+                        whileInView={index > 0 ? { opacity: 1, y: 0 } : undefined}
                         transition={{ duration: 0.8, delay: index * 0.1 }}
-                        viewport={{ once: true }}
+                        viewport={index > 0 ? { once: true } : undefined}
                         className="flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-6 mb-6"
                       >
                         {/* Item Image */}
