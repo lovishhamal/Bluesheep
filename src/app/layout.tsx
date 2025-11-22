@@ -135,10 +135,10 @@ export const metadata: Metadata = {
     siteName: "Hotel Blue Sheep Inn",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/logo.jpg",
         width: 1200,
         height: 630,
-        alt: "Best Hotel in Dunai - Garden Restaurant & Camping",
+        alt: "Hotel Blue Sheep Inn - Best Hotel in Dunai - Garden Restaurant & Camping",
       },
     ],
     locale: "en_US",
@@ -149,7 +149,7 @@ export const metadata: Metadata = {
     title: "Bluesheep | Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Garden Restaurant & Camping",
     description:
       "🏨 Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa with garden restaurant & camping. Luxury accommodation with mountain views and exceptional service.",
-    images: ["/og-image.jpg"],
+    images: ["/logo.jpg"],
   },
   robots: {
     index: true,
@@ -167,13 +167,13 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/icon.png", type: "image/png" },
+      { url: "/logo.jpg", type: "image/jpeg", sizes: "any" },
+      { url: "/logo.svg", type: "image/svg+xml" },
     ],
     apple: [
-      { url: "/apple-icon.png", type: "image/png" },
+      { url: "/logo.jpg", type: "image/jpeg" },
     ],
-    shortcut: "/icon.png",
+    shortcut: "/logo.jpg",
   },
 };
 
@@ -185,6 +185,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${montserrat.variable}`}>
       <head>
+        <link rel="icon" href="/logo.jpg" type="image/jpeg" />
+        <link rel="shortcut icon" href="/logo.jpg" type="image/jpeg" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -192,6 +194,11 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Hotel",
               name: "Hotel Blue Sheep Inn",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://bluesheephotel.com/logo.jpg",
+              },
+              image: "https://bluesheephotel.com/logo.jpg",
               alternateName: [
                 "Bluesheep",
                 "bluesheep",
@@ -307,7 +314,13 @@ export default function RootLayout({
                 "Bluesheep Inn",
               ],
               url: "https://bluesheephotel.com",
-              logo: "https://bluesheephotel.com/logo.jpg",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://bluesheephotel.com/logo.jpg",
+                width: 512,
+                height: 512,
+              },
+              image: "https://bluesheephotel.com/logo.jpg",
               telephone: "+977-985-806-1927",
               address: {
                 "@type": "PostalAddress",
@@ -328,6 +341,11 @@ export default function RootLayout({
               "@type": "LocalBusiness",
               "@id": "https://bluesheephotel.com",
               name: "Hotel Blue Sheep Inn",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://bluesheephotel.com/logo.jpg",
+              },
+              image: "https://bluesheephotel.com/logo.jpg",
               alternateName: [
                 "Bluesheep",
                 "bluesheep",
