@@ -298,11 +298,13 @@ export default function RootLayout({
                 "Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa offering exceptional hospitality and stunning mountain views",
               url: "https://hotelbluesheepinn.com",
               telephone: "+977-985-806-1927",
+              email: "info@hotelbluesheepinn.com",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Dunai, Dolpa",
                 addressLocality: "Dunai",
                 addressRegion: "Karnali Province",
+                postalCode: "",
                 addressCountry: "Nepal",
               },
               geo: {
@@ -310,6 +312,38 @@ export default function RootLayout({
                 latitude: "28.9167",
                 longitude: "82.8333",
               },
+              openingHoursSpecification: {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday",
+                  "Sunday",
+                ],
+                opens: "00:00",
+                closes: "23:59",
+              },
+              areaServed: [
+                {
+                  "@type": "City",
+                  name: "Dunai",
+                },
+                {
+                  "@type": "City",
+                  name: "Dolpa",
+                },
+                {
+                  "@type": "City",
+                  name: "Phoksundo",
+                },
+                {
+                  "@type": "City",
+                  name: "Dho Tarap",
+                },
+              ],
               amenityFeature: [
                 {
                   "@type": "LocationFeatureSpecification",
@@ -411,13 +445,33 @@ export default function RootLayout({
                 height: 512,
               },
               telephone: "+977-985-806-1927",
+              email: "info@hotelbluesheepinn.com",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Dunai, Dolpa",
                 addressLocality: "Dunai",
                 addressRegion: "Karnali Province",
+                postalCode: "",
                 addressCountry: "Nepal",
               },
+              areaServed: [
+                {
+                  "@type": "City",
+                  name: "Dunai",
+                },
+                {
+                  "@type": "City",
+                  name: "Dolpa",
+                },
+                {
+                  "@type": "City",
+                  name: "Phoksundo",
+                },
+                {
+                  "@type": "City",
+                  name: "Dho Tarap",
+                },
+              ],
               sameAs: [],
             }),
           }}
@@ -456,6 +510,7 @@ export default function RootLayout({
                 "Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa with garden restaurant and camping facilities",
               url: "https://hotelbluesheepinn.com",
               telephone: "+977-985-806-1927",
+              email: "info@hotelbluesheepinn.com",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Dunai, Dolpa",
@@ -471,6 +526,38 @@ export default function RootLayout({
               },
               priceRange: "$$",
               servesCuisine: ["Nepali", "International", "Local"],
+              openingHoursSpecification: {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday",
+                  "Sunday",
+                ],
+                opens: "00:00",
+                closes: "23:59",
+              },
+              areaServed: [
+                {
+                  "@type": "City",
+                  name: "Dunai",
+                },
+                {
+                  "@type": "City",
+                  name: "Dolpa",
+                },
+                {
+                  "@type": "City",
+                  name: "Phoksundo",
+                },
+                {
+                  "@type": "City",
+                  name: "Dho Tarap",
+                },
+              ],
             }),
           }}
         />
