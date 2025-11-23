@@ -692,7 +692,7 @@ Please let me know about availability and the booking process.`;
       {/* Booking Modal - Creative Design */}
       {isBookingModalOpen && (
         <div
-          className="fixed top-0 left-0 right-0 bottom-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overscroll-contain"
+          className="fixed top-0 left-0 right-0 bottom-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 overscroll-contain"
           style={{
             position: "fixed",
             top: 0,
@@ -704,6 +704,10 @@ Please let me know about availability and the booking process.`;
             maxHeight: "100vh",
             overflow: "auto",
             WebkitOverflowScrolling: "touch",
+            paddingTop: "env(safe-area-inset-top, 0)",
+            paddingBottom: "env(safe-area-inset-bottom, 0)",
+            paddingLeft: "env(safe-area-inset-left, 0)",
+            paddingRight: "env(safe-area-inset-right, 0)",
           }}
           onClick={closeBookingModal}
         >
@@ -712,46 +716,47 @@ Please let me know about availability and the booking process.`;
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-white rounded-3xl p-8 border-4 border-emerald-500 shadow-2xl w-full max-w-md my-auto"
+            className="bg-white rounded-3xl p-4 sm:p-6 lg:p-8 border-4 border-emerald-500 shadow-2xl w-full max-w-md my-auto max-h-[85vh] sm:max-h-[90vh] overflow-y-auto"
             style={{
-              maxHeight: "90vh",
+              maxHeight: "min(85vh, calc(100vh - 2rem))",
               overflowY: "auto",
               WebkitOverflowScrolling: "touch",
               position: "relative",
               margin: "auto",
+              paddingBottom: "env(safe-area-inset-bottom, 1rem)",
             }}
           >
             {/* Header with Gradient Bar */}
             <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 rounded-t-3xl"></div>
 
-            <div className="flex justify-between items-center mb-6">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center text-white font-bold">
+            <div className="flex justify-between items-center mb-4 sm:mb-6">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center text-white font-bold text-sm sm:text-base">
                   🏕️
                 </div>
-                <h2 className="text-2xl font-bold text-gray-900">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
                   Book Camping
                 </h2>
               </div>
               <button
                 onClick={closeBookingModal}
-                className="text-gray-400 hover:text-gray-600 transition-colors"
+                className="text-gray-400 hover:text-gray-600 transition-colors p-1"
               >
-                <XMarkIcon className="w-6 h-6" />
+                <XMarkIcon className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
             </div>
 
             {/* Booking Notice */}
-            <div className="mb-6 p-4 bg-amber-50 border-l-4 border-amber-400 rounded-lg">
-              <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-amber-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+            <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-amber-50 border-l-4 border-amber-400 rounded-lg">
+              <div className="flex items-start gap-2 sm:gap-3">
+                <div className="w-5 h-5 sm:w-6 sm:h-6 bg-amber-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-white text-xs font-bold">!</span>
                 </div>
                 <div>
-                  <h4 className="text-amber-900 font-semibold mb-1 text-sm">
+                  <h4 className="text-amber-900 font-semibold mb-1 text-xs sm:text-sm">
                     Important Notice
                   </h4>
-                  <p className="text-amber-800 text-sm">
+                  <p className="text-amber-800 text-xs sm:text-sm">
                     Bookings must be made at least 1 day in advance. This will
                     open WhatsApp with your booking details.
                   </p>
@@ -760,7 +765,7 @@ Please let me know about availability and the booking process.`;
             </div>
 
             {/* Booking Form */}
-            <form onSubmit={handleBookingSubmit} className="space-y-5">
+            <form onSubmit={handleBookingSubmit} className="space-y-4 sm:space-y-5">
               <div>
                 <label className="block text-sm font-semibold text-gray-900 mb-2">
                   Full Name <span className="text-red-500">*</span>
