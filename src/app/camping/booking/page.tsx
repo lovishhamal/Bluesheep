@@ -19,7 +19,7 @@ export default function CampingBookingPage() {
 
 *Camping Details:*
 • Type: Garden Camping
-• Number of People: ${bookingForm.numberOfPeople}
+• Number of Guests: ${bookingForm.numberOfPeople}
 • Arrival Date: ${bookingForm.arrivalDate}
 
 *Customer Information:*
@@ -100,8 +100,8 @@ Please confirm this booking.`;
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-2">
-              Number of People <span className="text-red-500">*</span>
+            <label className="block text-sm font-bold text-gray-900 mb-2">
+              Number of Guests <span className="text-red-500">*</span>
             </label>
             <input
               type="number"
@@ -115,7 +115,7 @@ Please confirm this booking.`;
                 })
               }
               className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
-              placeholder="How many people?"
+              placeholder="Enter number of guests"
             />
           </div>
 

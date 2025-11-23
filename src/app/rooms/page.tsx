@@ -53,6 +53,7 @@ export default function RoomsPage() {
     customerName: "",
     customerEmail: "",
     customerPhone: "",
+    numberOfGuests: "",
     specialRequests: "",
   });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -181,27 +182,22 @@ export default function RoomsPage() {
     }
 
     // Create WhatsApp message with form data
-    const message = `Hi! I'm interested in booking the ${
-      selectedRoom.room_name
-    } room.
+    const message = `🏨 *Hotel Blue Sheep Inn - Room Booking Request*
 
-Room Details:
-- Room: ${selectedRoom.room_name}
-- Price: ${formatPrice(selectedRoom.price_per_night)} per night
-- Capacity: ${selectedRoom.capacity} guests
-- Facilities: ${selectedRoom.facilities.join(", ")}
+*Room Details:*
+• Room: ${selectedRoom.room_name}
+• Capacity: ${selectedRoom.capacity} ${selectedRoom.capacity === 1 ? "guest" : "guests"}
+• Price: ${formatPrice(selectedRoom.price_per_night)}/night
+${bookingForm.numberOfGuests ? `• Number of Guests: ${bookingForm.numberOfGuests}` : ""}
 
-Customer Details:
-- Name: ${bookingForm.customerName}
-- Phone: ${bookingForm.customerPhone}
-- Email: ${bookingForm.customerEmail || "Not provided"}
-${
-  bookingForm.specialRequests
-    ? `- Special Requests: ${bookingForm.specialRequests}`
-    : ""
-}
+*Customer Information:*
+• Name: ${bookingForm.customerName}
+• Phone: ${bookingForm.customerPhone}
+${bookingForm.customerEmail ? `• Email: ${bookingForm.customerEmail}` : ""}
 
-Please let me know about availability and booking process.`;
+${bookingForm.specialRequests ? `*Special Requests:*\n${bookingForm.specialRequests}` : ""}
+
+Please confirm this booking.`;
 
     const whatsappUrl = getWhatsAppUrl(message);
     window.open(whatsappUrl, "_blank");
@@ -217,6 +213,7 @@ Please let me know about availability and booking process.`;
       customerName: "",
       customerEmail: "",
       customerPhone: "",
+      numberOfGuests: "",
       specialRequests: "",
     });
   };
@@ -1273,6 +1270,30 @@ Please let me know about availability and booking process.`;
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.45 }}
+                >
+                  <label className="block text-sm font-bold text-gray-900 mb-2.5">
+                    Number of Guests <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    required
+                    min="1"
+                    value={bookingForm.numberOfGuests}
+                    onChange={(e) =>
+                      setBookingForm({
+                        ...bookingForm,
+                        numberOfGuests: e.target.value,
+                      })
+                    }
+                    className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:bg-white transition-all"
+                    placeholder="Enter number of guests"
+                  />
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
                 >
                   <label className="block text-sm font-bold text-gray-900 mb-2.5">
                     Special Requests

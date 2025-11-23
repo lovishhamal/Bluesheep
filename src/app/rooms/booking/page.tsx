@@ -28,6 +28,7 @@ export default function BookingPage() {
     customerName: "",
     customerEmail: "",
     customerPhone: "",
+    numberOfGuests: "",
     specialRequests: "",
   });
 
@@ -75,6 +76,7 @@ export default function BookingPage() {
 • Room: ${room.room_name}
 • Capacity: ${room.capacity} ${room.capacity === 1 ? "guest" : "guests"}
 • Price: ${formatPrice(room.price_per_night)}/night
+${bookingForm.numberOfGuests ? `• Number of Guests: ${bookingForm.numberOfGuests}` : ""}
 
 *Customer Information:*
 • Name: ${bookingForm.customerName}
@@ -93,6 +95,7 @@ Please confirm this booking.`;
       customerName: "",
       customerEmail: "",
       customerPhone: "",
+      numberOfGuests: "",
       specialRequests: "",
     });
   };
@@ -246,6 +249,26 @@ Please confirm this booking.`;
               }
               className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
               placeholder="Enter your phone number"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-bold text-gray-900 mb-2">
+              Number of Guests <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="number"
+              required
+              min="1"
+              value={bookingForm.numberOfGuests}
+              onChange={(e) =>
+                setBookingForm({
+                  ...bookingForm,
+                  numberOfGuests: e.target.value,
+                })
+              }
+              className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
+              placeholder="Enter number of guests"
             />
           </div>
 

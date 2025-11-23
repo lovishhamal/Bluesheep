@@ -141,7 +141,7 @@ export default function CampingPage() {
 
 Booking Details:
 - Name: ${bookingForm.name}
-- Number of People: ${bookingForm.numberOfPeople}
+- Number of Guests: ${bookingForm.numberOfPeople}
 - Arrival Date: ${bookingForm.arrivalDate}
 
 Please let me know about availability and the booking process.`;
@@ -354,9 +354,12 @@ Please let me know about availability and the booking process.`;
                 Garden Camping
               </span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto font-light leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto font-light leading-relaxed mb-4">
               Experience nature in our beautiful garden setting with stunning
               mountain views
+            </p>
+            <p className="text-lg md:text-xl text-emerald-700 font-medium">
+              📍 Dunai, Dolpa
             </p>
           </motion.div>
         </div>
@@ -527,7 +530,7 @@ Please let me know about availability and the booking process.`;
                 icon: "📍",
                 title: "Prime Location",
                 description:
-                  "Located in the heart of Dunai with easy access to trekking trails and mountain adventures",
+                  "Located in Dunai, Dolpa with easy access to trekking trails and mountain adventures",
                 gradient: "from-emerald-50 to-blue-50",
                 iconBg: "from-emerald-500 to-blue-500",
               },
@@ -798,7 +801,7 @@ Please let me know about availability and the booking process.`;
 
               <div>
                 <label className="block text-sm font-semibold text-gray-900 mb-2">
-                  Number of People <span className="text-red-500">*</span>
+                  Number of Guests <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="number"
