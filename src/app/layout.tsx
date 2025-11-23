@@ -212,7 +212,7 @@ export default function RootLayout({
 
         {/* Apple Touch Icon */}
         <link rel="apple-touch-icon" href="/logo.jpg" sizes="512x512" />
-        
+
         {/* Additional icon sizes for better Google recognition */}
         <link rel="icon" href="/logo.jpg" type="image/jpeg" sizes="512x512" />
 
@@ -251,7 +251,8 @@ export default function RootLayout({
                 "@type": "SearchAction",
                 target: {
                   "@type": "EntryPoint",
-                  urlTemplate: "https://hotelbluesheepinn.com/?s={search_term_string}",
+                  urlTemplate:
+                    "https://hotelbluesheepinn.com/?s={search_term_string}",
                 },
                 "query-input": "required name=search_term_string",
               },
