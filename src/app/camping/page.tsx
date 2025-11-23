@@ -150,9 +150,11 @@ export default function CampingPage() {
 
 ${
   bookingForm.specialRequests
-    ? `*Special Requests:*\n${bookingForm.specialRequests}\n`
+    ? `*Special Requests:*\n${bookingForm.specialRequests}`
     : ""
-}Please confirm this booking.`;
+}
+
+Please confirm this booking.`;
 
     const whatsappUrl = getWhatsAppUrl(message);
     window.open(whatsappUrl, "_blank");
