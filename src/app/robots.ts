@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/private/",
     },
-    sitemap: "https://bluesheephotel.com/sitemap.xml",
+    sitemap: "https://hotelbluesheepinn.com/sitemap.xml",
   };
 }

@@ -128,6 +128,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  manifest: "/manifest.json",
   openGraph: {
     title:
       "Bluesheep | Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Garden Restaurant & Camping",
@@ -138,8 +139,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "https://hotelbluesheepinn.com/logo.jpg",
-        width: 512,
-        height: 512,
+        width: 1200,
+        height: 630,
         alt: "Hotel Blue Sheep Inn - Best Hotel in Dunai - Garden Restaurant & Camping",
       },
     ],
@@ -153,8 +154,6 @@ export const metadata: Metadata = {
     description:
       "🏨 Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa with garden restaurant & camping. Luxury accommodation with mountain views and exceptional service.",
     images: ["https://hotelbluesheepinn.com/logo.jpg"],
-    site: "@hotelbluesheepinn",
-    creator: "@hotelbluesheepinn",
   },
   robots: {
     index: true,
@@ -170,15 +169,8 @@ export const metadata: Metadata = {
   verification: {
     google: "your-google-verification-code",
   },
-  icons: {
-    icon: [
-      { url: "/favicon.ico", type: "image/x-icon" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-    ],
-    apple: [{ url: "/logo.jpg", sizes: "512x512", type: "image/jpeg" }],
-    shortcut: "/favicon.ico",
-  },
+  // Next.js will automatically handle icons from app/icon.png and app/apple-icon.png
+  // No need to manually specify icons in metadata
 };
 
 export default function RootLayout({
@@ -192,73 +184,12 @@ export default function RootLayout({
       className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${montserrat.variable}`}
     >
       <head>
-        {/* Favicon - Primary - Google prefers .ico at root */}
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="any" />
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-
-        {/* PNG Favicons - Multiple sizes for better compatibility */}
-        <link
-          rel="icon"
-          href="/favicon-16x16.png"
-          type="image/png"
-          sizes="16x16"
-        />
-        <link
-          rel="icon"
-          href="/favicon-32x32.png"
-          type="image/png"
-          sizes="32x32"
-        />
-
-        {/* Apple Touch Icon */}
-        <link rel="apple-touch-icon" href="/logo.jpg" sizes="512x512" />
-
-        {/* Additional icon sizes for better Google recognition */}
-        <link rel="icon" href="/logo.jpg" type="image/jpeg" sizes="512x512" />
-
-        {/* Web App Manifest */}
-        <link rel="manifest" href="/manifest.json" />
+        {/* Theme color for mobile browsers */}
+        <meta name="theme-color" content="#059669" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
         {/* Structured Data Scripts */}
-        {/* WebSite Schema - Critical for Google Search Results Logo */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              name: "Hotel Blue Sheep Inn",
-              alternateName: [
-                "Bluesheep",
-                "bluesheep",
-                "Blue Sheep",
-                "Blue Sheep Hotel",
-                "Blue Sheep Inn",
-                "Hotel Blue Sheep",
-                "Hotel Bluesheep",
-                "Hotel Blue Sheep Inn",
-                "Bluesheep Hotel",
-                "Bluesheep Inn",
-              ],
-              url: "https://hotelbluesheepinn.com",
-              logo: {
-                "@type": "ImageObject",
-                url: "https://hotelbluesheepinn.com/logo.jpg",
-                width: 512,
-                height: 512,
-              },
-              potentialAction: {
-                "@type": "SearchAction",
-                target: {
-                  "@type": "EntryPoint",
-                  urlTemplate:
-                    "https://hotelbluesheepinn.com/?s={search_term_string}",
-                },
-                "query-input": "required name=search_term_string",
-              },
-            }),
-          }}
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -269,16 +200,8 @@ export default function RootLayout({
               logo: {
                 "@type": "ImageObject",
                 url: "https://hotelbluesheepinn.com/logo.jpg",
-                width: 512,
-                height: 512,
-                contentUrl: "https://hotelbluesheepinn.com/logo.jpg",
               },
-              image: {
-                "@type": "ImageObject",
-                url: "https://hotelbluesheepinn.com/logo.jpg",
-                width: 512,
-                height: 512,
-              },
+              image: "https://hotelbluesheepinn.com/logo.jpg",
               alternateName: [
                 "Bluesheep",
                 "bluesheep",
@@ -400,14 +323,8 @@ export default function RootLayout({
                 url: "https://hotelbluesheepinn.com/logo.jpg",
                 width: 512,
                 height: 512,
-                contentUrl: "https://hotelbluesheepinn.com/logo.jpg",
               },
-              image: {
-                "@type": "ImageObject",
-                url: "https://hotelbluesheepinn.com/logo.jpg",
-                width: 512,
-                height: 512,
-              },
+              image: "https://hotelbluesheepinn.com/logo.jpg",
               telephone: "+977-985-806-1927",
               address: {
                 "@type": "PostalAddress",
@@ -431,16 +348,8 @@ export default function RootLayout({
               logo: {
                 "@type": "ImageObject",
                 url: "https://hotelbluesheepinn.com/logo.jpg",
-                width: 512,
-                height: 512,
-                contentUrl: "https://hotelbluesheepinn.com/logo.jpg",
               },
-              image: {
-                "@type": "ImageObject",
-                url: "https://hotelbluesheepinn.com/logo.jpg",
-                width: 512,
-                height: 512,
-              },
+              image: "https://hotelbluesheepinn.com/logo.jpg",
               alternateName: [
                 "Bluesheep",
                 "bluesheep",

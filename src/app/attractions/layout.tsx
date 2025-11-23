@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Hotel Blue Sheep Inn" }],
   creator: "Hotel Blue Sheep Inn",
   publisher: "Hotel Blue Sheep Inn",
-  metadataBase: new URL("https://bluesheephotel.com"),
+  metadataBase: new URL("https://hotelbluesheepinn.com"),
   alternates: {
     canonical: "/attractions",
   },
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
       "Phoksundo Lake & Dho Tarap | Best Attractions in Dolpa Nepal | Hotel Blue Sheep Inn",
     description:
       "Discover Phoksundo Lake (3,611m) and Dho Tarap - the highest village in Nepal (4,200m). Plan your visit to these stunning Dolpa attractions from Hotel Blue Sheep Inn.",
-    url: "https://bluesheephotel.com/attractions",
+    url: "https://hotelbluesheepinn.com/attractions",
     siteName: "Hotel Blue Sheep Inn",
     images: [
       {
@@ -106,8 +106,8 @@ export default function AttractionsLayout({
             name: "Phoksundo Lake and Dho Tarap",
             description:
               "Discover Phoksundo Lake, one of Nepal's most stunning high-altitude lakes at 3,611m, and Dho Tarap, the highest permanently inhabited village in Nepal at 4,200m.",
-            url: "https://bluesheephotel.com/attractions",
-            image: "https://bluesheephotel.com/phoksundo.jpg",
+            url: "https://hotelbluesheepinn.com/attractions",
+            image: "https://hotelbluesheepinn.com/phoksundo.jpg",
             address: {
               "@type": "PostalAddress",
               addressLocality: "Dolpa",
@@ -150,4 +150,3 @@ export default function AttractionsLayout({
     </>
   );
 }
-
