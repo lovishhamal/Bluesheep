@@ -1046,7 +1046,7 @@ Please let me know about availability and booking process.`;
       {/* Booking Modal - Ultra Creative Design */}
       {isBookingModalOpen && selectedRoom && (
         <div
-          className="fixed top-0 left-0 right-0 bottom-0 bg-black/70 backdrop-blur-lg z-50 flex items-center justify-center p-4 overscroll-contain"
+          className="fixed top-0 left-0 right-0 bottom-0 bg-black/70 backdrop-blur-lg z-50 flex items-center justify-center p-2 sm:p-4 overscroll-contain"
           style={{
             position: "fixed",
             top: 0,
@@ -1058,6 +1058,10 @@ Please let me know about availability and booking process.`;
             maxHeight: "100vh",
             overflow: "auto",
             WebkitOverflowScrolling: "touch",
+            paddingTop: "env(safe-area-inset-top, 0)",
+            paddingBottom: "env(safe-area-inset-bottom, 0)",
+            paddingLeft: "env(safe-area-inset-left, 0)",
+            paddingRight: "env(safe-area-inset-right, 0)",
           }}
         >
           {/* Animated Background Orbs */}
@@ -1093,13 +1097,14 @@ Please let me know about availability and booking process.`;
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 50 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="relative bg-white p-6 lg:p-10 border-2 border-gray-200 shadow-2xl rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto my-auto"
+            className="relative bg-white p-4 sm:p-6 lg:p-10 border-2 border-gray-200 shadow-2xl rounded-3xl w-full max-w-2xl max-h-[85vh] sm:max-h-[90vh] overflow-y-auto my-auto"
             style={{
-              maxHeight: "90vh",
+              maxHeight: "min(85vh, calc(100vh - 2rem))",
               overflowY: "auto",
               WebkitOverflowScrolling: "touch",
               position: "relative",
               margin: "auto",
+              paddingBottom: "env(safe-area-inset-bottom, 1rem)",
             }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -1161,7 +1166,7 @@ Please let me know about availability and booking process.`;
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="mb-6 p-5 bg-amber-50 border-l-4 border-amber-500 rounded-xl shadow-md"
+                className="mb-4 sm:mb-6 p-3 sm:p-5 bg-amber-50 border-l-4 border-amber-500 rounded-xl shadow-md"
               >
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center flex-shrink-0 shadow-md">
@@ -1180,7 +1185,10 @@ Please let me know about availability and booking process.`;
               </motion.div>
 
               {/* Booking Form - Creative */}
-              <form onSubmit={handleBookingSubmit} className="space-y-6">
+              <form
+                onSubmit={handleBookingSubmit}
+                className="space-y-4 sm:space-y-6"
+              >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
