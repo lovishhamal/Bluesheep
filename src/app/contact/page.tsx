@@ -31,7 +31,7 @@ export default function ContactPage() {
             >
               <Link href="/">
                 <img
-                  src="/logo.jpg"
+                  src="/logo.png"
                   alt="Hotel Blue Sheep Inn Logo"
                   className="h-12 w-auto rounded-lg shadow-md cursor-pointer"
                 />

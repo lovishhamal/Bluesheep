@@ -47,6 +47,28 @@ export default function CampingPage() {
     fetchCampingImages();
   }, []);
 
+  // Prevent body scroll when modal is open (iOS fix)
+  useEffect(() => {
+    if (isBookingModalOpen || isImageModalOpen) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      // Prevent body scroll
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = "100%";
+      document.body.style.overflow = "hidden";
+
+      return () => {
+        // Restore scroll position
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.width = "";
+        document.body.style.overflow = "";
+        window.scrollTo(0, scrollY);
+      };
+    }
+  }, [isBookingModalOpen, isImageModalOpen]);
+
   // Handle image modal functions
   const openImageModal = (image: StorageImage) => {
     setSelectedImage(image);
@@ -157,7 +179,7 @@ Please let me know about availability and the booking process.`;
             >
               <Link href="/">
                 <img
-                  src="/logo.jpg"
+                  src="/logo.png"
                   alt="Hotel Blue Sheep Inn Logo"
                   className="h-12 w-auto rounded-lg shadow-md cursor-pointer"
                 />
@@ -670,7 +692,19 @@ Please let me know about availability and the booking process.`;
       {/* Booking Modal - Creative Design */}
       {isBookingModalOpen && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          className="fixed top-0 left-0 right-0 bottom-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overscroll-contain"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: "100vw",
+            height: "100vh",
+            maxHeight: "100vh",
+            overflow: "auto",
+            WebkitOverflowScrolling: "touch",
+          }}
           onClick={closeBookingModal}
         >
           <motion.div
@@ -678,7 +712,14 @@ Please let me know about availability and the booking process.`;
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-white rounded-3xl p-8 border-4 border-emerald-500 shadow-2xl w-full max-w-md"
+            className="bg-white rounded-3xl p-8 border-4 border-emerald-500 shadow-2xl w-full max-w-md my-auto"
+            style={{
+              maxHeight: "90vh",
+              overflowY: "auto",
+              WebkitOverflowScrolling: "touch",
+              position: "relative",
+              margin: "auto",
+            }}
           >
             {/* Header with Gradient Bar */}
             <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 rounded-t-3xl"></div>

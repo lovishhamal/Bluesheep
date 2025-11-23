@@ -115,7 +115,7 @@ export default function MenuPage() {
             <div className="flex items-center">
               <Link href="/">
                 <img
-                  src="/logo.jpg"
+                  src="/logo.png"
                   alt="Hotel Blue Sheep Inn Logo"
                   className="h-12 w-auto mr-3 rounded-lg shadow-md cursor-pointer"
                 />
@@ -302,7 +302,7 @@ export default function MenuPage() {
         {/* Logo */}
         <div className="flex justify-center mb-8">
           <img
-            src="/logo.jpg"
+            src="/logo.png"
             alt="Blue Sheep Hotel Logo"
             className="h-24 w-auto rounded-lg shadow-lg"
           />

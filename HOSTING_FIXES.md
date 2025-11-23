@@ -110,7 +110,7 @@ The project is already configured for static export with:
 ├── hero-bg.jpg
 ├── hotel-exterior.jpg
 ├── hotel-room.jpg
-├── logo.jpg
+├── logo.png
 ├── phoksundo-lake.jpg
 └── ... (other public assets)
 ```

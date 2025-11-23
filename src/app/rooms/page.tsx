@@ -118,6 +118,28 @@ export default function RoomsPage() {
     fetchRooms();
   }, []);
 
+  // Prevent body scroll when modal is open (iOS fix)
+  useEffect(() => {
+    if (isBookingModalOpen || isImageModalOpen) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      // Prevent body scroll
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = "100%";
+      document.body.style.overflow = "hidden";
+
+      return () => {
+        // Restore scroll position
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.width = "";
+        document.body.style.overflow = "";
+        window.scrollTo(0, scrollY);
+      };
+    }
+  }, [isBookingModalOpen, isImageModalOpen]);
+
   // Format price for display
   const formatPrice = (price: number) => {
     return (
@@ -256,7 +278,7 @@ Please let me know about availability and booking process.`;
             >
               <Link href="/">
                 <img
-                  src="/logo.jpg"
+                  src="/logo.png"
                   alt="Hotel Blue Sheep Inn Logo"
                   className="h-12 w-auto rounded-lg shadow-md cursor-pointer"
                   style={{
@@ -1023,7 +1045,21 @@ Please let me know about availability and booking process.`;
 
       {/* Booking Modal - Ultra Creative Design */}
       {isBookingModalOpen && selectedRoom && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-lg z-50 flex items-center justify-center p-4">
+        <div
+          className="fixed top-0 left-0 right-0 bottom-0 bg-black/70 backdrop-blur-lg z-50 flex items-center justify-center p-4 overscroll-contain"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: "100vw",
+            height: "100vh",
+            maxHeight: "100vh",
+            overflow: "auto",
+            WebkitOverflowScrolling: "touch",
+          }}
+        >
           {/* Animated Background Orbs */}
           <div className="absolute inset-0 overflow-hidden">
             <motion.div
@@ -1057,7 +1093,15 @@ Please let me know about availability and booking process.`;
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 50 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="relative bg-white p-6 lg:p-10 border-2 border-gray-200 shadow-2xl rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+            className="relative bg-white p-6 lg:p-10 border-2 border-gray-200 shadow-2xl rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto my-auto"
+            style={{
+              maxHeight: "90vh",
+              overflowY: "auto",
+              WebkitOverflowScrolling: "touch",
+              position: "relative",
+              margin: "auto",
+            }}
+            onClick={(e) => e.stopPropagation()}
           >
             {/* Top Decorative Gradient Bar */}
             <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-emerald-500 via-blue-500 to-emerald-500 rounded-t-3xl"></div>

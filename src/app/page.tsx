@@ -301,7 +301,7 @@ export default function Home() {
               className="flex items-center"
             >
               <img
-                src="/logo.jpg"
+                src="/logo.png"
                 alt="Hotel Blue Sheep Inn Logo"
                 className="h-12 w-auto rounded-lg shadow-md"
                 style={{
@@ -1878,7 +1878,7 @@ export default function Home() {
               >
                 <div className="relative">
                   <img
-                    src="/logo.jpg"
+                    src="/logo.png"
                     alt="Hotel Blue Sheep Inn Logo"
                     className="h-16 w-16 rounded-xl border-2 border-white/30 shadow-lg"
                     style={{
