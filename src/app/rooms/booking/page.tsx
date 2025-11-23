@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "../../util/supabase";
@@ -17,10 +17,10 @@ interface Room {
   amenities: string[];
 }
 
-export default function BookingPage() {
+function BookingPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const roomId = searchParams.get("id");
+  const roomId = searchParams?.get("id") || null;
 
   const [room, setRoom] = useState<Room | null>(null);
   const [loading, setLoading] = useState(true);
@@ -38,7 +38,7 @@ export default function BookingPage() {
     } else {
       router.push("/rooms");
     }
-  }, [roomId]);
+  }, [roomId, router]);
 
   const fetchRoom = async () => {
     try {
@@ -87,7 +87,7 @@ ${bookingForm.specialRequests ? `*Special Requests:*\n${bookingForm.specialReque
 
 Please confirm this booking.`;
 
-    const whatsappUrl = getWhatsAppUrl(PHONE_NUMBER, message);
+    const whatsappUrl = getWhatsAppUrl(message);
     window.open(whatsappUrl, "_blank");
 
     // Reset form
@@ -307,6 +307,23 @@ Please confirm this booking.`;
         </form>
       </div>
     </div>
+  );
+}
+
+export default function BookingPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-blue-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading...</p>
+          </div>
+        </div>
+      }
+    >
+      <BookingPageContent />
+    </Suspense>
   );
 }
 

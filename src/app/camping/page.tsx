@@ -23,6 +23,7 @@ export default function CampingPage() {
     name: "",
     numberOfPeople: "",
     arrivalDate: "",
+    specialRequests: "",
   });
   const [campingImages, setCampingImages] = useState<StorageImage[]>([]);
   const [isLoadingImages, setIsLoadingImages] = useState(true);
@@ -137,14 +138,21 @@ export default function CampingPage() {
       return;
     }
 
-    const message = `Hi! I'm interested in booking a camping spot in your garden.
+    const message = `🏕️ *Hotel Blue Sheep Inn - Camping Booking Request*
 
-Booking Details:
-- Name: ${bookingForm.name}
-- Number of Guests: ${bookingForm.numberOfPeople}
-- Arrival Date: ${bookingForm.arrivalDate}
+*Camping Details:*
+• Type: Garden Camping
+• Number of Guests: ${bookingForm.numberOfPeople}
+• Arrival Date: ${bookingForm.arrivalDate}
 
-Please let me know about availability and the booking process.`;
+*Customer Information:*
+• Name: ${bookingForm.name}
+
+${
+  bookingForm.specialRequests
+    ? `*Special Requests:*\n${bookingForm.specialRequests}\n`
+    : ""
+}Please confirm this booking.`;
 
     const whatsappUrl = getWhatsAppUrl(message);
     window.open(whatsappUrl, "_blank");
@@ -155,6 +163,7 @@ Please let me know about availability and the booking process.`;
       name: "",
       numberOfPeople: "",
       arrivalDate: "",
+      specialRequests: "",
     });
   };
 
@@ -165,6 +174,7 @@ Please let me know about availability and the booking process.`;
       name: "",
       numberOfPeople: "",
       arrivalDate: "",
+      specialRequests: "",
     });
   };
 
@@ -836,6 +846,24 @@ Please let me know about availability and the booking process.`;
                   }
                   min={new Date().toISOString().split("T")[0]}
                   className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-gray-900 mb-2">
+                  Special Requests
+                </label>
+                <textarea
+                  value={bookingForm.specialRequests}
+                  onChange={(e) =>
+                    setBookingForm({
+                      ...bookingForm,
+                      specialRequests: e.target.value,
+                    })
+                  }
+                  rows={4}
+                  className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 resize-none transition-all"
+                  placeholder="Any special requests or notes..."
                 />
               </div>
 
