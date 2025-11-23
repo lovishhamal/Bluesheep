@@ -9,11 +9,13 @@ import {
   ChevronRightIcon,
 } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { getImagesFromFolder, StorageImage } from "../util/storage";
 import { getWhatsAppUrl, PHONE_NUMBER } from "../util/constants";
 import { useIsMobile } from "../util/useIsMobile";
 
 export default function CampingPage() {
+  const router = useRouter();
   const isMobile = useIsMobile();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
@@ -630,7 +632,13 @@ Please let me know about availability and the booking process.`;
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.button
-                onClick={() => setIsBookingModalOpen(true)}
+                onClick={() => {
+                  if (isMobile) {
+                    router.push("/camping/booking");
+                  } else {
+                    setIsBookingModalOpen(true);
+                  }
+                }}
                 className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-5 bg-white text-emerald-600 font-bold rounded-2xl overflow-hidden transition-all duration-300 shadow-2xl text-lg sm:text-xl"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -689,8 +697,8 @@ Please let me know about availability and the booking process.`;
         </div>
       </section>
 
-      {/* Booking Modal - Creative Design */}
-      {isBookingModalOpen && (
+      {/* Booking Modal - Creative Design - Desktop Only */}
+      {!isMobile && isBookingModalOpen && (
         <div
           className="fixed top-0 left-0 right-0 bottom-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 overscroll-contain"
           style={{
@@ -765,7 +773,10 @@ Please let me know about availability and the booking process.`;
             </div>
 
             {/* Booking Form */}
-            <form onSubmit={handleBookingSubmit} className="space-y-4 sm:space-y-5">
+            <form
+              onSubmit={handleBookingSubmit}
+              className="space-y-4 sm:space-y-5"
+            >
               <div>
                 <label className="block text-sm font-semibold text-gray-900 mb-2">
                   Full Name <span className="text-red-500">*</span>

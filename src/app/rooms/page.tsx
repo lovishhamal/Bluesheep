@@ -19,6 +19,7 @@ import { supabase } from "../util/supabase";
 import { getWhatsAppUrl, PHONE_NUMBER } from "../util/constants";
 import { useState, useEffect } from "react";
 import { useIsMobile } from "../util/useIsMobile";
+import { useRouter } from "next/navigation";
 
 // Room interface matching your database schema
 interface Room {
@@ -38,6 +39,7 @@ interface Room {
 }
 
 export default function RoomsPage() {
+  const router = useRouter();
   const isMobile = useIsMobile();
   const [rooms, setRooms] = useState<Room[]>([]);
   const [loading, setLoading] = useState(true);
@@ -154,8 +156,14 @@ export default function RoomsPage() {
 
   // Handle booking
   const handleBooking = (room: Room) => {
-    setSelectedRoom(room);
-    setIsBookingModalOpen(true);
+    if (isMobile) {
+      // On mobile, navigate to booking page
+      router.push(`/rooms/booking?id=${room.id}`);
+    } else {
+      // On desktop, show modal
+      setSelectedRoom(room);
+      setIsBookingModalOpen(true);
+    }
   };
 
   const handleBookingSubmit = async (e: React.FormEvent) => {
@@ -1043,8 +1051,8 @@ Please let me know about availability and booking process.`;
         </div>
       </section>
 
-      {/* Booking Modal - Ultra Creative Design */}
-      {isBookingModalOpen && selectedRoom && (
+      {/* Booking Modal - Ultra Creative Design - Desktop Only */}
+      {!isMobile && isBookingModalOpen && selectedRoom && (
         <div
           className="fixed top-0 left-0 right-0 bottom-0 bg-black/70 backdrop-blur-lg z-50 flex items-center justify-center p-2 sm:p-4 overscroll-contain"
           style={{
