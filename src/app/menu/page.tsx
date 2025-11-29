@@ -31,15 +31,11 @@ export default function MenuPage() {
 
     const fetchMenuItems = async () => {
       try {
-        console.log("Fetching menu items from database...");
-
         const { data, error } = await supabase
           .from("menu")
           .select("*")
           .order("category", { ascending: true })
           .order("item_name", { ascending: true });
-
-        console.log("Supabase response:", { data, error });
 
         if (error) {
           throw error;
@@ -48,14 +44,8 @@ export default function MenuPage() {
         if (isMounted) {
           setMenuItems(data || []);
           setError(null);
-          console.log(
-            "Menu items loaded successfully:",
-            data?.length || 0,
-            "items"
-          );
         }
       } catch (err) {
-        console.error("Error fetching menu items:", err);
         if (isMounted) {
           setError(
             `Failed to load menu: ${

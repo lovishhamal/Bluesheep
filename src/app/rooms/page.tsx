@@ -91,23 +91,18 @@ export default function RoomsPage() {
     const fetchRooms = async () => {
       try {
         setLoading(true);
-        console.log("Fetching rooms from database...");
 
         const { data, error } = await supabase
           .from("rooms")
           .select("*")
           .order("price_per_night", { ascending: true });
 
-        console.log("Supabase response:", { data, error });
-
         if (error) {
           throw error;
         }
 
         setRooms(data || []);
-        console.log("Rooms loaded successfully:", data?.length || 0, "rooms");
       } catch (err) {
-        console.error("Error fetching rooms:", err);
         setError(
           `Failed to load rooms: ${
             err instanceof Error ? err.message : "Unknown error"
@@ -186,16 +181,26 @@ export default function RoomsPage() {
 
 *Room Details:*
 • Room: ${selectedRoom.room_name}
-• Capacity: ${selectedRoom.capacity} ${selectedRoom.capacity === 1 ? "guest" : "guests"}
+• Capacity: ${selectedRoom.capacity} ${
+      selectedRoom.capacity === 1 ? "guest" : "guests"
+    }
 • Price: ${formatPrice(selectedRoom.price_per_night)}/night
-${bookingForm.numberOfGuests ? `• Number of Guests: ${bookingForm.numberOfGuests}` : ""}
+${
+  bookingForm.numberOfGuests
+    ? `• Number of Guests: ${bookingForm.numberOfGuests}`
+    : ""
+}
 
 *Customer Information:*
 • Name: ${bookingForm.customerName}
 • Phone: ${bookingForm.customerPhone}
 ${bookingForm.customerEmail ? `• Email: ${bookingForm.customerEmail}` : ""}
 
-${bookingForm.specialRequests ? `*Special Requests:*\n${bookingForm.specialRequests}` : ""}
+${
+  bookingForm.specialRequests
+    ? `*Special Requests:*\n${bookingForm.specialRequests}`
+    : ""
+}
 
 Please confirm this booking.`;
 

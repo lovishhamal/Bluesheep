@@ -40,7 +40,6 @@ export default function CampingPage() {
         const images = await getImagesFromFolder("images", "camping");
         setCampingImages(images);
       } catch (error) {
-        console.error("Error fetching camping images:", error);
         setImageError("Failed to load camping images. Please try again later.");
       } finally {
         setIsLoadingImages(false);

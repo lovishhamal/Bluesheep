@@ -51,7 +51,6 @@ function BookingPageContent() {
       if (error) throw error;
       setRoom(data);
     } catch (err) {
-      console.error("Error fetching room:", err);
       router.push("/rooms");
     } finally {
       setLoading(false);

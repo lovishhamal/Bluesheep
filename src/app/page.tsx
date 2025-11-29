@@ -142,7 +142,6 @@ export default function Home() {
           setGalleryImages(transformedImages);
         }
       } catch (error) {
-        console.error("Error fetching images from Supabase:", error);
         // Keep fallback images if Supabase fails
       }
     };
@@ -159,7 +158,6 @@ export default function Home() {
         const reviewsData = await getReviews();
         setReviews(reviewsData);
       } catch (error) {
-        console.error("Error fetching reviews:", error);
         setReviewsError("Failed to load reviews. Please try again later.");
       } finally {
         setIsLoadingReviews(false);
@@ -178,7 +176,6 @@ export default function Home() {
         const images = await getImagesFromFolder("images", "gallery");
         setHotelGalleryImages(images);
       } catch (error) {
-        console.error("Error fetching hotel gallery images:", error);
         setHotelGalleryError(
           "Failed to load gallery images. Please try again later."
         );
@@ -467,9 +464,9 @@ export default function Home() {
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-center min-h-[70vh] pt-2 pb-4 sm:py-8 md:py-12 lg:py-16">
             {/* Content - Centered */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
               transition={{ duration: isMobile ? 0 : 0.8 }}
               className="text-center space-y-5 sm:space-y-6 lg:space-y-8 w-full max-w-4xl"
             >
@@ -512,7 +509,7 @@ export default function Home() {
                   Experience luxury in the heart of Dolpa, Nepal. Your gateway
                   to the majestic Himalayas.
                 </motion.p>
-              </div>
+            </div>
 
               {/* Contact Info - Enhanced Button Style for Mobile - Hidden on Mobile */}
               <motion.div
@@ -530,7 +527,7 @@ export default function Home() {
                 >
                   <div className="p-1 bg-white/20 rounded-md flex-shrink-0 sm:hidden">
                     <PhoneIcon className="w-4 h-4 text-white" />
-                  </div>
+            </div>
                   <PhoneIcon className="w-5 h-5 text-emerald-600 hidden sm:block flex-shrink-0" />
                   <span className="text-sm sm:text-sm md:text-base font-semibold sm:font-medium">
                     {PHONE_NUMBER}
@@ -545,7 +542,7 @@ export default function Home() {
                 >
                   <div className="p-1 bg-white/20 rounded-md flex-shrink-0 sm:hidden">
                     <MapPinIcon className="w-4 h-4 text-white" />
-                  </div>
+              </div>
                   <MapPinIcon className="w-5 h-5 text-emerald-600 hidden sm:block flex-shrink-0" />
                   <span className="text-sm sm:text-sm md:text-base font-semibold sm:font-medium">
                     Dunai, Dolpa
@@ -561,7 +558,7 @@ export default function Home() {
                 className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 md:gap-5 pt-2 sm:pt-2 lg:pt-3 w-full"
               >
                 {/* Book Now Button - Primary with Creative Effects */}
-                <motion.button
+              <motion.button
                   onClick={() => router.push("/rooms")}
                   className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 sm:px-10 sm:py-5 bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 text-white font-bold rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-300 shadow-2xl shadow-emerald-500/50 text-base sm:text-lg md:text-xl"
                   whileHover={{ scale: 1.02, y: -2 }}
@@ -596,10 +593,10 @@ export default function Home() {
                   {/* Decorative Dots */}
                   <div className="absolute top-2 right-2 w-2 h-2 bg-white/40 rounded-full"></div>
                   <div className="absolute bottom-2 left-2 w-1.5 h-1.5 bg-white/30 rounded-full"></div>
-                </motion.button>
+              </motion.button>
 
                 {/* Explore Camping Button - Secondary with Creative Design */}
-                <motion.button
+              <motion.button
                   onClick={openCampingPage}
                   className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 sm:px-10 sm:py-5 bg-white/95 backdrop-blur-sm border-2 border-emerald-300/50 text-gray-900 font-bold rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-300 shadow-lg hover:shadow-xl hover:border-emerald-400 text-base sm:text-lg md:text-xl"
                   whileHover={{ scale: 1.02, y: -2 }}
@@ -630,11 +627,11 @@ export default function Home() {
 
                   {/* Corner Accent */}
                   <div className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-br from-emerald-200/30 to-transparent rounded-bl-2xl"></div>
-                </motion.button>
+              </motion.button>
 
                 {/* Find Us Button - Secondary with Creative Design */}
-                <motion.button
-                  onClick={() => {
+              <motion.button
+                onClick={() => {
                     const mapSection = document.getElementById("map-section");
                     if (mapSection) {
                       const navbar = document.querySelector("nav");
@@ -681,10 +678,10 @@ export default function Home() {
 
                   {/* Corner Accent */}
                   <div className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-br from-emerald-200/30 to-transparent rounded-bl-2xl"></div>
-                </motion.button>
+              </motion.button>
               </motion.div>
-            </motion.div>
-          </div>
+          </motion.div>
+        </div>
         </div>
       </section>
 
@@ -692,7 +689,7 @@ export default function Home() {
       <section className="py-32 bg-gradient-to-br from-white via-emerald-50/30 to-blue-50 relative overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
-          <motion.div
+        <motion.div
             animate={{
               x: [0, 100, 0],
               y: [0, 50, 0],
@@ -705,7 +702,7 @@ export default function Home() {
             }}
             className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-2xl"
           />
-          <motion.div
+            <motion.div
             animate={{
               x: [0, -80, 0],
               y: [0, -60, 0],
@@ -717,8 +714,8 @@ export default function Home() {
               ease: "easeInOut",
             }}
             className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-2xl"
-          />
-        </div>
+            />
+          </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Header with Creative Design */}
@@ -738,7 +735,7 @@ export default function Home() {
             </motion.div>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                Why Choose Hotel Blue Sheep Inn?
+              Why Choose Hotel Blue Sheep Inn?
               </span>
             </h2>
             <p className="text-xl text-gray-700 max-w-3xl mx-auto font-light">
@@ -841,7 +838,7 @@ export default function Home() {
                   {/* Animated Background Pattern */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                     <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-transparent"></div>
-                  </div>
+                </div>
 
                   {/* Icon Container with Gradient */}
                   <motion.div
@@ -858,11 +855,11 @@ export default function Home() {
                   {/* Content */}
                   <div className="relative z-10">
                     <h3 className="text-base md:text-2xl font-bold text-gray-900 mb-2 md:mb-4 group-hover:text-emerald-700 transition-colors">
-                      {feature.title}
-                    </h3>
+                  {feature.title}
+                </h3>
                     <p className="text-xs md:text-base text-gray-700 leading-relaxed">
-                      {feature.description}
-                    </p>
+                  {feature.description}
+                </p>
                   </div>
 
                   {/* Decorative Corner Element */}
@@ -889,7 +886,7 @@ export default function Home() {
           >
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                Hotel Gallery
+              Hotel Gallery
               </span>
             </h2>
             <p className="text-xl text-gray-700 max-w-3xl mx-auto font-light">
@@ -1547,7 +1544,7 @@ export default function Home() {
             </motion.div>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                What Our Guests Say
+              What Our Guests Say
               </span>
             </h2>
             <p className="text-xl text-gray-700 max-w-3xl mx-auto font-light">
@@ -1617,7 +1614,7 @@ export default function Home() {
 
                     {/* Stars */}
                     <div className="relative z-10 flex items-center mb-6">
-                      {[...Array(review.rating)].map((_, i) => (
+                    {[...Array(review.rating)].map((_, i) => (
                         <motion.div
                           key={i}
                           initial={{ opacity: 0, scale: 0, rotate: -180 }}
@@ -1633,13 +1630,13 @@ export default function Home() {
                         >
                           <StarIcon className="w-6 h-6 text-yellow-400 fill-yellow-400 drop-shadow-sm" />
                         </motion.div>
-                      ))}
-                    </div>
+                    ))}
+                  </div>
 
                     {/* Review Text */}
                     <p className="relative z-10 text-gray-800 italic mb-8 text-base leading-relaxed font-light">
-                      &ldquo;{review.review}&rdquo;
-                    </p>
+                    &ldquo;{review.review}&rdquo;
+                  </p>
 
                     {/* Author Info */}
                     <div className="relative z-10 flex items-center gap-4 pt-6 border-t border-gray-200/50">
@@ -1648,20 +1645,20 @@ export default function Home() {
                         className="relative"
                       >
                         <div className="w-14 h-14 bg-gradient-to-br from-emerald-500 to-blue-500 rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-lg">
-                          {review.name.charAt(0)}
-                        </div>
+                      {review.name.charAt(0)}
+                    </div>
                         <div className="absolute -inset-1 bg-gradient-to-br from-emerald-400 to-blue-400 rounded-2xl blur opacity-50"></div>
                       </motion.div>
                       <div>
                         <p className="font-bold text-gray-900 text-lg">
-                          {review.name}
-                        </p>
+                        {review.name}
+                      </p>
                         <p className="text-sm text-gray-600 flex items-center gap-1">
                           <span>🌍</span>
                           {review.country}
                         </p>
-                      </div>
                     </div>
+                  </div>
 
                     {/* Decorative Corner Elements */}
                     <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-emerald-200/10 to-transparent rounded-bl-full"></div>
@@ -1707,7 +1704,7 @@ export default function Home() {
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                Ready to Experience Dolpa?
+              Ready to Experience Dolpa?
               </span>
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -1865,21 +1862,21 @@ export default function Home() {
           {/* Main Footer Content - Simple & Clean */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 mb-12">
             {/* Hotel Info */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
+            viewport={{ once: true }}
               className="text-center md:text-left"
             >
               <motion.div
-                whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.05 }}
                 className="flex items-center justify-center md:justify-start gap-4 mb-6"
               >
                 <div className="relative">
                   <img
                     src="/logo.png"
-                    alt="Hotel Blue Sheep Inn Logo"
+                  alt="Hotel Blue Sheep Inn Logo"
                     className="h-16 w-16 rounded-xl border-2 border-white/30 shadow-lg"
                     style={{
                       WebkitTransform: "translateZ(0)",
@@ -1888,7 +1885,7 @@ export default function Home() {
                       backfaceVisibility: "hidden",
                     }}
                   />
-                </div>
+              </div>
                 <h3 className="text-2xl font-bold text-white">
                   Hotel Blue Sheep Inn
                 </h3>
@@ -1943,7 +1940,7 @@ export default function Home() {
                 ))}
               </div>
             </motion.div>
-          </div>
+            </div>
 
           {/* Bottom Section - Ultra Creative */}
           <motion.div
@@ -1961,7 +1958,7 @@ export default function Home() {
                 &copy; {new Date().getFullYear()} Hotel Blue Sheep Inn. All
                 rights reserved.
               </motion.p>
-            </div>
+              </div>
           </motion.div>
         </div>
       </footer>
