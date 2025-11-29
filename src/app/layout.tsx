@@ -128,7 +128,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  manifest: "/manifest.webmanifest",
+  manifest: "/manifest.json",
   openGraph: {
     title:
       "Bluesheep | Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Garden Restaurant & Camping",
@@ -171,19 +171,24 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/logo.png", sizes: "192x192", type: "image/png" },
-      { url: "/logo.png", sizes: "512x512", type: "image/png" },
-    ],
-    apple: [{ url: "/logo.png", sizes: "180x180", type: "image/png" }],
-    shortcut: "/favicon-16x16.png",
-    other: [
       {
-        rel: "apple-touch-icon",
-        url: "/logo.png",
+        url: "/android-chrome-192x192.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
+      {
+        url: "/android-chrome-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
       },
     ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
   },
 };
 
@@ -203,23 +208,6 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="Bluesheep" />
-
-        {/* Favicon links for better browser compatibility */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link
-          rel="icon"
-          href="/favicon-16x16.png"
-          type="image/png"
-          sizes="16x16"
-        />
-        <link
-          rel="icon"
-          href="/favicon-32x32.png"
-          type="image/png"
-          sizes="32x32"
-        />
-        <link rel="apple-touch-icon" href="/logo.png" sizes="180x180" />
-        {/* Manifest is automatically generated from app/manifest.ts */}
 
         {/* Structured Data Scripts */}
         {/* WebSite Schema - Critical for Google Search Results Logo */}
