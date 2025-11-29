@@ -129,7 +129,7 @@ bash deploy-yeti-cloud.sh
 ├── hero-bg.jpg
 ├── hotel-exterior.jpg
 ├── hotel-room.jpg
-├── logo.jpg
+├── logo.png
 ├── phoksundo-lake.jpg
 └── ... (other public assets)
 ```

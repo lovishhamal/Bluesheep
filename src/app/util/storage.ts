@@ -36,7 +36,6 @@ export const getImagesFromFolder = async (
     });
 
     if (error) {
-      console.error("Error fetching images:", error);
       return [];
     }
 
@@ -59,7 +58,6 @@ export const getImagesFromFolder = async (
 
     return imageFiles;
   } catch (error) {
-    console.error("Error in getImagesFromFolder:", error);
     return [];
   }
 };
@@ -80,7 +78,6 @@ export const uploadImage = async (
       .upload(filePath, file);
 
     if (error) {
-      console.error("Error uploading image:", error);
       return null;
     }
 
@@ -89,7 +86,6 @@ export const uploadImage = async (
       url: getImageUrl(bucket, folder, finalFileName),
     };
   } catch (error) {
-    console.error("Error in uploadImage:", error);
     return null;
   }
 };
@@ -100,13 +96,11 @@ export const deleteImage = async (bucket: string, filePath: string) => {
     const { error } = await supabase.storage.from(bucket).remove([filePath]);
 
     if (error) {
-      console.error("Error deleting image:", error);
       return false;
     }
 
     return true;
   } catch (error) {
-    console.error("Error in deleteImage:", error);
     return false;
   }
 };
@@ -117,13 +111,11 @@ export const getBuckets = async () => {
     const { data, error } = await supabase.storage.listBuckets();
 
     if (error) {
-      console.error("Error fetching buckets:", error);
       return [];
     }
 
     return data;
   } catch (error) {
-    console.error("Error in getBuckets:", error);
     return [];
   }
 };
@@ -145,13 +137,11 @@ export const getReviews = async (): Promise<Review[]> => {
       .order("created_at", { ascending: false });
 
     if (error) {
-      console.error("Error fetching reviews:", error);
       return [];
     }
 
     return data || [];
   } catch (error) {
-    console.error("Error in getReviews:", error);
     return [];
   }
 };

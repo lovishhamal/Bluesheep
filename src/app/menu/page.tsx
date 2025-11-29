@@ -31,15 +31,11 @@ export default function MenuPage() {
 
     const fetchMenuItems = async () => {
       try {
-        console.log("Fetching menu items from database...");
-
         const { data, error } = await supabase
           .from("menu")
           .select("*")
           .order("category", { ascending: true })
           .order("item_name", { ascending: true });
-
-        console.log("Supabase response:", { data, error });
 
         if (error) {
           throw error;
@@ -48,14 +44,8 @@ export default function MenuPage() {
         if (isMounted) {
           setMenuItems(data || []);
           setError(null);
-          console.log(
-            "Menu items loaded successfully:",
-            data?.length || 0,
-            "items"
-          );
         }
       } catch (err) {
-        console.error("Error fetching menu items:", err);
         if (isMounted) {
           setError(
             `Failed to load menu: ${
@@ -115,7 +105,7 @@ export default function MenuPage() {
             <div className="flex items-center">
               <Link href="/">
                 <img
-                  src="/logo.jpg"
+                  src="/logo.png"
                   alt="Hotel Blue Sheep Inn Logo"
                   className="h-12 w-auto mr-3 rounded-lg shadow-md cursor-pointer"
                 />
@@ -302,7 +292,7 @@ export default function MenuPage() {
         {/* Logo */}
         <div className="flex justify-center mb-8">
           <img
-            src="/logo.jpg"
+            src="/logo.png"
             alt="Blue Sheep Hotel Logo"
             className="h-24 w-auto rounded-lg shadow-lg"
           />
@@ -352,9 +342,10 @@ export default function MenuPage() {
                       <motion.div
                         key={item.id}
                         initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                        animate={index === 0 ? { opacity: 1, y: 0 } : undefined}
+                        whileInView={index > 0 ? { opacity: 1, y: 0 } : undefined}
                         transition={{ duration: 0.8, delay: index * 0.1 }}
-                        viewport={{ once: true }}
+                        viewport={index > 0 ? { once: true } : undefined}
                         className="flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-6 mb-6"
                       >
                         {/* Item Image */}

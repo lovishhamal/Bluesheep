@@ -30,7 +30,8 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Bluesheep | Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Garden Restaurant & Camping",
+  title:
+    "Bluesheep | Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Garden Restaurant & Camping",
   description:
     "🏨 Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa with garden restaurant & camping. Luxury accommodation in Dolpa with mountain views, WiFi, and exceptional service. Book your stay today!",
   keywords: [
@@ -123,22 +124,24 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://bluesheephotel.com"),
+  metadataBase: new URL("https://hotelbluesheepinn.com"),
   alternates: {
     canonical: "/",
   },
+  manifest: "/manifest.webmanifest",
   openGraph: {
-    title: "Bluesheep | Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Garden Restaurant & Camping",
+    title:
+      "Bluesheep | Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Garden Restaurant & Camping",
     description:
       "🏨 Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa with garden restaurant & camping. Luxury accommodation with mountain views, WiFi, and exceptional service.",
-    url: "https://bluesheephotel.com",
+    url: "https://hotelbluesheepinn.com",
     siteName: "Hotel Blue Sheep Inn",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "https://hotelbluesheepinn.com/logo.png",
         width: 1200,
         height: 630,
-        alt: "Best Hotel in Dunai - Garden Restaurant & Camping",
+        alt: "Hotel Blue Sheep Inn - Best Hotel in Dunai - Garden Restaurant & Camping",
       },
     ],
     locale: "en_US",
@@ -146,10 +149,11 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bluesheep | Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Garden Restaurant & Camping",
+    title:
+      "Bluesheep | Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Garden Restaurant & Camping",
     description:
       "🏨 Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa with garden restaurant & camping. Luxury accommodation with mountain views and exceptional service.",
-    images: ["/og-image.jpg"],
+    images: ["https://hotelbluesheepinn.com/logo.png"],
   },
   robots: {
     index: true,
@@ -167,13 +171,20 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/icon.png", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any", type: "image/x-icon" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/logo.png", sizes: "192x192", type: "image/png" },
+      { url: "/logo.png", sizes: "512x512", type: "image/png" },
     ],
-    apple: [
-      { url: "/apple-icon.png", type: "image/png" },
+    apple: [{ url: "/logo.png", sizes: "180x180", type: "image/png" }],
+    shortcut: "/favicon.ico",
+    other: [
+      {
+        rel: "apple-touch-icon",
+        url: "/logo.png",
+      },
     ],
-    shortcut: "/icon.png",
   },
 };
 
@@ -183,8 +194,74 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${montserrat.variable}`}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${montserrat.variable}`}
+    >
       <head>
+        {/* Theme color for mobile browsers */}
+        <meta name="theme-color" content="#059669" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Bluesheep" />
+
+        {/* Favicon links for better browser compatibility */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link
+          rel="icon"
+          href="/favicon-16x16.png"
+          type="image/png"
+          sizes="16x16"
+        />
+        <link
+          rel="icon"
+          href="/favicon-32x32.png"
+          type="image/png"
+          sizes="32x32"
+        />
+        <link rel="apple-touch-icon" href="/logo.png" sizes="180x180" />
+        {/* Manifest is automatically generated from app/manifest.ts */}
+
+        {/* Structured Data Scripts */}
+        {/* WebSite Schema - Critical for Google Search Results Logo */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Hotel Blue Sheep Inn",
+              alternateName: [
+                "Bluesheep",
+                "bluesheep",
+                "Blue Sheep",
+                "Blue Sheep Hotel",
+                "Blue Sheep Inn",
+                "Hotel Blue Sheep",
+                "Hotel Bluesheep",
+                "Hotel Blue Sheep Inn",
+                "Bluesheep Hotel",
+                "Bluesheep Inn",
+              ],
+              url: "https://hotelbluesheepinn.com",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://hotelbluesheepinn.com/logo.png",
+                width: 512,
+                height: 512,
+              },
+              potentialAction: {
+                "@type": "SearchAction",
+                target: {
+                  "@type": "EntryPoint",
+                  urlTemplate:
+                    "https://hotelbluesheepinn.com/?s={search_term_string}",
+                },
+                "query-input": "required name=search_term_string",
+              },
+            }),
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -192,6 +269,19 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Hotel",
               name: "Hotel Blue Sheep Inn",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://hotelbluesheepinn.com/logo.png",
+                width: 512,
+                height: 512,
+                contentUrl: "https://hotelbluesheepinn.com/logo.png",
+              },
+              image: {
+                "@type": "ImageObject",
+                url: "https://hotelbluesheepinn.com/logo.png",
+                width: 512,
+                height: 512,
+              },
               alternateName: [
                 "Bluesheep",
                 "bluesheep",
@@ -206,13 +296,15 @@ export default function RootLayout({
               ],
               description:
                 "Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa offering exceptional hospitality and stunning mountain views",
-              url: "https://bluesheephotel.com",
+              url: "https://hotelbluesheepinn.com",
               telephone: "+977-985-806-1927",
+              email: "info@hotelbluesheepinn.com",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Dunai, Dolpa",
                 addressLocality: "Dunai",
                 addressRegion: "Karnali Province",
+                postalCode: "",
                 addressCountry: "Nepal",
               },
               geo: {
@@ -220,6 +312,38 @@ export default function RootLayout({
                 latitude: "28.9167",
                 longitude: "82.8333",
               },
+              openingHoursSpecification: {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday",
+                  "Sunday",
+                ],
+                opens: "00:00",
+                closes: "23:59",
+              },
+              areaServed: [
+                {
+                  "@type": "City",
+                  name: "Dunai",
+                },
+                {
+                  "@type": "City",
+                  name: "Dolpa",
+                },
+                {
+                  "@type": "City",
+                  name: "Phoksundo",
+                },
+                {
+                  "@type": "City",
+                  name: "Dho Tarap",
+                },
+              ],
               amenityFeature: [
                 {
                   "@type": "LocationFeatureSpecification",
@@ -268,7 +392,8 @@ export default function RootLayout({
                 "@type": "LodgingBusiness",
                 name: "Hotel Blue Sheep Inn Garden Camping",
                 alternateName: "Garden Camping",
-                description: "Hotel Blue Sheep Inn - Best camping in Dunai Dolpa with garden facilities",
+                description:
+                  "Hotel Blue Sheep Inn - Best camping in Dunai Dolpa with garden facilities",
                 amenityFeature: [
                   {
                     "@type": "LocationFeatureSpecification",
@@ -306,16 +431,47 @@ export default function RootLayout({
                 "Bluesheep Hotel",
                 "Bluesheep Inn",
               ],
-              url: "https://bluesheephotel.com",
-              logo: "https://bluesheephotel.com/logo.jpg",
+              url: "https://hotelbluesheepinn.com",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://hotelbluesheepinn.com/logo.png",
+                width: 512,
+                height: 512,
+              },
+              image: {
+                "@type": "ImageObject",
+                url: "https://hotelbluesheepinn.com/logo.png",
+                width: 512,
+                height: 512,
+              },
               telephone: "+977-985-806-1927",
+              email: "info@hotelbluesheepinn.com",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Dunai, Dolpa",
                 addressLocality: "Dunai",
                 addressRegion: "Karnali Province",
+                postalCode: "",
                 addressCountry: "Nepal",
               },
+              areaServed: [
+                {
+                  "@type": "City",
+                  name: "Dunai",
+                },
+                {
+                  "@type": "City",
+                  name: "Dolpa",
+                },
+                {
+                  "@type": "City",
+                  name: "Phoksundo",
+                },
+                {
+                  "@type": "City",
+                  name: "Dho Tarap",
+                },
+              ],
               sameAs: [],
             }),
           }}
@@ -326,8 +482,18 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
-              "@id": "https://bluesheephotel.com",
+              "@id": "https://hotelbluesheepinn.com",
               name: "Hotel Blue Sheep Inn",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://hotelbluesheepinn.com/logo.png",
+              },
+              image: {
+                "@type": "ImageObject",
+                url: "https://hotelbluesheepinn.com/logo.png",
+                width: 512,
+                height: 512,
+              },
               alternateName: [
                 "Bluesheep",
                 "bluesheep",
@@ -342,8 +508,9 @@ export default function RootLayout({
               ],
               description:
                 "Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa with garden restaurant and camping facilities",
-              url: "https://bluesheephotel.com",
+              url: "https://hotelbluesheepinn.com",
               telephone: "+977-985-806-1927",
+              email: "info@hotelbluesheepinn.com",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Dunai, Dolpa",
@@ -359,6 +526,38 @@ export default function RootLayout({
               },
               priceRange: "$$",
               servesCuisine: ["Nepali", "International", "Local"],
+              openingHoursSpecification: {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday",
+                  "Sunday",
+                ],
+                opens: "00:00",
+                closes: "23:59",
+              },
+              areaServed: [
+                {
+                  "@type": "City",
+                  name: "Dunai",
+                },
+                {
+                  "@type": "City",
+                  name: "Dolpa",
+                },
+                {
+                  "@type": "City",
+                  name: "Phoksundo",
+                },
+                {
+                  "@type": "City",
+                  name: "Dho Tarap",
+                },
+              ],
             }),
           }}
         />

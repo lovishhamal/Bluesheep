@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     title: "Best Hotel Rooms in Dunai | Luxury Accommodation",
     description:
       "🏨 Book the best hotel rooms in Dunai. Luxury accommodation with mountain views and modern amenities.",
-    url: "https://bluesheephotel.com/rooms",
+    url: "https://hotelbluesheepinn.com/rooms",
     images: [
       {
         url: "/hotel-room.jpg",
