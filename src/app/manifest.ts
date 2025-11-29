@@ -15,11 +15,6 @@ export default function manifest(): MetadataRoute.Manifest {
     categories: ["hotel", "travel", "hospitality", "accommodation", "tourism"],
     icons: [
       {
-        src: "/favicon.ico",
-        sizes: "any",
-        type: "image/x-icon",
-      },
-      {
         src: "/favicon-16x16.png",
         sizes: "16x16",
         type: "image/png",
