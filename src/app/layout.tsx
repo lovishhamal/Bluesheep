@@ -31,21 +31,21 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   title:
-    "Bluesheep | Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Garden Restaurant & Camping",
+    "Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Luxury Accommodation Nepal",
   description:
-    "🏨 Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa with garden restaurant & camping. Luxury accommodation in Dolpa with mountain views, WiFi, and exceptional service. Book your stay today!",
+    "Hotel Blue Sheep Inn - Best hotel in Dunai and Phoksundo Dolpa with garden restaurant & camping. Luxury accommodation in Dolpa with mountain views, WiFi, and exceptional service. Book your stay today!",
   keywords: [
+    "hotel blue sheep inn",
+    "Hotel Blue Sheep Inn",
+    "Hotel Blue Sheep Inn Dunai",
     "bluesheep",
     "blue sheep",
     "hotel bluesheep",
     "hotel blue sheep",
     "hotel bluesheep inn",
-    "hotel blue sheep inn",
     "Blue Sheep Inn",
     "bluesheep inn",
     "Blue Sheep Inn hotel",
-    "Hotel Blue Sheep Inn",
-    "Hotel Blue Sheep Inn Dunai",
     "best hotel in dunai",
     "best hotel in dunai dolpa",
     "best hotel in dolpa dunai",
@@ -116,9 +116,9 @@ export const metadata: Metadata = {
     "things to do dolpa",
     "visit dolpa",
   ],
-  authors: [{ name: "Blue Sheep Hotel" }],
-  creator: "Blue Sheep Hotel",
-  publisher: "Blue Sheep Hotel",
+  authors: [{ name: "Hotel Blue Sheep Inn" }],
+  creator: "Hotel Blue Sheep Inn",
+  publisher: "Hotel Blue Sheep Inn",
   formatDetection: {
     email: false,
     address: false,
@@ -130,10 +130,9 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.json",
   openGraph: {
-    title:
-      "Bluesheep | Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Garden Restaurant & Camping",
+    title: "Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa",
     description:
-      "🏨 Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa with garden restaurant & camping. Luxury accommodation with mountain views, WiFi, and exceptional service.",
+      "Hotel Blue Sheep Inn - Best hotel in Dunai and Phoksundo Dolpa with garden restaurant & camping. Luxury accommodation with mountain views, WiFi, and exceptional service.",
     url: "https://hotelbluesheepinn.com",
     siteName: "Hotel Blue Sheep Inn",
     images: [
@@ -149,10 +148,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title:
-      "Bluesheep | Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Garden Restaurant & Camping",
+    title: "Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa",
     description:
-      "🏨 Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa with garden restaurant & camping. Luxury accommodation with mountain views and exceptional service.",
+      "Hotel Blue Sheep Inn - Best hotel in Dunai and Phoksundo Dolpa with garden restaurant & camping. Luxury accommodation with mountain views and exceptional service.",
     images: ["https://hotelbluesheepinn.com/logo.png"],
   },
   robots: {
@@ -207,7 +205,10 @@ export default function RootLayout({
         <meta name="theme-color" content="#059669" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Bluesheep" />
+        <meta
+          name="apple-mobile-web-app-title"
+          content="Hotel Blue Sheep Inn"
+        />
 
         {/* Structured Data Scripts */}
         {/* WebSite Schema - Critical for Google Search Results Logo */}
@@ -282,7 +283,7 @@ export default function RootLayout({
                 "Bluesheep Inn",
               ],
               description:
-                "Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa offering exceptional hospitality and stunning mountain views",
+                "Hotel Blue Sheep Inn - Best hotel in Dunai and Phoksundo Dolpa offering exceptional hospitality and stunning mountain views",
               url: "https://hotelbluesheepinn.com",
               telephone: "+977-985-806-1927",
               email: "info@hotelbluesheepinn.com",
@@ -494,7 +495,7 @@ export default function RootLayout({
                 "Bluesheep Inn",
               ],
               description:
-                "Bluesheep - Hotel Blue Sheep Inn. Best hotel in Dunai and Phoksundo Dolpa with garden restaurant and camping facilities",
+                "Hotel Blue Sheep Inn - Best hotel in Dunai and Phoksundo Dolpa with garden restaurant and camping facilities",
               url: "https://hotelbluesheepinn.com",
               telephone: "+977-985-806-1927",
               email: "info@hotelbluesheepinn.com",
