@@ -30,8 +30,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title:
-    "Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa | Luxury Accommodation Nepal",
+  title: "Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa",
   description:
     "Hotel Blue Sheep Inn - Best hotel in Dunai and Phoksundo Dolpa with garden restaurant & camping. Luxury accommodation in Dolpa with mountain views, WiFi, and exceptional service. Book your stay today!",
   keywords: [
