@@ -33,88 +33,7 @@ export const metadata: Metadata = {
   title: "Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa",
   description:
     "Hotel Blue Sheep Inn - Best hotel in Dunai and Phoksundo Dolpa with garden restaurant & camping. Luxury accommodation in Dolpa with mountain views, WiFi, and exceptional service. Book your stay today!",
-  keywords: [
-    "hotel blue sheep inn",
-    "Hotel Blue Sheep Inn",
-    "Hotel Blue Sheep Inn Dunai",
-    "bluesheep",
-    "blue sheep",
-    "hotel bluesheep",
-    "hotel blue sheep",
-    "hotel bluesheep inn",
-    "Blue Sheep Inn",
-    "bluesheep inn",
-    "Blue Sheep Inn hotel",
-    "best hotel in dunai",
-    "best hotel in dunai dolpa",
-    "best hotel in dolpa dunai",
-    "best hotel dunai dolpa",
-    "best hotel dolpa",
-    "best hotel in dolpa",
-    "dunai dolpa hotel",
-    "dolpa dunai hotel",
-    "hotel in dunai",
-    "hotel in dunai dolpa",
-    "hotel in dolpa dunai",
-    "hotel in phoksundo",
-    "best hotel in phoksundo",
-    "best hotel in phoksundo dolpa",
-    "best hotel in dolpa phoksundo",
-    "best hotel phoksundo dolpa",
-    "best hotel phoksundo",
-    "phoksundo dolpa hotel",
-    "dolpa phoksundo hotel",
-    "hotel in phoksundo dolpa",
-    "hotel in dolpa phoksundo",
-    "phoksundo hotel",
-    "dunai hotel",
-    "dolpa hotel",
-    "luxury hotel dunai dolpa",
-    "luxury hotel phoksundo dolpa",
-    "luxury hotel dolpa",
-    "luxury hotel phoksundo",
-    "luxury hotel dunai",
-    "garden restaurant",
-    "camping",
-    "camping dunai",
-    "camping dunai dolpa",
-    "camping phoksundo",
-    "camping phoksundo dolpa",
-    "garden restaurant dunai",
-    "garden restaurant dunai dolpa",
-    "garden restaurant phoksundo",
-    "garden restaurant phoksundo dolpa",
-    "accommodation Dunai",
-    "accommodation dunai dolpa",
-    "accommodation dolpa",
-    "accommodation phoksundo",
-    "accommodation phoksundo dolpa",
-    "Blue Sheep Hotel",
-    "Dunai hotel booking",
-    "Dunai accommodation",
-    "dolpa accommodation",
-    "phoksundo accommodation",
-    "dunai dolpa accommodation",
-    "phoksundo dolpa accommodation",
-    "mountain hotel Nepal",
-    "restaurant dunai",
-    "restaurant dunai dolpa",
-    "restaurant phoksundo",
-    "restaurant phoksundo dolpa",
-    "garden camping",
-    "tent camping dunai",
-    "tent camping phoksundo",
-    "phoksundo lake",
-    "phoksundo lake nepal",
-    "phoksundo lake dolpa",
-    "dho tarap",
-    "dho tarap village",
-    "highest village nepal",
-    "dolpa attractions",
-    "dolpa nepal attractions",
-    "things to do dolpa",
-    "visit dolpa",
-  ],
+  applicationName: "Hotel Blue Sheep Inn", // ✅ CRITICAL: Shows site name in Google Search
   authors: [{ name: "Hotel Blue Sheep Inn" }],
   creator: "Hotel Blue Sheep Inn",
   publisher: "Hotel Blue Sheep Inn",
@@ -127,13 +46,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  manifest: "/manifest.json",
+  manifest: "/site.webmanifest", // ✅ CRITICAL: Links to your web app manifest
   openGraph: {
     title: "Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa",
     description:
       "Hotel Blue Sheep Inn - Best hotel in Dunai and Phoksundo Dolpa with garden restaurant & camping. Luxury accommodation with mountain views, WiFi, and exceptional service.",
     url: "https://hotelbluesheepinn.com",
-    siteName: "Hotel Blue Sheep Inn",
+    siteName: "Hotel Blue Sheep Inn", // ✅ CRITICAL: Shows site name in social sharing
     images: [
       {
         url: "https://hotelbluesheepinn.com/logo.png",
@@ -163,12 +82,9 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    google: "your-google-verification-code",
-  },
+  // ✅ Already verified with HTML file (googlebd825b3bd6f44982.html) - no meta tag needed
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "48x48" },
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
       {
@@ -185,7 +101,12 @@ export const metadata: Metadata = {
     apple: [
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
-    shortcut: "/favicon.ico",
+  },
+  other: {
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "default",
+    "apple-mobile-web-app-title": "Hotel Blue Sheep Inn",
   },
 };
 
@@ -202,15 +123,9 @@ export default function RootLayout({
       <head>
         {/* Theme color for mobile browsers */}
         <meta name="theme-color" content="#059669" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta
-          name="apple-mobile-web-app-title"
-          content="Hotel Blue Sheep Inn"
-        />
 
-        {/* Structured Data Scripts */}
-        {/* WebSite Schema - Critical for Google Search Results Logo */}
+        {/* Structured Data Scripts - Critical for Google Search */}
+        {/* WebSite Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -249,6 +164,8 @@ export default function RootLayout({
             }),
           }}
         />
+
+        {/* Hotel Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -399,6 +316,8 @@ export default function RootLayout({
             }),
           }}
         />
+
+        {/* Organization Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -463,6 +382,8 @@ export default function RootLayout({
             }),
           }}
         />
+
+        {/* LocalBusiness Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
