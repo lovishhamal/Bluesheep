@@ -85,7 +85,7 @@ function CreativeImageCarousel({
   if (images.length === 0) return null;
 
   return (
-    <section className="py-16 lg:py-24 bg-gradient-to-br from-emerald-50/50 via-white to-blue-50/50 relative overflow-hidden">
+    <section className="py-10 lg:py-16 bg-gradient-to-br from-emerald-50/50 via-white to-blue-50/50 relative overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0">
         <motion.div
@@ -115,24 +115,6 @@ function CreativeImageCarousel({
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-              Discover Our Hotel
-            </span>
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Explore the beauty and luxury of Hotel Blue Sheep Inn
-          </p>
-        </motion.div>
-
         {/* Creative Carousel Container */}
         <div className="relative">
           <div
@@ -313,15 +295,6 @@ function CreativeImageCarousel({
           ))}
         </div>
 
-        {/* Auto-play indicator */}
-        <div className="flex justify-center mt-4">
-          <button
-            onClick={() => setIsAutoPlay(!isAutoPlay)}
-            className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
-          >
-            {isAutoPlay ? "⏸ Pause" : "▶ Resume"}
-          </button>
-        </div>
       </div>
     </section>
   );
@@ -387,16 +360,16 @@ export default function Home() {
       description: "Stunning Himalayan mountain views from our hotel",
     },
     {
-      src: "/hotel-room.jpg",
-      alt: "Luxury Hotel Room",
-      title: "Luxury Accommodation",
-      description: "Comfortable rooms with modern amenities",
+      src: "/phoksundo.jpg",
+      alt: "Mountain View",
+      title: "Mountain Views",
+      description: "Stunning Himalayan mountain views from our hotel",
     },
     {
-      src: "/dining-area.jpg",
-      alt: "Hotel Restaurant",
-      title: "Fine Dining Restaurant",
-      description: "Authentic local cuisine and international dishes",
+      src: "/phoksundo.jpg",
+      alt: "Mountain View",
+      title: "Mountain Views",
+      description: "Stunning Himalayan mountain views from our hotel",
     },
   ]);
 
@@ -711,6 +684,18 @@ export default function Home() {
         </div>
       </nav>
 
+      {/* Creative Image Carousel Section - At Top */}
+      <CreativeImageCarousel
+        images={galleryImages}
+        currentIndex={currentImageIndex}
+        setCurrentIndex={setCurrentImageIndex}
+        nextImage={nextImage}
+        prevImage={prevImage}
+        isAutoPlay={isAutoPlay}
+        setIsAutoPlay={setIsAutoPlay}
+        isMobile={isMobile}
+      />
+
       {/* Hero Section - Creative & Dynamic */}
       <section className="relative min-h-[550px] flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden">
         {/* Animated Background Elements */}
@@ -975,18 +960,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Creative Image Carousel Section */}
-      <CreativeImageCarousel
-        images={galleryImages}
-        currentIndex={currentImageIndex}
-        setCurrentIndex={setCurrentImageIndex}
-        nextImage={nextImage}
-        prevImage={prevImage}
-        isAutoPlay={isAutoPlay}
-        setIsAutoPlay={setIsAutoPlay}
-        isMobile={isMobile}
-      />
 
       {/* Features Section - Ultra Creative */}
       <section className="py-0 md:py-14 bg-gradient-to-br from-white via-emerald-50/30 to-blue-50 relative overflow-hidden">
