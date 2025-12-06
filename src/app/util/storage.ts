@@ -34,6 +34,7 @@ export const getImagesFromFolder = async (
       limit: 100,
       offset: 0,
     });
+    console.log("data -> ", bucket, folder, data);
 
     if (error) {
       return [];
