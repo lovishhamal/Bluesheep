@@ -745,7 +745,7 @@ export default function Home() {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="w-full h-full min-h-[400px] lg:min-h-[500px]"
+              className="w-full h-full min-h-[400px] lg:min-h-[500px] lg:ml-8 xl:ml-12"
             >
               <HeroCarousel
                 images={galleryImages}
