@@ -123,7 +123,7 @@ export default function HeroCarousel({
             perspective: "1200px",
             height: isMobile ? "438px" : "calc(100% - 104px)",
             minHeight: isMobile ? "438px" : "484px",
-            marginTop: !isMobile ? "48px" : "0px",
+            marginTop: !isMobile ? "30px" : "0px",
           }}
         >
           <AnimatePresence mode="wait">
@@ -353,7 +353,7 @@ export default function HeroCarousel({
           isMobile ? "mt-6" : "mt-8"
         }`}
         style={{
-          marginTop: isMobile ? "calc(1.5rem + 6px)" : "calc(2rem + 6px)",
+          marginTop: isMobile ? "calc(1.5rem + 6px)" : "calc(0.5rem)",
         }}
       >
         <button
