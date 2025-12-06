@@ -367,26 +367,7 @@ export default function Home() {
   const openCampingPage = () => {
     router.push("/camping");
   };
-  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([
-    {
-      src: "/phoksundo.jpg",
-      alt: "Mountain View",
-      title: "Mountain Views",
-      description: "Stunning Himalayan mountain views from our hotel",
-    },
-    {
-      src: "/phoksundo.jpg",
-      alt: "Mountain View",
-      title: "Mountain Views",
-      description: "Stunning Himalayan mountain views from our hotel",
-    },
-    {
-      src: "/phoksundo.jpg",
-      alt: "Mountain View",
-      title: "Mountain Views",
-      description: "Stunning Himalayan mountain views from our hotel",
-    },
-  ]);
+  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length);
@@ -398,13 +379,32 @@ export default function Home() {
     );
   };
 
+  // Helper functions to generate titles and descriptions based on image names
+  const getImageTitle = (fileName: string, index: number) => {
+    // Try to extract meaningful title from filename
+    const nameWithoutExt = fileName.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
+    const capitalized = nameWithoutExt
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+    return capitalized || `Image ${index + 1}`;
+  };
+
+  const getImageDescription = (fileName: string, index: number) => {
+    // Try to extract meaningful description from filename
+    const nameWithoutExt = fileName.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
+    return `Beautiful view from Hotel Blue Sheep Inn - ${nameWithoutExt}`;
+  };
+
   // Fetch images from Supabase landing folder
   useEffect(() => {
     const fetchImages = async () => {
       try {
+        console.log("Fetching images from Supabase: images/landing");
         const images = await getImagesFromFolder("images", "landing");
+        console.log("Fetched images:", images);
 
-        if (images.length > 0) {
+        if (images && images.length > 0) {
           // Sort images: offer_1, offer_2, offer_3...offer_n first (in order), then rest
           const sortedImages = [...images].sort((a, b) => {
             const aName = a.name.toLowerCase();
@@ -438,6 +438,8 @@ export default function Home() {
             return aName.localeCompare(bName);
           });
 
+          console.log("Sorted images:", sortedImages);
+
           // Transform Supabase images to match our gallery format
           const transformedImages: GalleryImage[] = sortedImages.map(
             (image: StorageImage, index: number) => ({
@@ -447,10 +449,32 @@ export default function Home() {
               description: getImageDescription(image.name, index),
             })
           );
+          
+          console.log("Transformed images:", transformedImages);
           setGalleryImages(transformedImages);
+        } else {
+          console.warn("No images found in Supabase storage: images/landing");
+          // Fallback to static images if no images found
+          setGalleryImages([
+            {
+              src: "/phoksundo.jpg",
+              alt: "Mountain View",
+              title: "Mountain Views",
+              description: "Stunning Himalayan mountain views from our hotel",
+            },
+          ]);
         }
-      } catch {
-        // Keep fallback images if Supabase fails
+      } catch (error) {
+        console.error("Error fetching images from Supabase:", error);
+        // Fallback to static images if Supabase fails
+        setGalleryImages([
+          {
+            src: "/phoksundo.jpg",
+            alt: "Mountain View",
+            title: "Mountain Views",
+            description: "Stunning Himalayan mountain views from our hotel",
+          },
+        ]);
       }
     };
 
@@ -524,31 +548,6 @@ export default function Home() {
       currentIndex === 0 ? hotelGalleryImages.length - 1 : currentIndex - 1;
     setSelectedHotelGalleryImage(hotelGalleryImages[prevIndex]);
   }, [selectedHotelGalleryImage, hotelGalleryImages]);
-
-  // Helper functions to generate titles and descriptions based on image names
-  const getImageTitle = (fileName: string, index: number) => {
-    const titles = [
-      "Mountain Views",
-      "Luxury Accommodation",
-      "Fine Dining Restaurant",
-      "Mountain Adventure",
-      "Scenic Landscapes",
-      "Hotel Amenities",
-    ];
-    return titles[index] || titles[0];
-  };
-
-  const getImageDescription = (fileName: string, index: number) => {
-    const descriptions = [
-      "Crystal clear alpine lake just minutes away",
-      "Comfortable rooms with modern amenities",
-      "Authentic local cuisine and international dishes",
-      "Experience the beauty of the mountains",
-      "Breathtaking natural scenery",
-      "World-class facilities and services",
-    ];
-    return descriptions[index] || descriptions[0];
-  };
 
   // Auto-advance gallery
   useEffect(() => {
