@@ -111,9 +111,10 @@ export default function Home() {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        console.log("Fetching images from Supabase: images/landing");
-        const images = await getImagesFromFolder("images", "landing");
-        console.log("Fetched images:", images);
+        console.log("Starting to fetch images from Supabase...");
+        const images = await getImagesFromFolder("images", "banners");
+        console.log("Fetched images from Supabase:", images);
+        console.log("Number of images:", images?.length || 0);
 
         if (images && images.length > 0) {
           // Sort images: offer_1, offer_2, offer_3...offer_n first (in order), then rest

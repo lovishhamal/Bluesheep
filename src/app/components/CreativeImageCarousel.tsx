@@ -117,15 +117,14 @@ export default function CreativeImageCarousel({
         {/* Creative Carousel Container */}
         <div className="relative">
           <div
-            className="relative h-[450px] md:h-[550px] lg:h-[650px] xl:h-[700px] flex items-center justify-center"
-            style={{ perspective: "1200px" }}
+            className="relative h-[450px] md:h-[550px] lg:h-[650px] xl:h-[700px] flex items-center justify-center overflow-hidden"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
             onMouseEnter={() => setIsAutoPlay(false)}
             onMouseLeave={() => setIsAutoPlay(true)}
           >
-            {/* Carousel Items - 3D Rotating Effect */}
+            {/* Carousel Items - Side by Side Layout */}
             {images.map((image, index) => {
               const position =
                 (index - currentIndex + images.length) % images.length;
@@ -136,37 +135,13 @@ export default function CreativeImageCarousel({
 
               if (!isVisible) return null;
 
-              // Calculate 3D transform
+              // Calculate side-by-side positioning
               const isRight = position > 0 && position <= images.length / 2;
               const isLeft = position > images.length / 2;
 
-              const offsetX = isActive
-                ? 0
-                : isRight
-                ? isMobile
-                  ? 80
-                  : 120
-                : isLeft
-                ? isMobile
-                  ? -80
-                  : -120
-                : 0;
-              const offsetZ = isActive
-                ? 0
-                : -Math.abs(position) * (isMobile ? 100 : 150);
-              const rotateY = isActive
-                ? 0
-                : isRight
-                ? isMobile
-                  ? -25
-                  : -35
-                : isLeft
-                ? isMobile
-                  ? 25
-                  : 35
-                : 0;
-              const scale = isActive ? 1 : isNext || isPrev ? 0.75 : 0.5;
-              const opacity = isActive ? 1 : isNext || isPrev ? 0.6 : 0.3;
+              const offsetX = isActive ? 0 : isRight ? 120 : isLeft ? -120 : 0;
+              const scale = isActive ? 1 : isNext || isPrev ? 0.85 : 0.7;
+              const opacity = isActive ? 1 : isNext || isPrev ? 0.7 : 0.4;
 
               return (
                 <motion.div
@@ -174,8 +149,6 @@ export default function CreativeImageCarousel({
                   initial={false}
                   animate={{
                     x: offsetX,
-                    z: offsetZ,
-                    rotateY: rotateY,
                     scale: scale,
                     opacity: opacity,
                   }}
@@ -187,7 +160,6 @@ export default function CreativeImageCarousel({
                   }}
                   style={{
                     position: "absolute",
-                    transformStyle: "preserve-3d",
                     zIndex: isActive ? 50 : isNext || isPrev ? 40 : 30,
                   }}
                   className="w-full max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl cursor-pointer"
@@ -195,7 +167,7 @@ export default function CreativeImageCarousel({
                 >
                   {/* Image Card */}
                   <motion.div
-                    whileHover={isActive ? { scale: 1.05, y: -10 } : {}}
+                    whileHover={isActive ? { scale: 1.02, y: -5 } : {}}
                     className="relative h-[350px] md:h-[450px] lg:h-[550px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white"
                   >
                     {/* Image */}
@@ -250,24 +222,20 @@ export default function CreativeImageCarousel({
           </div>
 
           {/* Navigation Arrows */}
-          {!isMobile && (
-            <>
-              <button
-                onClick={prevImage}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-50 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-xl hover:bg-white transition-all duration-300 flex items-center justify-center group"
-                aria-label="Previous image"
-              >
-                <ChevronLeftIcon className="w-6 h-6 text-gray-900 group-hover:scale-110 transition-transform" />
-              </button>
-              <button
-                onClick={nextImage}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-50 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-xl hover:bg-white transition-all duration-300 flex items-center justify-center group"
-                aria-label="Next image"
-              >
-                <ChevronRightIcon className="w-6 h-6 text-gray-900 group-hover:scale-110 transition-transform" />
-              </button>
-            </>
-          )}
+          <button
+            onClick={prevImage}
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-50 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-xl hover:bg-white transition-all duration-300 flex items-center justify-center group"
+            aria-label="Previous image"
+          >
+            <ChevronLeftIcon className="w-6 h-6 text-gray-900 group-hover:scale-110 transition-transform" />
+          </button>
+          <button
+            onClick={nextImage}
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-50 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-xl hover:bg-white transition-all duration-300 flex items-center justify-center group"
+            aria-label="Next image"
+          >
+            <ChevronRightIcon className="w-6 h-6 text-gray-900 group-hover:scale-110 transition-transform" />
+          </button>
         </div>
 
         {/* Navigation Dots */}

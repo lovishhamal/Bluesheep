@@ -30,13 +30,20 @@ export const getImagesFromFolder = async (
   folder: string
 ): Promise<StorageImage[]> => {
   try {
-    const { data, error } = await supabase.storage.from(bucket).list(folder, {
-      limit: 100,
-      offset: 0,
-    });
-    console.log("data -> ", bucket, folder, data);
+    const { data, error } = await supabase.storage.from(bucket).list(folder);
+    console.log("data -> ,data", data);
+    console.log("err", error);
 
     if (error) {
+      console.error("Supabase storage error:", error);
+      return [];
+    }
+
+    console.log(`Raw data from Supabase:`, data);
+    console.log(`Number of files found:`, data?.length || 0);
+
+    if (!data || data.length === 0) {
+      console.warn(`No files found in bucket "${bucket}" folder "${folder}"`);
       return [];
     }
 
@@ -45,20 +52,29 @@ export const getImagesFromFolder = async (
       data
         ?.filter((file: { name: string }) => {
           const extension = file.name.toLowerCase().split(".").pop();
-          return ["jpg", "jpeg", "png", "webp", "gif"].includes(
+          const isImage = ["jpg", "jpeg", "png", "webp", "gif"].includes(
             extension || ""
           );
+          if (!isImage) {
+            console.log(`Skipping non-image file: ${file.name}`);
+          }
+          return isImage;
         })
-        .map(
-          (file: { name: string }): StorageImage => ({
+        .map((file: { name: string }): StorageImage => {
+          const url = getImageUrl(bucket, folder, file.name);
+          console.log(`Image: ${file.name} -> URL: ${url}`);
+          return {
             name: file.name,
-            url: getImageUrl(bucket, folder, file.name),
+            url: url,
             alt: file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " "),
-          })
-        ) || [];
+          };
+        }) || [];
 
+    console.log(`Filtered image files:`, imageFiles);
+    console.log(`Total images found: ${imageFiles.length}`);
     return imageFiles;
-  } catch {
+  } catch (error) {
+    console.error("Error in getImagesFromFolder:", error);
     return [];
   }
 };
