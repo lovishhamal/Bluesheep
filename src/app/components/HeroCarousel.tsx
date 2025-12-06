@@ -68,7 +68,7 @@ export default function HeroCarousel({
     <div className="w-full h-full flex flex-col items-center">
       <div
         className={`relative w-full flex items-center justify-center ${
-          isMobile ? "min-h-[450px] py-4" : "min-h-[500px] lg:min-h-[600px]"
+          isMobile ? "min-h-[450px] py-0" : "min-h-[500px] lg:min-h-[600px]"
         }`}
         style={{
           minHeight: isMobile ? "450px" : undefined,
@@ -121,8 +121,8 @@ export default function HeroCarousel({
           className="relative w-full max-w-2xl mx-auto"
           style={{
             perspective: "1200px",
-            height: isMobile ? "438px" : "calc(100% - 104px)",
-            minHeight: isMobile ? "438px" : "484px",
+            height: isMobile ? "436px" : "calc(100% - 104px)",
+            minHeight: isMobile ? "436px" : "484px",
             marginTop: !isMobile ? "30px" : "0px",
           }}
         >
