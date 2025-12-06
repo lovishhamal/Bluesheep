@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { getWhatsAppUrl } from "../util/constants";
 
@@ -21,9 +22,11 @@ export default function AttractionsPage() {
               className="flex items-center"
             >
               <Link href="/" className="flex items-center">
-                <img
+                <Image
                   src="/logo.png"
                   alt="Hotel Blue Sheep Inn Logo"
+                  width={48}
+                  height={48}
                   className="h-12 w-auto rounded-lg shadow-md cursor-pointer"
                 />
               </Link>
@@ -217,9 +220,11 @@ export default function AttractionsPage() {
               className="order-2 md:order-1"
             >
               <div className="relative overflow-hidden rounded-3xl shadow-2xl group">
-                <img
+                <Image
                   src="/phoksundo.jpg"
                   alt="Phoksundo Lake Dolpa Nepal - Crystal Clear Alpine Lake at 3611m elevation"
+                  width={800}
+                  height={600}
                   className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
@@ -473,9 +478,11 @@ export default function AttractionsPage() {
               viewport={{ once: true }}
               className="relative overflow-hidden rounded-3xl shadow-2xl group"
             >
-              <img
+              <Image
                 src="/dho.jpg"
                 alt="Dho Tarap - Highest Village in Nepal at 4200m elevation - Traditional Tibetan Buddhist culture"
+                width={800}
+                height={600}
                 className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>

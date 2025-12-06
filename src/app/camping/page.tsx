@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Bars3Icon,
   XMarkIcon,
@@ -191,9 +192,11 @@ Please confirm this booking.`;
               className="flex items-center"
             >
               <Link href="/">
-                <img
+                <Image
                   src="/logo.png"
                   alt="Hotel Blue Sheep Inn Logo"
+                  width={48}
+                  height={48}
                   className="h-12 w-auto rounded-lg shadow-md cursor-pointer"
                 />
               </Link>
@@ -436,9 +439,11 @@ Please confirm this booking.`;
                   onClick={() => openImageModal(image)}
                 >
                   <div className="relative overflow-hidden rounded-2xl border-2 border-gray-200 hover:border-emerald-400 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-400/20 group">
-                    <img
+                    <Image
                       src={image.url}
                       alt={image.alt}
+                      width={800}
+                      height={600}
                       className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-110"
                       loading="lazy"
                     />
@@ -925,9 +930,11 @@ Please confirm this booking.`;
 
             {/* Image */}
             <div className="relative w-full h-full flex items-center justify-center">
-              <img
+              <Image
                 src={selectedImage.url}
                 alt={selectedImage.alt}
+                width={1200}
+                height={800}
                 className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
               />
             </div>

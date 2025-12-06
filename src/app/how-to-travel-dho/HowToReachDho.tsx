@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 export default function HowToReachDho() {
@@ -94,9 +95,11 @@ export default function HowToReachDho() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <Link href="/" className="flex items-center">
-              <img
+              <Image
                 src="/logo.png"
                 alt="Hotel Blue Sheep Inn Logo"
+                width={48}
+                height={48}
                 className="h-12 w-auto rounded-lg shadow-md"
               />
             </Link>

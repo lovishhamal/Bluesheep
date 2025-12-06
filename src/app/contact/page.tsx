@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import {
   MapPinIcon,
   PhoneIcon,
@@ -27,9 +28,11 @@ export default function ContactPage() {
               className="flex items-center"
             >
               <Link href="/">
-                <img
+                <Image
                   src="/logo.png"
                   alt="Hotel Blue Sheep Inn Logo"
+                  width={48}
+                  height={48}
                   className="h-12 w-auto rounded-lg shadow-md cursor-pointer"
                 />
               </Link>

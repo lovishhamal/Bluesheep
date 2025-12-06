@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { GalleryImage } from "./CreativeImageCarousel";
 
@@ -196,9 +197,11 @@ export default function HeroCarousel({
                           : "0 10px 20px -6px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05)",
                       }}
                     >
-                      <img
+                      <Image
                         src={images[imageIndex]?.src}
                         alt={images[imageIndex]?.alt}
+                        width={800}
+                        height={600}
                         className="w-full h-full object-cover"
                         loading="lazy"
                       />
