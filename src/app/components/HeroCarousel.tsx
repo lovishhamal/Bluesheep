@@ -121,8 +121,8 @@ export default function HeroCarousel({
           className="relative w-full max-w-2xl mx-auto"
           style={{
             perspective: "1200px",
-            height: isMobile ? "450px" : "100%",
-            minHeight: isMobile ? "450px" : "500px",
+            height: isMobile ? "438px" : "calc(100% - 12px)",
+            minHeight: isMobile ? "438px" : "488px",
             marginTop: !isMobile ? "48px" : "0px",
           }}
         >
