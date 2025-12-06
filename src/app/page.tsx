@@ -437,7 +437,6 @@ export default function Home() {
     );
   };
 
-
   // Fetch images from Supabase
   useEffect(() => {
     const fetchImages = async () => {
@@ -599,7 +598,13 @@ export default function Home() {
     document.addEventListener("keydown", handleHotelGalleryKeyDown);
     return () =>
       document.removeEventListener("keydown", handleHotelGalleryKeyDown);
-  }, [isHotelGalleryModalOpen, selectedHotelGalleryImage, hotelGalleryImages, navigateToNextHotelGalleryImage, navigateToPreviousHotelGalleryImage]);
+  }, [
+    isHotelGalleryModalOpen,
+    selectedHotelGalleryImage,
+    hotelGalleryImages,
+    navigateToNextHotelGalleryImage,
+    navigateToPreviousHotelGalleryImage,
+  ]);
 
   return (
     <div className="min-h-screen bg-white">
