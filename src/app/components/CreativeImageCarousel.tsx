@@ -63,14 +63,14 @@ export default function CreativeImageCarousel({
   return (
     <section
       id="carousel-section"
-      className="pt-0 pb-10 lg:pb-16 bg-gradient-to-br from-emerald-50/50 via-white to-blue-50/50 relative overflow-hidden"
+      className="w-full h-[50vh] bg-gradient-to-br from-emerald-50/50 via-white to-blue-50/50 relative overflow-hidden"
     >
       {/* Animated Background */}
       <div className="absolute inset-0">
         {/* Hotel Name Background Text - Big Fading Transparent */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <h2
-            className="text-6xl md:text-8xl lg:text-[10rem] xl:text-[12rem] font-black select-none"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black select-none"
             style={{
               background:
                 "linear-gradient(135deg, rgba(16, 185, 129, 0.04) 0%, rgba(59, 130, 246, 0.04) 50%, rgba(16, 185, 129, 0.04) 100%)",
@@ -113,138 +113,161 @@ export default function CreativeImageCarousel({
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Creative Carousel Container */}
-        <div className="relative">
+      <div className="w-full h-full relative z-10 flex items-center justify-center px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-7xl h-full flex items-center gap-4 sm:gap-6 md:gap-8">
+          {/* Side Tags/Thumbnails - Left Side */}
+          <div className="hidden md:flex flex-col gap-3 h-full items-center justify-center flex-shrink-0">
+            <div
+              className="flex flex-col gap-3 max-h-full overflow-y-auto scrollbar-hide"
+              onMouseEnter={() => setIsAutoPlay(false)}
+              onMouseLeave={() => setIsAutoPlay(true)}
+            >
+              {images.map((image, index) => {
+                const isActive = index === currentIndex;
+                return (
+                  <motion.button
+                    key={index}
+                    onClick={() => setCurrentIndex(index)}
+                    whileHover={{ scale: 1.1, x: 5 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 overflow-hidden transition-all duration-300 ${
+                      isActive
+                        ? "ring-4 ring-emerald-500 ring-offset-2 scale-110"
+                        : "opacity-60 hover:opacity-100"
+                    }`}
+                    style={{
+                      borderRadius: "8px",
+                    }}
+                  >
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeTag"
+                        className="absolute inset-0 border-2 border-emerald-500"
+                        style={{ borderRadius: "8px" }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 500,
+                          damping: 30,
+                        }}
+                      />
+                    )}
+                  </motion.button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Main Image Container */}
           <div
-            className="relative h-[450px] md:h-[550px] lg:h-[650px] xl:h-[700px] flex items-center justify-center overflow-hidden"
+            className="flex-1 h-full flex items-center justify-center relative"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
             onMouseEnter={() => setIsAutoPlay(false)}
             onMouseLeave={() => setIsAutoPlay(true)}
           >
-            {/* Carousel Items - Side by Side Layout */}
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.5 }}
+              className="relative w-full h-full max-w-4xl"
+            >
+              <img
+                src={images[currentIndex]?.src}
+                alt={images[currentIndex]?.alt}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+
+              {/* Shine Effect */}
+              <motion.div
+                animate={{
+                  x: ["-100%", "200%"],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "linear",
+                  repeatDelay: 2,
+                }}
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 pointer-events-none"
+              />
+            </motion.div>
+
+            {/* Navigation Arrows */}
+            <button
+              onClick={prevImage}
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-50 w-10 h-10 sm:w-12 sm:h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-xl hover:bg-white transition-all duration-300 flex items-center justify-center group"
+              aria-label="Previous image"
+            >
+              <ChevronLeftIcon className="w-5 h-5 sm:w-6 sm:h-6 text-gray-900 group-hover:scale-110 transition-transform" />
+            </button>
+            <button
+              onClick={nextImage}
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-50 w-10 h-10 sm:w-12 sm:h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-xl hover:bg-white transition-all duration-300 flex items-center justify-center group"
+              aria-label="Next image"
+            >
+              <ChevronRightIcon className="w-5 h-5 sm:w-6 sm:h-6 text-gray-900 group-hover:scale-110 transition-transform" />
+            </button>
+          </div>
+
+          {/* Side Tags/Thumbnails - Right Side (Mobile: Bottom) */}
+          <div className="md:hidden flex flex-row gap-3 w-full justify-center overflow-x-auto pb-4 scrollbar-hide">
             {images.map((image, index) => {
-              const position =
-                (index - currentIndex + images.length) % images.length;
-              const isActive = position === 0;
-              const isNext = position === 1;
-              const isPrev = position === images.length - 1;
-              const isVisible = position <= 2 || position >= images.length - 2;
-
-              if (!isVisible) return null;
-
-              // Calculate side-by-side positioning
-              const isRight = position > 0 && position <= images.length / 2;
-              const isLeft = position > images.length / 2;
-
-              const offsetX = isActive ? 0 : isRight ? 120 : isLeft ? -120 : 0;
-              const scale = isActive ? 1 : isNext || isPrev ? 0.85 : 0.7;
-              const opacity = isActive ? 1 : isNext || isPrev ? 0.7 : 0.4;
-
+              const isActive = index === currentIndex;
               return (
-                <motion.div
+                <motion.button
                   key={index}
-                  initial={false}
-                  animate={{
-                    x: offsetX,
-                    scale: scale,
-                    opacity: opacity,
-                  }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 30,
-                    mass: 0.8,
-                  }}
+                  onClick={() => setCurrentIndex(index)}
+                  whileTap={{ scale: 0.95 }}
+                  className={`relative w-16 h-16 flex-shrink-0 overflow-hidden transition-all duration-300 ${
+                    isActive
+                      ? "ring-4 ring-emerald-500 ring-offset-2 scale-110"
+                      : "opacity-60"
+                  }`}
                   style={{
-                    position: "absolute",
-                    zIndex: isActive ? 50 : isNext || isPrev ? 40 : 30,
+                    borderRadius: "8px",
                   }}
-                  className="w-full max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl cursor-pointer"
-                  onClick={() => !isActive && setCurrentIndex(index)}
                 >
-                  {/* Image Card */}
-                  <motion.div
-                    whileHover={isActive ? { scale: 1.02, y: -5 } : {}}
-                    className="relative h-[350px] md:h-[450px] lg:h-[550px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white"
-                  >
-                    {/* Image */}
-                    <div className="relative w-full h-full">
-                      <img
-                        src={image.src}
-                        alt={image.alt}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                      />
-
-                      {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-
-                      {/* Content Overlay */}
-                      {isActive && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.3 }}
-                          className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white"
-                        >
-                          <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2">
-                            {image.title}
-                          </h3>
-                          <p className="text-sm md:text-base lg:text-lg text-white/90">
-                            {image.description}
-                          </p>
-                        </motion.div>
-                      )}
-
-                      {/* Shine Effect */}
-                      {isActive && (
-                        <motion.div
-                          animate={{
-                            x: ["-100%", "200%"],
-                          }}
-                          transition={{
-                            duration: 3,
-                            repeat: Infinity,
-                            ease: "linear",
-                            repeatDelay: 2,
-                          }}
-                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 pointer-events-none"
-                        />
-                      )}
-                    </div>
-                  </motion.div>
-                </motion.div>
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeTagMobile"
+                      className="absolute inset-0 border-2 border-emerald-500"
+                      style={{ borderRadius: "8px" }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 500,
+                        damping: 30,
+                      }}
+                    />
+                  )}
+                </motion.button>
               );
             })}
           </div>
-
-          {/* Navigation Arrows */}
-          <button
-            onClick={prevImage}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-50 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-xl hover:bg-white transition-all duration-300 flex items-center justify-center group"
-            aria-label="Previous image"
-          >
-            <ChevronLeftIcon className="w-6 h-6 text-gray-900 group-hover:scale-110 transition-transform" />
-          </button>
-          <button
-            onClick={nextImage}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-50 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-xl hover:bg-white transition-all duration-300 flex items-center justify-center group"
-            aria-label="Next image"
-          >
-            <ChevronRightIcon className="w-6 h-6 text-gray-900 group-hover:scale-110 transition-transform" />
-          </button>
         </div>
 
-        {/* Navigation Dots */}
-        <div className="flex justify-center gap-3 mt-8">
+        {/* Navigation Dots - Desktop Bottom */}
+        <div className="hidden md:flex absolute bottom-4 left-1/2 -translate-x-1/2 z-50 justify-center gap-2">
           {images.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`relative w-3 h-3 rounded-full transition-all duration-300 ${
+              className={`relative w-2 h-2 rounded-full transition-all duration-300 ${
                 index === currentIndex
                   ? "bg-emerald-500 scale-125"
                   : "bg-gray-300 hover:bg-gray-400"
@@ -262,6 +285,16 @@ export default function CreativeImageCarousel({
           ))}
         </div>
       </div>
+
+      <style jsx>{`
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </section>
   );
 }

@@ -35,25 +35,25 @@ function BookingPageContent() {
   useEffect(() => {
     const fetchRoom = async () => {
       if (!roomId) {
-        router.push("/rooms");
+      router.push("/rooms");
         return;
-      }
+    }
 
-      try {
-        const { data, error } = await supabase
-          .from("rooms")
-          .select("*")
-          .eq("id", roomId)
-          .single();
+    try {
+      const { data, error } = await supabase
+        .from("rooms")
+        .select("*")
+        .eq("id", roomId)
+        .single();
 
-        if (error) throw error;
-        setRoom(data);
+      if (error) throw error;
+      setRoom(data);
       } catch {
-        router.push("/rooms");
-      } finally {
-        setLoading(false);
-      }
-    };
+      router.push("/rooms");
+    } finally {
+      setLoading(false);
+    }
+  };
 
     fetchRoom();
   }, [roomId, router]);

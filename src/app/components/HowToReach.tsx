@@ -453,16 +453,6 @@ export default function HowToReach() {
                         delays at Radi or Tallubagar.
                       </p>
                     </div>
-                    <div className="bg-white/60 rounded-lg p-3">
-                      <p className="text-sm text-gray-700">
-                        <span className="font-semibold">Comfort Seekers:</span>{" "}
-                        Road conditions after Tallubagar are (off-road). For
-                        those who cannot handle 30+ hours of offroad, we highly
-                        recommend taking a flight to Juphal (direct from
-                        Kathmandu or via Nepalgunj) - approximately 45 mins to 1
-                        hour flight + short jeep/walk to Dunai.
-                      </p>
-                    </div>
                   </div>
                 </div>
 

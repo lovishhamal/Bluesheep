@@ -23,9 +23,8 @@ import {
 import { getWhatsAppUrl, getTelUrl, PHONE_NUMBER } from "./util/constants";
 import { useIsMobile } from "./util/useIsMobile";
 import HowToReach from "./components/HowToReach";
-import CreativeImageCarousel, {
-  GalleryImage,
-} from "./components/CreativeImageCarousel";
+import { GalleryImage } from "./components/CreativeImageCarousel";
+import HeroCarousel from "./components/HeroCarousel";
 
 export default function Home() {
   const router = useRouter();
@@ -437,18 +436,6 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Creative Image Carousel Section - At Top */}
-      <CreativeImageCarousel
-        images={galleryImages}
-        currentIndex={currentImageIndex}
-        setCurrentIndex={setCurrentImageIndex}
-        nextImage={nextImage}
-        prevImage={prevImage}
-        isAutoPlay={isAutoPlay}
-        setIsAutoPlay={setIsAutoPlay}
-        isMobile={isMobile}
-      />
-
       {/* Hero Section - Creative & Dynamic */}
       <section className="relative min-h-[550px] flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden pt-8 lg:pt-12">
         {/* Animated Background Elements */}
@@ -490,14 +477,14 @@ export default function Home() {
           </div>
         )}
 
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center justify-center min-h-[60vh] py-8 sm:py-12 md:py-16 lg:py-20">
-            {/* Content - Centered and Compact */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[70vh] py-8 sm:py-12 md:py-16 lg:py-20">
+            {/* Left Side - Hero Content */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-center space-y-4 sm:space-y-5 w-full max-w-4xl"
+              className="text-center lg:text-left space-y-4 sm:space-y-5 w-full"
             >
               {/* Badge - Compact */}
               <motion.div
@@ -546,7 +533,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 0.8 }}
-                className="hidden sm:flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 md:gap-6 mb-4 sm:mb-3 lg:mb-4 w-full sm:w-auto"
+                className="hidden sm:flex flex-col sm:flex-row items-stretch sm:items-center lg:justify-start justify-center gap-3 sm:gap-4 md:gap-6 mb-4 sm:mb-3 lg:mb-4 w-full sm:w-auto"
               >
                 {/* Phone Button - Full Width on Mobile */}
                 <motion.a
@@ -585,7 +572,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.2, duration: 0.8 }}
-                className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 md:gap-5 pt-2 sm:pt-2 lg:pt-3 w-full"
+                className="flex flex-col sm:flex-row items-stretch sm:items-center lg:justify-start justify-center gap-3 sm:gap-4 md:gap-5 pt-2 sm:pt-2 lg:pt-3 w-full"
               >
                 {/* Book Now Button - Primary with Creative Effects */}
                 <motion.button
@@ -710,6 +697,25 @@ export default function Home() {
                   <div className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-br from-emerald-200/30 to-transparent rounded-bl-2xl"></div>
                 </motion.button>
               </motion.div>
+            </motion.div>
+
+            {/* Right Side - Carousel */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="w-full h-full min-h-[400px] lg:min-h-[500px]"
+            >
+              <HeroCarousel
+                images={galleryImages}
+                currentIndex={currentImageIndex}
+                setCurrentIndex={setCurrentImageIndex}
+                nextImage={nextImage}
+                prevImage={prevImage}
+                isAutoPlay={isAutoPlay}
+                setIsAutoPlay={setIsAutoPlay}
+                isMobile={isMobile}
+              />
             </motion.div>
           </div>
         </div>
