@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
   MapPinIcon,
@@ -313,9 +314,11 @@ export default function Home() {
               animate={{ opacity: 1, x: 0 }}
               className="flex items-center"
             >
-              <img
+              <Image
                 src="/logo.png"
                 alt="Hotel Blue Sheep Inn Logo"
+                width={48}
+                height={48}
                 className="h-12 w-auto rounded-lg shadow-md"
                 style={{
                   WebkitTransform: "translateZ(0)",
@@ -977,9 +980,11 @@ export default function Home() {
                     onClick={() => openHotelGalleryModal(image)}
                   >
                     <div className="relative overflow-hidden rounded-2xl border-2 border-gray-200 hover:border-emerald-400 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-400/20 group">
-                      <img
+                      <Image
                         src={image.url}
                         alt={image.alt}
+                        width={800}
+                        height={600}
                         className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-110"
                         loading="lazy"
                       />
@@ -1112,9 +1117,11 @@ export default function Home() {
                   className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 to-emerald-500/30 z-10 group-hover:opacity-0 transition-opacity duration-500"></div>
-                  <img
+                  <Image
                     src="/phoksundo.jpg"
                     alt="Phoksundo Lake Dolpa Nepal - Crystal Clear Alpine Lake at 3611m elevation - Best attraction in Dolpa"
+                    width={800}
+                    height={450}
                     className="w-full h-[450px] object-cover relative z-0 group-hover:scale-110 transition-transform duration-700"
                     style={{
                       WebkitTransform: "translateZ(0)",
@@ -1318,9 +1325,11 @@ export default function Home() {
                   className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/30 to-purple-500/30 z-10 group-hover:opacity-0 transition-opacity duration-500"></div>
-                  <img
+                  <Image
                     src="/dho.jpg"
                     alt="Dho Tarap - Highest Village in Nepal at 4200m elevation - Traditional Tibetan Buddhist culture"
+                    width={800}
+                    height={450}
                     className="w-full h-[450px] object-cover relative z-0 group-hover:scale-110 transition-transform duration-700"
                     style={{
                       WebkitTransform: "translateZ(0)",
@@ -1915,9 +1924,11 @@ export default function Home() {
                 className="flex items-center justify-center md:justify-start gap-4 mb-6"
               >
                 <div className="relative">
-                  <img
+                  <Image
                     src="/logo.png"
                     alt="Hotel Blue Sheep Inn Logo"
+                    width={64}
+                    height={64}
                     className="h-16 w-16 rounded-xl border-2 border-white/30 shadow-lg"
                     style={{
                       WebkitTransform: "translateZ(0)",
@@ -2041,9 +2052,11 @@ export default function Home() {
 
             {/* Image */}
             <div className="relative w-full h-full flex items-center justify-center">
-              <img
+              <Image
                 src={selectedHotelGalleryImage.url}
                 alt={selectedHotelGalleryImage.alt}
+                width={1200}
+                height={800}
                 className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
                 style={{
                   WebkitTransform: "translateZ(0)",

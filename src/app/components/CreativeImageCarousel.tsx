@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 export interface GalleryImage {
@@ -139,9 +140,11 @@ export default function CreativeImageCarousel({
                       borderRadius: "8px",
                     }}
                   >
-                    <img
+                    <Image
                       src={image.src}
                       alt={image.alt}
+                      width={400}
+                      height={300}
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
@@ -180,9 +183,11 @@ export default function CreativeImageCarousel({
               transition={{ duration: 0.5 }}
               className="relative w-full h-full max-w-4xl"
             >
-              <img
+              <Image
                 src={images[currentIndex]?.src}
                 alt={images[currentIndex]?.alt}
+                width={1200}
+                height={600}
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
@@ -237,9 +242,11 @@ export default function CreativeImageCarousel({
                     borderRadius: "8px",
                   }}
                 >
-                  <img
+                  <Image
                     src={image.src}
                     alt={image.alt}
+                    width={400}
+                    height={300}
                     className="w-full h-full object-cover"
                     loading="lazy"
                   />
