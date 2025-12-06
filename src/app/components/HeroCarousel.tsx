@@ -121,8 +121,8 @@ export default function HeroCarousel({
           className="relative w-full max-w-2xl mx-auto"
           style={{
             perspective: "1200px",
-            height: isMobile ? "438px" : "calc(100% - 100px)",
-            minHeight: isMobile ? "438px" : "488px",
+            height: isMobile ? "438px" : "calc(100% - 104px)",
+            minHeight: isMobile ? "438px" : "484px",
             marginTop: !isMobile ? "48px" : "0px",
           }}
         >
@@ -324,7 +324,9 @@ export default function HeroCarousel({
         {/* Stack Counter */}
         <div
           className={`absolute z-40 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-emerald-100 ${
-            isMobile ? "top-3 right-3 px-2.5 py-1" : "top-4 right-4 px-3 py-1.5"
+            isMobile
+              ? "top-12 right-3 px-2.5 py-1"
+              : "top-16 right-4 px-3 py-1.5"
           }`}
         >
           <span
