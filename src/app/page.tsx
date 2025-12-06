@@ -90,7 +90,7 @@ function CreativeImageCarousel({
   return (
     <section
       id="carousel-section"
-      className="py-10 lg:py-16 bg-gradient-to-br from-emerald-50/50 via-white to-blue-50/50 relative overflow-hidden"
+      className="pt-0 pb-10 lg:pb-16 bg-gradient-to-br from-emerald-50/50 via-white to-blue-50/50 relative overflow-hidden"
     >
       {/* Animated Background */}
       <div className="absolute inset-0">
@@ -144,7 +144,7 @@ function CreativeImageCarousel({
         {/* Creative Carousel Container */}
         <div className="relative">
           <div
-            className="relative h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center"
+            className="relative h-[450px] md:h-[550px] lg:h-[650px] xl:h-[700px] flex items-center justify-center"
             style={{ perspective: "1200px" }}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
@@ -740,8 +740,20 @@ export default function Home() {
         </div>
       </nav>
 
+      {/* Creative Image Carousel Section - At Top */}
+      <CreativeImageCarousel
+        images={galleryImages}
+        currentIndex={currentImageIndex}
+        setCurrentIndex={setCurrentImageIndex}
+        nextImage={nextImage}
+        prevImage={prevImage}
+        isAutoPlay={isAutoPlay}
+        setIsAutoPlay={setIsAutoPlay}
+        isMobile={isMobile}
+      />
+
       {/* Hero Section - Creative & Dynamic */}
-      <section className="relative min-h-[550px] flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden">
+      <section className="relative min-h-[550px] flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden pt-8 lg:pt-12">
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
           {/* Large animated gradient orbs - Simplified for performance */}
@@ -1004,21 +1016,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Creative Image Carousel Section - Below Hero */}
-      {/* Hidden for now */}
-      {false && (
-        <CreativeImageCarousel
-          images={galleryImages}
-          currentIndex={currentImageIndex}
-          setCurrentIndex={setCurrentImageIndex}
-          nextImage={nextImage}
-          prevImage={prevImage}
-          isAutoPlay={isAutoPlay}
-          setIsAutoPlay={setIsAutoPlay}
-          isMobile={isMobile}
-        />
-      )}
 
       {/* Routes Section - How to Reach Hotel Blue Sheep Inn */}
       <HowToReach />
