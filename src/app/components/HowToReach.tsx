@@ -92,7 +92,6 @@ export default function HowToReach() {
     };
   }, []);
 
-
   return (
     <>
       {/* Routes Section - How to Reach Hotel Blue Sheep Inn */}
@@ -222,7 +221,8 @@ export default function HowToReach() {
                         </span>
                       </div>
                       <p className="text-gray-600 mb-3">
-                        Kathmandu (Gongabu) → Pokhara → Baglung → Rukum (Radi) → Tallubagar → Dunai
+                        Kathmandu (Gongabu) → Pokhara → Baglung → Rukum (Radi) →
+                        Tallubagar → Dunai
                       </p>
                       <div className="grid sm:grid-cols-2 gap-3 mt-4">
                         <div className="flex items-center gap-2 text-emerald-600 font-semibold">
@@ -235,7 +235,8 @@ export default function HowToReach() {
                         </div>
                       </div>
                       <p className="text-sm text-gray-500 mt-3 italic">
-                        Single-seat journey - most convenient but grueling ride on rough roads
+                        Single-seat journey - most convenient but grueling ride
+                        on rough roads
                       </p>
                       <p className="text-xs text-amber-600 mt-2 font-medium">
                         * Price may vary - contact operators for current rates
@@ -260,19 +261,27 @@ export default function HowToReach() {
                       <h3 className="text-xl font-bold text-gray-900 mb-3">
                         Standard Bus + Jeep Combo
                       </h3>
-                      
+
                       {/* Leg 1 */}
                       <div className="mb-4 pb-4 border-b border-gray-200">
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="text-sm font-semibold text-gray-700">Leg 1:</span>
-                          <span className="text-sm font-bold text-gray-900">Kathmandu → Radi (Rukum)</span>
+                          <span className="text-sm font-semibold text-gray-700">
+                            Leg 1:
+                          </span>
+                          <span className="text-sm font-bold text-gray-900">
+                            Kathmandu → Radi (Rukum)
+                          </span>
                         </div>
                         <p className="text-gray-600 text-sm mb-2">
                           Night Bus from Gongabu Bus Park
                         </p>
                         <div className="flex items-center gap-4 text-sm">
-                          <span className="text-blue-600 font-semibold">⏱️ ~24-25 hours</span>
-                          <span className="text-emerald-600 font-semibold">💰 NPR 2,000-2,500</span>
+                          <span className="text-blue-600 font-semibold">
+                            ⏱️ ~24-25 hours
+                          </span>
+                          <span className="text-emerald-600 font-semibold">
+                            💰 NPR 2,000-2,500
+                          </span>
                         </div>
                         <p className="text-xs text-gray-500 mt-1 italic">
                           Bus usually reaches Radi Bazaar the next afternoon
@@ -282,21 +291,32 @@ export default function HowToReach() {
                       {/* Leg 2 */}
                       <div>
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="text-sm font-semibold text-gray-700">Leg 2:</span>
-                          <span className="text-sm font-bold text-gray-900">Radi → Dunai</span>
+                          <span className="text-sm font-semibold text-gray-700">
+                            Leg 2:
+                          </span>
+                          <span className="text-sm font-bold text-gray-900">
+                            Radi → Dunai
+                          </span>
                         </div>
                         <p className="text-gray-600 text-sm mb-2">
-                          Local Jeep (multiple switches: Radi → Tallubagar → Suligad → Dunai)
+                          Local Jeep (multiple switches: Radi → Tallubagar →
+                          Suligad → Dunai)
                         </p>
                         <div className="flex items-center gap-4 text-sm">
-                          <span className="text-blue-600 font-semibold">⏱️ 6-8 hours</span>
-                          <span className="text-emerald-600 font-semibold">💰 NPR 1,500-2,000</span>
+                          <span className="text-blue-600 font-semibold">
+                            ⏱️ 6-8 hours
+                          </span>
+                          <span className="text-emerald-600 font-semibold">
+                            💰 NPR 1,500-2,000
+                          </span>
                         </div>
                         <p className="text-xs text-amber-600 font-semibold mt-2">
-                          ⚠️ Often need to cross bridge at Tallubagar and catch another jeep. Road can be blocked during monsoon.
+                          ⚠️ Often need to cross bridge at Tallubagar and catch
+                          another jeep. Road can be blocked during monsoon.
                         </p>
                         <p className="text-xs text-amber-600 mt-2 font-medium">
-                          * Prices may vary - check current rates with local operators
+                          * Prices may vary - check current rates with local
+                          operators
                         </p>
                       </div>
                     </div>
@@ -324,44 +344,58 @@ export default function HowToReach() {
                           FASTEST
                         </span>
                       </div>
-                      
+
                       {/* Flight Option 1: Direct */}
                       <div className="mb-4 pb-4 border-b border-gray-200">
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="text-sm font-semibold text-gray-700">Option 1:</span>
-                          <span className="text-sm font-bold text-gray-900">Direct Flight</span>
+                          <span className="text-sm font-semibold text-gray-700">
+                            Option 1:
+                          </span>
+                          <span className="text-sm font-bold text-gray-900">
+                            Direct Flight
+                          </span>
                         </div>
                         <p className="text-gray-600 text-sm mb-2">
                           Kathmandu → Juphal → Walk/Jeep to Dunai
                         </p>
                         <div className="flex items-center gap-4 text-sm">
-                          <span className="text-blue-600 font-semibold">⏱️ ~45 mins flight + short jeep/walk</span>
+                          <span className="text-blue-600 font-semibold">
+                            ⏱️ ~45 mins flight + short jeep/walk
+                          </span>
                         </div>
                         <p className="text-xs text-gray-500 mt-1 italic">
                           Most convenient flight option - direct to Juphal
                         </p>
                         <p className="text-xs text-amber-600 mt-2 font-medium">
-                          * Flight prices and schedules may vary - check with airlines for current rates
+                          * Flight prices and schedules may vary - check with
+                          airlines for current rates
                         </p>
                       </div>
 
                       {/* Flight Option 2: Via Nepalgunj */}
                       <div>
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="text-sm font-semibold text-gray-700">Option 2:</span>
-                          <span className="text-sm font-bold text-gray-900">Via Nepalgunj</span>
+                          <span className="text-sm font-semibold text-gray-700">
+                            Option 2:
+                          </span>
+                          <span className="text-sm font-bold text-gray-900">
+                            Via Nepalgunj
+                          </span>
                         </div>
                         <p className="text-gray-600 text-sm mb-2">
                           Kathmandu → Nepalgunj → Juphal → Walk/Jeep to Dunai
                         </p>
                         <div className="flex items-center gap-4 text-sm">
-                          <span className="text-blue-600 font-semibold">⏱️ ~1 hour flight + short jeep/walk</span>
+                          <span className="text-blue-600 font-semibold">
+                            ⏱️ ~1 hour flight + short jeep/walk
+                          </span>
                         </div>
                         <p className="text-xs text-gray-500 mt-1 italic">
                           Alternative route with connection in Nepalgunj
                         </p>
                         <p className="text-xs text-amber-600 mt-2 font-medium">
-                          * Flight prices and schedules may vary - check with airlines for current rates
+                          * Flight prices and schedules may vary - check with
+                          airlines for current rates
                         </p>
                       </div>
                     </div>
@@ -384,14 +418,24 @@ export default function HowToReach() {
                 <div className="grid sm:grid-cols-2 gap-4 mb-4">
                   <div className="bg-white/60 rounded-lg p-4">
                     <p className="text-sm text-gray-600 mb-1">Total Duration</p>
-                    <p className="text-2xl font-bold text-gray-900">30-36 hours</p>
-                    <p className="text-xs text-gray-500 mt-1">Can stretch to 2 days</p>
+                    <p className="text-2xl font-bold text-gray-900">
+                      30-36 hours
+                    </p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      Can stretch to 2 days
+                    </p>
                   </div>
                   <div className="bg-white/60 rounded-lg p-4">
                     <p className="text-sm text-gray-600 mb-1">Total Cost</p>
-                    <p className="text-2xl font-bold text-gray-900">NPR 3,500-8,000</p>
-                    <p className="text-xs text-gray-500 mt-1">Depending on route</p>
-                    <p className="text-xs text-amber-600 mt-1 font-medium">* Prices may vary</p>
+                    <p className="text-2xl font-bold text-gray-900">
+                      NPR 3,500-8,000
+                    </p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      Depending on route
+                    </p>
+                    <p className="text-xs text-amber-600 mt-1 font-medium">
+                      * Prices may vary
+                    </p>
                   </div>
                 </div>
 
@@ -404,12 +448,19 @@ export default function HowToReach() {
                   <div className="space-y-2">
                     <div className="bg-white/60 rounded-lg p-3">
                       <p className="text-sm text-gray-700">
-                        <span className="font-semibold">Budget Travelers:</span> Budget 2 full days for the bus trip to account for delays at Radi or Tallubagar.
+                        <span className="font-semibold">Budget Travelers:</span>{" "}
+                        Budget 2 full days for the bus trip to account for
+                        delays at Radi or Tallubagar.
                       </p>
                     </div>
                     <div className="bg-white/60 rounded-lg p-3">
                       <p className="text-sm text-gray-700">
-                        <span className="font-semibold">Comfort Seekers:</span> Road conditions after Rukum are very rough (off-road). For those who cannot handle 30+ hours of bumping, we highly recommend taking a flight to Juphal (direct from Kathmandu or via Nepalgunj) - approximately 45 mins to 1 hour flight + short jeep/walk to Dunai.
+                        <span className="font-semibold">Comfort Seekers:</span>{" "}
+                        Road conditions after Tallubagar are (off-road). For
+                        those who cannot handle 30+ hours of offroad, we highly
+                        recommend taking a flight to Juphal (direct from
+                        Kathmandu or via Nepalgunj) - approximately 45 mins to 1
+                        hour flight + short jeep/walk to Dunai.
                       </p>
                     </div>
                   </div>
@@ -417,11 +468,18 @@ export default function HowToReach() {
 
                 <div className="mt-4 p-3 bg-amber-50 border border-amber-200/50 rounded-lg">
                   <p className="text-xs text-amber-800">
-                    <span className="font-semibold">⚠️ Important Note:</span> The prices, travel times, and schedules shown here are estimates and may change. Bus fares can vary by season, and flight schedules depend on weather and availability. We recommend calling the bus companies or airlines directly to confirm current prices and departure times before you book your trip.
+                    <span className="font-semibold">⚠️ Important Note:</span>{" "}
+                    The prices, travel times, and schedules shown here are
+                    estimates and may change. Bus fares can vary by season, and
+                    flight schedules depend on weather and availability. We
+                    recommend calling the bus companies or airlines directly to
+                    confirm current prices and departure times before you book
+                    your trip.
                   </p>
                 </div>
                 <p className="text-xs text-gray-600 mt-4 italic">
-                  * Travel duration and road conditions can be unpredictable. Plan accordingly.
+                  * Travel duration and road conditions can be unpredictable.
+                  Plan accordingly.
                 </p>
               </motion.div>
             </motion.div>
@@ -431,4 +489,3 @@ export default function HowToReach() {
     </>
   );
 }
-
