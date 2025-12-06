@@ -439,7 +439,7 @@ export default function Home() {
         </div>
       </nav>
 
-      <section className="relative min-h-[550px] flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden pt-6 lg:pt-0 pb-8 lg:pb-12" style={{ paddingTop: '0px', ...(!isMobile && { marginTop: '-8px' }) }}>
+      <section className="relative min-h-[550px] flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden pt-6 lg:pt-0 lg:-mt-3 pb-8 lg:pb-12">
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
           {/* Large animated gradient orbs - Simplified for performance */}
