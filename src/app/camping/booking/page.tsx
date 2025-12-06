@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { getWhatsAppUrl, PHONE_NUMBER } from "../../util/constants";
+import { getWhatsAppUrl } from "../../util/constants";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
 export default function CampingBookingPage() {

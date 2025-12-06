@@ -12,10 +12,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { getWhatsAppUrl, getTelUrl, PHONE_NUMBER } from "../util/constants";
-import { useIsMobile } from "../util/useIsMobile";
-
 export default function ContactPage() {
-  const isMobile = useIsMobile();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (

@@ -9,14 +9,13 @@ import {
   EyeIcon,
   CheckIcon,
   UserIcon,
-  CurrencyDollarIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { supabase } from "../util/supabase";
-import { getWhatsAppUrl, PHONE_NUMBER } from "../util/constants";
+import { getWhatsAppUrl } from "../util/constants";
 import { useState, useEffect } from "react";
 import { useIsMobile } from "../util/useIsMobile";
 import { useRouter } from "next/navigation";
@@ -60,7 +59,6 @@ export default function RoomsPage() {
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [hoveredRoomId, setHoveredRoomId] = useState<string | null>(null);
-  const [visibleRooms, setVisibleRooms] = useState<Set<string>>(new Set());
 
   // Intersection Observer for room cards
   useEffect(() => {
@@ -68,10 +66,7 @@ export default function RoomsPage() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const roomId = entry.target.getAttribute("data-room-id");
-            if (roomId) {
-              setVisibleRooms((prev) => new Set([...prev, roomId]));
-            }
+            // Room is visible
           }
         });
       },

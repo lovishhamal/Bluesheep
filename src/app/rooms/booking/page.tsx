@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "../../util/supabase";
-import { getWhatsAppUrl, PHONE_NUMBER } from "../../util/constants";
+import { getWhatsAppUrl } from "../../util/constants";
 import { UserIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 interface Room {
@@ -33,29 +33,30 @@ function BookingPageContent() {
   });
 
   useEffect(() => {
-    if (roomId) {
-      fetchRoom();
-    } else {
-      router.push("/rooms");
-    }
+    const fetchRoom = async () => {
+      if (!roomId) {
+        router.push("/rooms");
+        return;
+      }
+
+      try {
+        const { data, error } = await supabase
+          .from("rooms")
+          .select("*")
+          .eq("id", roomId)
+          .single();
+
+        if (error) throw error;
+        setRoom(data);
+      } catch {
+        router.push("/rooms");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRoom();
   }, [roomId, router]);
-
-  const fetchRoom = async () => {
-    try {
-      const { data, error } = await supabase
-        .from("rooms")
-        .select("*")
-        .eq("id", roomId)
-        .single();
-
-      if (error) throw error;
-      setRoom(data);
-    } catch (err) {
-      router.push("/rooms");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-NP", {

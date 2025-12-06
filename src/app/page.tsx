@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -8,11 +8,7 @@ import {
   MapPinIcon,
   PhoneIcon,
   EnvelopeIcon,
-  WifiIcon,
-  BuildingOfficeIcon,
-  ViewfinderCircleIcon,
   StarIcon,
-  ChevronDownIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   Bars3Icon,
@@ -26,7 +22,7 @@ import {
 } from "./util/storage";
 import { getWhatsAppUrl, getTelUrl, PHONE_NUMBER } from "./util/constants";
 import { useIsMobile } from "./util/useIsMobile";
-// import HowToReach from "./components/HowToReach";
+import HowToReach from "./components/HowToReach";
 
 // Type definitions
 
@@ -332,7 +328,6 @@ function CreativeImageCarousel({
 export default function Home() {
   const router = useRouter();
   const isMobile = useIsMobile();
-  const [isLoaded, setIsLoaded] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -349,9 +344,6 @@ export default function Home() {
   const [selectedHotelGalleryImage, setSelectedHotelGalleryImage] =
     useState<StorageImage | null>(null);
   const [isHotelGalleryModalOpen, setIsHotelGalleryModalOpen] = useState(false);
-  const [visibleFeatures, setVisibleFeatures] = useState<Set<number>>(
-    new Set()
-  );
   const [isOffersModalOpen, setIsOffersModalOpen] = useState(false);
 
   // Sample offers data - replace with actual data
@@ -365,7 +357,7 @@ export default function Home() {
       }, 2000); // Show after 2 seconds
       return () => clearTimeout(timer);
     }
-  }, [offers.length]);
+  }, [offers.length, isOffersModalOpen]);
 
   // Scroll to carousel section with animation
   const scrollToCarousel = () => {
@@ -396,7 +388,6 @@ export default function Home() {
             const featureIndex = parseInt(
               entry.target.getAttribute("data-feature-index") || "0"
             );
-            setVisibleFeatures((prev) => new Set([...prev, featureIndex]));
           }
         });
       },
@@ -446,9 +437,6 @@ export default function Home() {
     );
   };
 
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
 
   // Fetch images from Supabase
   useEffect(() => {
@@ -468,7 +456,7 @@ export default function Home() {
           );
           setGalleryImages(transformedImages);
         }
-      } catch (error) {
+      } catch {
         // Keep fallback images if Supabase fails
       }
     };
@@ -484,7 +472,7 @@ export default function Home() {
         setReviewsError(null);
         const reviewsData = await getReviews();
         setReviews(reviewsData);
-      } catch (error) {
+      } catch {
         setReviewsError("Failed to load reviews. Please try again later.");
       } finally {
         setIsLoadingReviews(false);
@@ -502,7 +490,7 @@ export default function Home() {
         setHotelGalleryError(null);
         const images = await getImagesFromFolder("images", "gallery");
         setHotelGalleryImages(images);
-      } catch (error) {
+      } catch {
         setHotelGalleryError(
           "Failed to load gallery images. Please try again later."
         );
@@ -525,16 +513,16 @@ export default function Home() {
     setSelectedHotelGalleryImage(null);
   };
 
-  const navigateToNextHotelGalleryImage = () => {
+  const navigateToNextHotelGalleryImage = useCallback(() => {
     if (!selectedHotelGalleryImage) return;
     const currentIndex = hotelGalleryImages.findIndex(
       (img) => img.name === selectedHotelGalleryImage.name
     );
     const nextIndex = (currentIndex + 1) % hotelGalleryImages.length;
     setSelectedHotelGalleryImage(hotelGalleryImages[nextIndex]);
-  };
+  }, [selectedHotelGalleryImage, hotelGalleryImages]);
 
-  const navigateToPreviousHotelGalleryImage = () => {
+  const navigateToPreviousHotelGalleryImage = useCallback(() => {
     if (!selectedHotelGalleryImage) return;
     const currentIndex = hotelGalleryImages.findIndex(
       (img) => img.name === selectedHotelGalleryImage.name
@@ -542,7 +530,7 @@ export default function Home() {
     const prevIndex =
       currentIndex === 0 ? hotelGalleryImages.length - 1 : currentIndex - 1;
     setSelectedHotelGalleryImage(hotelGalleryImages[prevIndex]);
-  };
+  }, [selectedHotelGalleryImage, hotelGalleryImages]);
 
   // Helper functions to generate titles and descriptions based on image names
   const getImageTitle = (fileName: string, index: number) => {
@@ -592,7 +580,7 @@ export default function Home() {
 
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, []);
+  }, [nextImage, prevImage]);
 
   // Hotel gallery modal keyboard navigation
   useEffect(() => {
@@ -611,7 +599,7 @@ export default function Home() {
     document.addEventListener("keydown", handleHotelGalleryKeyDown);
     return () =>
       document.removeEventListener("keydown", handleHotelGalleryKeyDown);
-  }, [isHotelGalleryModalOpen, selectedHotelGalleryImage, hotelGalleryImages]);
+  }, [isHotelGalleryModalOpen, selectedHotelGalleryImage, hotelGalleryImages, navigateToNextHotelGalleryImage, navigateToPreviousHotelGalleryImage]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -1028,7 +1016,7 @@ export default function Home() {
       )}
 
       {/* Routes Section - How to Reach Hotel Blue Sheep Inn */}
-      {/* {false && <HowToReach />} */}
+      <HowToReach />
 
       {/* Features Section - Ultra Creative */}
       <section className="py-0 md:py-14 bg-gradient-to-br from-white via-emerald-50/30 to-blue-50 relative overflow-hidden">
