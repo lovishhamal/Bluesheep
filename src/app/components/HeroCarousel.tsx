@@ -346,6 +346,7 @@ export default function HeroCarousel({
         className={`flex items-center justify-center gap-4 ${
           isMobile ? "mt-6" : "mt-8"
         }`}
+        style={{ marginTop: isMobile ? "calc(1.5rem + 6px)" : "calc(2rem + 6px)" }}
       >
         <button
           onClick={prevImage}
