@@ -1028,7 +1028,7 @@ export default function Home() {
       )}
 
       {/* Routes Section - How to Reach Hotel Blue Sheep Inn */}
-      <HowToReach />
+      {false && <HowToReach />}
 
       {/* Features Section - Ultra Creative */}
       <section className="py-0 md:py-14 bg-gradient-to-br from-white via-emerald-50/30 to-blue-50 relative overflow-hidden">
