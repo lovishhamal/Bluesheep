@@ -166,12 +166,12 @@ function CreativeImageCarousel({
                 ? 0
                 : isRight
                 ? isMobile
-                  ? 150
-                  : 250
+                  ? 80
+                  : 120
                 : isLeft
                 ? isMobile
-                  ? -150
-                  : -250
+                  ? -80
+                  : -120
                 : 0;
               const offsetZ = isActive
                 ? 0
@@ -405,26 +405,36 @@ export default function Home() {
         const images = await getImagesFromFolder("images", "landing");
 
         if (images.length > 0) {
-          // Sort images: offer_1 and offer_2 first, then rest
+          // Sort images: offer_1, offer_2, offer_3...offer_n first (in order), then rest
           const sortedImages = [...images].sort((a, b) => {
             const aName = a.name.toLowerCase();
             const bName = b.name.toLowerCase();
             
-            // Check if names contain offer_1 or offer_2
-            const aIsOffer1 = aName.includes("offer_1");
-            const bIsOffer1 = bName.includes("offer_1");
-            const aIsOffer2 = aName.includes("offer_2");
-            const bIsOffer2 = bName.includes("offer_2");
+            // Extract offer number if present (e.g., "offer_1" -> 1, "offer_2" -> 2)
+            const getOfferNumber = (name: string): number | null => {
+              const match = name.match(/offer[_-](\d+)/);
+              return match ? parseInt(match[1], 10) : null;
+            };
             
-            // offer_1 has highest priority
-            if (aIsOffer1 && !bIsOffer1) return -1;
-            if (!aIsOffer1 && bIsOffer1) return 1;
+            const aOfferNum = getOfferNumber(aName);
+            const bOfferNum = getOfferNumber(bName);
             
-            // offer_2 has second priority
-            if (aIsOffer2 && !bIsOffer2 && !bIsOffer1) return -1;
-            if (!aIsOffer2 && bIsOffer2 && !aIsOffer1) return 1;
+            // Both have offer numbers - sort by number
+            if (aOfferNum !== null && bOfferNum !== null) {
+              return aOfferNum - bOfferNum;
+            }
             
-            // Rest sorted alphabetically
+            // Only a has offer number - a comes first
+            if (aOfferNum !== null && bOfferNum === null) {
+              return -1;
+            }
+            
+            // Only b has offer number - b comes first
+            if (aOfferNum === null && bOfferNum !== null) {
+              return 1;
+            }
+            
+            // Neither has offer number - sort alphabetically
             return aName.localeCompare(bName);
           });
 
@@ -777,55 +787,56 @@ export default function Home() {
           </div>
         )}
 
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center justify-center min-h-[70vh] pt-2 pb-4 sm:py-8 md:py-12 lg:py-16">
-            {/* Content - Centered */}
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col items-center justify-center min-h-[60vh] py-8 sm:py-12 md:py-16 lg:py-20">
+            {/* Content - Centered and Compact */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: isMobile ? 0 : 0.8 }}
-              className="text-center space-y-5 sm:space-y-6 lg:space-y-8 w-full max-w-4xl"
+              transition={{ duration: 0.6 }}
+              className="text-center space-y-4 sm:space-y-5 w-full max-w-4xl"
             >
-              {/* Badge - Enhanced for Mobile */}
+              {/* Badge - Compact */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  delay: isMobile ? 0 : 0.2,
-                  duration: isMobile ? 0 : 0.6,
-                }}
-                className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 bg-gradient-to-r from-emerald-100 to-blue-100 rounded-full border border-emerald-200/50 shadow-md mb-6 sm:mb-3"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.1, duration: 0.5 }}
+                className="inline-flex items-center gap-2 px-4 py-1.5 sm:px-5 sm:py-2 bg-gradient-to-r from-emerald-100 to-blue-100 rounded-full border border-emerald-200/50 shadow-sm"
               >
-                <span className="text-emerald-600 font-semibold text-xs sm:text-sm md:text-base">
+                <span className="text-emerald-600 font-medium text-xs sm:text-sm">
                   🏔️ Luxury in the Himalayas
                 </span>
               </motion.div>
 
-              {/* Main Title with Creative Typography - Optimized for Mobile */}
-              <div className="space-y-3 sm:space-y-4 lg:space-y-6 mb-4 sm:mb-5 lg:mb-6">
-                <motion.h1
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.8 }}
-                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.1] sm:leading-tight"
-                >
-                  <span className="block bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                    Hotel Blue
-                  </span>
-                  <span className="block bg-gradient-to-r from-emerald-600 via-blue-600 to-emerald-600 bg-clip-text text-transparent mt-1 sm:mt-2">
-                    Sheep Inn
-                  </span>
-                </motion.h1>
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5, duration: 0.8 }}
-                  className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-gray-700 font-light max-w-3xl mx-auto leading-relaxed px-2 sm:px-0"
-                >
-                  Experience luxury in the heart of Dolpa, Nepal. Your gateway
-                  to the majestic Himalayas.
-                </motion.p>
-              </div>
+              {/* Main Title - More Compact and Elegant */}
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.6 }}
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tight"
+              >
+                <span className="block bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
+                  Hotel Blue Sheep Inn
+                </span>
+              </motion.h1>
+              
+              {/* Description - More Subtle */}
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="text-lg sm:text-xl md:text-2xl text-gray-600 font-light max-w-2xl mx-auto leading-relaxed"
+              >
+                Experience luxury in the heart of Dolpa, Nepal
+              </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+                className="text-base sm:text-lg text-gray-500 font-light max-w-xl mx-auto"
+              >
+                Your gateway to the majestic Himalayas
+              </motion.p>
 
               {/* Contact Info - Enhanced Button Style for Mobile - Hidden on Mobile */}
               <motion.div
