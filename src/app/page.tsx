@@ -345,14 +345,7 @@ export default function Home() {
   const [isOffersModalOpen, setIsOffersModalOpen] = useState(false);
   
   // Sample offers data - replace with actual data
-  const offers = [
-    {
-      id: 1,
-      title: "Special Offer",
-      description: "Exclusive deals available",
-      discount: "20% OFF",
-    },
-  ];
+  const offers: any[] = []; // Hidden for now
 
   // Show offers modal when there are offers
   useEffect(() => {
