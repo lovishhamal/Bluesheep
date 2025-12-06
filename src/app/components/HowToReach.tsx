@@ -231,7 +231,9 @@ export default function HowToReach() {
                         </div>
                       </div>
                       <p className="text-sm text-gray-500 mt-3 italic">
-                        Direct journey through scenic mountain routes - experience the authentic beauty of Nepal's remote landscapes
+                        Direct journey through scenic mountain routes -
+                        experience the authentic beauty of Nepal's remote
+                        landscapes
                       </p>
                     </div>
                   </div>
@@ -297,7 +299,9 @@ export default function HowToReach() {
                           </span>
                         </div>
                         <p className="text-xs text-blue-600 font-semibold mt-2">
-                          💡 Journey includes scenic bridge crossing at Tallubagar with opportunity to experience local transportation
+                          💡 Journey includes scenic bridge crossing at
+                          Tallubagar with opportunity to experience local
+                          transportation
                         </p>
                       </div>
                     </div>
@@ -425,11 +429,12 @@ export default function HowToReach() {
 
                 <div className="mt-4 p-3 bg-amber-50 border border-amber-200/50 rounded-lg">
                   <p className="text-xs text-blue-800">
-                    <span className="font-semibold">💡 Travel Tip:</span>{" "}
-                    The travel times and schedules shown here are estimates. Flight schedules depend on weather and
-                    availability. We recommend contacting bus companies or
-                    airlines directly to confirm current schedules and departure
-                    times for the best travel experience.
+                    <span className="font-semibold">💡 Travel Tip:</span> The
+                    travel times and schedules shown here are estimates. Flight
+                    schedules depend on weather and availability. We recommend
+                    contacting bus companies or airlines directly to confirm
+                    current schedules and departure times for the best travel
+                    experience.
                   </p>
                 </div>
               </motion.div>
