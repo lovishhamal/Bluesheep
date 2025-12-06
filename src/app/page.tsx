@@ -210,7 +210,7 @@ function CreativeImageCarousel({
                     transformStyle: "preserve-3d",
                     zIndex: isActive ? 50 : isNext || isPrev ? 40 : 30,
                   }}
-                  className="w-full max-w-md md:max-w-lg lg:max-w-xl cursor-pointer"
+                  className="w-full max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl cursor-pointer"
                   onClick={() => !isActive && setCurrentIndex(index)}
                 >
                   {/* Image Card */}
