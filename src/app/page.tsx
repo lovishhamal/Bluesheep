@@ -436,8 +436,7 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section - Creative & Dynamic */}
-      <section className="relative min-h-[550px] flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden pt-8 lg:pt-12">
+      <section className="relative min-h-[550px] flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden pt-6 lg:pt-8 pb-8 lg:pb-12">
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
           {/* Large animated gradient orbs - Simplified for performance */}
@@ -478,7 +477,10 @@ export default function Home() {
         )}
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 xl:gap-20 items-center min-h-[70vh] py-8 sm:py-12 md:py-16 lg:py-20">
+          <div
+            className="grid lg:grid-cols-2 gap-8 lg:gap-16 xl:gap-20 items-center min-h-[70vh] py-8 sm:py-8 md:py-4 lg:py-0"
+            style={{ paddingTop: "0px", paddingBottom: "0px" }}
+          >
             {/* Left Side - Hero Content */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
