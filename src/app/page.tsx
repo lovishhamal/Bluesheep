@@ -23,307 +23,8 @@ import {
 import { getWhatsAppUrl, getTelUrl, PHONE_NUMBER } from "./util/constants";
 import { useIsMobile } from "./util/useIsMobile";
 import HowToReach from "./components/HowToReach";
-
-// Type definitions
-
-interface GalleryImage {
-  src: string;
-  alt: string;
-  title: string;
-  description: string;
-}
-
-interface Offer {
-  title: string;
-  discount: string;
-  description: string;
-}
-
-// Creative Non-Traditional Carousel Component
-function CreativeImageCarousel({
-  images,
-  currentIndex,
-  setCurrentIndex,
-  nextImage,
-  prevImage,
-  isAutoPlay,
-  setIsAutoPlay,
-  isMobile,
-}: {
-  images: GalleryImage[];
-  currentIndex: number;
-  setCurrentIndex: (index: number) => void;
-  nextImage: () => void;
-  prevImage: () => void;
-  isAutoPlay: boolean;
-  setIsAutoPlay: (play: boolean) => void;
-  isMobile: boolean;
-}) {
-  const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
-
-  // Touch handlers for mobile swipe
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
-
-    if (isLeftSwipe) {
-      nextImage();
-    }
-    if (isRightSwipe) {
-      prevImage();
-    }
-  };
-
-  if (images.length === 0) return null;
-
-  return (
-    <section
-      id="carousel-section"
-      className="py-10 lg:py-16 bg-gradient-to-br from-emerald-50/50 via-white to-blue-50/50 relative overflow-hidden"
-    >
-      {/* Animated Background */}
-      <div className="absolute inset-0">
-        {/* Hotel Name Background Text - Big Fading Transparent */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <h2
-            className="text-6xl md:text-8xl lg:text-[10rem] xl:text-[12rem] font-black select-none"
-            style={{
-              background:
-                "linear-gradient(135deg, rgba(16, 185, 129, 0.04) 0%, rgba(59, 130, 246, 0.04) 50%, rgba(16, 185, 129, 0.04) 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              letterSpacing: "0.01em",
-              lineHeight: "1",
-              maxWidth: "100%",
-              padding: "0 1rem",
-              wordBreak: "break-word",
-            }}
-          >
-            Hotel Blue Sheep Inn
-          </h2>
-        </div>
-        <motion.div
-          animate={{
-            opacity: [0.2, 0.4, 0.2],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute top-10 right-10 w-96 h-96 bg-gradient-to-br from-emerald-300/20 to-blue-300/20 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{
-            opacity: [0.2, 0.4, 0.2],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute bottom-10 left-10 w-96 h-96 bg-gradient-to-br from-blue-300/20 to-emerald-300/20 rounded-full blur-3xl"
-        />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Creative Carousel Container */}
-        <div className="relative">
-          <div
-            className="relative h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center"
-            style={{ perspective: "1200px" }}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-            onMouseEnter={() => setIsAutoPlay(false)}
-            onMouseLeave={() => setIsAutoPlay(true)}
-          >
-            {/* Carousel Items - 3D Rotating Effect */}
-            {images.map((image, index) => {
-              const position =
-                (index - currentIndex + images.length) % images.length;
-              const isActive = position === 0;
-              const isNext = position === 1;
-              const isPrev = position === images.length - 1;
-              const isVisible = position <= 2 || position >= images.length - 2;
-
-              if (!isVisible) return null;
-
-              // Calculate 3D transform
-              const isRight = position > 0 && position <= images.length / 2;
-              const isLeft = position > images.length / 2;
-
-              const offsetX = isActive
-                ? 0
-                : isRight
-                ? isMobile
-                  ? 150
-                  : 250
-                : isLeft
-                ? isMobile
-                  ? -150
-                  : -250
-                : 0;
-              const offsetZ = isActive
-                ? 0
-                : -Math.abs(position) * (isMobile ? 100 : 150);
-              const rotateY = isActive
-                ? 0
-                : isRight
-                ? isMobile
-                  ? -25
-                  : -35
-                : isLeft
-                ? isMobile
-                  ? 25
-                  : 35
-                : 0;
-              const scale = isActive ? 1 : isNext || isPrev ? 0.75 : 0.5;
-              const opacity = isActive ? 1 : isNext || isPrev ? 0.6 : 0.3;
-
-              return (
-                <motion.div
-                  key={index}
-                  initial={false}
-                  animate={{
-                    x: offsetX,
-                    z: offsetZ,
-                    rotateY: rotateY,
-                    scale: scale,
-                    opacity: opacity,
-                  }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 30,
-                    mass: 0.8,
-                  }}
-                  style={{
-                    position: "absolute",
-                    transformStyle: "preserve-3d",
-                    zIndex: isActive ? 50 : isNext || isPrev ? 40 : 30,
-                  }}
-                  className="w-full max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl cursor-pointer"
-                  onClick={() => !isActive && setCurrentIndex(index)}
-                >
-                  {/* Image Card */}
-                  <motion.div
-                    whileHover={isActive ? { scale: 1.05, y: -10 } : {}}
-                    className="relative h-[350px] md:h-[450px] lg:h-[550px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white"
-                  >
-                    {/* Image */}
-                    <div className="relative w-full h-full">
-                      <img
-                        src={image.src}
-                        alt={image.alt}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                      />
-
-                      {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-
-                      {/* Content Overlay */}
-                      {isActive && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.3 }}
-                          className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white"
-                        >
-                          <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2">
-                            {image.title}
-                          </h3>
-                          <p className="text-sm md:text-base lg:text-lg text-white/90">
-                            {image.description}
-                          </p>
-                        </motion.div>
-                      )}
-
-                      {/* Shine Effect */}
-                      {isActive && (
-                        <motion.div
-                          animate={{
-                            x: ["-100%", "200%"],
-                          }}
-                          transition={{
-                            duration: 3,
-                            repeat: Infinity,
-                            ease: "linear",
-                            repeatDelay: 2,
-                          }}
-                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 pointer-events-none"
-                        />
-                      )}
-                    </div>
-                  </motion.div>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* Navigation Arrows */}
-          {!isMobile && (
-            <>
-              <button
-                onClick={prevImage}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-50 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-xl hover:bg-white transition-all duration-300 flex items-center justify-center group"
-                aria-label="Previous image"
-              >
-                <ChevronLeftIcon className="w-6 h-6 text-gray-900 group-hover:scale-110 transition-transform" />
-              </button>
-              <button
-                onClick={nextImage}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-50 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-xl hover:bg-white transition-all duration-300 flex items-center justify-center group"
-                aria-label="Next image"
-              >
-                <ChevronRightIcon className="w-6 h-6 text-gray-900 group-hover:scale-110 transition-transform" />
-              </button>
-            </>
-          )}
-        </div>
-
-        {/* Navigation Dots */}
-        <div className="flex justify-center gap-3 mt-8">
-          {images.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`relative w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentIndex
-                  ? "bg-emerald-500 scale-125"
-                  : "bg-gray-300 hover:bg-gray-400"
-              }`}
-              aria-label={`Go to image ${index + 1}`}
-            >
-              {index === currentIndex && (
-                <motion.div
-                  layoutId="activeCarouselDot"
-                  className="absolute inset-0 bg-emerald-500 rounded-full"
-                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                />
-              )}
-            </button>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+import { GalleryImage } from "./components/CreativeImageCarousel";
+import HeroCarousel from "./components/HeroCarousel";
 
 export default function Home() {
   const router = useRouter();
@@ -344,40 +45,6 @@ export default function Home() {
   const [selectedHotelGalleryImage, setSelectedHotelGalleryImage] =
     useState<StorageImage | null>(null);
   const [isHotelGalleryModalOpen, setIsHotelGalleryModalOpen] = useState(false);
-  const [isOffersModalOpen, setIsOffersModalOpen] = useState(false);
-
-  // Sample offers data - replace with actual data
-  const offers: Offer[] = []; // Hidden for now
-
-  // Show offers modal when there are offers
-  useEffect(() => {
-    if (offers.length > 0 && !isOffersModalOpen) {
-      const timer = setTimeout(() => {
-        setIsOffersModalOpen(true);
-      }, 2000); // Show after 2 seconds
-      return () => clearTimeout(timer);
-    }
-  }, [offers.length, isOffersModalOpen]);
-
-  // Scroll to carousel section with animation
-  const scrollToCarousel = () => {
-    setIsOffersModalOpen(false);
-    setTimeout(() => {
-      const carouselSection = document.getElementById("carousel-section");
-      if (carouselSection) {
-        const navbar = document.querySelector("nav");
-        const navbarHeight = navbar ? navbar.offsetHeight : 80;
-        const elementPosition = carouselSection.getBoundingClientRect().top;
-        const offsetPosition =
-          elementPosition + window.pageYOffset - navbarHeight;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth",
-        });
-      }
-    }, 300);
-  };
 
   // Intersection Observer for feature cards
   useEffect(() => {
@@ -406,26 +73,7 @@ export default function Home() {
   const openCampingPage = () => {
     router.push("/camping");
   };
-  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([
-    {
-      src: "/phoksundo.jpg",
-      alt: "Mountain View",
-      title: "Mountain Views",
-      description: "Stunning Himalayan mountain views from our hotel",
-    },
-    {
-      src: "/phoksundo.jpg",
-      alt: "Mountain View",
-      title: "Mountain Views",
-      description: "Stunning Himalayan mountain views from our hotel",
-    },
-    {
-      src: "/phoksundo.jpg",
-      alt: "Mountain View",
-      title: "Mountain Views",
-      description: "Stunning Himalayan mountain views from our hotel",
-    },
-  ]);
+  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length);
@@ -437,15 +85,69 @@ export default function Home() {
     );
   };
 
-  // Fetch images from Supabase
+  // Helper functions to generate titles and descriptions based on image names
+  const getImageTitle = (fileName: string, index: number) => {
+    // Try to extract meaningful title from filename
+    const nameWithoutExt = fileName
+      .replace(/\.[^/.]+$/, "")
+      .replace(/[-_]/g, " ");
+    const capitalized = nameWithoutExt
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+    return capitalized || `Image ${index + 1}`;
+  };
+
+  const getImageDescription = (fileName: string, index: number) => {
+    // Try to extract meaningful description from filename
+    const nameWithoutExt = fileName
+      .replace(/\.[^/.]+$/, "")
+      .replace(/[-_]/g, " ");
+    return `Beautiful view from Hotel Blue Sheep Inn - ${nameWithoutExt}`;
+  };
+
+  // Fetch images from Supabase landing folder
   useEffect(() => {
     const fetchImages = async () => {
       try {
         const images = await getImagesFromFolder("images", "banners");
 
-        if (images.length > 0) {
+        if (images && images.length > 0) {
+          // Sort images: offer_1, offer_2, offer_3...offer_n first (in order), then rest
+          const sortedImages = [...images].sort((a, b) => {
+            const aName = a.name.toLowerCase();
+            const bName = b.name.toLowerCase();
+
+            // Extract offer number if present (e.g., "offer_1" -> 1, "offer_2" -> 2)
+            const getOfferNumber = (name: string): number | null => {
+              const match = name.match(/offer[_-](\d+)/);
+              return match ? parseInt(match[1], 10) : null;
+            };
+
+            const aOfferNum = getOfferNumber(aName);
+            const bOfferNum = getOfferNumber(bName);
+
+            // Both have offer numbers - sort by number
+            if (aOfferNum !== null && bOfferNum !== null) {
+              return aOfferNum - bOfferNum;
+            }
+
+            // Only a has offer number - a comes first
+            if (aOfferNum !== null && bOfferNum === null) {
+              return -1;
+            }
+
+            // Only b has offer number - b comes first
+            if (aOfferNum === null && bOfferNum !== null) {
+              return 1;
+            }
+
+            // Neither has offer number - sort alphabetically
+            return aName.localeCompare(bName);
+          });
+
           // Transform Supabase images to match our gallery format
-          const transformedImages: GalleryImage[] = images.map(
+          const transformedImages: GalleryImage[] = sortedImages.map(
             (image: StorageImage, index: number) => ({
               src: image.url,
               alt: image.alt,
@@ -453,10 +155,29 @@ export default function Home() {
               description: getImageDescription(image.name, index),
             })
           );
+
           setGalleryImages(transformedImages);
+        } else {
+          // Fallback to static images if no images found
+          setGalleryImages([
+            {
+              src: "/phoksundo.jpg",
+              alt: "Mountain View",
+              title: "Mountain Views",
+              description: "Stunning Himalayan mountain views from our hotel",
+            },
+          ]);
         }
-      } catch {
-        // Keep fallback images if Supabase fails
+      } catch (error) {
+        // Fallback to static images if Supabase fails
+        setGalleryImages([
+          {
+            src: "/phoksundo.jpg",
+            alt: "Mountain View",
+            title: "Mountain Views",
+            description: "Stunning Himalayan mountain views from our hotel",
+          },
+        ]);
       }
     };
 
@@ -530,31 +251,6 @@ export default function Home() {
       currentIndex === 0 ? hotelGalleryImages.length - 1 : currentIndex - 1;
     setSelectedHotelGalleryImage(hotelGalleryImages[prevIndex]);
   }, [selectedHotelGalleryImage, hotelGalleryImages]);
-
-  // Helper functions to generate titles and descriptions based on image names
-  const getImageTitle = (fileName: string, index: number) => {
-    const titles = [
-      "Mountain Views",
-      "Luxury Accommodation",
-      "Fine Dining Restaurant",
-      "Mountain Adventure",
-      "Scenic Landscapes",
-      "Hotel Amenities",
-    ];
-    return titles[index] || titles[0];
-  };
-
-  const getImageDescription = (fileName: string, index: number) => {
-    const descriptions = [
-      "Crystal clear alpine lake just minutes away",
-      "Comfortable rooms with modern amenities",
-      "Authentic local cuisine and international dishes",
-      "Experience the beauty of the mountains",
-      "Breathtaking natural scenery",
-      "World-class facilities and services",
-    ];
-    return descriptions[index] || descriptions[0];
-  };
 
   // Auto-advance gallery
   useEffect(() => {
@@ -741,7 +437,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section - Creative & Dynamic */}
-      <section className="relative min-h-[550px] flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden">
+      <section className="relative min-h-[550px] flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden pt-8 lg:pt-12">
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
           {/* Large animated gradient orbs - Simplified for performance */}
@@ -781,62 +477,63 @@ export default function Home() {
           </div>
         )}
 
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center justify-center min-h-[70vh] pt-2 pb-4 sm:py-8 md:py-12 lg:py-16">
-            {/* Content - Centered */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 xl:gap-20 items-center min-h-[70vh] py-8 sm:py-12 md:py-16 lg:py-20">
+            {/* Left Side - Hero Content */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: isMobile ? 0 : 0.8 }}
-              className="text-center space-y-5 sm:space-y-6 lg:space-y-8 w-full max-w-4xl"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center lg:text-left space-y-4 sm:space-y-5 w-full"
             >
-              {/* Badge - Enhanced for Mobile */}
+              {/* Badge - Compact */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  delay: isMobile ? 0 : 0.2,
-                  duration: isMobile ? 0 : 0.6,
-                }}
-                className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 bg-gradient-to-r from-emerald-100 to-blue-100 rounded-full border border-emerald-200/50 shadow-md mb-6 sm:mb-3"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.1, duration: 0.5 }}
+                className="inline-flex items-center gap-2 px-4 py-1.5 sm:px-5 sm:py-2 bg-gradient-to-r from-emerald-100 to-blue-100 rounded-full border border-emerald-200/50 shadow-sm"
               >
-                <span className="text-emerald-600 font-semibold text-xs sm:text-sm md:text-base">
+                <span className="text-emerald-600 font-medium text-xs sm:text-sm">
                   🏔️ Luxury in the Himalayas
                 </span>
               </motion.div>
 
-              {/* Main Title with Creative Typography - Optimized for Mobile */}
-              <div className="space-y-3 sm:space-y-4 lg:space-y-6 mb-4 sm:mb-5 lg:mb-6">
-                <motion.h1
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.8 }}
-                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.1] sm:leading-tight"
-                >
-                  <span className="block bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                    Hotel Blue
-                  </span>
-                  <span className="block bg-gradient-to-r from-emerald-600 via-blue-600 to-emerald-600 bg-clip-text text-transparent mt-1 sm:mt-2">
-                    Sheep Inn
-                  </span>
-                </motion.h1>
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5, duration: 0.8 }}
-                  className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-gray-700 font-light max-w-3xl mx-auto leading-relaxed px-2 sm:px-0"
-                >
-                  Experience luxury in the heart of Dolpa, Nepal. Your gateway
-                  to the majestic Himalayas.
-                </motion.p>
-              </div>
+              {/* Main Title - More Compact and Elegant */}
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.6 }}
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tight"
+              >
+                <span className="block bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
+                  Hotel Blue Sheep Inn
+                </span>
+              </motion.h1>
+
+              {/* Description - More Subtle */}
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="text-lg sm:text-xl md:text-2xl text-gray-600 font-light max-w-2xl mx-auto leading-relaxed"
+              >
+                Experience luxury in the heart of Dolpa, Nepal
+              </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+                className="text-base sm:text-lg text-gray-500 font-light max-w-xl mx-auto"
+              >
+                Your gateway to the majestic Himalayas
+              </motion.p>
 
               {/* Contact Info - Enhanced Button Style for Mobile - Hidden on Mobile */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 0.8 }}
-                className="hidden sm:flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 md:gap-6 mb-4 sm:mb-3 lg:mb-4 w-full sm:w-auto"
+                className="hidden sm:flex flex-col sm:flex-row items-stretch sm:items-center lg:justify-start justify-center gap-3 sm:gap-4 md:gap-6 mb-4 sm:mb-3 lg:mb-4 w-full sm:w-auto"
               >
                 {/* Phone Button - Full Width on Mobile */}
                 <motion.a
@@ -875,7 +572,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.2, duration: 0.8 }}
-                className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 md:gap-5 pt-2 sm:pt-2 lg:pt-3 w-full"
+                className="flex flex-col sm:flex-row items-stretch sm:items-center lg:justify-start justify-center gap-3 sm:gap-4 md:gap-5 pt-2 sm:pt-2 lg:pt-3 w-full"
               >
                 {/* Book Now Button - Primary with Creative Effects */}
                 <motion.button
@@ -1001,24 +698,28 @@ export default function Home() {
                 </motion.button>
               </motion.div>
             </motion.div>
+
+            {/* Right Side - Carousel */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="w-full h-full min-h-[400px] lg:min-h-[500px] lg:ml-8 xl:ml-12"
+            >
+              <HeroCarousel
+                images={galleryImages}
+                currentIndex={currentImageIndex}
+                setCurrentIndex={setCurrentImageIndex}
+                nextImage={nextImage}
+                prevImage={prevImage}
+                isAutoPlay={isAutoPlay}
+                setIsAutoPlay={setIsAutoPlay}
+                isMobile={isMobile}
+              />
+            </motion.div>
           </div>
         </div>
       </section>
-
-      {/* Creative Image Carousel Section - Below Hero */}
-      {/* Hidden for now */}
-      {false && (
-        <CreativeImageCarousel
-          images={galleryImages}
-          currentIndex={currentImageIndex}
-          setCurrentIndex={setCurrentImageIndex}
-          nextImage={nextImage}
-          prevImage={prevImage}
-          isAutoPlay={isAutoPlay}
-          setIsAutoPlay={setIsAutoPlay}
-          isMobile={isMobile}
-        />
-      )}
 
       {/* Routes Section - How to Reach Hotel Blue Sheep Inn */}
       <HowToReach />
@@ -2300,166 +2001,6 @@ export default function Home() {
           </motion.div>
         </div>
       </footer>
-
-      {/* Creative Offers Modal */}
-      {isOffersModalOpen && offers.length > 0 && galleryImages.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          onClick={() => setIsOffersModalOpen(false)}
-        >
-          <motion.div
-            initial={{ scale: 0.5, opacity: 0, rotateY: -180 }}
-            animate={{ scale: 1, opacity: 1, rotateY: 0 }}
-            exit={{ scale: 0.5, opacity: 0, rotateY: 180 }}
-            transition={{
-              type: "spring",
-              stiffness: 300,
-              damping: 25,
-            }}
-            onClick={(e) => e.stopPropagation()}
-            className="relative bg-gradient-to-br from-emerald-50 via-white to-blue-50 rounded-3xl shadow-2xl max-w-2xl w-full overflow-hidden border-4 border-emerald-200/50"
-          >
-            {/* Animated Background Elements */}
-            <motion.div
-              animate={{
-                rotate: [0, 360],
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                duration: 20,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br from-emerald-300/30 to-blue-300/30 rounded-full blur-2xl"
-            />
-            <motion.div
-              animate={{
-                rotate: [360, 0],
-                scale: [1, 1.3, 1],
-              }}
-              transition={{
-                duration: 15,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute -bottom-20 -left-20 w-40 h-40 bg-gradient-to-br from-blue-300/30 to-emerald-300/30 rounded-full blur-2xl"
-            />
-
-            {/* Close Button */}
-            <button
-              onClick={() => setIsOffersModalOpen(false)}
-              className="absolute top-4 right-4 z-10 bg-white/80 hover:bg-white text-gray-600 hover:text-gray-900 p-2 rounded-full transition-all shadow-lg"
-            >
-              <XMarkIcon className="w-5 h-5" />
-            </button>
-
-            {/* Content */}
-            <div className="relative z-10">
-              {/* Image from Carousel */}
-              <div className="relative h-64 md:h-80 overflow-hidden">
-                <img
-                  src={galleryImages[currentImageIndex]?.src}
-                  alt={galleryImages[currentImageIndex]?.alt || "Offer"}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4">
-                  <h3 className="text-white text-2xl md:text-3xl font-bold mb-1">
-                    {galleryImages[currentImageIndex]?.title}
-                  </h3>
-                  <p className="text-white/90 text-sm md:text-base">
-                    {galleryImages[currentImageIndex]?.description}
-                  </p>
-                </div>
-              </div>
-
-              {/* Offer Details */}
-              <div className="p-6 md:p-8 text-center space-y-6">
-                {/* Offer Info */}
-                {offers[0] && (
-                  <>
-                    <motion.div
-                      initial={{ y: 20, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ delay: 0.2 }}
-                      className="space-y-2"
-                    >
-                      <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-emerald-600 via-blue-600 to-emerald-600 bg-clip-text text-transparent">
-                        {offers[0].title}
-                      </h2>
-                      <p className="text-emerald-600 text-4xl md:text-5xl font-bold">
-                        {offers[0].discount}
-                      </p>
-                      <p className="text-gray-600 text-lg">
-                        {offers[0].description}
-                      </p>
-                    </motion.div>
-                  </>
-                )}
-
-                {/* CTA Button */}
-                <motion.button
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.4 }}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={scrollToCarousel}
-                  className="w-full bg-gradient-to-r from-emerald-500 via-emerald-600 to-blue-600 text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
-                >
-                  {/* Animated Shine */}
-                  <motion.div
-                    animate={{
-                      x: ["-100%", "200%"],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                  />
-                  <span className="relative z-10 flex items-center justify-center gap-2">
-                    View
-                    <motion.span
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{
-                        duration: 1,
-                        repeat: Infinity,
-                      }}
-                    >
-                      →
-                    </motion.span>
-                  </span>
-                </motion.button>
-              </div>
-            </div>
-
-            {/* Sparkle Effects */}
-            {[...Array(6)].map((_, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{
-                  opacity: [0, 1, 0],
-                  scale: [0, 1, 0],
-                  x: [Math.random() * 300 - 150, Math.random() * 300 - 150],
-                  y: [Math.random() * 300 - 150, Math.random() * 300 - 150],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  delay: i * 0.3,
-                }}
-                className="absolute top-1/2 left-1/2 w-2 h-2 bg-emerald-400 rounded-full"
-              />
-            ))}
-          </motion.div>
-        </motion.div>
-      )}
 
       {/* Hotel Gallery Modal */}
       {isHotelGalleryModalOpen && selectedHotelGalleryImage && (

@@ -30,12 +30,13 @@ export const getImagesFromFolder = async (
   folder: string
 ): Promise<StorageImage[]> => {
   try {
-    const { data, error } = await supabase.storage.from(bucket).list(folder, {
-      limit: 100,
-      offset: 0,
-    });
+    const { data, error } = await supabase.storage.from(bucket).list(folder);
 
     if (error) {
+      return [];
+    }
+
+    if (!data || data.length === 0) {
       return [];
     }
 
@@ -44,20 +45,24 @@ export const getImagesFromFolder = async (
       data
         ?.filter((file: { name: string }) => {
           const extension = file.name.toLowerCase().split(".").pop();
-          return ["jpg", "jpeg", "png", "webp", "gif"].includes(
+          const isImage = ["jpg", "jpeg", "png", "webp", "gif"].includes(
             extension || ""
           );
+
+          return isImage;
         })
-        .map(
-          (file: { name: string }): StorageImage => ({
+        .map((file: { name: string }): StorageImage => {
+          const url = getImageUrl(bucket, folder, file.name);
+
+          return {
             name: file.name,
-            url: getImageUrl(bucket, folder, file.name),
+            url: url,
             alt: file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " "),
-          })
-        ) || [];
+          };
+        }) || [];
 
     return imageFiles;
-  } catch {
+  } catch (error) {
     return [];
   }
 };
