@@ -33,11 +33,6 @@ interface GalleryImage {
   description: string;
 }
 
-interface Offer {
-  title: string;
-  discount: string;
-  description: string;
-}
 
 // Creative Non-Traditional Carousel Component
 function CreativeImageCarousel({
@@ -344,40 +339,6 @@ export default function Home() {
   const [selectedHotelGalleryImage, setSelectedHotelGalleryImage] =
     useState<StorageImage | null>(null);
   const [isHotelGalleryModalOpen, setIsHotelGalleryModalOpen] = useState(false);
-  const [isOffersModalOpen, setIsOffersModalOpen] = useState(false);
-
-  // Sample offers data - replace with actual data
-  const offers: Offer[] = []; // Hidden for now
-
-  // Show offers modal when there are offers
-  useEffect(() => {
-    if (offers.length > 0 && !isOffersModalOpen) {
-      const timer = setTimeout(() => {
-        setIsOffersModalOpen(true);
-      }, 2000); // Show after 2 seconds
-      return () => clearTimeout(timer);
-    }
-  }, [offers.length, isOffersModalOpen]);
-
-  // Scroll to carousel section with animation
-  const scrollToCarousel = () => {
-    setIsOffersModalOpen(false);
-    setTimeout(() => {
-      const carouselSection = document.getElementById("carousel-section");
-      if (carouselSection) {
-        const navbar = document.querySelector("nav");
-        const navbarHeight = navbar ? navbar.offsetHeight : 80;
-        const elementPosition = carouselSection.getBoundingClientRect().top;
-        const offsetPosition =
-          elementPosition + window.pageYOffset - navbarHeight;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth",
-        });
-      }
-    }, 300);
-  };
 
   // Intersection Observer for feature cards
   useEffect(() => {
@@ -437,15 +398,38 @@ export default function Home() {
     );
   };
 
-  // Fetch images from Supabase
+  // Fetch images from Supabase landing folder
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const images = await getImagesFromFolder("images", "banners");
+        const images = await getImagesFromFolder("images", "landing");
 
         if (images.length > 0) {
+          // Sort images: offer_1 and offer_2 first, then rest
+          const sortedImages = [...images].sort((a, b) => {
+            const aName = a.name.toLowerCase();
+            const bName = b.name.toLowerCase();
+            
+            // Check if names contain offer_1 or offer_2
+            const aIsOffer1 = aName.includes("offer_1");
+            const bIsOffer1 = bName.includes("offer_1");
+            const aIsOffer2 = aName.includes("offer_2");
+            const bIsOffer2 = bName.includes("offer_2");
+            
+            // offer_1 has highest priority
+            if (aIsOffer1 && !bIsOffer1) return -1;
+            if (!aIsOffer1 && bIsOffer1) return 1;
+            
+            // offer_2 has second priority
+            if (aIsOffer2 && !bIsOffer2 && !bIsOffer1) return -1;
+            if (!aIsOffer2 && bIsOffer2 && !aIsOffer1) return 1;
+            
+            // Rest sorted alphabetically
+            return aName.localeCompare(bName);
+          });
+
           // Transform Supabase images to match our gallery format
-          const transformedImages: GalleryImage[] = images.map(
+          const transformedImages: GalleryImage[] = sortedImages.map(
             (image: StorageImage, index: number) => ({
               src: image.url,
               alt: image.alt,
@@ -2297,166 +2281,6 @@ export default function Home() {
           </motion.div>
         </div>
       </footer>
-
-      {/* Creative Offers Modal */}
-      {isOffersModalOpen && offers.length > 0 && galleryImages.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          onClick={() => setIsOffersModalOpen(false)}
-        >
-          <motion.div
-            initial={{ scale: 0.5, opacity: 0, rotateY: -180 }}
-            animate={{ scale: 1, opacity: 1, rotateY: 0 }}
-            exit={{ scale: 0.5, opacity: 0, rotateY: 180 }}
-            transition={{
-              type: "spring",
-              stiffness: 300,
-              damping: 25,
-            }}
-            onClick={(e) => e.stopPropagation()}
-            className="relative bg-gradient-to-br from-emerald-50 via-white to-blue-50 rounded-3xl shadow-2xl max-w-2xl w-full overflow-hidden border-4 border-emerald-200/50"
-          >
-            {/* Animated Background Elements */}
-            <motion.div
-              animate={{
-                rotate: [0, 360],
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                duration: 20,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br from-emerald-300/30 to-blue-300/30 rounded-full blur-2xl"
-            />
-            <motion.div
-              animate={{
-                rotate: [360, 0],
-                scale: [1, 1.3, 1],
-              }}
-              transition={{
-                duration: 15,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute -bottom-20 -left-20 w-40 h-40 bg-gradient-to-br from-blue-300/30 to-emerald-300/30 rounded-full blur-2xl"
-            />
-
-            {/* Close Button */}
-            <button
-              onClick={() => setIsOffersModalOpen(false)}
-              className="absolute top-4 right-4 z-10 bg-white/80 hover:bg-white text-gray-600 hover:text-gray-900 p-2 rounded-full transition-all shadow-lg"
-            >
-              <XMarkIcon className="w-5 h-5" />
-            </button>
-
-            {/* Content */}
-            <div className="relative z-10">
-              {/* Image from Carousel */}
-              <div className="relative h-64 md:h-80 overflow-hidden">
-                <img
-                  src={galleryImages[currentImageIndex]?.src}
-                  alt={galleryImages[currentImageIndex]?.alt || "Offer"}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4">
-                  <h3 className="text-white text-2xl md:text-3xl font-bold mb-1">
-                    {galleryImages[currentImageIndex]?.title}
-                  </h3>
-                  <p className="text-white/90 text-sm md:text-base">
-                    {galleryImages[currentImageIndex]?.description}
-                  </p>
-                </div>
-              </div>
-
-              {/* Offer Details */}
-              <div className="p-6 md:p-8 text-center space-y-6">
-                {/* Offer Info */}
-                {offers[0] && (
-                  <>
-                    <motion.div
-                      initial={{ y: 20, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ delay: 0.2 }}
-                      className="space-y-2"
-                    >
-                      <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-emerald-600 via-blue-600 to-emerald-600 bg-clip-text text-transparent">
-                        {offers[0].title}
-                      </h2>
-                      <p className="text-emerald-600 text-4xl md:text-5xl font-bold">
-                        {offers[0].discount}
-                      </p>
-                      <p className="text-gray-600 text-lg">
-                        {offers[0].description}
-                      </p>
-                    </motion.div>
-                  </>
-                )}
-
-                {/* CTA Button */}
-                <motion.button
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.4 }}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={scrollToCarousel}
-                  className="w-full bg-gradient-to-r from-emerald-500 via-emerald-600 to-blue-600 text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
-                >
-                  {/* Animated Shine */}
-                  <motion.div
-                    animate={{
-                      x: ["-100%", "200%"],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                  />
-                  <span className="relative z-10 flex items-center justify-center gap-2">
-                    View
-                    <motion.span
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{
-                        duration: 1,
-                        repeat: Infinity,
-                      }}
-                    >
-                      →
-                    </motion.span>
-                  </span>
-                </motion.button>
-              </div>
-            </div>
-
-            {/* Sparkle Effects */}
-            {[...Array(6)].map((_, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{
-                  opacity: [0, 1, 0],
-                  scale: [0, 1, 0],
-                  x: [Math.random() * 300 - 150, Math.random() * 300 - 150],
-                  y: [Math.random() * 300 - 150, Math.random() * 300 - 150],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  delay: i * 0.3,
-                }}
-                className="absolute top-1/2 left-1/2 w-2 h-2 bg-emerald-400 rounded-full"
-              />
-            ))}
-          </motion.div>
-        </motion.div>
-      )}
 
       {/* Hotel Gallery Modal */}
       {isHotelGalleryModalOpen && selectedHotelGalleryImage && (
