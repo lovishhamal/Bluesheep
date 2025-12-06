@@ -65,13 +65,52 @@ export default function HeroCarousel({
 
   return (
     <div
-      className="relative w-full h-full min-h-[400px] lg:min-h-[500px] flex items-center justify-center"
+      className={`relative w-full h-full flex items-center justify-center ${
+        isMobile ? "min-h-[450px] py-4" : "min-h-[400px] lg:min-h-[500px]"
+      }`}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
       onMouseEnter={() => setIsAutoPlay(false)}
       onMouseLeave={() => setIsAutoPlay(true)}
     >
+      {/* Mobile-only Decorative Background Elements */}
+      {isMobile && (
+        <>
+          {/* Animated gradient orbs */}
+          <motion.div
+            animate={{
+              scale: [1, 1.1, 1],
+              opacity: [0.1, 0.2, 0.1],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-br from-emerald-300/20 to-blue-300/20 rounded-full blur-2xl"
+          />
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.1, 0.2, 0.1],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-br from-blue-300/20 to-emerald-300/20 rounded-full blur-2xl"
+          />
+          
+          {/* Decorative geometric shapes */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-20 right-8 w-16 h-16 border-2 border-emerald-300/10 rounded-lg opacity-30 rotate-45" />
+            <div className="absolute bottom-20 left-8 w-12 h-12 border-2 border-blue-300/10 rounded-full opacity-30" />
+          </div>
+        </>
+      )}
+
       {/* Stacked Cards Container */}
       <div 
         className="relative w-full h-full max-w-2xl mx-auto"
@@ -205,29 +244,79 @@ export default function HeroCarousel({
       {/* Navigation Arrows */}
       <button
         onClick={prevImage}
-        className="absolute left-2 lg:left-4 top-1/2 -translate-y-1/2 z-40 w-12 h-12 bg-white/95 backdrop-blur-sm rounded-full shadow-2xl hover:bg-white transition-all duration-300 flex items-center justify-center group border-2 border-emerald-100"
+        className={`absolute top-1/2 -translate-y-1/2 z-40 rounded-full shadow-2xl transition-all duration-300 flex items-center justify-center group border-2 border-emerald-100 ${
+          isMobile
+            ? "left-2 w-10 h-10 bg-white/90 backdrop-blur-md"
+            : "left-2 lg:left-4 w-12 h-12 bg-white/95 backdrop-blur-sm hover:bg-white"
+        }`}
         aria-label="Previous image"
       >
-        <ChevronLeftIcon className="w-6 h-6 text-emerald-600 group-hover:scale-110 transition-transform" />
+        <ChevronLeftIcon className={`text-emerald-600 group-hover:scale-110 transition-transform ${
+          isMobile ? "w-5 h-5" : "w-6 h-6"
+        }`} />
       </button>
       <button
         onClick={nextImage}
-        className="absolute right-2 lg:right-4 top-1/2 -translate-y-1/2 z-40 w-12 h-12 bg-white/95 backdrop-blur-sm rounded-full shadow-2xl hover:bg-white transition-all duration-300 flex items-center justify-center group border-2 border-emerald-100"
+        className={`absolute top-1/2 -translate-y-1/2 z-40 rounded-full shadow-2xl transition-all duration-300 flex items-center justify-center group border-2 border-emerald-100 ${
+          isMobile
+            ? "right-2 w-10 h-10 bg-white/90 backdrop-blur-md"
+            : "right-2 lg:right-4 w-12 h-12 bg-white/95 backdrop-blur-sm hover:bg-white"
+        }`}
         aria-label="Next image"
       >
-        <ChevronRightIcon className="w-6 h-6 text-emerald-600 group-hover:scale-110 transition-transform" />
+        <ChevronRightIcon className={`text-emerald-600 group-hover:scale-110 transition-transform ${
+          isMobile ? "w-5 h-5" : "w-6 h-6"
+        }`} />
       </button>
 
+      {/* Mobile-only: Swipe indicator */}
+      {isMobile && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 1, 0] }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            repeatDelay: 3,
+          }}
+          className="absolute bottom-20 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-emerald-100"
+        >
+          <motion.div
+            animate={{ x: [-5, 5, -5] }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+            }}
+            className="text-emerald-600"
+          >
+            ←
+          </motion.div>
+          <span className="text-xs font-semibold text-gray-700">Swipe</span>
+          <motion.div
+            animate={{ x: [5, -5, 5] }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+            }}
+            className="text-emerald-600"
+          >
+            →
+          </motion.div>
+        </motion.div>
+      )}
+
       {/* Stack Indicator Dots */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-40 flex gap-2">
+      <div className={`absolute left-1/2 -translate-x-1/2 z-40 flex gap-2 ${
+        isMobile ? "bottom-16" : "bottom-4"
+      }`}>
         {images.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={`relative w-2 h-2 rounded-full transition-all duration-300 ${
+            className={`relative rounded-full transition-all duration-300 ${
               index === currentIndex
-                ? "bg-emerald-500 scale-125 w-8"
-                : "bg-white/60 hover:bg-white/80"
+                ? `bg-emerald-500 scale-125 ${isMobile ? "w-6 h-2" : "w-8 h-2"}`
+                : `${isMobile ? "w-2 h-2" : "w-2 h-2"} bg-white/60 hover:bg-white/80`
             }`}
             aria-label={`Go to image ${index + 1}`}
           >
@@ -243,11 +332,25 @@ export default function HeroCarousel({
       </div>
 
       {/* Stack Counter */}
-      <div className="absolute top-4 right-4 z-40 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg border border-emerald-100">
-        <span className="text-sm font-semibold text-emerald-600">
+      <div className={`absolute z-40 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-emerald-100 ${
+        isMobile 
+          ? "top-3 right-3 px-2.5 py-1" 
+          : "top-4 right-4 px-3 py-1.5"
+      }`}>
+        <span className={`font-semibold text-emerald-600 ${
+          isMobile ? "text-xs" : "text-sm"
+        }`}>
           {currentIndex + 1} / {images.length}
         </span>
       </div>
+
+      {/* Mobile-only: Decorative corner accents */}
+      {isMobile && (
+        <>
+          <div className="absolute top-0 left-0 w-20 h-20 bg-gradient-to-br from-emerald-400/10 to-transparent rounded-br-3xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-blue-400/10 to-transparent rounded-bl-3xl pointer-events-none" />
+        </>
+      )}
     </div>
   );
 }
