@@ -277,7 +277,7 @@ export default function HowToReachDunai() {
                         </div>
                       </div>
                       <p className="text-sm text-gray-500 mt-3 italic">
-                        Direct journey through scenic mountain routes - experience the authentic beauty of Nepal's remote landscapes
+                        Direct journey through scenic mountain routes - experience the authentic beauty of Nepal&apos;s remote landscapes
                       </p>
                     </div>
                   </div>

@@ -193,7 +193,7 @@ export default function HowToReachPhoksundo() {
               </span>
             </h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Complete travel guide to Phoksundo Lake - Nepal's deepest and most beautiful alpine lake
+              Complete travel guide to Phoksundo Lake - Nepal&apos;s deepest and most beautiful alpine lake
             </p>
           </motion.div>
 
