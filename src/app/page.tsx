@@ -478,7 +478,7 @@ export default function Home() {
         )}
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[70vh] py-8 sm:py-12 md:py-16 lg:py-20">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 xl:gap-20 items-center min-h-[70vh] py-8 sm:py-12 md:py-16 lg:py-20">
             {/* Left Side - Hero Content */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}

@@ -73,7 +73,10 @@ export default function HeroCarousel({
       onMouseLeave={() => setIsAutoPlay(true)}
     >
       {/* Stacked Cards Container */}
-      <div className="relative w-full h-full max-w-2xl mx-auto">
+      <div 
+        className="relative w-full h-full max-w-2xl mx-auto"
+        style={{ perspective: "1200px" }}
+      >
         <AnimatePresence mode="wait">
           {Array.from({ length: Math.min(visibleCards, images.length) }).map(
             (_, stackIndex) => {
@@ -82,12 +85,13 @@ export default function HeroCarousel({
               const isMiddle = stackIndex === 1;
               const isBottom = stackIndex === 2;
 
-              // Calculate transform for stacked effect
-              const scale = isTop ? 1 : isMiddle ? 0.95 : 0.9;
-              const y = isTop ? 0 : isMiddle ? 20 : 40;
-              const rotate = isTop ? 0 : isMiddle ? -2 : -4;
+              // Calculate transform for stacked effect - More pronounced stack
+              const scale = isTop ? 1 : isMiddle ? 0.92 : 0.84;
+              const y = isTop ? 0 : isMiddle ? 35 : 70;
+              const rotate = isTop ? 0 : isMiddle ? -3 : -6;
               const zIndex = isTop ? 30 : isMiddle ? 20 : 10;
-              const opacity = isTop ? 1 : isMiddle ? 0.8 : 0.6;
+              const opacity = isTop ? 1 : isMiddle ? 0.75 : 0.5;
+              const x = isTop ? 0 : isMiddle ? 8 : 16;
 
               return (
                 <motion.div
@@ -95,6 +99,7 @@ export default function HeroCarousel({
                   initial={false}
                   animate={{
                     scale,
+                    x,
                     y,
                     rotate,
                     opacity,
@@ -106,6 +111,9 @@ export default function HeroCarousel({
                     damping: 30,
                   }}
                   className="absolute inset-0 cursor-pointer"
+                  style={{
+                    transformStyle: "preserve-3d",
+                  }}
                   onClick={() => {
                     if (!isTop) {
                       // Click on stacked card to bring it to top
@@ -130,7 +138,16 @@ export default function HeroCarousel({
                   }
                 >
                   {/* Card */}
-                  <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl">
+                  <div 
+                    className="relative w-full h-full rounded-2xl overflow-hidden"
+                    style={{
+                      boxShadow: isTop 
+                        ? "0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.05)"
+                        : isMiddle
+                        ? "0 15px 30px -8px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.05)"
+                        : "0 10px 20px -6px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05)",
+                    }}
+                  >
                     <img
                       src={images[imageIndex]?.src}
                       alt={images[imageIndex]?.alt}
