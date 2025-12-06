@@ -1,70 +1,167 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export default function HowToReach() {
+  const componentMountedRef = useRef(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   useEffect(() => {
-    // Add structured data for SEO
-    const script = document.createElement("script");
-    script.type = "application/ld+json";
-    script.id = "how-to-reach-structured-data";
-    script.text = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "TravelAction",
-      "name": "How to Reach Hotel Blue Sheep Inn",
-      "description": "Travel route from Kathmandu to Dunai, Dolpa - Journey to Hotel Blue Sheep Inn",
-      "object": {
-        "@type": "LodgingBusiness",
-        "name": "Hotel Blue Sheep Inn",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Dunai",
+    console.log("[HowToReach] Component mounting...");
+    componentMountedRef.current = true;
+
+    try {
+      // Check if we're in browser environment
+      if (typeof window === "undefined" || typeof document === "undefined") {
+        console.error("[HowToReach] ERROR: window or document is undefined");
+        return;
+      }
+
+      console.log("[HowToReach] Browser environment detected, proceeding with script injection");
+
+      // Add structured data for SEO
+      const structuredData = {
+        "@context": "https://schema.org",
+        "@type": "TravelAction",
+        "name": "How to Reach Hotel Blue Sheep Inn",
+        "description": "Travel route from Kathmandu to Dunai, Dolpa - Journey to Hotel Blue Sheep Inn",
+        "object": {
+          "@type": "LodgingBusiness",
+          "name": "Hotel Blue Sheep Inn",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Dunai",
+            "addressRegion": "Dolpa",
+            "addressCountry": "NP"
+          }
+        },
+        "fromLocation": {
+          "@type": "City",
+          "name": "Kathmandu",
+          "addressCountry": "NP"
+        },
+        "toLocation": {
+          "@type": "City",
+          "name": "Dunai",
           "addressRegion": "Dolpa",
           "addressCountry": "NP"
+        },
+        "distance": {
+          "@type": "Distance",
+          "name": "700-750 km"
+        },
+        "duration": {
+          "@type": "Duration",
+          "name": "36 hours"
         }
-      },
-      "fromLocation": {
-        "@type": "City",
-        "name": "Kathmandu",
-        "addressCountry": "NP"
-      },
-      "toLocation": {
-        "@type": "City",
-        "name": "Dunai",
-        "addressRegion": "Dolpa",
-        "addressCountry": "NP"
-      },
-      "distance": {
-        "@type": "Distance",
-        "name": "700-750 km"
-      },
-      "duration": {
-        "@type": "Duration",
-        "name": "36 hours"
-      }
-    });
+      };
 
-    // Remove existing script if present
-    const existingScript = document.getElementById("how-to-reach-structured-data");
-    if (existingScript) {
-      existingScript.remove();
+      console.log("[HowToReach] Creating structured data script...");
+      const script = document.createElement("script");
+      script.type = "application/ld+json";
+      script.id = "how-to-reach-structured-data";
+
+      try {
+        script.text = JSON.stringify(structuredData);
+        console.log("[HowToReach] Structured data JSON stringified successfully");
+      } catch (jsonError) {
+        console.error("[HowToReach] ERROR: Failed to stringify structured data:", jsonError);
+        throw jsonError;
+      }
+
+      // Remove existing script if present
+      const existingScript = document.getElementById("how-to-reach-structured-data");
+      if (existingScript) {
+        console.log("[HowToReach] Removing existing script tag");
+        existingScript.remove();
+      }
+
+      // Check if document.head exists
+      if (!document.head) {
+        console.error("[HowToReach] ERROR: document.head is not available");
+        return;
+      }
+
+      console.log("[HowToReach] Appending script to document.head");
+      document.head.appendChild(script);
+      console.log("[HowToReach] Script successfully appended to document.head");
+
+    } catch (error) {
+      console.error("[HowToReach] ERROR in useEffect:", error);
+      console.error("[HowToReach] Error stack:", error instanceof Error ? error.stack : "No stack trace");
+      console.error("[HowToReach] Error details:", {
+        message: error instanceof Error ? error.message : String(error),
+        name: error instanceof Error ? error.name : "Unknown",
+        type: typeof error
+      });
     }
 
-    document.head.appendChild(script);
-
     return () => {
-      // Cleanup on unmount
-      const scriptToRemove = document.getElementById("how-to-reach-structured-data");
-      if (scriptToRemove) {
-        scriptToRemove.remove();
+      console.log("[HowToReach] Component unmounting, cleaning up...");
+      componentMountedRef.current = false;
+      try {
+        const scriptToRemove = document.getElementById("how-to-reach-structured-data");
+        if (scriptToRemove) {
+          console.log("[HowToReach] Removing script tag on unmount");
+          scriptToRemove.remove();
+        }
+      } catch (cleanupError) {
+        console.error("[HowToReach] ERROR during cleanup:", cleanupError);
       }
     };
   }, []);
 
+  // Video error handling
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleVideoError = (e: Event) => {
+      console.error("[HowToReach] Video error:", e);
+      const videoElement = e.target as HTMLVideoElement;
+      if (videoElement.error) {
+        console.error("[HowToReach] Video error details:", {
+          code: videoElement.error.code,
+          message: videoElement.error.message,
+          networkState: videoElement.networkState,
+          readyState: videoElement.readyState
+        });
+      }
+    };
+
+    const handleVideoLoadStart = () => {
+      console.log("[HowToReach] Video load started");
+    };
+
+    const handleVideoLoadedData = () => {
+      console.log("[HowToReach] Video data loaded successfully");
+    };
+
+    const handleVideoCanPlay = () => {
+      console.log("[HowToReach] Video can play");
+    };
+
+    video.addEventListener("error", handleVideoError);
+    video.addEventListener("loadstart", handleVideoLoadStart);
+    video.addEventListener("loadeddata", handleVideoLoadedData);
+    video.addEventListener("canplay", handleVideoCanPlay);
+
+    return () => {
+      video.removeEventListener("error", handleVideoError);
+      video.removeEventListener("loadstart", handleVideoLoadStart);
+      video.removeEventListener("loadeddata", handleVideoLoadedData);
+      video.removeEventListener("canplay", handleVideoCanPlay);
+    };
+  }, []);
+
+  // Log component render
+  useEffect(() => {
+    console.log("[HowToReach] Component rendered");
+  });
+
   return (
     <>
-
       {/* Routes Section - How to Reach Hotel Blue Sheep Inn */}
       <section className="py-16 lg:py-24 bg-gradient-to-br from-white via-emerald-50/30 to-blue-50 relative overflow-hidden">
         {/* Animated Background Elements */}
@@ -134,6 +231,7 @@ export default function HowToReach() {
             >
               <div className="relative rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
                 <video
+                  ref={videoRef}
                   className="w-full h-auto"
                   autoPlay
                   loop
@@ -142,6 +240,19 @@ export default function HowToReach() {
                   controls
                   preload="metadata"
                   poster="/phoksundo.jpg"
+                  onError={(e) => {
+                    console.error("[HowToReach] Video onError event:", e);
+                    const video = e.currentTarget;
+                    if (video.error) {
+                      console.error("[HowToReach] Video error object:", {
+                        code: video.error.code,
+                        message: video.error.message
+                      });
+                    }
+                  }}
+                  onLoadStart={() => console.log("[HowToReach] Video onLoadStart")}
+                  onLoadedData={() => console.log("[HowToReach] Video onLoadedData")}
+                  onCanPlay={() => console.log("[HowToReach] Video onCanPlay")}
                 >
                   <source
                     src="https://drvmkdicefvtuhiqznce.supabase.co/storage/v1/object/public/images/travel.MP4"

@@ -92,15 +92,19 @@ function CreativeImageCarousel({
   if (images.length === 0) return null;
 
   return (
-    <section id="carousel-section" className="py-10 lg:py-16 bg-gradient-to-br from-emerald-50/50 via-white to-blue-50/50 relative overflow-hidden">
+    <section
+      id="carousel-section"
+      className="py-10 lg:py-16 bg-gradient-to-br from-emerald-50/50 via-white to-blue-50/50 relative overflow-hidden"
+    >
       {/* Animated Background */}
       <div className="absolute inset-0">
         {/* Hotel Name Background Text - Big Fading Transparent */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <h2 
+          <h2
             className="text-6xl md:text-8xl lg:text-[10rem] xl:text-[12rem] font-black select-none"
             style={{
-              background: "linear-gradient(135deg, rgba(16, 185, 129, 0.04) 0%, rgba(59, 130, 246, 0.04) 50%, rgba(16, 185, 129, 0.04) 100%)",
+              background:
+                "linear-gradient(135deg, rgba(16, 185, 129, 0.04) 0%, rgba(59, 130, 246, 0.04) 50%, rgba(16, 185, 129, 0.04) 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -320,7 +324,6 @@ function CreativeImageCarousel({
             </button>
           ))}
         </div>
-
       </div>
     </section>
   );
@@ -350,7 +353,7 @@ export default function Home() {
     new Set()
   );
   const [isOffersModalOpen, setIsOffersModalOpen] = useState(false);
-  
+
   // Sample offers data - replace with actual data
   const offers: Offer[] = []; // Hidden for now
 
@@ -373,7 +376,8 @@ export default function Home() {
         const navbar = document.querySelector("nav");
         const navbarHeight = navbar ? navbar.offsetHeight : 80;
         const elementPosition = carouselSection.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+        const offsetPosition =
+          elementPosition + window.pageYOffset - navbarHeight;
 
         window.scrollTo({
           top: offsetPosition,
@@ -2449,14 +2453,8 @@ export default function Home() {
                 animate={{
                   opacity: [0, 1, 0],
                   scale: [0, 1, 0],
-                  x: [
-                    Math.random() * 300 - 150,
-                    Math.random() * 300 - 150,
-                  ],
-                  y: [
-                    Math.random() * 300 - 150,
-                    Math.random() * 300 - 150,
-                  ],
+                  x: [Math.random() * 300 - 150, Math.random() * 300 - 150],
+                  y: [Math.random() * 300 - 150, Math.random() * 300 - 150],
                 }}
                 transition={{
                   duration: 2,
