@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { supabase } from "../util/supabase";
 import { useState, useEffect } from "react";
@@ -99,9 +100,11 @@ export default function MenuPage() {
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center">
               <Link href="/">
-                <img
+                <Image
                   src="/logo.png"
                   alt="Hotel Blue Sheep Inn Logo"
+                  width={48}
+                  height={48}
                   className="h-12 w-auto mr-3 rounded-lg shadow-md cursor-pointer"
                 />
               </Link>
@@ -286,9 +289,11 @@ export default function MenuPage() {
 
         {/* Logo */}
         <div className="flex justify-center mb-8">
-          <img
+          <Image
             src="/logo.png"
             alt="Blue Sheep Hotel Logo"
+            width={96}
+            height={96}
             className="h-24 w-auto rounded-lg shadow-lg"
           />
         </div>
@@ -346,9 +351,11 @@ export default function MenuPage() {
                         {/* Item Image */}
                         {item.images && (
                           <div className="flex-shrink-0">
-                            <img
+                            <Image
                               src={item.images}
                               alt={item.item_name}
+                              width={96}
+                              height={96}
                               className="w-20 h-20 md:w-24 md:h-24 object-cover shadow-md"
                               onError={(e) => {
                                 e.currentTarget.style.display = "none";

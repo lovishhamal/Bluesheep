@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import {
   HomeIcon,
   WifiIcon,
@@ -282,9 +283,11 @@ Please confirm this booking.`;
               className="flex items-center"
             >
               <Link href="/">
-                <img
+                <Image
                   src="/logo.png"
                   alt="Hotel Blue Sheep Inn Logo"
+                  width={48}
+                  height={48}
                   className="h-12 w-auto rounded-lg shadow-md cursor-pointer"
                   style={{
                     WebkitTransform: "translateZ(0)",
