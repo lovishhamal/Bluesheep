@@ -26,7 +26,7 @@ import {
 } from "./util/storage";
 import { getWhatsAppUrl, getTelUrl, PHONE_NUMBER } from "./util/constants";
 import { useIsMobile } from "./util/useIsMobile";
-// import HowToReach from "./components/HowToReach";
+import HowToReach from "./components/HowToReach";
 
 // Type definitions
 
@@ -1028,7 +1028,7 @@ export default function Home() {
       )}
 
       {/* Routes Section - How to Reach Hotel Blue Sheep Inn */}
-      {/* {false && <HowToReach />} */}
+      <HowToReach />
 
       {/* Features Section - Ultra Creative */}
       <section className="py-0 md:py-14 bg-gradient-to-br from-white via-emerald-50/30 to-blue-50 relative overflow-hidden">

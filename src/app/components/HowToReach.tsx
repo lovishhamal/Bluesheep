@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 export default function HowToReach() {
   const componentMountedRef = useRef(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  console.log("runn");
 
   useEffect(() => {
     console.log("[HowToReach] Component mounting...");
@@ -18,43 +19,46 @@ export default function HowToReach() {
         return;
       }
 
-      console.log("[HowToReach] Browser environment detected, proceeding with script injection");
+      console.log(
+        "[HowToReach] Browser environment detected, proceeding with script injection"
+      );
 
       // Add structured data for SEO
       const structuredData = {
         "@context": "https://schema.org",
         "@type": "TravelAction",
-        "name": "How to Reach Hotel Blue Sheep Inn",
-        "description": "Travel route from Kathmandu to Dunai, Dolpa - Journey to Hotel Blue Sheep Inn",
-        "object": {
+        name: "How to Reach Hotel Blue Sheep Inn",
+        description:
+          "Travel route from Kathmandu to Dunai, Dolpa - Journey to Hotel Blue Sheep Inn",
+        object: {
           "@type": "LodgingBusiness",
-          "name": "Hotel Blue Sheep Inn",
-          "address": {
+          name: "Hotel Blue Sheep Inn",
+          address: {
             "@type": "PostalAddress",
-            "addressLocality": "Dunai",
-            "addressRegion": "Dolpa",
-            "addressCountry": "NP"
-          }
+            addressLocality: "Dunai",
+            addressRegion: "Dolpa",
+            addressCountry: "NP",
+          },
         },
-        "fromLocation": {
+        fromLocation: {
           "@type": "City",
-          "name": "Kathmandu",
-          "addressCountry": "NP"
+          name: "Kathmandu",
+          addressCountry: "NP",
         },
-        "toLocation": {
+        toLocation: {
           "@type": "City",
-          "name": "Dunai",
-          "addressRegion": "Dolpa",
-          "addressCountry": "NP"
+          name: "Dunai",
+          addressRegion: "Dolpa",
+          addressCountry: "NP",
         },
-        "distance": {
+        distance: {
           "@type": "Distance",
-          "name": "700-750 km"
+          name: "700-750 km",
         },
-        "duration": {
+        duration: {
           "@type": "Duration",
-          "name": "36 hours"
-        }
+          name: "36 hours",
+        },
       };
 
       console.log("[HowToReach] Creating structured data script...");
@@ -64,14 +68,21 @@ export default function HowToReach() {
 
       try {
         script.text = JSON.stringify(structuredData);
-        console.log("[HowToReach] Structured data JSON stringified successfully");
+        console.log(
+          "[HowToReach] Structured data JSON stringified successfully"
+        );
       } catch (jsonError) {
-        console.error("[HowToReach] ERROR: Failed to stringify structured data:", jsonError);
+        console.error(
+          "[HowToReach] ERROR: Failed to stringify structured data:",
+          jsonError
+        );
         throw jsonError;
       }
 
       // Remove existing script if present
-      const existingScript = document.getElementById("how-to-reach-structured-data");
+      const existingScript = document.getElementById(
+        "how-to-reach-structured-data"
+      );
       if (existingScript) {
         console.log("[HowToReach] Removing existing script tag");
         existingScript.remove();
@@ -86,14 +97,16 @@ export default function HowToReach() {
       console.log("[HowToReach] Appending script to document.head");
       document.head.appendChild(script);
       console.log("[HowToReach] Script successfully appended to document.head");
-
     } catch (error) {
       console.error("[HowToReach] ERROR in useEffect:", error);
-      console.error("[HowToReach] Error stack:", error instanceof Error ? error.stack : "No stack trace");
+      console.error(
+        "[HowToReach] Error stack:",
+        error instanceof Error ? error.stack : "No stack trace"
+      );
       console.error("[HowToReach] Error details:", {
         message: error instanceof Error ? error.message : String(error),
         name: error instanceof Error ? error.name : "Unknown",
-        type: typeof error
+        type: typeof error,
       });
     }
 
@@ -101,7 +114,9 @@ export default function HowToReach() {
       console.log("[HowToReach] Component unmounting, cleaning up...");
       componentMountedRef.current = false;
       try {
-        const scriptToRemove = document.getElementById("how-to-reach-structured-data");
+        const scriptToRemove = document.getElementById(
+          "how-to-reach-structured-data"
+        );
         if (scriptToRemove) {
           console.log("[HowToReach] Removing script tag on unmount");
           scriptToRemove.remove();
@@ -125,7 +140,7 @@ export default function HowToReach() {
           code: videoElement.error.code,
           message: videoElement.error.message,
           networkState: videoElement.networkState,
-          readyState: videoElement.readyState
+          readyState: videoElement.readyState,
         });
       }
     };
@@ -216,7 +231,8 @@ export default function HowToReach() {
               </span>
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Journey from Kathmandu to Dunai, Dolpa - Your adventure begins here
+              Journey from Kathmandu to Dunai, Dolpa - Your adventure begins
+              here
             </p>
           </motion.div>
 
@@ -246,12 +262,16 @@ export default function HowToReach() {
                     if (video.error) {
                       console.error("[HowToReach] Video error object:", {
                         code: video.error.code,
-                        message: video.error.message
+                        message: video.error.message,
                       });
                     }
                   }}
-                  onLoadStart={() => console.log("[HowToReach] Video onLoadStart")}
-                  onLoadedData={() => console.log("[HowToReach] Video onLoadedData")}
+                  onLoadStart={() =>
+                    console.log("[HowToReach] Video onLoadStart")
+                  }
+                  onLoadedData={() =>
+                    console.log("[HowToReach] Video onLoadedData")
+                  }
                   onCanPlay={() => console.log("[HowToReach] Video onCanPlay")}
                 >
                   <source
@@ -294,9 +314,7 @@ export default function HowToReach() {
                       <h3 className="text-xl font-bold text-gray-900 mb-2">
                         Kathmandu → Nepalgunj
                       </h3>
-                      <p className="text-gray-600 mb-3">
-                        By bus or HiAce van
-                      </p>
+                      <p className="text-gray-600 mb-3">By bus or HiAce van</p>
                       <div className="flex items-center gap-2 text-emerald-600 font-semibold">
                         <span>⏱️</span>
                         <span>~12 hours</span>
@@ -348,7 +366,8 @@ export default function HowToReach() {
                         Jajarkot/Tripurakot → Dunai
                       </h3>
                       <p className="text-gray-600 mb-3">
-                        By local jeep (4-WD) or combination of jeep + walking/trek
+                        By local jeep (4-WD) or combination of jeep +
+                        walking/trek
                       </p>
                       <p className="text-amber-600 text-sm font-semibold">
                         ⚠️ Last stretch especially rough and slow
@@ -373,8 +392,12 @@ export default function HowToReach() {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="bg-white/60 rounded-lg p-4">
                     <p className="text-sm text-gray-600 mb-1">Total Distance</p>
-                    <p className="text-2xl font-bold text-gray-900">700-750 km</p>
-                    <p className="text-xs text-gray-500 mt-1">Depending on route</p>
+                    <p className="text-2xl font-bold text-gray-900">
+                      700-750 km
+                    </p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      Depending on route
+                    </p>
                   </div>
                   <div className="bg-white/60 rounded-lg p-4">
                     <p className="text-sm text-gray-600 mb-1">Total Duration</p>
@@ -383,7 +406,8 @@ export default function HowToReach() {
                   </div>
                 </div>
                 <p className="text-sm text-gray-600 mt-4 italic">
-                  * Travel duration may vary depending on road conditions and weather
+                  * Travel duration may vary depending on road conditions and
+                  weather
                 </p>
               </motion.div>
             </motion.div>
@@ -393,4 +417,3 @@ export default function HowToReach() {
     </>
   );
 }
-
