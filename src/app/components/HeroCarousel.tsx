@@ -141,10 +141,10 @@ export default function HeroCarousel({
                   : isMiddle
                   ? isMobile
                     ? 20
-                    : 35
+                    : 28
                   : isMobile
                   ? 40
-                  : 70;
+                  : 56;
                 const rotate = isTop ? 0 : isMiddle ? -3 : -6;
                 const zIndex = isTop ? 30 : isMiddle ? 20 : 10;
                 const opacity = isTop ? 1 : isMiddle ? 0.75 : 0.5;
@@ -153,10 +153,10 @@ export default function HeroCarousel({
                   : isMiddle
                   ? isMobile
                     ? 4
-                    : 8
+                    : 6
                   : isMobile
                   ? 8
-                  : 16;
+                  : 12;
 
                 return (
                   <motion.div
