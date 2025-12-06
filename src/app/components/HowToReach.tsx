@@ -154,14 +154,15 @@ export default function HowToReach() {
             </p>
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* Desktop: Video on left, Routes on right */}
+          <div className="grid lg:grid-cols-[1.2fr_1fr] gap-8 lg:gap-12 items-start">
             {/* Video Section */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="relative"
+              className="relative lg:sticky lg:top-8"
             >
               <div className="relative rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
                 <video
