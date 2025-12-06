@@ -36,6 +36,12 @@ interface GalleryImage {
   description: string;
 }
 
+interface Offer {
+  title: string;
+  discount: string;
+  description: string;
+}
+
 // Creative Non-Traditional Carousel Component
 function CreativeImageCarousel({
   images,
@@ -345,7 +351,7 @@ export default function Home() {
   const [isOffersModalOpen, setIsOffersModalOpen] = useState(false);
   
   // Sample offers data - replace with actual data
-  const offers: any[] = []; // Hidden for now
+  const offers: Offer[] = []; // Hidden for now
 
   // Show offers modal when there are offers
   useEffect(() => {
