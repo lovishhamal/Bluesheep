@@ -1002,16 +1002,19 @@ export default function Home() {
       </section>
 
       {/* Creative Image Carousel Section - Below Hero */}
-      <CreativeImageCarousel
-        images={galleryImages}
-        currentIndex={currentImageIndex}
-        setCurrentIndex={setCurrentImageIndex}
-        nextImage={nextImage}
-        prevImage={prevImage}
-        isAutoPlay={isAutoPlay}
-        setIsAutoPlay={setIsAutoPlay}
-        isMobile={isMobile}
-      />
+      {/* Hidden for now */}
+      {false && (
+        <CreativeImageCarousel
+          images={galleryImages}
+          currentIndex={currentImageIndex}
+          setCurrentIndex={setCurrentImageIndex}
+          nextImage={nextImage}
+          prevImage={prevImage}
+          isAutoPlay={isAutoPlay}
+          setIsAutoPlay={setIsAutoPlay}
+          isMobile={isMobile}
+        />
+      )}
 
       {/* Routes Section - How to Reach Hotel Blue Sheep Inn */}
       <section className="py-16 lg:py-24 bg-gradient-to-br from-white via-emerald-50/30 to-blue-50 relative overflow-hidden">
