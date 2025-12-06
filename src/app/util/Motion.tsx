@@ -44,6 +44,45 @@ export function Motion({
     const element = ref.current;
     if (!element) return;
 
+    const animateElement = (target: { opacity?: number; y?: number; scale?: number; x?: number; rotate?: number | number[]; backgroundPosition?: string[] }) => {
+      if (!element) return;
+
+      const animations: Record<string, number | string | number[] | string[]> = {};
+      if (target.opacity !== undefined) animations.opacity = target.opacity;
+      if (target.y !== undefined) animations.y = target.y;
+      if (target.x !== undefined) animations.x = target.x;
+      if (target.scale !== undefined) animations.scale = target.scale;
+      if (target.rotate !== undefined) {
+        if (Array.isArray(target.rotate)) {
+          animations.rotate = target.rotate[target.rotate.length - 1];
+        } else {
+          animations.rotate = target.rotate;
+        }
+      }
+      if (target.backgroundPosition) {
+        // Handle background position animation
+        const from = target.backgroundPosition[0];
+        const to = target.backgroundPosition[1] || target.backgroundPosition[target.backgroundPosition.length - 1];
+        animations.backgroundPosition = [from, to];
+      }
+
+      const options: AnimationOptions = {
+        duration: transition?.duration || 0.6,
+        delay: transition?.delay || 0,
+        repeat: transition?.repeat || (transition?.repeat === Infinity ? Infinity : undefined),
+      };
+
+      const animation = animate(element, animations, options);
+      
+      if (onAnimationComplete && !transition?.repeat) {
+        animation.then(() => {
+          onAnimationComplete?.();
+        });
+      }
+
+      return animation;
+    };
+
     // Set initial state
     if (initial) {
       if (initial.opacity !== undefined) {
@@ -73,7 +112,10 @@ export function Motion({
       );
       return () => {
         stop();
-        observerRef.current?.disconnect();
+        const currentObserver = observerRef.current;
+        if (currentObserver) {
+          currentObserver.disconnect();
+        }
       };
     } else if (animateProps) {
       // Regular animate
@@ -104,54 +146,20 @@ export function Motion({
       return () => {
         element.removeEventListener("mouseenter", handleMouseEnter);
         element.removeEventListener("mouseleave", handleMouseLeave);
-        observerRef.current?.disconnect();
+        const currentObserver = observerRef.current;
+        if (currentObserver) {
+          currentObserver.disconnect();
+        }
       };
     }
 
     return () => {
-      observerRef.current?.disconnect();
-    };
-  }, [initial, animateProps, whileInView, whileHover, transition, viewport]);
-
-  const animateElement = (target: { opacity?: number; y?: number; scale?: number; x?: number; rotate?: number | number[]; backgroundPosition?: string[] }) => {
-    const element = ref.current;
-    if (!element) return;
-
-    const animations: Record<string, number | string | number[] | string[]> = {};
-    if (target.opacity !== undefined) animations.opacity = target.opacity;
-    if (target.y !== undefined) animations.y = target.y;
-    if (target.x !== undefined) animations.x = target.x;
-    if (target.scale !== undefined) animations.scale = target.scale;
-    if (target.rotate !== undefined) {
-      if (Array.isArray(target.rotate)) {
-        animations.rotate = target.rotate[target.rotate.length - 1];
-      } else {
-        animations.rotate = target.rotate;
+      const currentObserver = observerRef.current;
+      if (currentObserver) {
+        currentObserver.disconnect();
       }
-    }
-    if (target.backgroundPosition) {
-      // Handle background position animation
-      const from = target.backgroundPosition[0];
-      const to = target.backgroundPosition[1] || target.backgroundPosition[target.backgroundPosition.length - 1];
-      animations.backgroundPosition = [from, to];
-    }
-
-    const options: AnimationOptions = {
-      duration: transition?.duration || 0.6,
-      delay: transition?.delay || 0,
-      repeat: transition?.repeat || (transition?.repeat === Infinity ? Infinity : undefined),
     };
-
-    const animation = animate(element, animations, options);
-    
-    if (onAnimationComplete && !transition?.repeat) {
-      animation.then(() => {
-        onAnimationComplete?.();
-      });
-    }
-
-    return animation;
-  };
+  }, [initial, animateProps, whileInView, whileHover, transition, viewport, onAnimationComplete]);
 
   return (
     <div ref={ref} className={className} style={style}>

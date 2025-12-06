@@ -11,7 +11,7 @@ import {
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getImagesFromFolder, StorageImage } from "../util/storage";
-import { getWhatsAppUrl, PHONE_NUMBER } from "../util/constants";
+import { getWhatsAppUrl } from "../util/constants";
 import { useIsMobile } from "../util/useIsMobile";
 
 export default function CampingPage() {
@@ -39,7 +39,7 @@ export default function CampingPage() {
         setImageError(null);
         const images = await getImagesFromFolder("images", "camping");
         setCampingImages(images);
-      } catch (error) {
+      } catch {
         setImageError("Failed to load camping images. Please try again later.");
       } finally {
         setIsLoadingImages(false);
@@ -117,7 +117,7 @@ export default function CampingPage() {
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isImageModalOpen, selectedImage, campingImages]);
+  }, [isImageModalOpen, selectedImage, campingImages, navigateToNextImage, navigateToPreviousImage]);
 
   // Handle booking form submission
   const handleBookingSubmit = (e: React.FormEvent) => {

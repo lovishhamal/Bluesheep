@@ -73,11 +73,6 @@ export default function MenuPage() {
     return "₹" + price;
   };
 
-  // Capitalize category names
-  const capitalizeCategory = (category: string) => {
-    return category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
-  };
-
   // Capitalize item names
   const capitalizeItemName = (itemName: string) => {
     const capitalizedName =

@@ -57,7 +57,7 @@ export const getImagesFromFolder = async (
         ) || [];
 
     return imageFiles;
-  } catch (error) {
+  } catch {
     return [];
   }
 };
@@ -85,7 +85,7 @@ export const uploadImage = async (
       path: data.path,
       url: getImageUrl(bucket, folder, finalFileName),
     };
-  } catch (error) {
+  } catch {
     return null;
   }
 };
@@ -100,7 +100,7 @@ export const deleteImage = async (bucket: string, filePath: string) => {
     }
 
     return true;
-  } catch (error) {
+  } catch {
     return false;
   }
 };
@@ -115,7 +115,7 @@ export const getBuckets = async () => {
     }
 
     return data;
-  } catch (error) {
+  } catch {
     return [];
   }
 };
@@ -141,7 +141,7 @@ export const getReviews = async (): Promise<Review[]> => {
     }
 
     return data || [];
-  } catch (error) {
+  } catch {
     return [];
   }
 };
