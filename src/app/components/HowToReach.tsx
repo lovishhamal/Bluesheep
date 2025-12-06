@@ -95,7 +95,7 @@ export default function HowToReach() {
   return (
     <>
       {/* Routes Section - How to Reach Hotel Blue Sheep Inn */}
-      <section className="py-4 lg:py-16 bg-gradient-to-br from-white via-emerald-50/30 to-blue-50 relative overflow-hidden">
+      <section className="py-4 lg:py-12 bg-gradient-to-br from-white via-emerald-50/30 to-blue-50 relative overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
           <motion.div

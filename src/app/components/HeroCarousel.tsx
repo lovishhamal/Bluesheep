@@ -68,7 +68,7 @@ export default function HeroCarousel({
     <div className="w-full h-full flex flex-col items-center">
       <div
         className={`relative w-full flex items-center justify-center ${
-          isMobile ? "min-h-[450px] py-4" : "min-h-[500px] lg:min-h-[600px]"
+          isMobile ? "min-h-[450px] py-0" : "min-h-[500px] lg:min-h-[600px]"
         }`}
         style={{
           minHeight: isMobile ? "450px" : undefined,
@@ -121,9 +121,9 @@ export default function HeroCarousel({
           className="relative w-full max-w-2xl mx-auto"
           style={{
             perspective: "1200px",
-            height: isMobile ? "438px" : "calc(100% - 12px)",
-            minHeight: isMobile ? "438px" : "488px",
-            marginTop: !isMobile ? "48px" : "0px",
+            height: isMobile ? "436px" : "calc(100% - 104px)",
+            minHeight: isMobile ? "436px" : "484px",
+            marginTop: !isMobile ? "30px" : "0px",
           }}
         >
           <AnimatePresence mode="wait">
@@ -136,11 +136,27 @@ export default function HeroCarousel({
 
                 // Calculate transform for stacked effect - More pronounced stack
                 const scale = isTop ? 1 : isMiddle ? 0.92 : 0.84;
-                const y = isTop ? 0 : isMiddle ? 35 : 70;
+                const y = isTop
+                  ? 0
+                  : isMiddle
+                  ? isMobile
+                    ? 20
+                    : 28
+                  : isMobile
+                  ? 40
+                  : 56;
                 const rotate = isTop ? 0 : isMiddle ? -3 : -6;
                 const zIndex = isTop ? 30 : isMiddle ? 20 : 10;
                 const opacity = isTop ? 1 : isMiddle ? 0.75 : 0.5;
-                const x = isTop ? 0 : isMiddle ? 8 : 16;
+                const x = isTop
+                  ? 0
+                  : isMiddle
+                  ? isMobile
+                    ? 4
+                    : 6
+                  : isMobile
+                  ? 8
+                  : 12;
 
                 return (
                   <motion.div
@@ -324,7 +340,9 @@ export default function HeroCarousel({
         {/* Stack Counter */}
         <div
           className={`absolute z-40 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-emerald-100 ${
-            isMobile ? "top-3 right-3 px-2.5 py-1" : "top-4 right-4 px-3 py-1.5"
+            isMobile
+              ? "top-8 right-3 px-2.5 py-1"
+              : "top-12 right-4 px-3 py-1.5"
           }`}
         >
           <span
@@ -351,7 +369,7 @@ export default function HeroCarousel({
           isMobile ? "mt-6" : "mt-8"
         }`}
         style={{
-          marginTop: isMobile ? "calc(1.5rem + 6px)" : "calc(2rem + 6px)",
+          marginTop: isMobile ? "calc(1.5rem + 6px)" : "calc(0.5rem)",
         }}
       >
         <button
