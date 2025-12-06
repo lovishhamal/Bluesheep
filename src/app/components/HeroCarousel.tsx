@@ -136,11 +136,27 @@ export default function HeroCarousel({
 
                 // Calculate transform for stacked effect - More pronounced stack
                 const scale = isTop ? 1 : isMiddle ? 0.92 : 0.84;
-                const y = isTop ? 0 : isMiddle ? 35 : 70;
+                const y = isTop
+                  ? 0
+                  : isMiddle
+                  ? isMobile
+                    ? 20
+                    : 35
+                  : isMobile
+                  ? 40
+                  : 70;
                 const rotate = isTop ? 0 : isMiddle ? -3 : -6;
                 const zIndex = isTop ? 30 : isMiddle ? 20 : 10;
                 const opacity = isTop ? 1 : isMiddle ? 0.75 : 0.5;
-                const x = isTop ? 0 : isMiddle ? 8 : 16;
+                const x = isTop
+                  ? 0
+                  : isMiddle
+                  ? isMobile
+                    ? 4
+                    : 8
+                  : isMobile
+                  ? 8
+                  : 16;
 
                 return (
                   <motion.div
@@ -325,8 +341,8 @@ export default function HeroCarousel({
         <div
           className={`absolute z-40 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-emerald-100 ${
             isMobile
-              ? "top-12 right-3 px-2.5 py-1"
-              : "top-16 right-4 px-3 py-1.5"
+              ? "top-8 right-3 px-2.5 py-1"
+              : "top-12 right-4 px-3 py-1.5"
           }`}
         >
           <span
