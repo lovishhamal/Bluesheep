@@ -31,19 +31,12 @@ export const getImagesFromFolder = async (
 ): Promise<StorageImage[]> => {
   try {
     const { data, error } = await supabase.storage.from(bucket).list(folder);
-    console.log("data -> ,data", data);
-    console.log("err", error);
 
     if (error) {
-      console.error("Supabase storage error:", error);
       return [];
     }
 
-    console.log(`Raw data from Supabase:`, data);
-    console.log(`Number of files found:`, data?.length || 0);
-
     if (!data || data.length === 0) {
-      console.warn(`No files found in bucket "${bucket}" folder "${folder}"`);
       return [];
     }
 
@@ -55,14 +48,12 @@ export const getImagesFromFolder = async (
           const isImage = ["jpg", "jpeg", "png", "webp", "gif"].includes(
             extension || ""
           );
-          if (!isImage) {
-            console.log(`Skipping non-image file: ${file.name}`);
-          }
+
           return isImage;
         })
         .map((file: { name: string }): StorageImage => {
           const url = getImageUrl(bucket, folder, file.name);
-          console.log(`Image: ${file.name} -> URL: ${url}`);
+
           return {
             name: file.name,
             url: url,
@@ -70,11 +61,8 @@ export const getImagesFromFolder = async (
           };
         }) || [];
 
-    console.log(`Filtered image files:`, imageFiles);
-    console.log(`Total images found: ${imageFiles.length}`);
     return imageFiles;
   } catch (error) {
-    console.error("Error in getImagesFromFolder:", error);
     return [];
   }
 };

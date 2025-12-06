@@ -111,10 +111,7 @@ export default function Home() {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        console.log("Starting to fetch images from Supabase...");
         const images = await getImagesFromFolder("images", "banners");
-        console.log("Fetched images from Supabase:", images);
-        console.log("Number of images:", images?.length || 0);
 
         if (images && images.length > 0) {
           // Sort images: offer_1, offer_2, offer_3...offer_n first (in order), then rest
@@ -150,8 +147,6 @@ export default function Home() {
             return aName.localeCompare(bName);
           });
 
-          console.log("Sorted images:", sortedImages);
-
           // Transform Supabase images to match our gallery format
           const transformedImages: GalleryImage[] = sortedImages.map(
             (image: StorageImage, index: number) => ({
@@ -162,10 +157,8 @@ export default function Home() {
             })
           );
 
-          console.log("Transformed images:", transformedImages);
           setGalleryImages(transformedImages);
         } else {
-          console.warn("No images found in Supabase storage: images/landing");
           // Fallback to static images if no images found
           setGalleryImages([
             {
@@ -177,7 +170,6 @@ export default function Home() {
           ]);
         }
       } catch (error) {
-        console.error("Error fetching images from Supabase:", error);
         // Fallback to static images if Supabase fails
         setGalleryImages([
           {
