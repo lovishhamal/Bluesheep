@@ -122,6 +122,7 @@ export default function HeroCarousel({
             perspective: "1200px",
             height: isMobile ? "450px" : "100%",
             minHeight: isMobile ? "450px" : "500px",
+            marginTop: !isMobile ? "48px" : "0px",
           }}
         >
           <AnimatePresence mode="wait">
@@ -346,7 +347,9 @@ export default function HeroCarousel({
         className={`flex items-center justify-center gap-4 ${
           isMobile ? "mt-6" : "mt-8"
         }`}
-        style={{ marginTop: isMobile ? "calc(1.5rem + 6px)" : "calc(2rem + 6px)" }}
+        style={{
+          marginTop: isMobile ? "calc(1.5rem + 6px)" : "calc(2rem + 6px)",
+        }}
       >
         <button
           onClick={prevImage}
