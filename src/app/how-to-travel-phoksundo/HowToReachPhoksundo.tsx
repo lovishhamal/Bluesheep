@@ -1,11 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 export default function HowToReachPhoksundo() {
   const componentMountedRef = useRef(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     componentMountedRef.current = true;
@@ -20,7 +23,7 @@ export default function HowToReachPhoksundo() {
         "@type": "TravelAction",
         name: "How to Travel to Phoksundo Lake, Dolpa",
         description:
-          "Complete travel guide from Kathmandu to Phoksundo Lake, Dolpa - Trekking routes, travel times, and costs",
+          "Complete travel guide from Kathmandu to Phoksundo Lake, Dolpa - Trekking routes and travel times",
         object: {
           "@type": "TouristAttraction",
           name: "Phoksundo Lake",
@@ -86,6 +89,59 @@ export default function HowToReachPhoksundo() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Navigation */}
+      <nav className="w-full bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 border-b border-emerald-700/30 sticky top-0 z-50 backdrop-blur-sm shadow-lg shadow-emerald-500/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <Link href="/" className="flex items-center">
+              <img
+                src="/logo.png"
+                alt="Hotel Blue Sheep Inn Logo"
+                className="h-12 w-auto rounded-lg shadow-md"
+              />
+            </Link>
+            <div className="hidden md:flex space-x-8">
+              <Link
+                href="/"
+                className="text-white font-medium transition-colors duration-200 hover:text-emerald-100"
+              >
+                Home
+              </Link>
+            </div>
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-white hover:text-emerald-100 transition-colors duration-200"
+              >
+                {isMobileMenuOpen ? (
+                  <XMarkIcon className="h-6 w-6" />
+                ) : (
+                  <Bars3Icon className="h-6 w-6" />
+                )}
+              </button>
+            </div>
+          </div>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden border-t border-emerald-700/30"
+            >
+              <div className="py-4 space-y-4">
+                <Link
+                  href="/"
+                  className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Home
+                </Link>
+              </div>
+            </motion.div>
+          )}
+        </div>
+      </nav>
+
       <section className="py-16 lg:py-24 bg-gradient-to-br from-white via-emerald-50/30 to-blue-50 relative overflow-hidden">
         <div className="absolute inset-0">
           <motion.div
@@ -199,21 +255,14 @@ export default function HowToReachPhoksundo() {
                       <p className="text-gray-600 mb-3">
                         Kathmandu → Dunai → Phoksundo Lake (Trek)
                       </p>
-                      <div className="grid sm:grid-cols-2 gap-3 mt-4">
+                      <div className="grid sm:grid-cols-1 gap-3 mt-4">
                         <div className="flex items-center gap-2 text-emerald-600 font-semibold">
                           <span>⏱️</span>
                           <span>5-7 days total</span>
                         </div>
-                        <div className="flex items-center gap-2 text-blue-600 font-semibold">
-                          <span>💰</span>
-                          <span>~NPR 8,000-12,000</span>
-                        </div>
                       </div>
                       <p className="text-sm text-gray-500 mt-3 italic">
                         First reach Dunai (30-36 hours), then trek 2-3 days to Phoksundo Lake
-                      </p>
-                      <p className="text-xs text-amber-600 mt-2 font-medium">
-                        * Price may vary - includes guide, porter, and permits
                       </p>
                     </div>
                   </div>
@@ -246,7 +295,7 @@ export default function HowToReachPhoksundo() {
                         Fly to Juphal, then trek to Phoksundo Lake (faster but more expensive)
                       </p>
                       <p className="text-xs text-amber-600 mt-2 font-medium">
-                        * Flight prices and schedules may vary - check with airlines
+                        * Flight schedules may vary - check with airlines
                       </p>
                     </div>
                   </div>
@@ -264,7 +313,7 @@ export default function HowToReachPhoksundo() {
                   <span>📊</span>
                   <span>Journey Summary to Phoksundo Lake</span>
                 </h4>
-                <div className="grid sm:grid-cols-2 gap-4 mb-4">
+                <div className="grid sm:grid-cols-1 gap-4 mb-4">
                   <div className="bg-white/60 rounded-lg p-4">
                     <p className="text-sm text-gray-600 mb-1">Total Duration</p>
                     <p className="text-2xl font-bold text-gray-900">
@@ -274,24 +323,12 @@ export default function HowToReachPhoksundo() {
                       Including trek time
                     </p>
                   </div>
-                  <div className="bg-white/60 rounded-lg p-4">
-                    <p className="text-sm text-gray-600 mb-1">Total Cost</p>
-                    <p className="text-2xl font-bold text-gray-900">
-                      NPR 8,000-12,000
-                    </p>
-                    <p className="text-xs text-gray-500 mt-1">
-                      Including permits & guide
-                    </p>
-                    <p className="text-xs text-amber-600 mt-1 font-medium">
-                      * Prices may vary
-                    </p>
-                  </div>
                 </div>
 
-                <div className="mt-4 p-3 bg-amber-50 border border-amber-200/50 rounded-lg">
-                  <p className="text-xs text-amber-800">
-                    <span className="font-semibold">⚠️ Important Note:</span>{" "}
-                    Phoksundo Lake requires trekking permits and a guide. The prices, travel times, and schedules shown here are estimates and may change. We recommend contacting trekking agencies directly to confirm current prices, permits, and departure times.
+                <div className="mt-4 p-3 bg-blue-50 border border-blue-200/50 rounded-lg">
+                  <p className="text-xs text-blue-800">
+                    <span className="font-semibold">💡 Travel Tip:</span>{" "}
+                    Phoksundo Lake requires trekking permits for this incredible adventure. The travel times and schedules shown here are estimates. We recommend contacting trekking agencies directly to secure permits and confirm current schedules for an unforgettable journey.
                   </p>
                 </div>
               </motion.div>

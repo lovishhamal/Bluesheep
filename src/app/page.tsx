@@ -362,6 +362,25 @@ export default function Home() {
               >
                 Contact
               </Link>
+              {/* SEO Travel Links - For review later */}
+              <Link
+                href="/how-to-travel-dunai-dolpa"
+                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium text-xs"
+              >
+                Travel to Dunai Dolpa
+              </Link>
+              <Link
+                href="/how-to-travel-dho"
+                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium text-xs"
+              >
+                Travel to Dho
+              </Link>
+              <Link
+                href="/how-to-travel-phoksundo"
+                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium text-xs"
+              >
+                Travel to Phoksundo
+              </Link>
             </div>
 
             {/* Mobile menu button */}
@@ -429,6 +448,28 @@ export default function Home() {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Contact
+                </Link>
+                {/* SEO Travel Links - For review later */}
+                <Link
+                  href="/how-to-travel-dunai-dolpa"
+                  className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium text-sm"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Travel to Dunai Dolpa
+                </Link>
+                <Link
+                  href="/how-to-travel-dho"
+                  className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium text-sm"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Travel to Dho
+                </Link>
+                <Link
+                  href="/how-to-travel-phoksundo"
+                  className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium text-sm"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Travel to Phoksundo
                 </Link>
               </div>
             </motion.div>
