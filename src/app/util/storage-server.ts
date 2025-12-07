@@ -105,20 +105,22 @@ export const getPublicLinks = async (
     });
 
     if (error) {
-      console.error("[Supabase] Error fetching public links:", error);
       return [];
     }
 
+    // Cast data to PublicLink[] type
+    const typedData = (data as PublicLink[]) || [];
+
     // If sort_order column exists, sort by it; otherwise keep created_at order
-    if (data && data.length > 0 && "sort_order" in data[0]) {
-      data.sort((a, b) => {
-        const aOrder = (a as any).sort_order ?? Infinity;
-        const bOrder = (b as any).sort_order ?? Infinity;
+    if (typedData && typedData.length > 0 && "sort_order" in typedData[0]) {
+      typedData.sort((a, b) => {
+        const aOrder = a.sort_order ?? Infinity;
+        const bOrder = b.sort_order ?? Infinity;
         return aOrder - bOrder;
       });
     }
 
-    return (data as PublicLink[]) || [];
+    return typedData;
   } catch (error) {
     console.error("[Supabase] Error fetching public links:", error);
     return [];
