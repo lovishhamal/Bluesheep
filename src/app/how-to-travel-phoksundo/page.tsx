@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import HowToReachPhoksundo from "./HowToReachPhoksundo";
+import { getPrimaryVideo } from "../util/storage-server";
 
 export const metadata: Metadata = {
   title: "How to Travel to Phoksundo Lake, Dolpa - Complete Travel Guide 2024",
@@ -15,7 +16,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HowToTravelPhoksundoPage() {
-  return <HowToReachPhoksundo />;
+export default async function HowToTravelPhoksundoPage() {
+  const videoUrl = await getPrimaryVideo();
+  return <HowToReachPhoksundo videoUrl={videoUrl} />;
 }
 

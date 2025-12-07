@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
@@ -29,6 +29,30 @@ export default function HeroCarousel({
 }: HeroCarouselProps) {
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Only handle if carousel container or its children are focused
+      if (
+        carouselRef.current &&
+        (carouselRef.current.contains(document.activeElement) ||
+          document.activeElement === carouselRef.current)
+      ) {
+        if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          prevImage();
+        } else if (e.key === "ArrowRight") {
+          e.preventDefault();
+          nextImage();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [nextImage, prevImage]);
 
   // Touch handlers for mobile swipe
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -53,7 +77,9 @@ export default function HeroCarousel({
     }
   };
 
-  if (images.length === 0) return null;
+  if (images.length === 0) {
+    return null;
+  }
 
   // Show up to 3 stacked cards
   const visibleCards = 3;
@@ -67,17 +93,22 @@ export default function HeroCarousel({
   return (
     <div className="w-full h-full flex flex-col items-center">
       <div
+        ref={carouselRef}
         className={`relative w-full flex items-center justify-center ${
           isMobile ? "min-h-[450px] py-0" : "min-h-[500px] lg:min-h-[600px]"
         }`}
         style={{
-          minHeight: isMobile ? "450px" : undefined,
+          minHeight: isMobile ? "min(45vh, 450px)" : undefined,
+          maxHeight: isMobile ? "min(55vh, 500px)" : undefined,
         }}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
         onMouseEnter={() => setIsAutoPlay(false)}
         onMouseLeave={() => setIsAutoPlay(true)}
+        tabIndex={0}
+        role="region"
+        aria-label="Hero image carousel. Use arrow keys to navigate."
       >
         {/* Mobile-only Decorative Background Elements */}
         {isMobile && (
@@ -118,7 +149,11 @@ export default function HeroCarousel({
 
         {/* Stacked Cards Container */}
         <div
+          id="hero-carousel-images"
           className="relative w-full max-w-2xl mx-auto"
+          role="region"
+          aria-label="Hero image carousel"
+          aria-live="polite"
           style={{
             perspective: "1200px",
             height: isMobile ? "436px" : "calc(100% - 104px)",
@@ -214,12 +249,16 @@ export default function HeroCarousel({
                       }}
                     >
                       <Image
-                        src={images[imageIndex]?.src}
-                        alt={images[imageIndex]?.alt}
-                        width={800}
-                        height={600}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
+                        src={images[imageIndex]?.src || "/phoksundo.jpg"}
+                        alt={images[imageIndex]?.alt || "Hotel Blue Sheep Inn"}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 800px, 1200px"
+                        priority={isTop && imageIndex === 0}
+                        quality={80}
+                        onError={() => {
+                          // Image failed to load - could set error state here if needed
+                        }}
                       />
 
                       {/* Gradient Overlay - Only on top card */}
@@ -288,7 +327,9 @@ export default function HeroCarousel({
                       isMobile ? "w-2 h-2" : "w-2 h-2"
                     } bg-white/60 hover:bg-white/80`
               }`}
-              aria-label={`Go to image ${index + 1}`}
+              aria-label={`Go to image ${index + 1} of ${images.length}`}
+              aria-current={index === currentIndex ? "true" : "false"}
+              type="button"
             >
               {index === currentIndex && (
                 <motion.div
@@ -380,6 +421,8 @@ export default function HeroCarousel({
               : "w-12 h-12 bg-white/95 backdrop-blur-sm hover:bg-white"
           }`}
           aria-label="Previous image"
+          aria-controls="hero-carousel-images"
+          type="button"
         >
           <ChevronLeftIcon
             className={`text-emerald-600 group-hover:scale-110 transition-transform ${
@@ -395,6 +438,8 @@ export default function HeroCarousel({
               : "w-12 h-12 bg-white/95 backdrop-blur-sm hover:bg-white"
           }`}
           aria-label="Next image"
+          aria-controls="hero-carousel-images"
+          type="button"
         >
           <ChevronRightIcon
             className={`text-emerald-600 group-hover:scale-110 transition-transform ${

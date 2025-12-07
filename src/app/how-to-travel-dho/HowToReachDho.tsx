@@ -6,10 +6,18 @@ import Link from "next/link";
 import Image from "next/image";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
-export default function HowToReachDho() {
+interface HowToReachDhoProps {
+  videoUrl?: string | null;
+}
+
+export default function HowToReachDho({ videoUrl }: HowToReachDhoProps) {
   const componentMountedRef = useRef(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  // Default video URL if not provided (fallback)
+  const defaultVideoUrl = "https://ik.imagekit.io/yds5g1shj/travel.MP4";
+  const finalVideoUrl = videoUrl || defaultVideoUrl;
 
   useEffect(() => {
     componentMountedRef.current = true;
@@ -222,7 +230,7 @@ export default function HowToReachDho() {
                   poster="/phoksundo.jpg"
                 >
                   <source
-                    src="https://drvmkdicefvtuhiqznce.supabase.co/storage/v1/object/public/images/travel.MP4"
+                    src={finalVideoUrl}
                     type="video/mp4"
                   />
                   Your browser does not support the video tag.
