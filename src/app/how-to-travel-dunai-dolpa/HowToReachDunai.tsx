@@ -227,7 +227,7 @@ export default function HowToReachDunai() {
                   poster="/phoksundo.jpg"
                 >
                   <source
-                    src="https://drvmkdicefvtuhiqznce.supabase.co/storage/v1/object/public/images/travel.MP4"
+                    src="/travel.MP4"
                     type="video/mp4"
                   />
                   Your browser does not support the video tag.

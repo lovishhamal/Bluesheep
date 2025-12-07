@@ -175,10 +175,7 @@ export default function HowToReach() {
                   preload="metadata"
                   poster="/phoksundo.jpg"
                 >
-                  <source
-                    src="https://drvmkdicefvtuhiqznce.supabase.co/storage/v1/object/public/images/travel.MP4"
-                    type="video/mp4"
-                  />
+                  <source src="/travel.MP4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
                 {/* Decorative gradient overlay */}
