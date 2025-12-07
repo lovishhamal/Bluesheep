@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import HowToReachDho from "./HowToReachDho";
+import { getPrimaryVideo } from "../util/storage-server";
 
 export const metadata: Metadata = {
   title: "How to Travel to Dho, Dolpa - Complete Travel Guide 2024",
@@ -15,7 +16,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HowToTravelDhoPage() {
-  return <HowToReachDho />;
+export default async function HowToTravelDhoPage() {
+  const videoUrl = await getPrimaryVideo();
+  return <HowToReachDho videoUrl={videoUrl} />;
 }
 

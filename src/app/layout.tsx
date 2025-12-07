@@ -42,11 +42,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5, // Allows some user zoom for accessibility
-  },
+
   metadataBase: new URL("https://hotelbluesheepinn.com"),
   alternates: {
     canonical: "/",

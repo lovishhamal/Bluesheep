@@ -70,11 +70,14 @@ export const transformBannerImages = (
   });
 
   // Transform Supabase images to match our gallery format
-  return sortedImages.map((image: StorageImage, index: number) => ({
-    src: image.url,
-    alt: image.alt,
-    title: getImageTitle(image.name, index),
-    description: getImageDescription(image.name),
-  }));
-};
+  const transformed = sortedImages.map(
+    (image: StorageImage, index: number) => ({
+      src: image.url,
+      alt: image.alt,
+      title: getImageTitle(image.name, index),
+      description: getImageDescription(image.name),
+    })
+  );
 
+  return transformed;
+};

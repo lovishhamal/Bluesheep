@@ -15,10 +15,7 @@ import {
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import {
-  StorageImage,
-  Review,
-} from "../util/storage";
+import { StorageImage, Review } from "../util/storage";
 import { getWhatsAppUrl, getTelUrl, PHONE_NUMBER } from "../util/constants";
 import { useIsMobile } from "../util/useIsMobile";
 import HowToReach from "./HowToReach";
@@ -29,12 +26,14 @@ interface HomeClientProps {
   initialGalleryImages: GalleryImage[];
   initialReviews: Review[];
   initialHotelGalleryImages: StorageImage[];
+  videoUrl?: string | null;
 }
 
 export default function HomeClient({
   initialGalleryImages,
   initialReviews,
   initialHotelGalleryImages,
+  videoUrl,
 }: HomeClientProps) {
   const router = useRouter();
   const isMobile = useIsMobile();
@@ -118,7 +117,8 @@ export default function HomeClient({
       (img) => img.name === selectedHotelGalleryImage.name
     );
     const prevIndex =
-      (currentIndex - 1 + hotelGalleryImages.length) % hotelGalleryImages.length;
+      (currentIndex - 1 + hotelGalleryImages.length) %
+      hotelGalleryImages.length;
     setSelectedHotelGalleryImage(hotelGalleryImages[prevIndex]);
   }, [selectedHotelGalleryImage, hotelGalleryImages]);
 
@@ -146,6 +146,14 @@ export default function HomeClient({
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Skip Navigation Link - Accessibility */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-emerald-600 focus:text-white focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2"
+      >
+        Skip to main content
+      </a>
+
       {/* Navigation - With Green Gradient */}
       <nav className="w-full bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 border-b border-emerald-700/30 sticky top-0 z-50 backdrop-blur-sm shadow-lg shadow-emerald-500/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -281,6 +289,7 @@ export default function HomeClient({
       </nav>
 
       <section
+        id="main-content"
         className="relative min-h-[550px] flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden pt-6 lg:pt-0 lg:-mt-3 pb-8 lg:pb-12"
         style={{ minHeight: isMobile ? "100vh" : undefined }}
       >
@@ -575,7 +584,7 @@ export default function HomeClient({
       </section>
 
       {/* Routes Section - How to Reach Hotel Blue Sheep Inn */}
-      <HowToReach />
+      <HowToReach videoUrl={videoUrl} />
 
       {/* Features Section - Ultra Creative */}
       <section className="py-0 md:py-14 bg-gradient-to-br from-white via-emerald-50/30 to-blue-50 relative overflow-hidden">

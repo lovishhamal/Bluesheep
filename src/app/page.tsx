@@ -1,15 +1,19 @@
-import { getImagesFromFolder, getReviews } from "./util/storage-server";
+import { getImagesFromFolder, getReviews, getPrimaryVideo } from "./util/storage-server";
 import { transformBannerImages } from "./util/image-helpers";
 import { StorageImage, Review } from "./util/storage";
 import { GalleryImage } from "./components/CreativeImageCarousel";
 import HomeClient from "./components/HomeClient";
+import { getCarouselImagesFromSupabase } from "./util/carousel-images-config";
 
 export default async function Home() {
   // Fetch all data server-side
-  const [bannerImages, reviews, hotelGalleryImages] = await Promise.all([
-    getImagesFromFolder("images", "banners"),
+  // Carousel images from Supabase public_links table (type='image')
+  // Videos from Supabase public_links table (type='video')
+  const [bannerImages, reviews, hotelGalleryImages, videoUrl] = await Promise.all([
+    getCarouselImagesFromSupabase(),
     getReviews(),
     getImagesFromFolder("images", "gallery"),
+    getPrimaryVideo(),
   ]);
 
   // Transform banner images
@@ -21,6 +25,7 @@ export default async function Home() {
       initialGalleryImages={initialGalleryImages}
       initialReviews={reviews}
       initialHotelGalleryImages={hotelGalleryImages}
+      videoUrl={videoUrl}
     />
   );
 }

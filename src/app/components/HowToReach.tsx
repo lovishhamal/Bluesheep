@@ -3,9 +3,17 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 
-export default function HowToReach() {
+interface HowToReachProps {
+  videoUrl?: string | null;
+}
+
+export default function HowToReach({ videoUrl }: HowToReachProps) {
   const componentMountedRef = useRef(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  
+  // Default video URL if not provided (fallback)
+  const defaultVideoUrl = "https://ik.imagekit.io/yds5g1shj/travel.MP4";
+  const finalVideoUrl = videoUrl || defaultVideoUrl;
 
   useEffect(() => {
     componentMountedRef.current = true;
@@ -175,7 +183,7 @@ export default function HowToReach() {
                   preload="metadata"
                   poster="/phoksundo.jpg"
                 >
-                  <source src="/travel.MP4" type="video/mp4" />
+                  <source src={finalVideoUrl} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
                 {/* Decorative gradient overlay */}
