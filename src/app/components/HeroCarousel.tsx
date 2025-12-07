@@ -71,7 +71,8 @@ export default function HeroCarousel({
           isMobile ? "min-h-[450px] py-0" : "min-h-[500px] lg:min-h-[600px]"
         }`}
         style={{
-          minHeight: isMobile ? "450px" : undefined,
+          minHeight: isMobile ? "min(45vh, 450px)" : undefined,
+          maxHeight: isMobile ? "min(55vh, 500px)" : undefined,
         }}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
