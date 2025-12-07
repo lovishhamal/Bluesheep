@@ -10,7 +10,7 @@ interface HowToReachProps {
 export default function HowToReach({ videoUrl }: HowToReachProps) {
   const componentMountedRef = useRef(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-  
+
   // Default video URL if not provided (fallback)
   const defaultVideoUrl = "https://ik.imagekit.io/yds5g1shj/travel.MP4";
   const finalVideoUrl = videoUrl || defaultVideoUrl;
@@ -226,8 +226,8 @@ export default function HowToReach({ videoUrl }: HowToReachProps) {
                         </span>
                       </div>
                       <p className="text-gray-600 mb-3">
-                        Kathmandu (Gongabu) → Pokhara → Baglung → Rukum (Radi) →
-                        Tallubagar → Dunai
+                        Kathmandu (Gongabu) → Pokhara → Baglung → NepalGunj →
+                        JajarKot → Rukum (Radi) → Tallubagar → Dunai
                       </p>
                       <div className="grid sm:grid-cols-1 gap-3 mt-4">
                         <div className="flex items-center gap-2 text-emerald-600 font-semibold">

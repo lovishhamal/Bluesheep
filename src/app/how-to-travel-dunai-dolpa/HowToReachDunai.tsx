@@ -14,7 +14,7 @@ export default function HowToReachDunai({ videoUrl }: HowToReachDunaiProps) {
   const componentMountedRef = useRef(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
+
   // Default video URL if not provided (fallback)
   const defaultVideoUrl = "https://ik.imagekit.io/yds5g1shj/travel.MP4";
   const finalVideoUrl = videoUrl || defaultVideoUrl;
@@ -234,10 +234,7 @@ export default function HowToReachDunai({ videoUrl }: HowToReachDunaiProps) {
                   preload="metadata"
                   poster="/phoksundo.jpg"
                 >
-                  <source
-                    src={finalVideoUrl}
-                    type="video/mp4"
-                  />
+                  <source src={finalVideoUrl} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
@@ -278,8 +275,8 @@ export default function HowToReachDunai({ videoUrl }: HowToReachDunaiProps) {
                         </span>
                       </div>
                       <p className="text-gray-600 mb-3">
-                        Kathmandu (Gongabu) → Pokhara → Baglung → Rukum (Radi) →
-                        Tallubagar → Dunai
+                        Kathmandu (Gongabu) → Pokhara → Baglung → NepalGunj →
+                        JajarKot → Rukum (Radi) → Tallubagar → Dunai
                       </p>
                       <div className="grid sm:grid-cols-1 gap-3 mt-4">
                         <div className="flex items-center gap-2 text-emerald-600 font-semibold">
@@ -288,7 +285,9 @@ export default function HowToReachDunai({ videoUrl }: HowToReachDunaiProps) {
                         </div>
                       </div>
                       <p className="text-sm text-gray-500 mt-3 italic">
-                        Direct journey through scenic mountain routes - experience the authentic beauty of Nepal&apos;s remote landscapes
+                        Direct journey through scenic mountain routes -
+                        experience the authentic beauty of Nepal&apos;s remote
+                        landscapes
                       </p>
                     </div>
                   </div>
@@ -354,7 +353,9 @@ export default function HowToReachDunai({ videoUrl }: HowToReachDunaiProps) {
                           </span>
                         </div>
                         <p className="text-xs text-blue-600 font-semibold mt-2">
-                          💡 Journey includes scenic bridge crossing at Tallubagar with opportunity to experience local transportation
+                          💡 Journey includes scenic bridge crossing at
+                          Tallubagar with opportunity to experience local
+                          transportation
                         </p>
                       </div>
                     </div>
@@ -465,11 +466,12 @@ export default function HowToReachDunai({ videoUrl }: HowToReachDunaiProps) {
 
                 <div className="mt-4 p-3 bg-blue-50 border border-blue-200/50 rounded-lg">
                   <p className="text-xs text-blue-800">
-                    <span className="font-semibold">💡 Travel Tip:</span>{" "}
-                    The travel times and schedules shown here are estimates. Flight schedules depend on weather and
-                    availability. We recommend contacting bus companies or
-                    airlines directly to confirm current schedules and departure
-                    times for the best travel experience.
+                    <span className="font-semibold">💡 Travel Tip:</span> The
+                    travel times and schedules shown here are estimates. Flight
+                    schedules depend on weather and availability. We recommend
+                    contacting bus companies or airlines directly to confirm
+                    current schedules and departure times for the best travel
+                    experience.
                   </p>
                 </div>
               </motion.div>
@@ -480,4 +482,3 @@ export default function HowToReachDunai({ videoUrl }: HowToReachDunaiProps) {
     </div>
   );
 }
-
