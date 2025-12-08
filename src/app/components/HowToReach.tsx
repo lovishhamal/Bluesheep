@@ -192,6 +192,234 @@ export default function HowToReach({ videoUrl }: HowToReachProps) {
               {/* Floating decorative elements */}
               <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-emerald-300/30 to-blue-300/30 rounded-full blur-2xl -z-10" />
               <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-gradient-to-br from-blue-300/30 to-emerald-300/30 rounded-full blur-2xl -z-10" />
+
+              {/* Ultra Creative Parking Section - Below Video */}
+              <motion.div
+                initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 100 }}
+                viewport={{ once: true }}
+                className="mt-8 relative group"
+              >
+                {/* Main Card with 3D Effect */}
+                <div className="relative overflow-hidden rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500">
+                  {/* Animated Gradient Background */}
+                  <motion.div
+                    animate={{
+                      backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
+                    }}
+                    transition={{
+                      duration: 10,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                    className="absolute inset-0 bg-gradient-to-br from-emerald-500/80 via-blue-500/70 to-emerald-600/80"
+                    style={{ backgroundSize: "200% 200%" }}
+                  />
+
+                  {/* Animated Particles/Orbs */}
+                  <motion.div
+                    animate={{
+                      x: [0, 100, 0],
+                      y: [0, -50, 0],
+                      scale: [1, 1.5, 1],
+                      opacity: [0.1, 0.3, 0.1],
+                    }}
+                    transition={{
+                      duration: 8,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    className="absolute top-10 right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"
+                  />
+                  <motion.div
+                    animate={{
+                      x: [0, -80, 0],
+                      y: [0, 60, 0],
+                      scale: [1, 1.3, 1],
+                      opacity: [0.1, 0.25, 0.1],
+                    }}
+                    transition={{
+                      duration: 10,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    className="absolute bottom-10 left-10 w-48 h-48 bg-white/10 rounded-full blur-3xl"
+                  />
+
+                  {/* Content Container */}
+                  <div className="relative z-10 p-8 md:p-10">
+                    <div className="flex flex-col md:flex-row items-center gap-8">
+                      {/* Left Side - Animated Icon with Multiple Layers */}
+                      <div className="flex-shrink-0 relative">
+                        {/* Rotating Ring 1 */}
+                        <motion.div
+                          animate={{ rotate: 360 }}
+                          transition={{
+                            duration: 20,
+                            repeat: Infinity,
+                            ease: "linear",
+                          }}
+                          className="absolute inset-0 w-32 h-32 border-4 border-white/20 border-dashed rounded-full"
+                        />
+                        
+                        {/* Rotating Ring 2 - Opposite Direction */}
+                        <motion.div
+                          animate={{ rotate: -360 }}
+                          transition={{
+                            duration: 15,
+                            repeat: Infinity,
+                            ease: "linear",
+                          }}
+                          className="absolute inset-2 w-28 h-28 border-4 border-white/15 border-dotted rounded-full"
+                        />
+
+                        {/* Center Icon with Pulse */}
+                        <motion.div
+                          animate={{
+                            scale: [1, 1.1, 1],
+                            rotate: [0, 5, -5, 0],
+                          }}
+                          transition={{
+                            duration: 4,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          }}
+                          className="relative w-32 h-32 bg-white rounded-2xl flex items-center justify-center shadow-2xl"
+                        >
+                          <span className="text-6xl">🚗</span>
+                          
+                          {/* Glow Effect */}
+                          <div className="absolute -inset-2 bg-white/30 rounded-2xl blur-xl"></div>
+                        </motion.div>
+
+                        {/* Floating Particles Around Icon */}
+                        {[...Array(4)].map((_, i) => (
+                          <motion.div
+                            key={i}
+                            animate={{
+                              y: [0, -20, 0],
+                              opacity: [0, 1, 0],
+                            }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              delay: i * 0.5,
+                              ease: "easeInOut",
+                            }}
+                            className="absolute w-2 h-2 bg-white rounded-full"
+                            style={{
+                              top: `${20 + i * 20}%`,
+                              left: `${-10 + i * 30}%`,
+                            }}
+                          />
+                        ))}
+                      </div>
+
+                      {/* Right Side - Content */}
+                      <div className="flex-1 text-center md:text-left">
+                        {/* Badge */}
+                        <motion.div
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.3 }}
+                          viewport={{ once: true }}
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 mb-4"
+                        >
+                          <span className="text-white text-sm font-semibold">🅿️ PARKING FACILITY</span>
+                        </motion.div>
+
+                        {/* Title with Gradient Text */}
+                        <motion.h3
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.4 }}
+                          viewport={{ once: true }}
+                          className="text-3xl md:text-4xl font-black text-white mb-4 leading-tight"
+                        >
+                          Ample Parking Space
+                          <br />
+                          <span className="text-2xl md:text-3xl font-bold text-white/90">
+                            Right at Your Doorstep
+                          </span>
+                        </motion.h3>
+
+                        {/* Description */}
+                        <motion.p
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.5 }}
+                          viewport={{ once: true }}
+                          className="text-white/90 text-lg mb-6 leading-relaxed"
+                        >
+                          Our parking area is easily accessible and located right at the hotel premises
+                        </motion.p>
+
+                        {/* Feature Pills */}
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.6 }}
+                          viewport={{ once: true }}
+                          className="flex flex-wrap gap-3 justify-center md:justify-start"
+                        >
+                          {[
+                            { icon: "🚙", text: "Spacious" },
+                            { icon: "🔒", text: "Secure" },
+                            { icon: "🆓", text: "Free for Guests" },
+                            { icon: "✨", text: "Well-Maintained" },
+                          ].map((feature, index) => (
+                            <motion.div
+                              key={index}
+                              whileHover={{ scale: 1.05, y: -2 }}
+                              className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 shadow-lg"
+                            >
+                              <span className="text-xl">{feature.icon}</span>
+                              <span className="text-white font-semibold text-sm">
+                                {feature.text}
+                              </span>
+                            </motion.div>
+                          ))}
+                        </motion.div>
+
+                        {/* Bottom Text */}
+                        <motion.p
+                          initial={{ opacity: 0 }}
+                          whileInView={{ opacity: 1 }}
+                          transition={{ delay: 0.7 }}
+                          viewport={{ once: true }}
+                          className="text-white/80 text-sm mt-6 italic"
+                        >
+                          Whether you're arriving by car or renting a vehicle to explore Dolpa, we have you covered with our spacious parking facilities
+                        </motion.p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Decorative Corner Elements */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-bl-full"></div>
+                  <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-tr-full"></div>
+                  
+                  {/* Shine Effect on Hover */}
+                  <motion.div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{
+                      background: "linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)",
+                      backgroundSize: "200% 200%",
+                    }}
+                    animate={{
+                      backgroundPosition: ["0% 0%", "100% 100%"],
+                    }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                    }}
+                  />
+                </div>
+
+                {/* 3D Shadow Effect */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/40 via-blue-500/40 to-emerald-600/40 rounded-3xl blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-500 -z-10"></div>
+              </motion.div>
             </motion.div>
 
             {/* Routes Information */}
