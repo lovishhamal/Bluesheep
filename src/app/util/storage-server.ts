@@ -18,7 +18,9 @@ export const getImagesFromFolder = async (
 ): Promise<StorageImage[]> => {
   try {
     const supabase = await createClient();
-    const { data, error } = await supabase.storage.from(bucket).list(folder);
+    const { data, error } = await supabase.storage.from(bucket).list(folder, {
+      sortBy: { column: 'created_at', order: 'desc' }
+    });
 
     if (error) {
       return [];
