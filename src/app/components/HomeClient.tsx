@@ -95,11 +95,25 @@ export default function HomeClient({
   const openHotelGalleryModal = (image: StorageImage) => {
     setSelectedHotelGalleryImage(image);
     setIsHotelGalleryModalOpen(true);
+    // Prevent body scroll on iOS
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.height = '100%';
+    }
   };
 
   const closeHotelGalleryModal = () => {
     setIsHotelGalleryModalOpen(false);
     setSelectedHotelGalleryImage(null);
+    // Restore body scroll on iOS
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
+    }
   };
 
   const navigateToNextHotelGalleryImage = useCallback(() => {
@@ -846,11 +860,8 @@ export default function HomeClient({
                         loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div className="absolute bottom-4 left-4 right-4">
-                          <h3 className="text-white font-bold text-lg capitalize mb-1">
-                            {image.alt}
-                          </h3>
-                          <p className="text-emerald-300 text-sm font-medium">
+                        <div className="absolute bottom-4 left-4 right-4 text-center">
+                          <p className="text-white text-sm font-medium">
                             Click to view larger
                           </p>
                         </div>
@@ -1872,19 +1883,33 @@ export default function HomeClient({
         </div>
       </footer>
 
-      {/* Hotel Gallery Modal */}
+      {/* Hotel Gallery Modal - iOS Compatible */}
       {isHotelGalleryModalOpen && selectedHotelGalleryImage && (
-        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
+        <div 
+          className="fixed inset-0 bg-black/90 z-[9999] flex items-center justify-center p-4"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            WebkitOverflowScrolling: 'touch',
+            touchAction: 'none',
+          }}
+          onClick={closeHotelGalleryModal}
+        >
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             className="relative w-full h-full max-w-7xl max-h-[90vh] flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
             <button
               onClick={closeHotelGalleryModal}
-              className="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors"
+              className="absolute top-4 right-4 z-10 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-colors shadow-lg"
+              aria-label="Close gallery"
             >
               <XMarkIcon className="w-6 h-6" />
             </button>
@@ -1894,13 +1919,15 @@ export default function HomeClient({
               <>
                 <button
                   onClick={navigateToPreviousHotelGalleryImage}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-colors"
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-colors shadow-lg"
+                  aria-label="Previous image"
                 >
                   <ChevronLeftIcon className="w-6 h-6" />
                 </button>
                 <button
                   onClick={navigateToNextHotelGalleryImage}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-colors"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-colors shadow-lg"
+                  aria-label="Next image"
                 >
                   <ChevronRightIcon className="w-6 h-6" />
                 </button>
@@ -1909,39 +1936,29 @@ export default function HomeClient({
 
             {/* Image */}
             <div className="relative w-full h-full flex items-center justify-center">
-              <Image
+              <img
                 src={selectedHotelGalleryImage.url}
                 alt={selectedHotelGalleryImage.alt}
-                width={1200}
-                height={800}
                 className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
                 style={{
+                  maxWidth: '100%',
+                  maxHeight: '100%',
+                  width: 'auto',
+                  height: 'auto',
                   WebkitTransform: "translateZ(0)",
                   transform: "translateZ(0)",
                   WebkitBackfaceVisibility: "hidden",
                   backfaceVisibility: "hidden",
                   imageRendering: "auto",
                 }}
+                loading="eager"
               />
             </div>
 
-            {/* Image Info */}
-            <div className="absolute bottom-4 left-4 right-4 bg-black/50 rounded-lg p-4">
-              <h3 className="text-white font-semibold text-xl font-montserrat capitalize mb-2">
-                {selectedHotelGalleryImage.alt}
-              </h3>
-              {hotelGalleryImages.length > 1 && (
-                <p className="text-gray-300 text-sm">
-                  {hotelGalleryImages.findIndex(
-                    (img) => img.name === selectedHotelGalleryImage.name
-                  ) + 1}{" "}
-                  of {hotelGalleryImages.length}
-                </p>
-              )}
-            </div>
 
-            {/* Keyboard Instructions */}
-            <div className="absolute top-4 left-4 bg-black/50 rounded-lg p-3 text-white text-sm">
+
+            {/* Keyboard Instructions - Hidden on Mobile */}
+            <div className="hidden md:block absolute top-4 left-4 bg-black/70 rounded-lg p-3 text-white text-sm backdrop-blur-sm">
               <p>Use ← → arrow keys to navigate</p>
               <p>Press ESC to close</p>
             </div>
