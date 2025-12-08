@@ -285,12 +285,12 @@ export default function HowToReach({ videoUrl }: HowToReachProps) {
                             repeat: Infinity,
                             ease: "easeInOut",
                           }}
-                          className="relative w-32 h-32 bg-white rounded-2xl flex items-center justify-center shadow-2xl"
+                          className="relative w-32 h-32 bg-white/70 rounded-2xl flex items-center justify-center shadow-2xl"
                         >
                           <span className="text-6xl">🚗</span>
                           
                           {/* Glow Effect */}
-                          <div className="absolute -inset-2 bg-white/30 rounded-2xl blur-xl"></div>
+                          <div className="absolute -inset-2 bg-white/15 rounded-2xl blur-xl"></div>
                         </motion.div>
 
                         {/* Floating Particles Around Icon */}
