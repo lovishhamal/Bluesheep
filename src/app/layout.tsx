@@ -46,29 +46,136 @@ export const metadata: Metadata = {
     "Phoksundo hotel",
     "hotel near Phoksundo",
     "hotel near Phoksundo Lake",
-    // How to Reach Keywords - CRITICAL for your SEO
+    
+    // HOW TO REACH - All Variations
     "how to reach Dunai",
     "how to reach Dolpa",
     "how to reach Phoksundo",
     "how to reach Phoksundo Lake",
     "how to reach Dho Tarap",
     "how to reach Dho",
+    "how to reach Dunai Dolpa",
+    "how to reach Dolpa Nepal",
+    "how to reach Shey Phoksundo",
+    
+    // HOW TO GET - All Variations
+    "how to get to Dunai",
+    "how to get to Dolpa",
+    "how to get to Phoksundo",
+    "how to get to Phoksundo Lake",
+    "how to get to Dho Tarap",
+    "how to get to Dho",
+    "how to get to Dunai Dolpa",
+    "how to get to Dolpa Nepal",
+    
+    // HOW TO GO - All Variations
     "how to go to Dunai",
     "how to go to Dolpa",
+    "how to go to Phoksundo",
+    "how to go to Phoksundo Lake",
+    "how to go to Dho Tarap",
+    "how to go to Dho",
+    "how to go Dunai",
+    "how to go Dolpa",
+    
+    // HOW TO TRAVEL - All Variations
     "how to travel to Dunai",
     "how to travel to Dolpa",
     "how to travel to Phoksundo",
+    "how to travel to Phoksundo Lake",
+    "how to travel to Dho Tarap",
+    "how to travel to Dho",
+    "how to travel Dunai",
+    "how to travel Dolpa",
+    
+    // TRAVEL TO - All Variations
+    "travel to Dunai",
+    "travel to Dolpa",
+    "travel to Phoksundo",
+    "travel to Phoksundo Lake",
+    "travel to Dho Tarap",
+    "travel to Dho",
+    "traveling to Dunai",
+    "traveling to Dolpa",
+    "travelling to Dunai",
+    "travelling to Dolpa",
+    
+    // WAY TO - All Variations
+    "way to Dunai",
+    "way to Dolpa",
+    "way to Phoksundo",
+    "way to reach Dunai",
+    "way to reach Dolpa",
+    "way to reach Phoksundo",
+    "best way to Dunai",
+    "best way to Dolpa",
+    "best way to reach Dunai",
+    "best way to reach Dolpa",
+    
+    // GETTING TO - All Variations
+    "getting to Dunai",
+    "getting to Dolpa",
+    "getting to Phoksundo",
+    "getting to Phoksundo Lake",
+    "getting to Dho Tarap",
+    
+    // ROUTE/ROAD TO - All Variations
+    "route to Dunai",
+    "route to Dolpa",
+    "route to Phoksundo",
+    "road to Dunai",
+    "road to Dolpa",
+    "road to Phoksundo",
+    
+    // FROM KATHMANDU - All Variations
+    "Kathmandu to Dunai",
+    "Kathmandu to Dolpa",
+    "Kathmandu to Phoksundo",
+    "Kathmandu to Dho Tarap",
+    "from Kathmandu to Dunai",
+    "from Kathmandu to Dolpa",
+    
+    // FROM OTHER CITIES
+    "Nepalgunj to Dunai",
+    "Nepalgunj to Dolpa",
+    "Juphal to Dunai",
+    "Pokhara to Dolpa",
+    "Pokhara to Dunai",
+    
+    // TRANSPORT METHODS
+    "flight to Dolpa",
+    "flight to Dunai",
+    "flight to Juphal",
+    "bus to Dolpa",
+    "bus to Dunai",
+    "jeep to Dunai",
+    "trek to Phoksundo",
+    "trek to Dho Tarap",
+    
+    // TRAVEL GUIDES
     "Dunai travel guide",
     "Dolpa travel guide",
     "Phoksundo travel guide",
-    "route to Dunai",
-    "route to Dolpa",
-    "Kathmandu to Dunai",
-    "Kathmandu to Dolpa",
-    "Nepalgunj to Dunai",
-    "Juphal to Dunai",
-    "flight to Dolpa",
-    "bus to Dolpa",
+    "Phoksundo Lake travel guide",
+    "Dho Tarap travel guide",
+    "Dolpa Nepal travel guide",
+    "Dunai Dolpa guide",
+    
+    // VISIT/VISITING
+    "visit Dunai",
+    "visit Dolpa",
+    "visit Phoksundo",
+    "visiting Dunai",
+    "visiting Dolpa",
+    "visiting Phoksundo Lake",
+    
+    // TRIP TO
+    "trip to Dunai",
+    "trip to Dolpa",
+    "trip to Phoksundo",
+    "Dolpa trip",
+    "Phoksundo trip",
+    
     // Accommodation Keywords
     "accommodation in Dunai",
     "accommodation in Dolpa",
@@ -76,12 +183,20 @@ export const metadata: Metadata = {
     "stay in Dolpa",
     "lodging Dunai",
     "lodging Dolpa",
+    "where to stay Dunai",
+    "where to stay Dolpa",
+    "where to stay Phoksundo",
+    "place to stay Dunai",
+    "place to stay Dolpa",
+    
     // Facilities Keywords
     "garden restaurant Dolpa",
     "camping in Dolpa",
     "camping Dunai",
     "parking in Dunai",
     "WiFi hotel Dolpa",
+    "restaurant in Dunai",
+    "food in Dunai",
   ],
   applicationName: "Hotel Blue Sheep Inn", // ✅ CRITICAL: Shows site name in Google Search
   authors: [{ name: "Hotel Blue Sheep Inn" }],
@@ -539,7 +654,7 @@ export default function RootLayout({
                 },
                 {
                   "@type": "Question",
-                  name: "How to reach Dolpa from Kathmandu?",
+                  name: "How to get to Dolpa from Kathmandu?",
                   acceptedAnswer: {
                     "@type": "Answer",
                     text: "From Kathmandu to Dolpa: Take a direct bus from Gongabu Bus Park (30 hours continuous journey), or fly from Kathmandu to Juphal Airport (45 minutes) then travel to Dunai. Alternative route: Bus to Radi, Rukum (24-25 hours) then local jeep to Dunai (6-8 hours). Stay at Hotel Blue Sheep Inn in Dunai for comfortable accommodation.",
@@ -547,7 +662,7 @@ export default function RootLayout({
                 },
                 {
                   "@type": "Question",
-                  name: "How to reach Phoksundo Lake?",
+                  name: "How to travel to Phoksundo Lake?",
                   acceptedAnswer: {
                     "@type": "Answer",
                     text: "To reach Phoksundo Lake: First reach Dunai (via bus or flight to Juphal), then trek from Dunai to Phoksundo Lake (2-3 days trek). Hotel Blue Sheep Inn in Dunai is the perfect base for your Phoksundo Lake trek, offering comfortable rooms and local guidance.",
@@ -555,7 +670,7 @@ export default function RootLayout({
                 },
                 {
                   "@type": "Question",
-                  name: "How to reach Dho Tarap from Dunai?",
+                  name: "How to go to Dho Tarap from Dunai?",
                   acceptedAnswer: {
                     "@type": "Answer",
                     text: "From Dunai to Dho Tarap: Trek from Dunai to Dho Tarap village (highest village in Nepal at 4,200m) taking 3-4 days. Start your journey from Hotel Blue Sheep Inn in Dunai with proper preparation and local guidance.",
@@ -563,10 +678,26 @@ export default function RootLayout({
                 },
                 {
                   "@type": "Question",
-                  name: "What is the best way to travel to Dolpa?",
+                  name: "What is the best way to reach Dolpa?",
                   acceptedAnswer: {
                     "@type": "Answer",
                     text: "The fastest way is flying from Kathmandu to Juphal (45 mins) then traveling to Dunai. For budget travelers, take the direct bus from Kathmandu (30 hours) or bus to Radi then jeep to Dunai. Hotel Blue Sheep Inn in Dunai offers parking facilities for those driving.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "How do I get to Phoksundo?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Getting to Phoksundo: Fly or take bus to Dunai, then trek 2-3 days to Phoksundo Lake. Hotel Blue Sheep Inn in Dunai provides accommodation, parking, and local trekking guidance for your Phoksundo journey.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "What is the route to Dunai?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Route to Dunai: 1) Kathmandu → Pokhara → Baglung → NepalGunj → JajarKot → Rukum (Radi) → Tallubagar → Dunai (direct bus, 30 hours), 2) Kathmandu → Radi → Dunai (bus + jeep, 30-36 hours), or 3) Kathmandu → Juphal → Dunai (flight + jeep, fastest). Stay at Hotel Blue Sheep Inn upon arrival.",
                   },
                 },
                 {
@@ -575,6 +706,22 @@ export default function RootLayout({
                   acceptedAnswer: {
                     "@type": "Answer",
                     text: "Hotel Blue Sheep Inn is the best hotel in Dunai, Dolpa offering luxury accommodation with mountain views, garden restaurant, camping facilities, free WiFi, and ample parking space. Located in the heart of Dunai, it's the perfect base for exploring Phoksundo Lake and Dho Tarap.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "How long does it take to travel to Dolpa?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Travel time to Dolpa: By flight 45 minutes (Kathmandu to Juphal), by direct bus 30 hours (Kathmandu to Dunai), or by bus+jeep combo 30-36 hours. Hotel Blue Sheep Inn in Dunai welcomes you after your journey with comfortable rooms and excellent facilities.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Can I drive to Dunai Dolpa?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Yes, you can drive to Dunai, Dolpa via the Kathmandu-Pokhara-Baglung-NepalGunj-Rukum-Dunai route. The journey takes approximately 30-36 hours. Hotel Blue Sheep Inn offers ample parking facilities for guests arriving by car.",
                   },
                 },
               ],

@@ -390,7 +390,7 @@ export default function HowToReach({ videoUrl }: HowToReachProps) {
                           viewport={{ once: true }}
                           className="text-white/80 text-sm mt-6 italic"
                         >
-                          Whether you're arriving by car or renting a vehicle to explore Dolpa, we have you covered with our spacious parking facilities
+                          Whether you&apos;re arriving by car or renting a vehicle to explore Dolpa, we have you covered with our spacious parking facilities
                         </motion.p>
                       </div>
                     </div>
