@@ -65,6 +65,43 @@ export default function HowToReachDho({ videoUrl }: HowToReachDhoProps) {
       script.id = "how-to-travel-dho-structured-data";
       script.text = JSON.stringify(structuredData);
 
+      // FAQ Structured Data
+      const faqData = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "How do I reach Dho Tarap?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Fly from Kathmandu to Nepalgunj and then to Juphal. From Juphal, trek via Dunai, Tarakot, and Laina Odar. It typically takes 4-5 days of trekking to reach Dho Tarap.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Is Dho Tarap accessible by road?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "The road network is expanding, but currently, it is primarily a trekking route. Jeeps may be available for parts of the journey depending on the season and road conditions.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "What is the altitude of Dho Tarap?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Dho Tarap is located at an altitude of approximately 4,080 meters (13,386 feet), making it one of the highest human settlements in the world.",
+            },
+          },
+        ],
+      };
+
+      const faqScript = document.createElement("script");
+      faqScript.type = "application/ld+json";
+      faqScript.id = "how-to-travel-dho-faq-data";
+      faqScript.text = JSON.stringify(faqData);
+
       const existingScript = document.getElementById(
         "how-to-travel-dho-structured-data"
       );
@@ -72,11 +109,19 @@ export default function HowToReachDho({ videoUrl }: HowToReachDhoProps) {
         existingScript.remove();
       }
 
+      const existingFaqScript = document.getElementById(
+        "how-to-travel-dho-faq-data"
+      );
+      if (existingFaqScript) {
+        existingFaqScript.remove();
+      }
+
       if (!document.head) {
         return;
       }
 
       document.head.appendChild(script);
+      document.head.appendChild(faqScript);
     } catch {
       // Silently handle errors
     }
@@ -89,6 +134,12 @@ export default function HowToReachDho({ videoUrl }: HowToReachDhoProps) {
         );
         if (scriptToRemove) {
           scriptToRemove.remove();
+        }
+        const faqScriptToRemove = document.getElementById(
+          "how-to-travel-dho-faq-data"
+        );
+        if (faqScriptToRemove) {
+          faqScriptToRemove.remove();
         }
       } catch {
         // Silently handle cleanup errors
@@ -200,11 +251,11 @@ export default function HowToReachDho({ videoUrl }: HowToReachDhoProps) {
             </motion.div>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
               <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                How to Travel to Dho, Dolpa
+                How to Reach Dho, Dolpa
               </span>
             </h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Complete travel guide from Kathmandu to Dho, Dolpa - Your
+              Complete guide on how to reach Dho, Dolpa from Kathmandu - Your
               adventure to Upper Dolpa begins here
             </p>
           </motion.div>

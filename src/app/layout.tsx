@@ -290,48 +290,7 @@ export default function RootLayout({
         {/* Theme color for mobile browsers */}
         <meta name="theme-color" content="#059669" />
 
-        {/* Structured Data Scripts - Critical for Google Search */}
-        {/* WebSite Schema */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              name: "Hotel Blue Sheep Inn",
-              alternateName: [
-                "Bluesheep",
-                "bluesheep",
-                "Blue Sheep",
-                "Blue Sheep Hotel",
-                "Blue Sheep Inn",
-                "Hotel Blue Sheep",
-                "Hotel Bluesheep",
-                "Hotel Blue Sheep Inn",
-                "Bluesheep Hotel",
-                "Bluesheep Inn",
-              ],
-              url: "https://hotelbluesheepinn.com",
-              logo: {
-                "@type": "ImageObject",
-                url: "https://hotelbluesheepinn.com/logo.png",
-                width: 512,
-                height: 512,
-              },
-              potentialAction: {
-                "@type": "SearchAction",
-                target: {
-                  "@type": "EntryPoint",
-                  urlTemplate:
-                    "https://hotelbluesheepinn.com/?s={search_term_string}",
-                },
-                "query-input": "required name=search_term_string",
-              },
-            }),
-          }}
-        />
-
-        {/* Hotel Schema */}
+        {/* Hotel Schema - Global */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
