@@ -3,15 +3,15 @@ import HowToReachPhoksundo from "./HowToReachPhoksundo";
 import { getPrimaryVideo } from "../util/storage-server";
 
 export const metadata: Metadata = {
-  title: "How to Travel to Phoksundo Lake, Dolpa - Complete Travel Guide 2024",
+  title: "How to Reach Phoksundo Lake | Complete Travel Guide 2024",
   description:
-    "Complete guide on how to travel to Phoksundo Lake, Dolpa. Find trekking routes, travel times, costs, and tips for your journey to Phoksundo Lake, Nepal's deepest lake.",
+    "Learn how to reach Phoksundo Lake in Dolpa. Step-by-step guide on flights to Juphal, trekking routes to Phoksundo, costs, and itinerary. Experience the deepest lake in Nepal.",
   keywords:
-    "how to travel to phoksundo lake, phoksundo travel guide, phoksundo lake dolpa, kathmandu to phoksundo, phoksundo trek, phoksundo lake travel",
+    "how to reach phoksundo, how to reach phoksundo lake, how to travel to phoksundo, kathmandu to phoksundo, trekking to phoksundo, shey phoksundo national park, dolpa trek",
   openGraph: {
-    title: "How to Travel to Phoksundo Lake, Dolpa - Complete Travel Guide",
+    title: "How to Reach Phoksundo Lake | Complete Travel Guide",
     description:
-      "Complete guide on how to travel to Phoksundo Lake, Dolpa. Find trekking routes, travel times, and costs.",
+      "Learn how to reach Phoksundo Lake in Dolpa. Step-by-step guide on flights, trekking routes, and itinerary. Experience the deepest lake in Nepal.",
     type: "website",
   },
 };

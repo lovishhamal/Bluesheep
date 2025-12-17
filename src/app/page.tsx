@@ -20,12 +20,26 @@ export default async function Home() {
   const initialGalleryImages: GalleryImage[] =
     transformBannerImages(bannerImages);
 
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Hotel Blue Sheep Inn",
+    alternateName: ["Blue Sheep Inn", "Hotel Blue Sheep", "Bluesheep"],
+    url: "https://hotelbluesheepinn.com",
+  };
+
   return (
-    <HomeClient
-      initialGalleryImages={initialGalleryImages}
-      initialReviews={reviews}
-      initialHotelGalleryImages={hotelGalleryImages}
-      videoUrl={videoUrl}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      <HomeClient
+        initialGalleryImages={initialGalleryImages}
+        initialReviews={reviews}
+        initialHotelGalleryImages={hotelGalleryImages}
+        videoUrl={videoUrl}
+      />
+    </>
   );
 }

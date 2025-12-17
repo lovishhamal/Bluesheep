@@ -3,15 +3,15 @@ import HowToReachDunai from "./HowToReachDunai";
 import { getPrimaryVideo } from "../util/storage-server";
 
 export const metadata: Metadata = {
-  title: "How to Travel to Dunai Dolpa - Complete Travel Guide 2024",
+  title: "How to Reach Dunai Dolpa | Complete Travel Guide 2024",
   description:
-    "Complete guide on how to travel to Dunai, Dolpa. Find bus routes, flight options, travel times, costs, and tips for your journey from Kathmandu to Dunai, Dolpa, Nepal.",
+    "Discover how to reach Dunai Dolpa. Detailed guide on bus routes, flight options from Kathmandu to Nepalgunj to Juphal, and trekking to Dunai. Plan your trip to Dolpa now!",
   keywords:
-    "how to travel to dunai dolpa, dunai travel guide, dolpa travel, kathmandu to dunai, dunai bus route, dunai flight, travel to dolpa",
+    "how to reach dunai dolpa, how to reach dolpa, how to travel to dunai, kathmandu to dunai, nepalgunj to dunai, juphal to dunai, dunai travel guide, dolpa travel",
   openGraph: {
-    title: "How to Travel to Dunai Dolpa - Complete Travel Guide",
+    title: "How to Reach Dunai Dolpa | Complete Travel Guide",
     description:
-      "Complete guide on how to travel to Dunai, Dolpa. Find bus routes, flight options, travel times, and costs.",
+      "Discover how to reach Dunai Dolpa. Detailed guide on bus routes, flight options, and trekking. Plan your trip to Dolpa now!",
     type: "website",
   },
 };
