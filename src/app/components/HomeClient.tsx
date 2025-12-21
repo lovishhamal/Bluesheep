@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
@@ -48,6 +48,8 @@ export default function HomeClient({
   );
   const [isLoadingHotelGallery] = useState(false);
   const [hotelGalleryError] = useState<string | null>(null);
+  const hotelGallerySectionRef = useRef<HTMLElement | null>(null);
+  const [isHotelGalleryActivated, setIsHotelGalleryActivated] = useState(false);
   const [selectedHotelGalleryImage, setSelectedHotelGalleryImage] =
     useState<StorageImage | null>(null);
   const [isHotelGalleryModalOpen, setIsHotelGalleryModalOpen] = useState(false);
@@ -74,6 +76,24 @@ export default function HomeClient({
     return () => {
       featureCards.forEach((card) => observer.unobserve(card));
     };
+  }, []);
+
+  useEffect(() => {
+    const element = hotelGallerySectionRef.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setIsHotelGalleryActivated(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" }
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
   }, []);
 
   // Navigate to camping page
@@ -791,7 +811,10 @@ export default function HomeClient({
       </section>
 
       {/* Hotel Gallery Section - Masonry Grid */}
-      <section className="py-16 lg:py-24 bg-white">
+      <section
+        ref={hotelGallerySectionRef}
+        className="py-16 lg:py-24 bg-white"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -834,8 +857,17 @@ export default function HomeClient({
             </div>
           )}
 
+          {!isHotelGalleryActivated && (
+            <div className="text-center py-12">
+              <p className="text-gray-600 mt-4 text-lg">
+                Gallery loads when you scroll down
+              </p>
+            </div>
+          )}
+
           {/* Masonry Layout */}
-          {!isLoadingHotelGallery &&
+          {isHotelGalleryActivated &&
+            !isLoadingHotelGallery &&
             !hotelGalleryError &&
             hotelGalleryImages.length > 0 && (
               <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 gap-4 sm:gap-6 space-y-4 sm:space-y-6">
@@ -858,6 +890,8 @@ export default function HomeClient({
                         height={600}
                         className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-110"
                         loading="lazy"
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                        quality={70}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div className="absolute bottom-4 left-4 right-4 text-center">
@@ -873,7 +907,8 @@ export default function HomeClient({
             )}
 
           {/* No Images State */}
-          {!isLoadingHotelGallery &&
+          {isHotelGalleryActivated &&
+            !isLoadingHotelGallery &&
             !hotelGalleryError &&
             hotelGalleryImages.length === 0 && (
               <div className="text-center py-12">
