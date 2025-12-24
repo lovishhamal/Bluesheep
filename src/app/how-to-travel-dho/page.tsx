@@ -3,15 +3,15 @@ import HowToReachDho from "./HowToReachDho";
 import { getPrimaryVideo } from "../util/storage-server";
 
 export const metadata: Metadata = {
-  title: "How to Reach Dho Tarap | Complete Travel Guide 2024",
+  title: "How to Travel to Dho, Dolpa - Complete Travel Guide 2024",
   description:
-    "Find out how to reach Dho Tarap, Dolpa. Comprehensive guide on travel routes, flights, and trekking to the highest human settlement. Explore the hidden gem of Dolpa.",
+    "Complete guide on how to travel to Dho, Dolpa. Find bus routes, flight options, travel times, costs, and tips for your journey from Kathmandu to Dho, Dolpa, Nepal.",
   keywords:
-    "how to reach dho, how to reach dho tarap, how to reach dolpa, travel to dho tarap, kathmandu to dho, upper dolpa trek, dho tarap travel guide",
+    "how to travel to dho dolpa, dho travel guide, dolpa travel, kathmandu to dho, dho bus route, dho flight, travel to dho",
   openGraph: {
-    title: "How to Reach Dho Tarap | Complete Travel Guide",
+    title: "How to Travel to Dho, Dolpa - Complete Travel Guide",
     description:
-      "Find out how to reach Dho Tarap, Dolpa. Comprehensive guide on travel routes, flights, and trekking to the highest human settlement.",
+      "Complete guide on how to travel to Dho, Dolpa. Find bus routes, flight options, travel times, and costs.",
     type: "website",
   },
 };

@@ -1,12 +1,6 @@
 import { createClient } from "./supabase-server";
 import { StorageImage, Review } from "./storage";
 
-const sanitizePublicLinkUrl = (url: string) => {
-  const trimmed = url.trim();
-  if (trimmed.endsWith(")")) return trimmed.slice(0, -1);
-  return trimmed;
-};
-
 // Function to get public URL for images from Supabase storage (server-side)
 export const getImageUrl = (
   supabaseUrl: string,
@@ -164,14 +158,13 @@ export const getCarouselImages = async (): Promise<StorageImage[]> => {
 
     // Map links to StorageImage format
     const images = links.map((link): StorageImage => {
-      const sanitizedUrl = sanitizePublicLinkUrl(link.link);
       // Extract filename from URL (handle query params)
-      const urlWithoutParams = sanitizedUrl.split("?")[0];
+      const urlWithoutParams = link.link.split("?")[0];
       const fileName = urlWithoutParams.split("/").pop() || `image-${link.id}`;
 
       return {
         name: fileName,
-        url: sanitizedUrl,
+        url: link.link,
         alt:
           fileName
             .replace(/\.[^/.]+$/, "") // Remove file extension

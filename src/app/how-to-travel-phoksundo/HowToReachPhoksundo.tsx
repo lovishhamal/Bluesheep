@@ -65,43 +65,6 @@ export default function HowToReachPhoksundo({ videoUrl }: HowToReachPhoksundoPro
       script.id = "how-to-travel-phoksundo-structured-data";
       script.text = JSON.stringify(structuredData);
 
-      // FAQ Structured Data
-      const faqData = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        mainEntity: [
-          {
-            "@type": "Question",
-            name: "How do I reach Phoksundo Lake?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "To reach Phoksundo Lake, fly from Kathmandu to Nepalgunj, then to Juphal. From Juphal, trek for 2-3 days passing through Dunai, Chhepka, and Jharana Waterfall to reach the lake.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "How long is the trek to Phoksundo Lake?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "The trek usually takes 2-3 days from Juphal Airport. The return trip takes a similar amount of time.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Do I need a permit for Phoksundo Lake?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Yes, you need a Shey Phoksundo National Park entry permit and a Lower Dolpo Restricted Area Permit (if applicable based on route).",
-            },
-          },
-        ],
-      };
-
-      const faqScript = document.createElement("script");
-      faqScript.type = "application/ld+json";
-      faqScript.id = "how-to-travel-phoksundo-faq-data";
-      faqScript.text = JSON.stringify(faqData);
-
       const existingScript = document.getElementById(
         "how-to-travel-phoksundo-structured-data"
       );
@@ -109,19 +72,11 @@ export default function HowToReachPhoksundo({ videoUrl }: HowToReachPhoksundoPro
         existingScript.remove();
       }
 
-      const existingFaqScript = document.getElementById(
-        "how-to-travel-phoksundo-faq-data"
-      );
-      if (existingFaqScript) {
-        existingFaqScript.remove();
-      }
-
       if (!document.head) {
         return;
       }
 
       document.head.appendChild(script);
-      document.head.appendChild(faqScript);
     } catch {
       // Silently handle errors
     }
@@ -134,12 +89,6 @@ export default function HowToReachPhoksundo({ videoUrl }: HowToReachPhoksundoPro
         );
         if (scriptToRemove) {
           scriptToRemove.remove();
-        }
-        const faqScriptToRemove = document.getElementById(
-          "how-to-travel-phoksundo-faq-data"
-        );
-        if (faqScriptToRemove) {
-          faqScriptToRemove.remove();
         }
       } catch {
         // Silently handle cleanup errors
@@ -251,11 +200,11 @@ export default function HowToReachPhoksundo({ videoUrl }: HowToReachPhoksundoPro
             </motion.div>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
               <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                How to Reach Phoksundo Lake, Dolpa
+                How to Travel to Phoksundo Lake, Dolpa
               </span>
             </h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Complete guide on how to reach Phoksundo Lake - Nepal&apos;s deepest and most beautiful alpine lake
+              Complete travel guide to Phoksundo Lake - Nepal&apos;s deepest and most beautiful alpine lake
             </p>
           </motion.div>
 
