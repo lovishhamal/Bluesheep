@@ -142,12 +142,10 @@ export default function TravelGuideContent({ content, title }: TravelGuideConten
                   [&>h3]:text-xl [&>h3]:font-bold [&>h3]:text-emerald-700 [&>h3]:mt-8 [&>h3]:mb-4 [&>h3]:flex [&>h3]:items-center [&>h3]:gap-2 [&>h3]:scroll-mt-20
                   [&>h4]:text-lg [&>h4]:font-semibold [&>h4]:text-gray-800 [&>h4]:mt-6 [&>h4]:mb-3 [&>h4]:scroll-mt-20
                   [&>p]:text-gray-700 [&>p]:leading-relaxed [&>p]:mb-5 [&>p]:text-lg
-                  [&>ul]:list-none [&>ul]:pl-0 [&>ul]:mb-6 [&>ul]:space-y-3
-                  [&>ol]:list-none [&>ol]:pl-0 [&>ol]:mb-6 [&>ol]:space-y-3 [&>ol]:counter-reset-[list-counter]
-                  [&_li]:mb-3 [&_li]:p-4 [&_li]:bg-gray-50 [&_li]:rounded-lg [&_li]:border-l-4 [&_li]:border-emerald-400 [&_li]:relative [&_li]:pl-12
-                  [&_ul_li::before]:content-['✓'] [&_ul_li::before]:absolute [&_ul_li::before]:left-4 [&_ul_li::before]:top-4 [&_ul_li::before]:text-emerald-600 [&_ul_li::before]:font-bold
-                  [&_ol_li]:counter-increment-[list-counter] [&_ol_li::before]:content-[counter(list-counter)] [&_ol_li::before]:absolute [&_ol_li::before]:left-4 [&_ol_li::before]:top-4 [&_ol_li::before]:text-emerald-600 [&_ol_li::before]:font-bold [&_ol_li::before]:bg-emerald-100 [&_ol_li::before]:w-6 [&_ol_li::before]:h-6 [&_ol_li::before]:rounded-full [&_ol_li::before]:flex [&_ol_li::before]:items-center [&_ol_li::before]:justify-center [&_ol_li::before]:text-sm
-                  [&_strong]:text-gray-900 [&_strong]:font-semibold [&_strong]:bg-yellow-100 [&_strong]:px-1 [&_strong]:rounded
+                  [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:mb-6 [&>ul]:space-y-2
+                  [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:mb-6 [&>ol]:space-y-2
+                  [&_li]:mb-2 [&_li]:text-gray-700 [&_li]:leading-relaxed
+                  [&_strong]:text-gray-900 [&_strong]:font-semibold
                   [&_em]:text-emerald-700 [&_em]:font-medium [&_em]:not-italic
                   [&>blockquote]:border-l-4 [&>blockquote]:border-emerald-400 [&>blockquote]:bg-emerald-50 [&>blockquote]:rounded-xl [&>blockquote]:px-6 [&>blockquote]:py-5 [&>blockquote]:my-8 [&>blockquote]:relative
                   [&>blockquote::before]:content-['💡'] [&>blockquote::before]:absolute [&>blockquote::before]:top-5 [&>blockquote::before]:left-6 [&>blockquote::before]:text-xl

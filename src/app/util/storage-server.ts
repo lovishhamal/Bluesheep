@@ -14,12 +14,14 @@ export const getImageUrl = (
 // Function to list all images from a specific folder in a bucket (server-side)
 export const getImagesFromFolder = async (
   bucket: string,
-  folder: string
+  folder: string,
+  limit?: number
 ): Promise<StorageImage[]> => {
   try {
     const supabase = createPublicClient();
     const { data, error } = await supabase.storage.from(bucket).list(folder, {
-      sortBy: { column: 'created_at', order: 'desc' }
+      sortBy: { column: 'created_at', order: 'desc' },
+      limit: limit || 100 // Default limit to prevent loading too many images
     });
 
     if (error) {

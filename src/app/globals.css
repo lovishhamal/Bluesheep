@@ -407,10 +407,10 @@ body {
 
 @keyframes marquee-sweep-left-to-right {
   0% {
-    transform: translateX(-110%);
+    transform: translateX(0%);
   }
   100% {
-    transform: translateX(calc(100vw + 110%));
+    transform: translateX(calc(100vw + 50%));
   }
 }
 
@@ -425,7 +425,7 @@ body {
 .marquee__item {
   display: inline-flex;
   will-change: transform;
-  animation: marquee-sweep-left-to-right 15s linear infinite;
+  animation: marquee-sweep-left-to-right 25s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -513,6 +513,39 @@ body {
     padding: 12px;
     margin-bottom: 8px;
   }
+}
+
+/* Image optimization for camping gallery */
+.camping-image {
+  content-visibility: auto;
+  contain-intrinsic-size: 400px 300px;
+}
+
+/* Optimize image loading performance */
+img[loading="lazy"] {
+  content-visibility: auto;
+  contain-intrinsic-size: 400px 300px;
+}
+
+/* Reduce layout shift for images */
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-container::before {
+  content: '';
+  display: block;
+  padding-bottom: 75%; /* 4:3 aspect ratio */
+}
+
+.image-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Smooth scroll behavior for anchor links */
