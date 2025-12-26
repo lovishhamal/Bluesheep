@@ -210,7 +210,7 @@ export default async function TravelGuidePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-emerald-50/30">
+    <div className="min-h-screen bg-white">
       <Navigation currentPage="travel-guide" />
       
       <Script
@@ -234,7 +234,7 @@ export default async function TravelGuidePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      <section className="pt-4 pb-16 bg-gradient-to-br from-white via-emerald-50/30 to-blue-50 relative overflow-hidden">
+      <section className="pt-4 pb-16 bg-white relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-10 right-20 w-72 h-72 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-3xl" />
           <div className="absolute bottom-20 left-20 w-96 h-96 bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-3xl" />
