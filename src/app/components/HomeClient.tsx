@@ -166,152 +166,167 @@ export default function HomeClient({
         Skip to main content
       </a>
 
-      {/* Navigation - With Green Gradient */}
-      <nav className="w-full bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 border-b border-emerald-700/30 sticky top-0 z-50 backdrop-blur-sm shadow-lg shadow-emerald-500/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="flex items-center"
-            >
-              <Image
-                src="/logo.png"
-                alt="Hotel Blue Sheep Inn Logo"
-                width={48}
-                height={48}
-                className="h-12 w-auto rounded-lg shadow-md"
-                style={{
-                  WebkitTransform: "translateZ(0)",
-                  transform: "translateZ(0)",
-                  WebkitBackfaceVisibility: "hidden",
-                  backfaceVisibility: "hidden",
-                }}
-              />
-            </motion.div>
-            <div className="hidden md:flex space-x-8">
-              <Link
-                href="/"
-                className="text-white font-medium transition-colors duration-200 hover:text-emerald-100"
-              >
-                Home
-              </Link>
-              <Link
-                href="/rooms"
-                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
-              >
-                Rooms
-              </Link>
-              <Link
-                href="/menu"
-                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
-              >
-                Menu
-              </Link>
-              <Link
-                href="/camping"
-                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
-              >
-                Camping
-              </Link>
-              <Link
-                href="/attractions"
-                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
-              >
-                Attractions
-              </Link>
-              <Link
-                href="/travel-guide"
-                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
-              >
-                Travel Guide
-              </Link>
-              <Link
-                href="/contact"
-                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
-              >
-                Contact
-              </Link>
-            </div>
-
-            {/* Mobile menu button */}
-            <div className="md:hidden">
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-white hover:text-emerald-100 transition-colors duration-200"
-              >
-                {isMobileMenuOpen ? (
-                  <XMarkIcon className="h-6 w-6" />
-                ) : (
-                  <Bars3Icon className="h-6 w-6" />
-                )}
-              </button>
+      <div className="relative z-40">
+        <div className="w-full bg-gradient-to-r from-emerald-700 via-emerald-600 to-blue-600 text-white border-b border-white/10">
+          <div className="marquee">
+            <div className="marquee__sweep">
+              <span className="marquee__item inline-flex items-center gap-2 px-6 py-2 text-sm sm:text-base font-semibold tracking-wide whitespace-nowrap">
+                <span className="opacity-95">🅿️ Free Parking</span>
+                <span className="opacity-70">•</span>
+                <span className="opacity-90">Secure & Spacious</span>
+                <span className="opacity-70">•</span>
+                <span className="opacity-90">For All Guests</span>
+              </span>
             </div>
           </div>
+        </div>
+      </div>
 
-          {/* Mobile menu */}
-          {isMobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-emerald-700/30"
-            >
-              <div className="py-4 space-y-4">
+      <div className="sticky top-0 z-50">
+        <nav className="w-full bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 border-b border-emerald-700/30 backdrop-blur-sm shadow-lg shadow-emerald-500/20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center py-4">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="flex items-center"
+              >
+                <Image
+                  src="/logo.png"
+                  alt="Hotel Blue Sheep Inn Logo"
+                  width={48}
+                  height={48}
+                  className="h-12 w-auto rounded-lg shadow-md"
+                  style={{
+                    WebkitTransform: "translateZ(0)",
+                    transform: "translateZ(0)",
+                    WebkitBackfaceVisibility: "hidden",
+                    backfaceVisibility: "hidden",
+                  }}
+                />
+              </motion.div>
+              <div className="hidden md:flex space-x-8">
                 <Link
                   href="/"
-                  className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-white font-medium transition-colors duration-200 hover:text-emerald-100"
                 >
                   Home
                 </Link>
                 <Link
                   href="/rooms"
-                  className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                 >
                   Rooms
                 </Link>
                 <Link
                   href="/menu"
-                  className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                 >
                   Menu
                 </Link>
                 <Link
                   href="/camping"
-                  className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                 >
                   Camping
                 </Link>
                 <Link
                   href="/attractions"
-                  className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                 >
                   Attractions
                 </Link>
                 <Link
                   href="/travel-guide"
-                  className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                 >
                   Travel Guide
                 </Link>
                 <Link
                   href="/contact"
-                  className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                 >
                   Contact
                 </Link>
               </div>
-            </motion.div>
-          )}
-        </div>
-      </nav>
+
+              <div className="md:hidden">
+                <button
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className="text-white hover:text-emerald-100 transition-colors duration-200"
+                >
+                  {isMobileMenuOpen ? (
+                    <XMarkIcon className="h-6 w-6" />
+                  ) : (
+                    <Bars3Icon className="h-6 w-6" />
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {isMobileMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="md:hidden border-t border-emerald-700/30"
+              >
+                <div className="py-4 space-y-4">
+                  <Link
+                    href="/"
+                    className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Home
+                  </Link>
+                  <Link
+                    href="/rooms"
+                    className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Rooms
+                  </Link>
+                  <Link
+                    href="/menu"
+                    className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Menu
+                  </Link>
+                  <Link
+                    href="/camping"
+                    className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Camping
+                  </Link>
+                  <Link
+                    href="/attractions"
+                    className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Attractions
+                  </Link>
+                  <Link
+                    href="/travel-guide"
+                    className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Travel Guide
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Contact
+                  </Link>
+                </div>
+              </motion.div>
+            )}
+          </div>
+        </nav>
+      </div>
 
       <section
         id="main-content"
@@ -414,20 +429,6 @@ export default function HomeClient({
               >
                 Your gateway to the majestic Himalayas
               </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.55, duration: 0.6 }}
-                className="flex justify-center lg:justify-start"
-              >
-                <Link
-                  href="/travel-guide"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-emerald-200 text-emerald-700 font-semibold shadow-sm hover:shadow-md hover:bg-white transition-all"
-                >
-                  Travel Guide <span className="text-emerald-600">→</span>
-                </Link>
-              </motion.div>
 
               {/* Contact Info - Enhanced Button Style for Mobile - Hidden on Mobile */}
               <motion.div

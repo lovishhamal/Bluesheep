@@ -5,12 +5,6 @@ import { useEffect } from "react";
 import Link from "next/link";
 
 export default function HowToReach() {
-  const parkingFeatures = [
-    { icon: "🚙", text: "Spacious" },
-    { icon: "🔒", text: "Secure" },
-    { icon: "🆓", text: "Free for Guests" },
-    { icon: "✨", text: "Well-Maintained" },
-  ];
   const travelHighlights = [
     { icon: "🚌", title: "Bus Route", detail: "~30 hrs (direct)" },
     { icon: "✈️", title: "Flight", detail: "~45 min to Juphal" },
@@ -148,13 +142,13 @@ export default function HowToReach() {
             </p>
           </motion.div>
 
-          <div className="grid lg:grid-cols-[1.2fr_1fr] gap-8 lg:gap-12 items-start">
+          <div className="flex justify-center">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7 }}
               viewport={{ once: true }}
-              className="relative overflow-hidden rounded-3xl border border-emerald-200/60 shadow-xl bg-white/70 backdrop-blur-sm"
+              className="relative w-full max-w-5xl overflow-hidden rounded-3xl border border-emerald-200/60 shadow-xl bg-white/70 backdrop-blur-sm"
             >
               <motion.div
                 animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
@@ -224,74 +218,6 @@ export default function HowToReach() {
                   </motion.div>
                   <div className="text-sm text-gray-600">
                     Includes routes, stops, and tips for first-time travelers.
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7 }}
-              viewport={{ once: true }}
-              className="relative overflow-hidden rounded-3xl border border-emerald-200/60 shadow-xl bg-white/70 backdrop-blur-sm"
-            >
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(16,185,129,0.16),transparent_45%),radial-gradient(circle_at_80%_70%,rgba(59,130,246,0.14),transparent_50%)]" />
-              <motion.div
-                animate={{ opacity: [0.25, 0.45, 0.25] }}
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-20 left-10 w-56 h-56 bg-gradient-to-br from-emerald-400/20 to-blue-400/20 rounded-full blur-2xl"
-              />
-              <div className="relative p-6 sm:p-8">
-                <div className="flex items-center justify-between gap-4 mb-4">
-                  <div className="flex items-center gap-3">
-                    <motion.div
-                      animate={{ y: [0, -4, 0] }}
-                      transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                      className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-blue-500 flex items-center justify-center shadow-lg shadow-emerald-500/20"
-                    >
-                      <span className="text-2xl">🅿️</span>
-                    </motion.div>
-                    <div>
-                      <h3 className="text-2xl sm:text-3xl font-black text-gray-900">
-                        Parking
-                      </h3>
-                      <div className="text-gray-700 font-medium">
-                        Right at the hotel premises
-                      </div>
-                    </div>
-                  </div>
-                  <div className="hidden sm:block px-3 py-1.5 rounded-full bg-white/70 border border-emerald-200/60 text-gray-900 font-bold text-sm">
-                    Guest-friendly
-                  </div>
-                </div>
-
-                <div className="mt-5 flex flex-wrap gap-3">
-                  {parkingFeatures.map((feature, idx) => (
-                    <motion.div
-                      key={feature.text}
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4, delay: idx * 0.05 }}
-                      viewport={{ once: true }}
-                      className="flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-200/60 bg-white/80 shadow-sm"
-                    >
-                      <span className="text-lg">{feature.icon}</span>
-                      <span className="text-gray-900 font-semibold text-sm">
-                        {feature.text}
-                      </span>
-                    </motion.div>
-                  ))}
-                </div>
-
-                <div className="mt-6 rounded-2xl border border-emerald-200/60 bg-white/70 px-5 py-4">
-                  <div className="flex items-center gap-2 text-gray-900 font-bold">
-                    <span>💬</span>
-                    <span>Need help on arrival?</span>
-                  </div>
-                  <div className="text-gray-700 text-sm mt-1">
-                    Message us for the latest road condition and local jeep
-                    timings.
                   </div>
                 </div>
               </div>

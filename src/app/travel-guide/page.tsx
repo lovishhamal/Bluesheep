@@ -156,13 +156,13 @@ export default async function TravelGuidePage() {
         </div>
       </nav>
 
-      <section className="py-4 lg:py-12 bg-gradient-to-br from-white via-emerald-50/30 to-blue-50 relative overflow-hidden">
+      <section className="py-4 bg-gradient-to-br from-white via-emerald-50/30 to-blue-50 relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-10 right-20 w-72 h-72 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-3xl" />
           <div className="absolute bottom-20 left-20 w-96 h-96 bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-3xl" />
         </div>
 
-        <div className="max-w-7xl mx-auto px-3 relative z-10">
+        <div className="px-12 mx-auto px-3 relative z-10">
           <div className="text-center mb-12 lg:mb-16">
             <div className="inline-block mb-4">
               <span className="text-5xl">🗺️</span>

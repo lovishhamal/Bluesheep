@@ -395,3 +395,42 @@ body {
   clip: auto;
   white-space: normal;
 }
+
+@keyframes marquee-left-to-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes marquee-sweep-left-to-right {
+  0% {
+    transform: translateX(-110%);
+  }
+  100% {
+    transform: translateX(calc(100vw + 110%));
+  }
+}
+
+.marquee {
+  overflow: hidden;
+}
+
+.marquee__sweep {
+  width: 100%;
+}
+
+.marquee__item {
+  display: inline-flex;
+  will-change: transform;
+  animation: marquee-sweep-left-to-right 15s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__item {
+    animation: none;
+    transform: translateX(0%);
+  }
+}
