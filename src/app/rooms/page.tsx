@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
 import {
   HomeIcon,
   WifiIcon,
@@ -10,16 +9,15 @@ import {
   EyeIcon,
   CheckIcon,
   UserIcon,
+  CalendarIcon,
+  CurrencyDollarIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { supabase } from "../util/supabase";
-import { getWhatsAppUrl } from "../util/constants";
 import { useState, useEffect } from "react";
-import { useIsMobile } from "../util/useIsMobile";
-import { useRouter } from "next/navigation";
 
 // Room interface matching your database schema
 interface Room {
@@ -33,14 +31,11 @@ interface Room {
   start_date?: string; // timestamptz
   end_date?: string; // timestamptz
   is_available: boolean;
-  status?: string; // Room status: 'available', 'checked_in', etc.
   created_at: string;
   updated_at: string;
 }
 
 export default function RoomsPage() {
-  const router = useRouter();
-  const isMobile = useIsMobile();
   const [rooms, setRooms] = useState<Room[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -49,56 +44,45 @@ export default function RoomsPage() {
   }>({});
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
+  const [bookingType, setBookingType] = useState<"book" | "reserve">("book");
   const [bookingForm, setBookingForm] = useState({
     customerName: "",
     customerEmail: "",
     customerPhone: "",
-    numberOfGuests: "",
     specialRequests: "",
   });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [hoveredRoomId, setHoveredRoomId] = useState<string | null>(null);
-
-  // Intersection Observer for room cards
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Room is visible
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const roomCards = document.querySelectorAll("[data-room-id]");
-    roomCards.forEach((card) => observer.observe(card));
-
-    return () => {
-      roomCards.forEach((card) => observer.unobserve(card));
-    };
-  }, [rooms]);
 
   // Fetch rooms from database
   useEffect(() => {
     const fetchRooms = async () => {
       try {
         setLoading(true);
+        console.log("Fetching rooms from database...");
+
+        // Check if Supabase is configured
+        if (
+          !process.env.NEXT_PUBLIC_SUPABASE_URL ||
+          !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+        ) {
+          throw new Error("Supabase environment variables not configured");
+        }
 
         const { data, error } = await supabase
           .from("rooms")
           .select("*")
           .order("price_per_night", { ascending: true });
 
+        console.log("Supabase response:", { data, error });
+
         if (error) {
           throw error;
         }
 
         setRooms(data || []);
+        console.log("Rooms loaded successfully:", data?.length || 0, "rooms");
       } catch (err) {
+        console.error("Error fetching rooms:", err);
         setError(
           `Failed to load rooms: ${
             err instanceof Error ? err.message : "Unknown error"
@@ -111,28 +95,6 @@ export default function RoomsPage() {
 
     fetchRooms();
   }, []);
-
-  // Prevent body scroll when modal is open (iOS fix)
-  useEffect(() => {
-    if (isBookingModalOpen || isImageModalOpen) {
-      // Save current scroll position
-      const scrollY = window.scrollY;
-      // Prevent body scroll
-      document.body.style.position = "fixed";
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = "100%";
-      document.body.style.overflow = "hidden";
-
-      return () => {
-        // Restore scroll position
-        document.body.style.position = "";
-        document.body.style.top = "";
-        document.body.style.width = "";
-        document.body.style.overflow = "";
-        window.scrollTo(0, scrollY);
-      };
-    }
-  }, [isBookingModalOpen, isImageModalOpen]);
 
   // Format price for display
   const formatPrice = (price: number) => {
@@ -148,11 +110,7 @@ export default function RoomsPage() {
 
   // Handle booking
   const handleBooking = (room: Room) => {
-    if (isMobile) {
-      // On mobile, navigate to booking page
-      router.push(`/rooms/booking?id=${room.id}`);
-    } else {
-      // On desktop, show modal
+    if (room.is_available) {
       setSelectedRoom(room);
       setIsBookingModalOpen(true);
     }
@@ -173,34 +131,32 @@ export default function RoomsPage() {
     }
 
     // Create WhatsApp message with form data
-    const message = `🏨 *Hotel Blue Sheep Inn - Room Booking Request*
+    const message = `Hi! I'm interested in ${
+      bookingType === "book" ? "booking" : "reserving"
+    } the ${selectedRoom.room_name} room.
 
-*Room Details:*
-• Room: ${selectedRoom.room_name}
-• Capacity: ${selectedRoom.capacity} ${
-      selectedRoom.capacity === 1 ? "guest" : "guests"
-    }
-• Price: ${formatPrice(selectedRoom.price_per_night)}/night
-${
-  bookingForm.numberOfGuests
-    ? `• Number of Guests: ${bookingForm.numberOfGuests}`
-    : ""
-}
+Room Details:
+- Room: ${selectedRoom.room_name}
+- Price: ${formatPrice(selectedRoom.price_per_night)} per night
+- Capacity: ${selectedRoom.capacity} guests
+- Facilities: ${selectedRoom.facilities.join(", ")}
 
-*Customer Information:*
-• Name: ${bookingForm.customerName}
-• Phone: ${bookingForm.customerPhone}
-${bookingForm.customerEmail ? `• Email: ${bookingForm.customerEmail}` : ""}
-
+Customer Details:
+- Name: ${bookingForm.customerName}
+- Phone: ${bookingForm.customerPhone}
+- Email: ${bookingForm.customerEmail || "Not provided"}
+- Booking Type: ${bookingType === "book" ? "Book Now" : "Reserve"}
 ${
   bookingForm.specialRequests
-    ? `*Special Requests:*\n${bookingForm.specialRequests}`
+    ? `- Special Requests: ${bookingForm.specialRequests}`
     : ""
 }
 
-Please confirm this booking.`;
+Please let me know about availability and booking process.`;
 
-    const whatsappUrl = getWhatsAppUrl(message);
+    const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
+      message
+    )}`;
     window.open(whatsappUrl, "_blank");
 
     // Close modal after opening WhatsApp
@@ -214,36 +170,8 @@ Please confirm this booking.`;
       customerName: "",
       customerEmail: "",
       customerPhone: "",
-      numberOfGuests: "",
       specialRequests: "",
     });
-  };
-
-  const openImageModal = (room: Room, imageIndex: number) => {
-    setSelectedRoom(room);
-    setSelectedImageIndex(imageIndex);
-    setIsImageModalOpen(true);
-  };
-
-  const closeImageModal = () => {
-    setIsImageModalOpen(false);
-    setSelectedRoom(null);
-    setSelectedImageIndex(0);
-  };
-
-  const nextImageModal = () => {
-    if (selectedRoom && selectedRoom.images) {
-      setSelectedImageIndex((prev) => (prev + 1) % selectedRoom.images.length);
-    }
-  };
-
-  const prevImageModal = () => {
-    if (selectedRoom && selectedRoom.images) {
-      setSelectedImageIndex(
-        (prev) =>
-          (prev - 1 + selectedRoom.images.length) % selectedRoom.images.length
-      );
-    }
   };
 
   // Get current image for a room
@@ -272,9 +200,9 @@ Please confirm this booking.`;
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-emerald-50/30">
-      {/* Navigation - With Green Gradient */}
-      <nav className="w-full bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 border-b border-emerald-700/30 sticky top-0 z-50 backdrop-blur-sm shadow-lg shadow-emerald-500/20">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-800 text-white">
+      {/* Navigation */}
+      <nav className="w-full bg-slate-900/95 backdrop-blur-sm border-b border-emerald-400/30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <motion.div
@@ -283,65 +211,57 @@ Please confirm this booking.`;
               className="flex items-center"
             >
               <Link href="/">
-                <Image
-                  src="/logo.png"
+                <img
+                  src="/logo.jpg"
                   alt="Hotel Blue Sheep Inn Logo"
-                  width={48}
-                  height={48}
-                  className="h-12 w-auto rounded-lg shadow-md cursor-pointer"
-                  style={{
-                    WebkitTransform: "translateZ(0)",
-                    transform: "translateZ(0)",
-                    WebkitBackfaceVisibility: "hidden",
-                    backfaceVisibility: "hidden",
-                  }}
+                  className="h-16 w-auto mr-3 rounded-lg shadow-md cursor-pointer"
                 />
               </Link>
             </motion.div>
             <div className="hidden md:flex space-x-8">
               <Link
                 href="/"
-                className="text-white font-medium transition-colors duration-200 hover:text-emerald-100"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
               >
                 Home
               </Link>
               <Link
                 href="/rooms"
-                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium border-b-2 border-emerald-50"
+                className="text-emerald-400 font-semibold border-b-2 border-emerald-400 transition-colors duration-300"
               >
                 Rooms
               </Link>
               <Link
                 href="/menu"
-                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
               >
                 Menu
               </Link>
               <Link
                 href="/camping"
-                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
               >
                 Camping
               </Link>
-              <Link
-                href="/attractions"
-                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
-              >
-                Attractions
-              </Link>
-              <Link
-                href="/contact"
-                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+              <button
+                onClick={() => {
+                  const message = `Hi! I'd like to get in touch about your hotel services.`;
+                  const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
+                    message
+                  )}`;
+                  window.open(whatsappUrl, "_blank");
+                }}
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
               >
                 Contact
-              </Link>
+              </button>
             </div>
 
             {/* Mobile menu button */}
             <div className="md:hidden">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-white hover:text-emerald-100 transition-colors duration-200"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300"
               >
                 {isMobileMenuOpen ? (
                   <XMarkIcon className="h-6 w-6" />
@@ -358,47 +278,40 @@ Please confirm this booking.`;
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-emerald-700/30"
+              className="md:hidden border-t border-emerald-400/30"
             >
               <div className="py-4 space-y-4">
                 <Link
                   href="/"
-                  className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
+                  className="block text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Home
                 </Link>
                 <Link
                   href="/rooms"
-                  className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+                  className="block text-emerald-400 font-semibold"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Rooms
                 </Link>
                 <Link
                   href="/menu"
-                  className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
+                  className="block text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Menu
                 </Link>
                 <Link
                   href="/camping"
-                  className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
+                  className="block text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Camping
                 </Link>
                 <Link
-                  href="/attractions"
-                  className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Attractions
-                </Link>
-                <Link
                   href="/contact"
-                  className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
+                  className="block text-gray-300 hover:text-emerald-400 transition-colors duration-300 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Contact
@@ -409,15 +322,9 @@ Please confirm this booking.`;
         </div>
       </nav>
 
-      {/* Header - Ultra Creative */}
-      <section className="relative pt-2 pb-4 sm:py-8 md:py-12 lg:py-16 bg-gradient-to-br from-emerald-50/50 via-white to-blue-50/50 overflow-hidden">
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-2xl"></div>
-          <div className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-2xl"></div>
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* Header */}
+      <section className="relative py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -425,63 +332,33 @@ Please confirm this booking.`;
             viewport={{ once: true }}
             className="text-center"
           >
-            <motion.div
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, type: "spring" }}
-              className="inline-flex items-center mt-6 gap-3 mb-8 sm:mb-3 px-6 py-3 bg-gradient-to-r from-emerald-100 to-blue-100 rounded-full border border-emerald-200/50 shadow-md"
-            >
-              <span className="text-2xl">🏨</span>
-              <span className="text-emerald-700 font-semibold">
-                Luxury Accommodations
-              </span>
-            </motion.div>
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                Our Rooms
-              </span>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-widest mb-4 font-montserrat bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-400 bg-clip-text text-transparent animate-pulse">
+              ROOMS
             </h1>
-            <p className="text-xl sm:text-2xl text-gray-700 max-w-3xl mx-auto font-light">
-              Experience comfort and luxury in the heart of the Himalayas
+            <p className="text-lg sm:text-xl text-emerald-300 italic tracking-widest font-montserrat">
+              Garden Hotel
             </p>
-            <div className="mt-4 flex justify-center gap-2">
-              {[...Array(3)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.3 + i * 0.1, duration: 0.5 }}
-                  className="w-2 h-2 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full"
-                />
-              ))}
-            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Rooms Grid - Ultra Creative */}
-      <section className="py-12 lg:py-16 bg-gradient-to-br from-white via-emerald-50/30 to-blue-50/30 relative overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-emerald-200/15 to-blue-200/15 rounded-full blur-2xl"></div>
-          <div className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-blue-200/15 to-emerald-200/15 rounded-full blur-2xl"></div>
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Rooms Grid */}
+      <section className="py-20 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {loading ? (
             <div className="text-center py-20">
-              <div className="bg-white rounded-2xl shadow-xl p-8 inline-block border border-gray-200/50">
-                <div className="animate-spin rounded-full h-12 w-12 border-2 border-gray-300 border-t-emerald-600 mx-auto mb-4"></div>
+              <div className="bg-white rounded-2xl shadow-lg p-8 inline-block border border-gray-200">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
                 <p className="text-gray-700 text-lg">Loading rooms...</p>
               </div>
             </div>
           ) : error ? (
             <div className="text-center py-20">
-              <div className="bg-white rounded-2xl shadow-xl p-8 inline-block border border-gray-200/50">
+              <div className="bg-white rounded-2xl shadow-lg p-8 inline-block border border-gray-200">
                 <p className="text-red-600 text-lg">{error}</p>
                 <button
                   onClick={() => window.location.reload()}
-                  className="mt-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-6 py-2 rounded-lg hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-lg shadow-emerald-500/30"
+                  className="mt-4 bg-gray-900 text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors"
                 >
                   Try Again
                 </button>
@@ -489,7 +366,7 @@ Please confirm this booking.`;
             </div>
           ) : rooms.length === 0 ? (
             <div className="text-center py-20">
-              <div className="bg-white rounded-2xl shadow-xl p-8 inline-block border border-gray-200/50">
+              <div className="bg-white rounded-2xl shadow-lg p-8 inline-block border border-gray-200">
                 <p className="text-gray-700 text-lg mb-4">
                   No rooms available at the moment.
                 </p>
@@ -499,289 +376,232 @@ Please confirm this booking.`;
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 items-stretch">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {rooms.map((room, index) => (
                 <motion.div
                   key={room.id}
-                  data-room-id={room.id}
-                  initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                  animate={
-                    index === 0 ? { opacity: 1, y: 0, scale: 1 } : undefined
-                  }
-                  whileInView={
-                    index > 0 ? { opacity: 1, y: 0, scale: 1 } : undefined
-                  }
-                  transition={{
-                    duration: 0.6,
-                    delay: index * 0.1,
-                    type: "spring",
-                    stiffness: 100,
-                  }}
-                  viewport={index > 0 ? { once: true } : undefined}
-                  className="group relative"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: index * 0.2 }}
+                  viewport={{ once: true }}
+                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-emerald-400/40 hover:border-emerald-300/60 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-emerald-400/30 group relative overflow-hidden min-h-[450px] sm:min-h-[500px] w-full"
                 >
-                  {/* Card Container */}
-                  <div className="relative bg-gradient-to-br from-white via-emerald-50/30 to-blue-50/30 rounded-2xl p-6 lg:p-8 border-2 border-gray-200/50 hover:border-emerald-300/50 transition-all duration-500 h-full flex flex-col overflow-visible shadow-lg hover:shadow-2xl">
-                    {/* Animated Background Pattern */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className="absolute inset-0 bg-gradient-to-br from-emerald-100/20 via-transparent to-blue-100/20"></div>
-                    </div>
+                  {/* Background glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
 
-                    {/* Room Image Gallery - Creative Design */}
-                    <div
-                      className="h-56 sm:h-64 relative overflow-hidden rounded-xl border-2 border-gray-200/50 mb-6 relative z-10 cursor-pointer bg-gray-100 group/image"
-                      onClick={() =>
-                        openImageModal(room, currentImageIndex[room.id] || 0)
-                      }
-                    >
-                      <motion.img
-                        src={getCurrentRoomImage(room.id, room.images)}
-                        alt={room.room_name}
-                        width={400}
-                        height={300}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover/image:scale-110"
-                        style={{
-                          WebkitTransform: "translateZ(0)",
-                          transform: "translateZ(0)",
-                          WebkitBackfaceVisibility: "hidden",
-                          backfaceVisibility: "hidden",
-                          imageRendering: "auto",
-                        }}
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src = "/hotel-room.jpg";
-                        }}
-                      />
+                  {/* Room Image Gallery */}
+                  <div className="h-40 sm:h-48 relative overflow-hidden rounded-lg border border-emerald-400/40 mb-4 relative z-10">
+                    <img
+                      src={getCurrentRoomImage(room.id, room.images)}
+                      alt={room.room_name}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = "/hotel-room.jpg";
+                      }}
+                    />
 
-                      {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover/image:opacity-100 transition-opacity duration-500"></div>
-
-                      {/* Navigation Arrows (only show if multiple images) */}
-                      {room.images && room.images.length > 1 && (
-                        <>
-                          <motion.button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              prevImage(room.id, room.images.length);
-                            }}
-                            whileTap={{ scale: 0.9 }}
-                            className="absolute left-3 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-900 hover:bg-white transition-all duration-300 shadow-xl border border-gray-200 z-20"
-                          >
-                            <ChevronLeftIcon className="w-5 h-5" />
-                          </motion.button>
-                          <motion.button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              nextImage(room.id, room.images.length);
-                            }}
-                            whileTap={{ scale: 0.9 }}
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-900 hover:bg-white transition-all duration-300 shadow-xl border border-gray-200 z-20"
-                          >
-                            <ChevronRightIcon className="w-5 h-5" />
-                          </motion.button>
-                        </>
-                      )}
-
-                      {/* Image Counter - Creative */}
-                      {room.images && room.images.length > 1 && (
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          className="absolute bottom-4 left-4 bg-gradient-to-br from-emerald-500/90 to-blue-500/90 backdrop-blur-sm px-3 py-1.5 rounded-lg text-white text-xs font-bold shadow-xl border border-white/20 z-20"
+                    {/* Navigation Arrows (only show if multiple images) */}
+                    {room.images && room.images.length > 1 && (
+                      <>
+                        <button
+                          onClick={() => prevImage(room.id, room.images.length)}
+                          className="absolute left-2 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-all duration-300 hover:scale-110 shadow-lg border border-white/20"
                         >
-                          {(currentImageIndex[room.id] || 0) + 1} /{" "}
-                          {room.images.length}
-                        </motion.div>
-                      )}
+                          <ChevronLeftIcon className="w-6 h-6" />
+                        </button>
+                        <button
+                          onClick={() => nextImage(room.id, room.images.length)}
+                          className="absolute right-2 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-all duration-300 hover:scale-110 shadow-lg border border-white/20"
+                        >
+                          <ChevronRightIcon className="w-6 h-6" />
+                        </button>
+                      </>
+                    )}
 
-                      {/* Image Indicators - Creative */}
-                      {room.images && room.images.length > 1 && (
-                        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
-                          {room.images.map((_, imgIndex) => (
-                            <motion.button
-                              key={imgIndex}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setCurrentImageIndex((prev) => ({
-                                  ...prev,
-                                  [room.id]: imgIndex,
-                                }));
-                              }}
-                              whileTap={{ scale: 0.9 }}
-                              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                                (currentImageIndex[room.id] || 0) === imgIndex
-                                  ? "bg-white w-6"
-                                  : "bg-white/50 hover:bg-white/75"
-                              }`}
-                            />
-                          ))}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Creative Price Chip - Floating (Outside Image Container) */}
-                    <div className="absolute top-2 -right-4 bg-gradient-to-br from-emerald-500 via-emerald-600 to-blue-500 rounded-xl p-3 shadow-2xl border-2 border-white z-30">
-                      <div className="text-center">
-                        <div
-                          className="text-xs mb-1 font-bold text-white"
-                          style={{ textShadow: "0 2px 4px rgba(0,0,0,0.3)" }}
-                        >
-                          From
-                        </div>
-                        <div
-                          className="text-xl font-black text-white"
-                          style={{ textShadow: "0 2px 4px rgba(0,0,0,0.5)" }}
-                        >
-                          {formatPrice(room.price_per_night)}
-                        </div>
-                        <div
-                          className="text-xs mt-1 font-bold text-white"
-                          style={{ textShadow: "0 2px 4px rgba(0,0,0,0.3)" }}
-                        >
-                          /night
-                        </div>
+                    {/* Image Counter */}
+                    {room.images && room.images.length > 1 && (
+                      <div className="absolute top-2 right-2 glass px-2 py-1 rounded-full text-xs text-white">
+                        {(currentImageIndex[room.id] || 0) + 1} /{" "}
+                        {room.images.length}
                       </div>
-                      {/* Glow Effect */}
-                      <div className="absolute -inset-1 bg-gradient-to-br from-emerald-400 to-blue-400 rounded-xl blur opacity-50"></div>
-                    </div>
+                    )}
 
-                    <div className="relative z-10 flex flex-col flex-1">
-                      {/* Room Header - Creative */}
-                      <div className="mb-6">
-                        <div className="flex items-start justify-between mb-4">
-                          <div className="flex-1">
-                            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 break-words">
-                              {room.room_name}
-                            </h3>
-                            <div className="flex items-center gap-2 text-sm text-gray-600">
-                              <UserIcon className="w-4 h-4 text-emerald-600" />
-                              <span className="font-medium">
-                                {room.capacity}{" "}
-                                {room.capacity === 1 ? "guest" : "guests"}
-                              </span>
-                            </div>
+                    {/* Image Indicators */}
+                    {room.images && room.images.length > 1 && (
+                      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
+                        {room.images.map((_, index) => (
+                          <button
+                            key={index}
+                            onClick={() =>
+                              setCurrentImageIndex((prev) => ({
+                                ...prev,
+                                [room.id]: index,
+                              }))
+                            }
+                            className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                              (currentImageIndex[room.id] || 0) === index
+                                ? "bg-white"
+                                : "bg-white/50 hover:bg-white/75"
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="relative z-10">
+                    {/* Room Header */}
+                    <div className="mb-6">
+                      <div className="flex flex-col gap-4 mb-4">
+                        <div className="flex flex-col gap-3">
+                          <h3 className="text-lg sm:text-xl font-bold text-white font-montserrat break-words">
+                            {room.room_name}
+                          </h3>
+                          <div className="flex items-center text-xs text-emerald-300">
+                            <UserIcon className="w-3 h-3 mr-2" />
+                            <span>Capacity: {room.capacity} guests</span>
                           </div>
                         </div>
 
-                        {/* Decorative Dots */}
-                        <div className="flex justify-center py-3 mb-4">
-                          <div className="flex space-x-2">
-                            {[...Array(3)].map((_, i) => (
-                              <div
-                                key={i}
-                                className="w-2 h-2 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full"
-                              />
-                            ))}
+                        {/* Yellow dots separator */}
+                        <div className="flex justify-center py-2">
+                          <div className="flex space-x-1">
+                            <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                            <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                            <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
                           </div>
                         </div>
-                      </div>
 
-                      {/* Description - Creative */}
-                      {room.description && (
-                        <div className="relative mb-6">
-                          {/* Mobile: Show full description */}
-                          <p className="block sm:hidden text-gray-700 text-sm leading-relaxed break-words">
-                            {room.description}
-                          </p>
-                          {/* Desktop: Show truncated with hover tooltip */}
-                          <div
-                            className="hidden sm:block relative"
-                            onMouseEnter={() => setHoveredRoomId(room.id)}
-                            onMouseLeave={() => setHoveredRoomId(null)}
-                          >
-                            <p className="text-gray-700 text-sm sm:text-base leading-relaxed break-words line-clamp-2 h-12 cursor-pointer select-none overflow-hidden">
-                              {room.description}
+                        <div className="pt-2">
+                          <div className="text-center">
+                            <span className="text-xl sm:text-2xl font-bold text-emerald-400">
+                              {formatPrice(room.price_per_night)}
+                            </span>
+                            <p className="text-xs text-emerald-300 mt-1">
+                              per night
                             </p>
-                            {/* Desktop: Hover tooltip - Solid Design */}
-                            {hoveredRoomId === room.id && (
-                              <motion.div
-                                initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                                animate={{ opacity: 1, y: 0, scale: 1 }}
-                                transition={{ duration: 0.2 }}
-                                className="absolute z-50 bottom-full left-0 mb-3 p-5 bg-white rounded-2xl border-2 border-emerald-300 shadow-2xl w-full max-w-sm backdrop-blur-sm"
-                              >
-                                {/* Decorative Header */}
-                                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-blue-500 to-emerald-500 rounded-t-2xl"></div>
-
-                                {/* Content */}
-                                <div className="relative">
-                                  <div className="flex items-center gap-2 mb-2">
-                                    <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
-                                    <span className="text-xs font-bold text-emerald-700 uppercase tracking-wide">
-                                      Full Description
-                                    </span>
-                                  </div>
-                                  <p className="text-gray-800 text-sm leading-relaxed font-medium">
-                                    {room.description}
-                                  </p>
-                                </div>
-
-                                {/* Arrow */}
-                                <div className="absolute bottom-0 left-6 transform translate-y-full">
-                                  <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-white"></div>
-                                  <div className="absolute top-0 left-[-2px] w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-emerald-300"></div>
-                                </div>
-                              </motion.div>
-                            )}
                           </div>
                         </div>
-                      )}
+                      </div>
+                    </div>
 
-                      {/* Facilities - Creative Design */}
-                      <div className="mb-6 flex-1">
-                        <h4 className="text-sm font-bold text-gray-900 mb-3 flex items-center gap-2">
-                          <div className="w-1 h-4 bg-gradient-to-b from-emerald-500 to-blue-500 rounded-full"></div>
-                          <span>Facilities</span>
-                        </h4>
-                        <div className="flex flex-wrap gap-2">
-                          {room.facilities
-                            .slice(0, 6)
-                            .map((facility, facilityIndex) => (
-                              <motion.div
-                                key={facilityIndex}
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: facilityIndex * 0.05 }}
-                                className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-medium bg-gradient-to-r from-emerald-50 to-blue-50 text-emerald-700 border border-emerald-200/50 hover:border-emerald-300 hover:shadow-md transition-all duration-200"
-                              >
-                                <CheckIcon className="w-3 h-3 text-emerald-600 mr-1.5 flex-shrink-0" />
-                                <span>{facility}</span>
-                              </motion.div>
-                            ))}
-                          {room.facilities.length > 6 && (
-                            <motion.div
-                              initial={{ opacity: 0, scale: 0.8 }}
-                              whileInView={{ opacity: 1, scale: 1 }}
-                              className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-medium bg-gradient-to-r from-gray-100 to-gray-50 text-gray-600 border border-gray-200"
+                    {/* Description */}
+                    {room.description && (
+                      <p className="text-gray-200 text-sm sm:text-base leading-relaxed mb-4 break-words">
+                        {room.description}
+                      </p>
+                    )}
+
+                    {/* Facilities */}
+                    <div className="mb-4">
+                      <h4 className="text-sm font-semibold text-emerald-300 mb-3 flex items-center">
+                        <CheckIcon className="w-4 h-4 mr-2" />
+                        Facilities
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {room.facilities
+                          .slice(0, 8)
+                          .map((facility, facilityIndex) => (
+                            <div
+                              key={facilityIndex}
+                              className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 hover:bg-emerald-500/30 transition-colors duration-200"
                             >
-                              +{room.facilities.length - 6} more
-                            </motion.div>
+                              <CheckIcon className="w-3 h-3 text-emerald-400 mr-1 flex-shrink-0" />
+                              <span>{facility}</span>
+                            </div>
+                          ))}
+                        {room.facilities.length > 8 && (
+                          <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-400/20">
+                            +{room.facilities.length - 8} more
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Availability Status */}
+                    <div className="mb-4">
+                      {room.is_available ? (
+                        <div className="flex items-center justify-between">
+                          <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-500/20 border border-green-400/30 text-green-300">
+                            <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                            Available Now
+                          </div>
+                          {room.start_date && room.end_date && (
+                            <div className="text-xs text-gray-300">
+                              Until{" "}
+                              {new Date(room.end_date).toLocaleString("en-US", {
+                                timeZone: "Asia/Kathmandu",
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                hour12: true,
+                              })}{" "}
+                              NPT
+                            </div>
                           )}
                         </div>
-                      </div>
-
-                      {/* Book Now Button - Ultra Creative */}
-                      <div className="mt-auto pt-4">
-                        <motion.button
-                          onClick={() => handleBooking(room)}
-                          whileTap={{ scale: 0.98 }}
-                          className="group relative w-full py-4 rounded-xl font-bold text-white transition-all duration-300 bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 hover:from-emerald-600 hover:via-emerald-700 hover:to-emerald-600 shadow-lg shadow-emerald-500/30 hover:shadow-xl hover:shadow-emerald-500/50 overflow-hidden"
-                        >
-                          {/* Glow Effect */}
-                          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300 -z-10"></div>
-
-                          {/* Content */}
-                          <span className="relative z-10 text-base sm:text-lg flex items-center justify-center gap-2">
-                            Book Now
-                            <span className="text-xl">→</span>
-                          </span>
-                        </motion.button>
-                      </div>
+                      ) : (
+                        <div className="space-y-2">
+                          <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 border border-red-200 text-red-700">
+                            <div className="w-2 h-2 bg-red-500 rounded-full mr-2"></div>
+                            Occupied
+                          </div>
+                          {room.start_date && room.end_date && (
+                            <div className="flex flex-wrap gap-2">
+                              <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 border border-green-200 text-green-700">
+                                <CalendarIcon className="w-3 h-3 mr-1" />
+                                From:{" "}
+                                {new Date(room.start_date).toLocaleString(
+                                  "en-US",
+                                  {
+                                    timeZone: "Asia/Kathmandu",
+                                    year: "numeric",
+                                    month: "2-digit",
+                                    day: "2-digit",
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                    hour12: true,
+                                  }
+                                )}{" "}
+                                NPT
+                              </div>
+                              <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-500/20 border border-red-400/30 text-red-300">
+                                <CalendarIcon className="w-3 h-3 mr-1" />
+                                Until:{" "}
+                                {new Date(room.end_date).toLocaleString(
+                                  "en-US",
+                                  {
+                                    timeZone: "Asia/Kathmandu",
+                                    year: "numeric",
+                                    month: "2-digit",
+                                    day: "2-digit",
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                    hour12: true,
+                                  }
+                                )}{" "}
+                                NPT
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </div>
 
-                    {/* Decorative Corner Elements */}
-                    <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-emerald-200/20 to-transparent rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-blue-200/20 to-transparent rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    {/* Book Now Button */}
+                    <button
+                      onClick={() => handleBooking(room)}
+                      className={`w-full py-3 rounded-lg font-semibold transition-all duration-300 ${
+                        room.is_available
+                          ? "bg-emerald-500 text-white hover:bg-emerald-400 hover:scale-105 shadow-lg shadow-emerald-500/30"
+                          : "bg-red-500/20 text-red-300 border border-red-400/50 hover:bg-red-500/30 hover:scale-105 shadow-lg shadow-red-500/20"
+                      }`}
+                    >
+                      {room.is_available ? "Book Now" : "Occupied"}
+                    </button>
                   </div>
                 </motion.div>
               ))}
@@ -790,15 +610,9 @@ Please confirm this booking.`;
         </div>
       </section>
 
-      {/* Amenities Section - Ultra Creative */}
-      <section className="py-24 lg:py-32 bg-gradient-to-br from-emerald-50/50 via-white to-blue-50/50 relative overflow-hidden">
-        {/* Animated Background Orbs */}
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-2xl"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-2xl"></div>
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Amenities Section */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -806,634 +620,280 @@ Please confirm this booking.`;
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, type: "spring" }}
-              viewport={{ once: true }}
-              className="inline-block relative"
-            >
-              {/* Decorative Badge */}
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 px-4 py-1.5 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full shadow-lg">
-                <span className="text-white text-xs font-bold">
-                  ✨ Premium Features
-                </span>
-              </div>
-
-              <div className="bg-white rounded-3xl shadow-2xl p-8 lg:p-12 border-2 border-gray-200 relative overflow-hidden">
-                {/* Top Gradient Bar */}
-                <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-emerald-500 via-blue-500 to-emerald-500"></div>
-
-                {/* Decorative Elements */}
-                <div className="absolute top-4 right-4 w-24 h-24 bg-gradient-to-br from-emerald-100/50 to-transparent rounded-full blur-2xl"></div>
-                <div className="absolute bottom-4 left-4 w-24 h-24 bg-gradient-to-tr from-blue-100/50 to-transparent rounded-full blur-2xl"></div>
-
-                <div className="relative z-10">
-                  <div className="inline-block mb-4">
-                    <span className="text-5xl">🏨</span>
-                  </div>
-                  <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
-                    <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                      Room Amenities
-                    </span>
-                  </h2>
-                  <p className="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto font-medium">
-                    Every room is equipped with modern amenities to ensure your
-                    comfort and convenience.
-                  </p>
-
-                  {/* Decorative Dots */}
-                  <div className="flex justify-center gap-2 mt-6">
-                    {[...Array(3)].map((_, i) => (
-                      <div
-                        key={i}
-                        className="w-2 h-2 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full"
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-emerald-400/30">
+              <h2 className="text-4xl font-bold text-white font-montserrat mb-6">
+                Room Amenities
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Every room is equipped with modern amenities to ensure your
+                comfort and convenience.
+              </p>
+            </div>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          <div className="grid md:grid-cols-4 gap-8">
             {[
               {
                 icon: WifiIcon,
                 title: "Free WiFi",
                 description: "High-speed internet access",
-                gradient: "from-emerald-500 to-emerald-600",
-                iconBg: "from-emerald-100 to-emerald-200",
-                iconColor: "text-emerald-600",
-                emoji: "📶",
               },
               {
                 icon: ViewfinderCircleIcon,
                 title: "Mountain Views",
                 description: "Panoramic Himalayan views",
-                gradient: "from-blue-500 to-blue-600",
-                iconBg: "from-blue-100 to-blue-200",
-                iconColor: "text-blue-600",
-                emoji: "🏔️",
               },
               {
                 icon: HomeIcon,
                 title: "Premium Beds",
                 description: "Luxury bedding and mattresses",
-                gradient: "from-emerald-500 to-emerald-600",
-                iconBg: "from-emerald-100 to-emerald-200",
-                iconColor: "text-emerald-600",
-                emoji: "🛏️",
               },
               {
                 icon: EyeIcon,
                 title: "Garden Restaurant",
                 description: "On-site restaurant with garden views",
-                gradient: "from-blue-500 to-blue-600",
-                iconBg: "from-blue-100 to-blue-200",
-                iconColor: "text-blue-600",
-                emoji: "🍽️",
               },
             ].map((amenity, index) => (
               <motion.div
                 key={index}
-                initial={{
-                  opacity: 0,
-                  y: isMobile ? 20 : 50,
-                  scale: isMobile ? 1 : 0.9,
-                }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{
-                  duration: isMobile ? 0.3 : 0.6,
-                  delay: isMobile ? 0 : index * 0.1,
-                  type: isMobile ? "tween" : "spring",
-                  stiffness: isMobile ? undefined : 100,
-                }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center bg-white rounded-2xl shadow-xl p-6 lg:p-8 border-2 border-gray-200 hover:border-emerald-300 hover:shadow-2xl transition-all duration-300 group relative overflow-hidden"
+                className="text-center bg-white/5 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-emerald-400/30 hover:border-emerald-300/50 hover:shadow-2xl hover:shadow-emerald-400/20 transition-all duration-300 hover:scale-105 group relative overflow-hidden"
               >
-                {/* Background Gradient - Static for performance */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-r ${amenity.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-2xl`}
-                ></div>
-
-                {/* Glow Effect on Hover - Simplified on mobile */}
-                <div
-                  className={`absolute -inset-1 bg-gradient-to-r ${
-                    amenity.gradient
-                  } rounded-2xl ${
-                    isMobile ? "" : "blur"
-                  } opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10`}
-                ></div>
+                {/* Background glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
 
                 <div className="relative z-10">
-                  {/* Icon Container with Creative Design */}
-                  <div
-                    className={`relative w-20 h-20 bg-gradient-to-br ${amenity.iconBg} rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg border-2 border-white group-hover:shadow-xl transition-shadow duration-300`}
-                  >
-                    {/* Icon */}
-                    <amenity.icon
-                      className={`w-10 h-10 ${amenity.iconColor} relative z-10`}
-                    />
-
-                    {/* Emoji Badge - Static for performance */}
-                    <div className="absolute -top-2 -right-2 text-2xl">
-                      {amenity.emoji}
-                    </div>
+                  <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-emerald-400/30">
+                    <amenity.icon className="w-8 h-8 text-emerald-400" />
                   </div>
-
-                  {/* Title with Gradient */}
-                  <h3 className="text-xl font-bold mb-2.5">
-                    <span
-                      className={`bg-gradient-to-r ${amenity.gradient} bg-clip-text text-transparent`}
-                    >
-                      {amenity.title}
-                    </span>
+                  <h3 className="text-lg font-semibold text-white mb-2">
+                    {amenity.title}
                   </h3>
-
-                  {/* Description */}
-                  <p className="text-gray-600 text-sm font-medium leading-relaxed">
-                    {amenity.description}
-                  </p>
+                  <p className="text-gray-300">{amenity.description}</p>
                 </div>
-
-                {/* Decorative Corner Elements */}
-                <div
-                  className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-br ${amenity.gradient} opacity-0 group-hover:opacity-10 rounded-bl-2xl transition-opacity duration-500`}
-                ></div>
-                <div
-                  className={`absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr ${amenity.gradient} opacity-0 group-hover:opacity-10 rounded-tr-2xl transition-opacity duration-500`}
-                ></div>
-
-                {/* Bottom Accent Line */}
-                <motion.div
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "100%" }}
-                  transition={{
-                    duration: isMobile ? 0.3 : 0.8,
-                    delay: isMobile ? 0 : index * 0.1 + 0.3,
-                  }}
-                  viewport={{ once: true }}
-                  className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r ${amenity.gradient} rounded-b-2xl`}
-                ></motion.div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Footer CTA - Ultra Creative */}
-      <section className="py-24 lg:py-32 bg-gradient-to-br from-emerald-50/50 via-white to-blue-50/50 relative overflow-hidden">
-        {/* Animated Background Orbs */}
-        <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-2xl"></div>
-        </div>
-
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* Footer CTA */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 50, scale: 0.9 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.8, type: "spring" }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-br from-white via-emerald-50/50 to-blue-50/50 rounded-3xl shadow-2xl p-8 lg:p-12 border-2 border-gray-200/50 relative overflow-hidden"
+            className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-emerald-400/30"
           >
-            {/* Decorative Elements */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-emerald-200/20 to-transparent rounded-full blur-2xl"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-blue-200/20 to-transparent rounded-full blur-2xl"></div>
-
-            <div className="relative z-10">
-              <motion.div
-                animate={{ rotate: [0, 10, -10, 0] }}
-                transition={{ duration: 3, repeat: Infinity }}
-                className="inline-block mb-6"
+            <h2 className="text-3xl font-bold text-white mb-4 font-montserrat">
+              Ready to Book?
+            </h2>
+            <p className="text-gray-300 mb-6">
+              Contact us to make a reservation or book your perfect room.
+            </p>
+            <div className="flex justify-center">
+              <button
+                onClick={() => {
+                  const message = `Hi! I'd like to get in touch about your hotel services.`;
+                  const whatsappUrl = `https://wa.me/9849961927?text=${encodeURIComponent(
+                    message
+                  )}`;
+                  window.open(whatsappUrl, "_blank");
+                }}
+                className="border border-emerald-400 text-emerald-400 px-8 py-3 rounded-lg font-semibold hover:bg-emerald-400/10 transition-colors"
               >
-                <span className="text-5xl">🌟</span>
-              </motion.div>
-              <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-                <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                  Ready to Book?
-                </span>
-              </h2>
-              <p className="text-lg sm:text-xl text-gray-700 mb-8 font-light max-w-2xl mx-auto">
-                Contact us to make a reservation or book your perfect room.
-              </p>
-              <motion.div whileTap={{ scale: 0.95 }}>
-                <motion.button
-                  onClick={() => {
-                    const message = `Hi! I'd like to get in touch about your hotel services.`;
-                    const whatsappUrl = getWhatsAppUrl(message);
-                    window.open(whatsappUrl, "_blank");
-                  }}
-                  className="group relative inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 text-white font-bold rounded-xl overflow-hidden transition-all duration-300 shadow-xl shadow-emerald-500/30 hover:shadow-2xl hover:shadow-emerald-500/50"
-                >
-                  {/* Animated Background Shine */}
-                  <motion.div
-                    animate={{
-                      x: ["-100%", "200%"],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                  />
-
-                  {/* Glow Effect */}
-                  <div className="absolute -inset-1 bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300 -z-10"></div>
-
-                  <span className="relative z-10 text-lg">Contact Us</span>
-                  <span className="relative z-10 text-xl">→</span>
-                </motion.button>
-              </motion.div>
+                Contact Us
+              </button>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Booking Modal - Ultra Creative Design - Desktop Only */}
-      {!isMobile && isBookingModalOpen && selectedRoom && (
-        <div
-          className="fixed top-0 left-0 right-0 bottom-0 bg-black/70 backdrop-blur-lg z-50 flex items-center justify-center p-2 sm:p-4 overscroll-contain"
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            width: "100vw",
-            height: "100vh",
-            maxHeight: "100vh",
-            overflow: "auto",
-            WebkitOverflowScrolling: "touch",
-            paddingTop: "env(safe-area-inset-top, 0)",
-            paddingBottom: "env(safe-area-inset-bottom, 0)",
-            paddingLeft: "env(safe-area-inset-left, 0)",
-            paddingRight: "env(safe-area-inset-right, 0)",
-          }}
-        >
-          {/* Animated Background Orbs */}
-          <div className="absolute inset-0 overflow-hidden">
-            <motion.div
-              animate={{
-                rotate: [0, 360],
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                duration: 20,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-emerald-400/20 to-blue-400/20 rounded-full blur-2xl"
-            />
-            <motion.div
-              animate={{
-                rotate: [360, 0],
-                scale: [1, 1.3, 1],
-              }}
-              transition={{
-                duration: 25,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-gradient-to-br from-blue-400/20 to-emerald-400/20 rounded-full blur-2xl"
-            />
-          </div>
-
+      {/* Booking Modal */}
+      {isBookingModalOpen && selectedRoom && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 50 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 50 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="relative bg-white p-4 sm:p-6 lg:p-10 border-2 border-gray-200 shadow-2xl rounded-3xl w-full max-w-2xl max-h-[85vh] sm:max-h-[90vh] overflow-y-auto my-auto"
-            style={{
-              maxHeight: "min(85vh, calc(100vh - 2rem))",
-              overflowY: "auto",
-              WebkitOverflowScrolling: "touch",
-              position: "relative",
-              margin: "auto",
-              paddingBottom: "env(safe-area-inset-bottom, 1rem)",
-            }}
-            onClick={(e) => e.stopPropagation()}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="bg-slate-800/95 backdrop-blur-sm rounded-2xl p-8 border border-emerald-400/50 shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
           >
-            {/* Top Decorative Gradient Bar */}
-            <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-emerald-500 via-blue-500 to-emerald-500 rounded-t-3xl"></div>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-white font-montserrat">
+                {bookingType === "book" ? "Book" : "Reserve"}{" "}
+                {selectedRoom.room_name}
+              </h2>
+              <button
+                onClick={closeBookingModal}
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <XMarkIcon className="w-6 h-6" />
+              </button>
+            </div>
 
-            {/* Decorative Corner Elements */}
-            <div className="absolute top-4 right-4 w-32 h-32 bg-gradient-to-br from-emerald-100/40 to-transparent rounded-full blur-2xl"></div>
-            <div className="absolute bottom-4 left-4 w-32 h-32 bg-gradient-to-tr from-blue-100/40 to-transparent rounded-full blur-2xl"></div>
-
-            <div className="relative z-10">
-              <div className="flex justify-between items-start mb-8 pb-6 border-b-2 border-gray-100">
-                <div className="flex-1">
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-full mb-4 shadow-lg"
-                  >
-                    <span className="text-white font-bold text-sm">
-                      📅 Book Now
-                    </span>
-                  </motion.div>
-                  <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
-                    {selectedRoom.room_name}
-                  </h2>
-                  <div className="flex items-center gap-3 text-sm text-gray-600">
-                    <div className="flex items-center gap-1">
-                      <UserIcon className="w-4 h-4 text-emerald-600" />
-                      <span>
-                        {selectedRoom.capacity}{" "}
-                        {selectedRoom.capacity === 1 ? "guest" : "guests"}
-                      </span>
-                    </div>
-                    <span>•</span>
-                    <div className="flex items-center gap-1">
-                      <span className="text-emerald-600 font-bold">
-                        {formatPrice(selectedRoom.price_per_night)}
-                      </span>
-                      <span className="text-gray-500">/night</span>
-                    </div>
-                  </div>
-                </div>
-                <motion.button
-                  onClick={closeBookingModal}
-                  whileHover={{
-                    scale: 1.1,
-                    rotate: 90,
-                    backgroundColor: "#f3f4f6",
-                  }}
-                  whileTap={{ scale: 0.9 }}
-                  className="text-gray-400 hover:text-gray-900 transition-colors p-2.5 hover:bg-gray-100 rounded-xl border border-gray-200"
+            {/* Booking Type Selection */}
+            <div className="mb-6">
+              <div className="flex gap-4">
+                <button
+                  onClick={() => setBookingType("book")}
+                  className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
+                    bookingType === "book"
+                      ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/30"
+                      : "bg-slate-700/50 text-gray-300 border border-emerald-400/50 hover:bg-emerald-500/20"
+                  }`}
                 >
-                  <XMarkIcon className="w-6 h-6" />
-                </motion.button>
+                  Book Now
+                </button>
+                <button
+                  onClick={() => setBookingType("reserve")}
+                  className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
+                    bookingType === "reserve"
+                      ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/30"
+                      : "bg-slate-700/50 text-gray-300 border border-emerald-400/50 hover:bg-emerald-500/20"
+                  }`}
+                >
+                  Reserve
+                </button>
+              </div>
+            </div>
+
+            {/* Booking Notice */}
+            <div className="mb-6 p-4 bg-amber-500/20 border border-amber-400/30 rounded-lg">
+              <div className="flex items-center gap-3">
+                <div className="w-6 h-6 bg-amber-500 rounded-full flex items-center justify-center">
+                  <span className="text-white text-sm font-bold">!</span>
+                </div>
+                <div>
+                  <h4 className="text-amber-300 font-semibold mb-1">
+                    Important Notice
+                  </h4>
+                  <p className="text-amber-200 text-sm">
+                    Bookings must be made at least 1 day in advance. This will
+                    open WhatsApp with your booking details.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Room Info */}
+            <div className="mb-6 p-4 bg-slate-700/50 rounded-lg border border-emerald-400/30">
+              <div className="flex justify-between items-center">
+                <div>
+                  <h3 className="text-lg font-semibold text-white">
+                    {selectedRoom.room_name}
+                  </h3>
+                  <p className="text-emerald-300">
+                    Capacity: {selectedRoom.capacity} guests
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-2xl font-bold text-emerald-400">
+                    {formatPrice(selectedRoom.price_per_night)}
+                  </p>
+                  <p className="text-sm text-gray-300">per night</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Booking Form */}
+            <form onSubmit={handleBookingSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-emerald-300 mb-2">
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={bookingForm.customerName}
+                    onChange={(e) =>
+                      setBookingForm({
+                        ...bookingForm,
+                        customerName: e.target.value,
+                      })
+                    }
+                    className="w-full px-4 py-3 bg-slate-700/50 border border-emerald-400/50 rounded-lg text-white placeholder-gray-400 focus:border-emerald-400 focus:outline-none"
+                    placeholder="Enter your full name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-emerald-300 mb-2">
+                    Email (Optional)
+                  </label>
+                  <input
+                    type="email"
+                    value={bookingForm.customerEmail}
+                    onChange={(e) =>
+                      setBookingForm({
+                        ...bookingForm,
+                        customerEmail: e.target.value,
+                      })
+                    }
+                    className="w-full px-4 py-3 bg-slate-700/50 border border-emerald-400/50 rounded-lg text-white placeholder-gray-400 focus:border-emerald-400 focus:outline-none"
+                    placeholder="Enter your email (optional)"
+                  />
+                </div>
               </div>
 
-              {/* Booking Notice - Modern Design */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="mb-4 sm:mb-6 p-3 sm:p-5 bg-amber-50 border-l-4 border-amber-500 rounded-xl shadow-md"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center flex-shrink-0 shadow-md">
-                    <span className="text-white text-lg font-bold">!</span>
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="text-amber-900 font-bold mb-1.5 text-base">
-                      Important Notice
-                    </h4>
-                    <p className="text-amber-800 text-sm leading-relaxed">
-                      Bookings must be made at least 1 day in advance. This will
-                      open WhatsApp with your booking details.
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
+              <div>
+                <label className="block text-sm font-medium text-emerald-300 mb-2">
+                  Phone Number *
+                </label>
+                <input
+                  type="tel"
+                  required
+                  value={bookingForm.customerPhone}
+                  onChange={(e) =>
+                    setBookingForm({
+                      ...bookingForm,
+                      customerPhone: e.target.value,
+                    })
+                  }
+                  className="w-full px-4 py-3 bg-slate-700/50 border border-emerald-400/50 rounded-lg text-white placeholder-gray-400 focus:border-emerald-400 focus:outline-none"
+                  placeholder="Enter your phone number"
+                />
+              </div>
 
-              {/* Booking Form - Creative */}
-              <form
-                onSubmit={handleBookingSubmit}
-                className="space-y-4 sm:space-y-6"
-              >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.3 }}
-                  >
-                    <label className="block text-sm font-bold text-gray-900 mb-2.5">
-                      Full Name <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={bookingForm.customerName}
-                      onChange={(e) =>
-                        setBookingForm({
-                          ...bookingForm,
-                          customerName: e.target.value,
-                        })
-                      }
-                      className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:bg-white transition-all"
-                      placeholder="Enter your full name"
-                    />
-                  </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.35 }}
-                  >
-                    <label className="block text-sm font-bold text-gray-900 mb-2.5">
-                      Email{" "}
-                      <span className="text-gray-400 text-xs font-normal">
-                        (Optional)
-                      </span>
-                    </label>
-                    <input
-                      type="email"
-                      value={bookingForm.customerEmail}
-                      onChange={(e) =>
-                        setBookingForm({
-                          ...bookingForm,
-                          customerEmail: e.target.value,
-                        })
-                      }
-                      className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:bg-white transition-all"
-                      placeholder="Enter your email (optional)"
-                    />
-                  </motion.div>
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-emerald-300 mb-2">
+                  Special Requests
+                </label>
+                <textarea
+                  value={bookingForm.specialRequests}
+                  onChange={(e) =>
+                    setBookingForm({
+                      ...bookingForm,
+                      specialRequests: e.target.value,
+                    })
+                  }
+                  rows={3}
+                  className="w-full px-4 py-3 bg-slate-700/50 border border-emerald-400/50 rounded-lg text-white placeholder-gray-400 focus:border-emerald-400 focus:outline-none resize-none"
+                  placeholder="Any special requests or notes..."
+                />
+              </div>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
+              <div className="flex gap-4 pt-4">
+                <button
+                  type="button"
+                  onClick={closeBookingModal}
+                  className="flex-1 px-6 py-3 border border-emerald-400 text-emerald-400 rounded-lg font-semibold hover:bg-emerald-400/10 transition-colors"
                 >
-                  <label className="block text-sm font-bold text-gray-900 mb-2.5">
-                    Phone Number <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    value={bookingForm.customerPhone}
-                    onChange={(e) =>
-                      setBookingForm({
-                        ...bookingForm,
-                        customerPhone: e.target.value,
-                      })
-                    }
-                    className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:bg-white transition-all"
-                    placeholder="Enter your phone number"
-                  />
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.45 }}
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 px-6 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg font-semibold hover:from-emerald-400 hover:to-emerald-500 transition-all duration-300 shadow-lg shadow-emerald-500/30 hover:shadow-emerald-400/40 transform hover:scale-105"
                 >
-                  <label className="block text-sm font-bold text-gray-900 mb-2.5">
-                    Number of Guests <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="number"
-                    required
-                    min="1"
-                    value={bookingForm.numberOfGuests}
-                    onChange={(e) =>
-                      setBookingForm({
-                        ...bookingForm,
-                        numberOfGuests: e.target.value,
-                      })
-                    }
-                    className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:bg-white transition-all"
-                    placeholder="Enter number of guests"
-                  />
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                >
-                  <label className="block text-sm font-bold text-gray-900 mb-2.5">
-                    Special Requests
-                  </label>
-                  <textarea
-                    value={bookingForm.specialRequests}
-                    onChange={(e) =>
-                      setBookingForm({
-                        ...bookingForm,
-                        specialRequests: e.target.value,
-                      })
-                    }
-                    rows={4}
-                    className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:bg-white resize-none transition-all"
-                    placeholder="Any special requests or notes..."
-                  />
-                </motion.div>
-
-                <div className="flex flex-col sm:flex-row gap-4 pt-6">
-                  <motion.button
-                    type="button"
-                    onClick={closeBookingModal}
-                    whileHover={{ scale: 1.02, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="flex-1 px-6 py-4 border-2 border-gray-300 text-gray-700 rounded-xl font-bold hover:bg-gray-50 hover:border-gray-400 transition-all shadow-sm"
-                  >
-                    Cancel
-                  </motion.button>
-                  <motion.button
-                    type="submit"
-                    whileHover={{ scale: 1.02, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="group relative flex-1 px-6 py-4 bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 text-white rounded-xl font-bold overflow-hidden shadow-xl shadow-emerald-500/30 hover:shadow-2xl hover:shadow-emerald-500/50 transition-all"
-                  >
-                    {/* Animated Background Shine */}
-                    <motion.div
-                      animate={{
-                        x: ["-100%", "200%"],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                    />
-                    {/* Glow Effect */}
-                    <div className="absolute -inset-1 bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300 -z-10"></div>
-                    <span className="relative z-10 flex items-center justify-center gap-2">
-                      Send to WhatsApp
-                      <motion.span
-                        animate={{ x: [0, 5, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                      >
-                        →
-                      </motion.span>
-                    </span>
-                  </motion.button>
-                </div>
-              </form>
-            </div>
+                  Send to WhatsApp
+                </button>
+              </div>
+            </form>
           </motion.div>
-        </div>
-      )}
-
-      {/* Full-Screen Image Modal - Creative Design */}
-      {isImageModalOpen && selectedRoom && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
-          <div className="relative w-full h-full max-w-7xl max-h-[90vh] flex items-center justify-center">
-            {/* Close Button */}
-            <motion.button
-              onClick={closeImageModal}
-              whileTap={{ scale: 0.9 }}
-              className="absolute top-4 right-4 z-10 w-12 h-12 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-900 hover:bg-white transition-all duration-300 shadow-xl border-2 border-gray-200"
-            >
-              <XMarkIcon className="w-6 h-6" />
-            </motion.button>
-
-            {/* Navigation Arrows */}
-            {selectedRoom.images && selectedRoom.images.length > 1 && (
-              <>
-                <motion.button
-                  onClick={prevImageModal}
-                  whileTap={{ scale: 0.9 }}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 w-14 h-14 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-900 hover:bg-white transition-all duration-300 shadow-xl border-2 border-gray-200"
-                >
-                  <ChevronLeftIcon className="w-8 h-8" />
-                </motion.button>
-                <motion.button
-                  onClick={nextImageModal}
-                  whileTap={{ scale: 0.9 }}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 w-14 h-14 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-900 hover:bg-white transition-all duration-300 shadow-xl border-2 border-gray-200"
-                >
-                  <ChevronRightIcon className="w-8 h-8" />
-                </motion.button>
-              </>
-            )}
-
-            {/* Main Image */}
-            <div className="relative w-full h-full flex items-center justify-center">
-              <motion.img
-                key={selectedImageIndex}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3 }}
-                src={selectedRoom.images[selectedImageIndex]}
-                alt={`${selectedRoom.room_name} - Image ${
-                  selectedImageIndex + 1
-                }`}
-                className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = "/hotel-room.jpg";
-                }}
-              />
-            </div>
-
-            {/* Image Counter - Creative */}
-            {selectedRoom.images && selectedRoom.images.length > 1 && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-emerald-500/95 to-blue-500/95 backdrop-blur-sm px-6 py-3 rounded-xl text-white font-bold shadow-xl border-2 border-white/20"
-              >
-                {selectedImageIndex + 1} / {selectedRoom.images.length}
-              </motion.div>
-            )}
-
-            {/* Room Name - Creative */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="absolute bottom-6 left-6 bg-gradient-to-r from-emerald-500/95 to-blue-500/95 backdrop-blur-sm px-6 py-3 rounded-xl text-white font-bold shadow-xl border-2 border-white/20"
-            >
-              {selectedRoom.room_name}
-            </motion.div>
-          </div>
         </div>
       )}
     </div>

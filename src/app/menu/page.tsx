@@ -275,11 +275,13 @@ export default function MenuPage() {
         <div className="text-center mb-10">
           <h1
             className="text-6xl md:text-7xl text-[#1a3a52] tracking-[0.1em] mb-2 font-normal"
+            style={{ fontFamily: "Georgia, serif" }}
           >
             HOTEL BLUE SHEEP INN
           </h1>
           <h2
             className="text-2xl md:text-3xl text-[#1a3a52] tracking-[0.3em] font-normal mb-8"
+            style={{ fontFamily: "Georgia, serif" }}
           >
             HOTEL & RESTAURANT
           </h2>
@@ -327,6 +329,7 @@ export default function MenuPage() {
                     <div className="flex-1 h-0.5 bg-[#c9a961] max-w-16"></div>
                     <h3
                       className="text-center text-3xl md:text-4xl text-[#1a3a52] tracking-[0.2em] px-6"
+                      style={{ fontFamily: "Georgia, serif" }}
                     >
                       {category.toUpperCase()}
                     </h3>
@@ -365,6 +368,7 @@ export default function MenuPage() {
                         <div className="flex-1">
                           <div
                             className="text-2xl md:text-3xl text-[#1a3a52] font-semibold"
+                            style={{ fontFamily: "Georgia, serif" }}
                           >
                             {capitalizeItemName(item.item_name)}
                           </div>
@@ -377,6 +381,7 @@ export default function MenuPage() {
                         {/* Price */}
                         <div
                           className="text-2xl md:text-3xl text-[#1a3a52] font-semibold whitespace-nowrap mt-2 md:mt-0 self-end md:self-auto"
+                          style={{ fontFamily: "Georgia, serif" }}
                         >
                           {formatPrice(item.price)}
                         </div>

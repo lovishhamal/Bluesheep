@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -11,141 +11,12 @@ interface HowToReachDunaiProps {
 }
 
 export default function HowToReachDunai({ videoUrl }: HowToReachDunaiProps) {
-  const componentMountedRef = useRef(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Default video URL if not provided (fallback)
   const defaultVideoUrl = "https://ik.imagekit.io/yds5g1shj/travel.MP4";
   const finalVideoUrl = videoUrl || defaultVideoUrl;
-
-  useEffect(() => {
-    componentMountedRef.current = true;
-
-    try {
-      if (typeof window === "undefined" || typeof document === "undefined") {
-        return;
-      }
-
-      const structuredData = {
-        "@context": "https://schema.org",
-        "@type": "TravelAction",
-        name: "How to Travel to Dunai, Dolpa",
-        description:
-          "Complete travel guide from Kathmandu to Dunai, Dolpa - Bus routes, flight options, and travel times",
-        object: {
-          "@type": "City",
-          name: "Dunai",
-          addressRegion: "Dolpa",
-          addressCountry: "NP",
-        },
-        fromLocation: {
-          "@type": "City",
-          name: "Kathmandu",
-          addressCountry: "NP",
-        },
-        toLocation: {
-          "@type": "City",
-          name: "Dunai",
-          addressRegion: "Dolpa",
-          addressCountry: "NP",
-        },
-        distance: {
-          "@type": "Distance",
-          name: "700-750 km",
-        },
-        duration: {
-          "@type": "Duration",
-          name: "30-36 hours",
-        },
-      };
-
-      const script = document.createElement("script");
-      script.type = "application/ld+json";
-      script.id = "how-to-travel-dunai-structured-data";
-      script.text = JSON.stringify(structuredData);
-
-      // FAQ Structured Data
-      const faqData = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        mainEntity: [
-          {
-            "@type": "Question",
-            name: "How do I reach Dunai from Kathmandu?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "The fastest way is to fly from Kathmandu to Nepalgunj (50 mins), then take a connecting flight to Juphal (35 mins). From Juphal, it's a short 3-4 hour trek or jeep ride to Dunai. Alternatively, you can take a bus from Kathmandu to Radi (Rukum) and then trek/jeep to Dunai.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Is there a direct flight to Dunai?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "No, there is no direct flight to Dunai. The nearest airport is Juphal Airport. You must fly to Nepalgunj first and then catch a connecting flight to Juphal.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "How long does it take to reach Dunai?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "By flight, it takes about 1-2 days depending on connections. By road/trekking, it can take 3-4 days from Kathmandu.",
-            },
-          },
-        ],
-      };
-
-      const faqScript = document.createElement("script");
-      faqScript.type = "application/ld+json";
-      faqScript.id = "how-to-travel-dunai-faq-data";
-      faqScript.text = JSON.stringify(faqData);
-
-      const existingScript = document.getElementById(
-        "how-to-travel-dunai-structured-data"
-      );
-      if (existingScript) {
-        existingScript.remove();
-      }
-
-      const existingFaqScript = document.getElementById(
-        "how-to-travel-dunai-faq-data"
-      );
-      if (existingFaqScript) {
-        existingFaqScript.remove();
-      }
-
-      if (!document.head) {
-        return;
-      }
-
-      document.head.appendChild(script);
-      document.head.appendChild(faqScript);
-    } catch {
-      // Silently handle errors
-    }
-
-    return () => {
-      componentMountedRef.current = false;
-      try {
-        const scriptToRemove = document.getElementById(
-          "how-to-travel-dunai-structured-data"
-        );
-        if (scriptToRemove) {
-          scriptToRemove.remove();
-        }
-        const faqScriptToRemove = document.getElementById(
-          "how-to-travel-dunai-faq-data"
-        );
-        if (faqScriptToRemove) {
-          faqScriptToRemove.remove();
-        }
-      } catch {
-        // Silently handle cleanup errors
-      }
-    };
-  }, []);
 
   return (
     <div className="min-h-screen bg-white">
@@ -254,12 +125,12 @@ export default function HowToReachDunai({ videoUrl }: HowToReachDunaiProps) {
             </motion.div>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
               <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                How to Reach Dunai, Dolpa
+                How to Reach Dunai, Dolpa (How to Travel)
               </span>
             </h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Complete guide on how to reach Dunai, Dolpa from Kathmandu - Your
-              adventure begins here
+              Complete guide on how to travel/reach Dunai, Dolpa from Kathmandu
+              with bus and flight options
             </p>
           </motion.div>
 

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Poppins, Playfair_Display, Montserrat, Quattrocento_Sans } from "next/font/google";
+import { Inter, Poppins, Playfair_Display, Montserrat } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -26,13 +26,6 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800", "900"],
-  display: "swap",
-});
-
-const quattrocentoSans = Quattrocento_Sans({
-  variable: "--font-quattrocento-sans",
-  subsets: ["latin"],
-  weight: ["400", "700"],
   display: "swap",
 });
 
@@ -216,9 +209,6 @@ export const metadata: Metadata = {
   },
 
   metadataBase: new URL("https://hotelbluesheepinn.com"),
-  alternates: {
-    canonical: "/",
-  },
   manifest: "/site.webmanifest", // ✅ CRITICAL: Links to your web app manifest
   openGraph: {
     title: "Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa",
@@ -291,13 +281,54 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${montserrat.variable} ${quattrocentoSans.variable}`}
+      className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${montserrat.variable}`}
     >
       <head>
         {/* Theme color for mobile browsers */}
         <meta name="theme-color" content="#059669" />
 
-        {/* Hotel Schema - Global */}
+        {/* Structured Data Scripts - Critical for Google Search */}
+        {/* WebSite Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Hotel Blue Sheep Inn",
+              alternateName: [
+                "Bluesheep",
+                "bluesheep",
+                "Blue Sheep",
+                "Blue Sheep Hotel",
+                "Blue Sheep Inn",
+                "Hotel Blue Sheep",
+                "Hotel Bluesheep",
+                "Hotel Blue Sheep Inn",
+                "Bluesheep Hotel",
+                "Bluesheep Inn",
+              ],
+              url: "https://hotelbluesheepinn.com",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://hotelbluesheepinn.com/logo.png",
+                width: 512,
+                height: 512,
+              },
+              potentialAction: {
+                "@type": "SearchAction",
+                target: {
+                  "@type": "EntryPoint",
+                  urlTemplate:
+                    "https://hotelbluesheepinn.com/?s={search_term_string}",
+                },
+                "query-input": "required name=search_term_string",
+              },
+            }),
+          }}
+        />
+
+        {/* Hotel Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
