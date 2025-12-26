@@ -223,6 +223,12 @@ export default function HomeClient({
                 Attractions
               </Link>
               <Link
+                href="/travel-guide"
+                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+              >
+                Travel Guide
+              </Link>
+              <Link
                 href="/contact"
                 className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
               >
@@ -288,6 +294,13 @@ export default function HomeClient({
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Attractions
+                </Link>
+                <Link
+                  href="/travel-guide"
+                  className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Travel Guide
                 </Link>
                 <Link
                   href="/contact"
@@ -403,6 +416,20 @@ export default function HomeClient({
               >
                 Your gateway to the majestic Himalayas
               </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.55, duration: 0.6 }}
+                className="flex justify-center lg:justify-start"
+              >
+                <Link
+                  href="/travel-guide"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-emerald-200 text-emerald-700 font-semibold shadow-sm hover:shadow-md hover:bg-white transition-all"
+                >
+                  Travel Guide <span className="text-emerald-600">→</span>
+                </Link>
+              </motion.div>
 
               {/* Contact Info - Enhanced Button Style for Mobile - Hidden on Mobile */}
               <motion.div
