@@ -133,30 +133,6 @@ export default function TravelGuideContent({ content, title }: TravelGuideConten
       <div className={`${tableOfContents.length > 0 ? 'lg:col-span-3' : 'lg:col-span-4'} order-1 lg:order-2`}>
         <div className="bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden">
           <div className="p-8 md:p-10">
-            {/* Quick Info Bar */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 p-6 bg-gray-50 rounded-xl">
-              <div className="text-center">
-                <div className="text-2xl mb-2">📍</div>
-                <div className="text-sm text-gray-600 font-medium">Locations</div>
-                <div className="text-lg font-bold text-gray-900">Multiple</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl mb-2">⏰</div>
-                <div className="text-sm text-gray-600 font-medium">Duration</div>
-                <div className="text-lg font-bold text-gray-900">Flexible</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl mb-2">💡</div>
-                <div className="text-sm text-gray-600 font-medium">Tips</div>
-                <div className="text-lg font-bold text-gray-900">Expert</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl mb-2">🗺️</div>
-                <div className="text-sm text-gray-600 font-medium">Maps</div>
-                <div className="text-lg font-bold text-gray-900">Detailed</div>
-              </div>
-            </div>
-
             {/* Main Article Content */}
             <article className="prose prose-lg max-w-none">
               <div

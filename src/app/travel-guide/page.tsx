@@ -1,23 +1,67 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import Script from "next/script";
+import Link from "next/link";
 import { getTravelGuides, stripHtml } from "./dummyTravelGuides";
-import MobileNavigation from "../components/MobileNavigation";
+import Navigation from "../components/Navigation";
 
 export const metadata: Metadata = {
-  title: "Travel Guides | Hotel Blue Sheep Inn",
+  title: "Complete Travel Guides to Dolpa Nepal | Hotel Blue Sheep Inn - Expert Local Tips & Itineraries",
   description:
-    "Browse curated travel guides with detailed itineraries, must-visit places, and practical tips. New guides will be added regularly.",
+    "Discover comprehensive travel guides to Dolpa, Nepal with detailed routes from Kathmandu, flight options to Juphal, jeep connections, local attractions, and insider tips. Plan your perfect journey to Phoksundo Lake and remote Himalayan villages with our expert local knowledge.",
+  keywords: [
+    "Dolpa travel guide",
+    "Nepal travel guides", 
+    "Phoksundo Lake travel",
+    "Sho Tarap Lake guide",
+    "Kathmandu to Dolpa route",
+    "Juphal airport flights",
+    "Dunai travel information",
+    "Upper Dolpa trekking",
+    "Nepal Himalayan travel",
+    "Dolpa itinerary planning",
+    "Remote Nepal destinations",
+    "Phoksundo Lake trekking",
+    "Sho Tarap trekking guide",
+    "Crystal Mountain trek",
+    "Dolpa lakes travel",
+    "Hotel Blue Sheep Inn guides"
+  ],
   alternates: {
     canonical: "/travel-guide",
   },
   openGraph: {
-    title: "Travel Guides | Hotel Blue Sheep Inn",
+    title: "Complete Travel Guides to Dolpa Nepal | Expert Local Knowledge",
     description:
-      "Browse curated travel guides with detailed itineraries, must-visit places, and practical tips.",
+      "Comprehensive travel guides to Dolpa with detailed routes, flight options, local attractions, and insider tips from Hotel Blue Sheep Inn. Explore Phoksundo Lake, Sho Tarap Lake, and Crystal Mountain.",
     type: "website",
     url: "https://hotelbluesheepinn.com/travel-guide",
+    images: [
+      {
+        url: "https://hotelbluesheepinn.com/phoksundo.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Phoksundo Lake Dolpa Nepal Travel Guide"
+      }
+    ],
+    locale: "en_US",
+    siteName: "Hotel Blue Sheep Inn"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Complete Travel Guides to Dolpa Nepal | Expert Local Knowledge",
+    description: "Comprehensive travel guides to Dolpa with detailed routes, flight options, and insider tips. Explore Phoksundo Lake, Sho Tarap Lake, and Crystal Mountain.",
+    images: ["https://hotelbluesheepinn.com/phoksundo.jpg"]
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -28,131 +72,167 @@ export default async function TravelGuidePage() {
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
+    name: "Dolpa Nepal Travel Guides",
+    description: "Comprehensive collection of travel guides for Dolpa, Nepal including routes, attractions, and local insights",
+    url: "https://hotelbluesheepinn.com/travel-guide",
+    numberOfItems: listGuides.length,
     itemListElement: listGuides.map((guide, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      url: `https://hotelbluesheepinn.com/travel-guide/${guide.slug}`,
-      name: guide.title,
+      item: {
+        "@type": "TravelGuide",
+        "@id": `https://hotelbluesheepinn.com/travel-guide/${guide.slug}`,
+        url: `https://hotelbluesheepinn.com/travel-guide/${guide.slug}`,
+        name: guide.title,
+        description: stripHtml(guide.description).slice(0, 160),
+        author: {
+          "@type": "Organization",
+          name: "Hotel Blue Sheep Inn",
+          url: "https://hotelbluesheepinn.com"
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "Hotel Blue Sheep Inn",
+          url: "https://hotelbluesheepinn.com"
+        },
+        about: {
+          "@type": "Place",
+          name: "Dolpa, Nepal",
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: "29.0833",
+            longitude: "82.8833"
+          }
+        },
+        ...(guide.price > 0 && {
+          offers: {
+            "@type": "Offer",
+            price: guide.price,
+            priceCurrency: "NPR",
+            availability: "https://schema.org/InStock"
+          }
+        })
+      }
     })),
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://hotelbluesheepinn.com/"
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Travel Guides",
+        item: "https://hotelbluesheepinn.com/travel-guide"
+      }
+    ]
+  };
+
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "How do I get to Dolpa from Kathmandu?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "You can reach Dolpa from Kathmandu by taking a flight to Juphal Airport (45 minutes) followed by a jeep ride to Dunai (6-8 hours), or by taking a direct bus journey (approximately 30 hours). Our travel guides provide detailed route information for both options."
+        }
+      },
+      {
+        "@type": "Question", 
+        name: "What is the best time to visit Dolpa?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "The best time to visit Dolpa is during spring (March-May) and autumn (September-November) when weather conditions are most favorable for travel and trekking. Winter can be extremely cold with heavy snowfall."
+        }
+      },
+      {
+        "@type": "Question",
+        name: "Do I need special permits for Dolpa?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes, Dolpa requires special permits including the Restricted Area Permit for Upper Dolpa and TIMS card. Our travel guides include detailed information about permit requirements and how to obtain them."
+        }
+      },
+      {
+        "@type": "Question",
+        name: "How do I get to Phoksundo Lake?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "To reach Phoksundo Lake, fly from Kathmandu to Juphal Airport (45 minutes), then take a jeep to Dunai (6-8 hours), followed by a 2-3 day trek to the lake. Our detailed travel guides include route maps, accommodation options, and permit requirements."
+        }
+      },
+      {
+        "@type": "Question",
+        name: "Can I visit Sho Tarap Lake from Phoksundo?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes, Sho Tarap Lake can be reached from Phoksundo Lake via a multi-day trekking route through Upper Dolpa. This requires special permits and is typically part of a longer Crystal Mountain circuit trek. Our guides provide detailed itineraries for this route."
+        }
+      }
+    ]
+  };
+
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TouristInformationCenter",
+    name: "Hotel Blue Sheep Inn Travel Guides",
+    description: "Expert travel guides and local knowledge for Dolpa, Nepal",
+    url: "https://hotelbluesheepinn.com/travel-guide",
+    parentOrganization: {
+      "@type": "LodgingBusiness",
+      name: "Hotel Blue Sheep Inn",
+      url: "https://hotelbluesheepinn.com"
+    },
+    areaServed: {
+      "@type": "Place",
+      name: "Dolpa District, Nepal"
+    },
+    knowsAbout: [
+      "Dolpa travel routes",
+      "Phoksundo Lake access",
+      "Sho Tarap Lake trekking",
+      "Crystal Mountain pilgrimage",
+      "Nepal mountain travel",
+      "Himalayan trekking",
+      "Local transportation",
+      "Upper Dolpa permits"
+    ]
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-emerald-50/30">
+      <Navigation currentPage="travel-guide" />
+      
       <Script
         id="travel-guide-itemlist-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
-
-      <nav className="w-full bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 border-b border-emerald-700/30 sticky top-0 z-50 backdrop-blur-sm shadow-lg shadow-emerald-500/20">
-        <div className="max-w-7xl mx-auto px-3">
-          <div className="flex justify-between items-center py-4">
-            <Link href="/" className="flex items-center">
-              <Image
-                src="/logo.png"
-                alt="Hotel Blue Sheep Inn Logo"
-                width={48}
-                height={48}
-                className="h-12 w-auto rounded-lg shadow-md cursor-pointer"
-              />
-            </Link>
-
-            <div className="hidden md:flex space-x-8">
-              <Link
-                href="/"
-                className="text-white font-medium transition-colors duration-200 hover:text-emerald-100"
-              >
-                Home
-              </Link>
-              <Link
-                href="/rooms"
-                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
-              >
-                Rooms
-              </Link>
-              <Link
-                href="/menu"
-                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
-              >
-                Menu
-              </Link>
-              <Link
-                href="/camping"
-                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
-              >
-                Camping
-              </Link>
-              <Link
-                href="/attractions"
-                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
-              >
-                Attractions
-              </Link>
-              <Link
-                href="/travel-guide"
-                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium border-b-2 border-emerald-50"
-              >
-                Travel Guide
-              </Link>
-              <Link
-                href="/contact"
-                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
-              >
-                Contact
-              </Link>
-            </div>
-
-            <div className="md:hidden text-white font-semibold">Menu</div>
-          </div>
-
-          <div className="md:hidden border-t border-emerald-700/30">
-            <div className="py-4 space-y-4">
-              <Link
-                href="/"
-                className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
-              >
-                Home
-              </Link>
-              <Link
-                href="/rooms"
-                className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
-              >
-                Rooms
-              </Link>
-              <Link
-                href="/menu"
-                className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
-              >
-                Menu
-              </Link>
-              <Link
-                href="/camping"
-                className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
-              >
-                Camping
-              </Link>
-              <Link
-                href="/attractions"
-                className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
-              >
-                Attractions
-              </Link>
-              <Link
-                href="/travel-guide"
-                className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
-              >
-                Travel Guide
-              </Link>
-              <Link
-                href="/contact"
-                className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
-              >
-                Contact
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Script
+        id="travel-guide-breadcrumb-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <Script
+        id="travel-guide-organization-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
+      <Script
+        id="travel-guide-faq-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
 
       <section className="pt-4 pb-16 bg-gradient-to-br from-white via-emerald-50/30 to-blue-50 relative overflow-hidden">
         <div className="absolute inset-0">
@@ -161,20 +241,19 @@ export default async function TravelGuidePage() {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-12 lg:mb-16">
+          <header className="text-center mb-12 lg:mb-16">
             <div className="inline-block mb-4">
-              <span className="text-5xl">🗺️</span>
+              <span className="text-5xl" role="img" aria-label="Map">🗺️</span>
             </div>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
               <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                Travel Guides
+                Complete Travel Guides to Dolpa, Nepal
               </span>
             </h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Detailed itineraries, best spots, and practical tips — built for
-              SEO and easy reading.
+              Expert travel guides with detailed routes from Kathmandu to Dolpa, flight options to Juphal Airport, jeep connections, local attractions, and insider tips for exploring Phoksundo Lake, Sho Tarap Lake, Crystal Mountain, and remote Himalayan villages. Plan your perfect journey with our comprehensive local knowledge.
             </p>
-          </div>
+          </header>
 
           <div className="max-w-6xl mx-auto">
               {listGuides.length === 0 && generalGuides.length === 0 ? (
@@ -284,14 +363,18 @@ export default async function TravelGuidePage() {
                   <div className="inline-block mb-4">
                     <span className="text-4xl">📚</span>
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-                    <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                      General Travel Information
-                    </span>
-                  </h2>
-                  <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-                    Essential information and tips for your journey
-                  </p>
+                  {generalGuides.length > 0 && (
+                    <>
+                      <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+                        <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
+                          {generalGuides[0].title}
+                        </span>
+                      </h2>
+                      <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+                        Important travel tips, local customs, and practical information for your journey to Nepal&apos;s remote Dolpa region
+                      </p>
+                    </>
+                  )}
                 </div>
 
                 <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mb-8" />
@@ -311,8 +394,6 @@ export default async function TravelGuidePage() {
           ) : null}
         </div>
       </section>
-
-      <MobileNavigation />
     </div>
   );
 }
