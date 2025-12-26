@@ -6,7 +6,8 @@ export const revalidate = 0;
 
 export default async function CampingPage() {
   noStore();
-  const campingImages = await getImagesFromFolder("images", "camping");
+  // Load only first 20 images initially for better performance
+  const campingImages = await getImagesFromFolder("images", "camping", 20);
 
   return <CampingPageClient initialCampingImages={campingImages} />;
 }
