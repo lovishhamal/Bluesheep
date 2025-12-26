@@ -383,7 +383,7 @@ export default async function TravelGuidePage() {
                   <div key={g.slug} className="max-w-4xl mx-auto">
                     <div className="prose prose-lg max-w-none">
                       <div 
-                        className="text-gray-700 leading-relaxed text-lg [&>p]:mb-6 [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:mb-6 [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:mb-6 [&_li]:mb-3 [&_strong]:text-gray-900 [&_strong]:font-semibold [&_strong]:bg-yellow-100 [&_strong]:px-1 [&_strong]:rounded [&>h1]:text-2xl [&>h1]:font-bold [&>h1]:text-gray-900 [&>h1]:mb-4 [&>h2]:text-xl [&>h2]:font-bold [&>h2]:text-gray-900 [&>h2]:mb-3 [&>h3]:text-lg [&>h3]:font-semibold [&>h3]:text-gray-900 [&>h3]:mb-2"
+                        className="text-gray-700 leading-relaxed text-lg [&>p]:mb-6 [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:mb-6 [&>ul]:space-y-2 [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:mb-6 [&>ol]:space-y-2 [&_li]:mb-2 [&_li]:text-gray-700 [&_li]:leading-relaxed [&_strong]:text-gray-900 [&_strong]:font-semibold [&>h1]:text-2xl [&>h1]:font-bold [&>h1]:text-gray-900 [&>h1]:mb-4 [&>h2]:text-xl [&>h2]:font-bold [&>h2]:text-gray-900 [&>h2]:mb-3 [&>h3]:text-lg [&>h3]:font-semibold [&>h3]:text-gray-900 [&>h3]:mb-2"
                         dangerouslySetInnerHTML={{ __html: g.description }}
                       />
                     </div>
