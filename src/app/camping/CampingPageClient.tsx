@@ -30,11 +30,16 @@ export default function CampingPageClient({ initialCampingImages }: CampingPageP
     arrivalDate: "",
     specialRequests: "",
   });
-  const [campingImages] = useState<StorageImage[]>(initialCampingImages);
+  const [campingImages, setCampingImages] =
+    useState<StorageImage[]>(initialCampingImages);
   const [isLoadingImages] = useState(false);
   const [imageError] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<StorageImage | null>(null);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+
+  useEffect(() => {
+    setCampingImages(initialCampingImages);
+  }, [initialCampingImages]);
 
 
   // Prevent body scroll when modal is open (iOS fix)
@@ -436,9 +441,6 @@ Please confirm this booking.`;
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <div className="absolute bottom-4 left-4 right-4">
-                        <h3 className="text-white font-bold text-lg capitalize mb-1">
-                          {image.alt}
-                        </h3>
                         <p className="text-emerald-300 text-sm font-medium">
                           Click to view larger
                         </p>
@@ -926,20 +928,16 @@ Please confirm this booking.`;
               />
             </div>
 
-            {/* Image Info */}
-            <div className="absolute bottom-4 left-4 right-4 bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
-              <h3 className="text-white font-bold text-xl capitalize mb-2">
-                {selectedImage.alt}
-              </h3>
-              {campingImages.length > 1 && (
+            {campingImages.length > 1 && (
+              <div className="absolute bottom-4 left-4 right-4 bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
                 <p className="text-gray-300 text-sm">
                   {campingImages.findIndex(
                     (img) => img.name === selectedImage.name
                   ) + 1}{" "}
                   of {campingImages.length}
                 </p>
-              )}
-            </div>
+              </div>
+            )}
 
             {/* Keyboard Instructions */}
             <div className="absolute top-4 left-4 bg-white/10 backdrop-blur-md rounded-lg p-3 text-white text-sm border border-white/20">
