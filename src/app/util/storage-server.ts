@@ -1,11 +1,5 @@
-import { createClient } from "./supabase-server";
+import { createPublicClient } from "./supabase-server";
 import { StorageImage, Review } from "./storage";
-
-const sanitizePublicLinkUrl = (url: string) => {
-  const trimmed = url.trim();
-  if (trimmed.endsWith(")")) return trimmed.slice(0, -1);
-  return trimmed;
-};
 
 // Function to get public URL for images from Supabase storage (server-side)
 export const getImageUrl = (
@@ -23,7 +17,7 @@ export const getImagesFromFolder = async (
   folder: string
 ): Promise<StorageImage[]> => {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase.storage.from(bucket).list(folder, {
       sortBy: { column: 'created_at', order: 'desc' }
     });
@@ -68,7 +62,7 @@ export const getImagesFromFolder = async (
 // Function to fetch reviews from Supabase database table (server-side)
 export const getReviews = async (): Promise<Review[]> => {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("reviews")
       .select("*")
@@ -98,7 +92,7 @@ export const getPublicLinks = async (
   type?: "image" | "video"
 ): Promise<PublicLink[]> => {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     let query = supabase.from("public_links").select("*");
 
     // Filter by type if provided
@@ -164,14 +158,13 @@ export const getCarouselImages = async (): Promise<StorageImage[]> => {
 
     // Map links to StorageImage format
     const images = links.map((link): StorageImage => {
-      const sanitizedUrl = sanitizePublicLinkUrl(link.link);
       // Extract filename from URL (handle query params)
-      const urlWithoutParams = sanitizedUrl.split("?")[0];
+      const urlWithoutParams = link.link.split("?")[0];
       const fileName = urlWithoutParams.split("/").pop() || `image-${link.id}`;
 
       return {
         name: fileName,
-        url: sanitizedUrl,
+        url: link.link,
         alt:
           fileName
             .replace(/\.[^/.]+$/, "") // Remove file extension

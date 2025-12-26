@@ -12,8 +12,7 @@ module.exports = {
         poppins: ["var(--font-poppins)", "sans-serif"],
         playfair: ["var(--font-playfair)", "serif"],
         montserrat: ["var(--font-montserrat)", "sans-serif"],
-        quattrocento: ["var(--font-quattrocento-sans)", "sans-serif"],
-        sans: ["var(--font-quattrocento-sans)", "system-ui", "sans-serif"],
+        sans: ["var(--font-montserrat)", "system-ui", "sans-serif"],
       },
       animation: {
         "fade-in": "fadeIn 0.5s ease-in-out",

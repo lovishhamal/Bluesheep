@@ -29,7 +29,6 @@ export default function HeroCarousel({
 }: HeroCarouselProps) {
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
-  const [enableStackedCards, setEnableStackedCards] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
 
   // Keyboard navigation
@@ -54,28 +53,6 @@ export default function HeroCarousel({
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [nextImage, prevImage]);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const w = window as unknown as {
-      requestIdleCallback?: (
-        callback: () => void,
-        options?: { timeout: number }
-      ) => number;
-      cancelIdleCallback?: (id: number) => void;
-    };
-
-    if (typeof w.requestIdleCallback === "function") {
-      const id = w.requestIdleCallback(() => setEnableStackedCards(true), {
-        timeout: 1500,
-      });
-      return () => w.cancelIdleCallback?.(id);
-    }
-
-    const timeoutId = window.setTimeout(() => setEnableStackedCards(true), 900);
-    return () => window.clearTimeout(timeoutId);
-  }, []);
 
   // Touch handlers for mobile swipe
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -106,9 +83,6 @@ export default function HeroCarousel({
 
   // Show up to 3 stacked cards
   const visibleCards = 3;
-  const cardsToRender = enableStackedCards
-    ? Math.min(visibleCards, images.length)
-    : 1;
   const getCardIndex = (offset: number) => {
     const index = currentIndex + offset;
     if (index < 0) return images.length + index;
@@ -188,7 +162,8 @@ export default function HeroCarousel({
           }}
         >
           <AnimatePresence mode="wait">
-            {Array.from({ length: cardsToRender }).map((_, stackIndex) => {
+            {Array.from({ length: Math.min(visibleCards, images.length) }).map(
+              (_, stackIndex) => {
                 const imageIndex = getCardIndex(stackIndex);
                 const isTop = stackIndex === 0;
                 const isMiddle = stackIndex === 1;
@@ -278,9 +253,9 @@ export default function HeroCarousel({
                         alt={images[imageIndex]?.alt || "Hotel Blue Sheep Inn"}
                         fill
                         className="object-cover"
-                        sizes={isMobile ? "100vw" : "672px"}
-                        priority={isTop}
-                        quality={70}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 800px, 1200px"
+                        priority={isTop && imageIndex === 0}
+                        quality={80}
                         onError={() => {
                           // Image failed to load - could set error state here if needed
                         }}
