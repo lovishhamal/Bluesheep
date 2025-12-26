@@ -515,6 +515,39 @@ body {
   }
 }
 
+/* Image optimization for camping gallery */
+.camping-image {
+  content-visibility: auto;
+  contain-intrinsic-size: 400px 300px;
+}
+
+/* Optimize image loading performance */
+img[loading="lazy"] {
+  content-visibility: auto;
+  contain-intrinsic-size: 400px 300px;
+}
+
+/* Reduce layout shift for images */
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-container::before {
+  content: '';
+  display: block;
+  padding-bottom: 75%; /* 4:3 aspect ratio */
+}
+
+.image-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 /* Smooth scroll behavior for anchor links */
 html {
   scroll-behavior: smooth;
