@@ -3,8 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 import { getTravelGuides, stripHtml } from "./dummyTravelGuides";
-import TravelGuideSidebar from "./TravelGuideSidebar";
-import { getPrimaryVideo } from "../util/storage-server";
 import MobileNavigation from "../components/MobileNavigation";
 
 export const metadata: Metadata = {
@@ -27,7 +25,6 @@ export default async function TravelGuidePage() {
   const guides = await getTravelGuides();
   const listGuides = guides.filter((g) => g.type === "list");
   const generalGuides = guides.filter((g) => g.type === "general");
-  const videoUrl = await getPrimaryVideo();
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -187,7 +184,7 @@ export default async function TravelGuidePage() {
                     <h2 className="text-2xl font-bold text-gray-900 mb-3">
                       No travel guides available yet
                     </h2>
-                    <p className="text-gray-600 text-lg">We're working on creating amazing travel guides for you. Please check back soon!</p>
+                    <p className="text-gray-600 text-lg">We&apos;re working on creating amazing travel guides for you. Please check back soon!</p>
                   </div>
                 </div>
               ) : (
