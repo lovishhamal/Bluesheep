@@ -407,10 +407,10 @@ body {
 
 @keyframes marquee-sweep-left-to-right {
   0% {
-    transform: translateX(-110%);
+    transform: translateX(0%);
   }
   100% {
-    transform: translateX(calc(100vw + 110%));
+    transform: translateX(calc(100vw + 50%));
   }
 }
 
@@ -425,7 +425,7 @@ body {
 .marquee__item {
   display: inline-flex;
   will-change: transform;
-  animation: marquee-sweep-left-to-right 15s linear infinite;
+  animation: marquee-sweep-left-to-right 25s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
