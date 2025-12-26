@@ -65,6 +65,12 @@ export default function AttractionsPage() {
                 Attractions
               </Link>
               <Link
+                href="/travel-guide"
+                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+              >
+                Travel Guide
+              </Link>
+              <Link
                 href="/contact"
                 className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
               >
@@ -132,8 +138,15 @@ export default function AttractionsPage() {
                   Attractions
                 </Link>
                 <Link
+                  href="/travel-guide"
+                  className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Travel Guide
+                </Link>
+                <Link
                   href="/contact"
-                  className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
+                  className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Contact
