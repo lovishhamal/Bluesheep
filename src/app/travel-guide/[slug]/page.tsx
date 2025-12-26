@@ -8,6 +8,8 @@ import {
   getTravelGuideBySlug,
   stripHtml,
 } from "../dummyTravelGuides";
+import TravelGuideContent from "../../components/TravelGuideContent";
+import MobileNavigation from "../../components/MobileNavigation";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -214,34 +216,51 @@ export default async function TravelGuideDetailPage({ params }: PageProps) {
         </div>
       </nav>
 
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
         <div className="mb-8">
           <Link
             href="/travel-guide"
-            className="inline-flex items-center gap-2 text-emerald-700 font-semibold hover:text-emerald-600 transition-colors"
+            className="inline-flex items-center gap-3 text-emerald-700 font-semibold hover:text-emerald-600 transition-colors bg-emerald-50 hover:bg-emerald-100 px-4 py-2 rounded-lg border border-emerald-200"
           >
-            <span>←</span> Back to Travel Guides
+            <span className="text-lg">←</span> 
+            <span>Back to Travel Guides</span>
           </Link>
         </div>
 
-        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-          <div className="p-8 sm:p-10">
-            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
-              <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
-                {guide.title}
-              </h1>
-              <div className="shrink-0 rounded-xl bg-emerald-50 border border-emerald-100 px-4 py-2 text-emerald-700 font-bold text-lg">
-                ${guide.price.toFixed(2)}
+        {/* Hero Section */}
+        <div className="bg-gradient-to-r from-emerald-500 via-emerald-600 to-blue-600 rounded-3xl p-8 md:p-12 text-white mb-10 relative overflow-hidden shadow-2xl">
+          <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 opacity-50"></div>
+          <div className="relative z-10">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-3xl">🗺️</span>
+                  <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium border border-white/30">
+                    Complete Travel Guide
+                  </span>
+                </div>
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
+                  {guide.title}
+                </h1>
+                <p className="text-emerald-100 text-lg md:text-xl max-w-2xl">
+                  Your comprehensive guide with detailed itineraries, insider tips, and everything you need for an amazing journey.
+                </p>
+              </div>
+              <div className="flex-shrink-0">
+                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/30 text-center">
+                  <div className="text-emerald-100 text-sm font-medium mb-2">Complete Guide</div>
+                  <div className="text-4xl font-bold mb-2">NPR {guide.price.toFixed(0)}</div>
+                </div>
               </div>
             </div>
-
-            <article
-              className="[&>h2]:text-2xl [&>h2]:font-bold [&>h2]:text-gray-900 [&>h2]:mt-8 [&>h2]:mb-4 [&>h3]:text-xl [&>h3]:font-bold [&>h3]:text-gray-900 [&>h3]:mt-8 [&>h3]:mb-3 [&>p]:text-gray-700 [&>p]:leading-relaxed [&>p]:mb-4 [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:mb-4 [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:mb-4 [&_li]:mb-2 [&_strong]:text-gray-900 [&_em]:text-gray-700 [&>blockquote]:border-l-4 [&>blockquote]:border-emerald-300 [&>blockquote]:bg-emerald-50/60 [&>blockquote]:rounded-xl [&>blockquote]:px-5 [&>blockquote]:py-4 [&>blockquote]:my-6"
-              dangerouslySetInnerHTML={{ __html: guide.description }}
-            />
           </div>
         </div>
+
+        {/* Content Grid */}
+        <TravelGuideContent content={guide.description} title={guide.title} />
       </main>
+
+      <MobileNavigation />
     </div>
   );
 }

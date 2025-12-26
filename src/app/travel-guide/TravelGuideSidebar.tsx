@@ -24,7 +24,7 @@ export default function TravelGuideSidebar({
       viewport={{ once: true }}
       className={sticky ? "relative lg:sticky lg:top-8" : "relative"}
     >
-      <div className="relative rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl border-4 border-white max-h-[360px] sm:max-h-[420px]">
+      <div className="relative rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl border-4 border-white min-h-[500px] sm:min-h-[600px] lg:min-h-[700px]">
         <video
           ref={videoRef}
           className="w-full h-full object-cover"
