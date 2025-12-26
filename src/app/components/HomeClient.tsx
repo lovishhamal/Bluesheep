@@ -26,14 +26,12 @@ interface HomeClientProps {
   initialGalleryImages: GalleryImage[];
   initialReviews: Review[];
   initialHotelGalleryImages: StorageImage[];
-  videoUrl?: string | null;
 }
 
 export default function HomeClient({
   initialGalleryImages,
   initialReviews,
   initialHotelGalleryImages,
-  videoUrl,
 }: HomeClientProps) {
   const router = useRouter();
   const isMobile = useIsMobile();
@@ -625,7 +623,7 @@ export default function HomeClient({
       </section>
 
       {/* Routes Section - How to Reach Hotel Blue Sheep Inn */}
-      <HowToReach videoUrl={videoUrl} />
+      <HowToReach />
 
       {/* Features Section - Ultra Creative */}
       <section className="py-0 md:py-14 bg-gradient-to-br from-white via-emerald-50/30 to-blue-50 relative overflow-hidden">

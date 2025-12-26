@@ -4,7 +4,7 @@ import Link from "next/link";
 import Script from "next/script";
 import { notFound } from "next/navigation";
 import {
-  dummyTravelGuides,
+  getTravelGuides,
   getTravelGuideBySlug,
   stripHtml,
 } from "../dummyTravelGuides";
@@ -14,14 +14,15 @@ type PageProps = {
 };
 
 export async function generateStaticParams() {
-  return dummyTravelGuides.map((g) => ({ slug: g.slug }));
+  const guides = await getTravelGuides();
+  return guides.filter((g) => g.type === "list").map((g) => ({ slug: g.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const guide = getTravelGuideBySlug(slug);
+  const guide = await getTravelGuideBySlug(slug);
   if (!guide) return {};
 
   const plain = stripHtml(guide.description);
@@ -45,8 +46,8 @@ export async function generateMetadata({
 
 export default async function TravelGuideDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const guide = getTravelGuideBySlug(slug);
-  if (!guide) notFound();
+  const guide = await getTravelGuideBySlug(slug);
+  if (!guide || guide.type !== "list") notFound();
 
   const plain = stripHtml(guide.description);
   const url = `https://hotelbluesheepinn.com/travel-guide/${guide.slug}`;

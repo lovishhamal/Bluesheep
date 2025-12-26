@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
-import { dummyTravelGuides, stripHtml } from "./dummyTravelGuides";
+import { getTravelGuides, stripHtml } from "./dummyTravelGuides";
+import TravelGuideSidebar from "./TravelGuideSidebar";
+import { getPrimaryVideo } from "../util/storage-server";
 
 export const metadata: Metadata = {
   title: "Travel Guides | Hotel Blue Sheep Inn",
@@ -20,11 +22,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function TravelGuidePage() {
+export default async function TravelGuidePage() {
+  const guides = await getTravelGuides();
+  const listGuides = guides.filter((g) => g.type === "list");
+  const generalGuides = guides.filter((g) => g.type === "general");
+  const videoUrl = await getPrimaryVideo();
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    itemListElement: dummyTravelGuides.map((guide, index) => ({
+    itemListElement: listGuides.map((guide, index) => ({
       "@type": "ListItem",
       position: index + 1,
       url: `https://hotelbluesheepinn.com/travel-guide/${guide.slug}`,
@@ -41,7 +47,7 @@ export default function TravelGuidePage() {
       />
 
       <nav className="w-full bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 border-b border-emerald-700/30 sticky top-0 z-50 backdrop-blur-sm shadow-lg shadow-emerald-500/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-3">
           <div className="flex justify-between items-center py-4">
             <Link href="/" className="flex items-center">
               <Image
@@ -150,51 +156,104 @@ export default function TravelGuidePage() {
         </div>
       </nav>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-              Travel Guides
-            </span>
-          </h1>
-          <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto font-light">
-            Detailed itineraries, best spots, and practical tips — built for SEO
-            and easy reading.
-          </p>
+      <section className="py-4 lg:py-12 bg-gradient-to-br from-white via-emerald-50/30 to-blue-50 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-10 right-20 w-72 h-72 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 left-20 w-96 h-96 bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-3xl" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {dummyTravelGuides.map((guide) => {
-            const plain = stripHtml(guide.description);
-            const excerpt =
-              plain.length > 220 ? `${plain.slice(0, 220)}...` : plain;
+        <div className="max-w-7xl mx-auto px-3 relative z-10">
+          <div className="text-center mb-12 lg:mb-16">
+            <div className="inline-block mb-4">
+              <span className="text-5xl">🗺️</span>
+            </div>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+              <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
+                Travel Guides
+              </span>
+            </h1>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Detailed itineraries, best spots, and practical tips — built for
+              SEO and easy reading.
+            </p>
+          </div>
 
-            return (
-              <Link
-                key={guide.slug}
-                href={`/travel-guide/${guide.slug}`}
-                className="group bg-white rounded-2xl border border-gray-200 hover:border-emerald-300 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
-              >
-                <div className="p-6">
-                  <div className="flex items-start justify-between gap-4 mb-3">
-                    <h2 className="text-2xl font-bold text-gray-900 group-hover:text-emerald-700 transition-colors duration-200">
-                      {guide.title}
-                    </h2>
-                    <div className="shrink-0 rounded-xl bg-emerald-50 border border-emerald-100 px-3 py-1 text-emerald-700 font-semibold">
-                      ${guide.price.toFixed(2)}
-                    </div>
-                  </div>
-                  <p className="text-gray-600 leading-relaxed">{excerpt}</p>
-                  <div className="mt-5 inline-flex items-center gap-2 text-emerald-700 font-semibold">
-                    Read guide <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
-                  </div>
+          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-8 lg:gap-12 items-start">
+            <TravelGuideSidebar videoUrl={videoUrl} />
+
+            <div className="space-y-4">
+              {listGuides.length === 0 && generalGuides.length === 0 ? (
+                <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border-2 border-emerald-400/20 shadow-lg">
+                  <h2 className="text-xl font-bold text-gray-900 mb-2">
+                    No travel guides available yet
+                  </h2>
+                  <p className="text-gray-600">Please check back soon.</p>
                 </div>
-              </Link>
-            );
-          })}
+              ) : null}
+
+              {listGuides.map((guide, index) => {
+                const plain = stripHtml(guide.description);
+                const excerpt =
+                  plain.length > 260 ? `${plain.slice(0, 260)}...` : plain;
+
+                return (
+                  <Link
+                    key={guide.slug}
+                    href={`/travel-guide/${guide.slug}`}
+                    className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border-2 border-emerald-400/30 shadow-lg hover:shadow-xl transition-all duration-300 group block"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-md group-hover:scale-110 transition-transform">
+                        {index + 1}
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-start justify-between gap-4 mb-2">
+                          <h2 className="text-xl md:text-2xl font-bold text-gray-900 group-hover:text-emerald-700 transition-colors duration-200">
+                            {guide.title}
+                          </h2>
+                          <div className="shrink-0 rounded-xl bg-emerald-50 border border-emerald-100 px-3 py-1 text-emerald-700 font-semibold">
+                            ${guide.price.toFixed(2)}
+                          </div>
+                        </div>
+                        <p className="text-gray-600 mb-3">{excerpt}</p>
+                        <div className="inline-flex items-center gap-2 text-emerald-700 font-semibold">
+                          Read guide{" "}
+                          <span className="transition-transform duration-200 group-hover:translate-x-1">
+                            →
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+
+          {generalGuides.length > 0 ? (
+            <div className="mt-10 lg:mt-14 bg-white py-10">
+              <div className="max-w-4xl mx-auto">
+                <h2 className="text-xl md:text-2xl font-bold text-gray-900 text-center mb-8">
+                  General Information
+                </h2>
+
+                <div className="space-y-8">
+                  {generalGuides.map((g) => (
+                    <div key={g.slug} className="space-y-2">
+                      <h3 className="text-lg md:text-xl font-bold text-gray-900">
+                        {g.title}
+                      </h3>
+                      <p className="text-gray-700 leading-relaxed">
+                        {stripHtml(g.description)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : null}
         </div>
-      </main>
+      </section>
     </div>
   );
 }
-

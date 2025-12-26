@@ -1,8 +1,10 @@
 import { MetadataRoute } from "next";
-import { dummyTravelGuides } from "./travel-guide/dummyTravelGuides";
+import { getTravelGuides } from "./travel-guide/dummyTravelGuides";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://hotelbluesheepinn.com";
+  const guides = await getTravelGuides();
+  const listGuides = guides.filter((g) => g.type === "list");
 
   const travelGuideRoutes: MetadataRoute.Sitemap = [
     {
@@ -11,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly" as const,
       priority: 0.8,
     },
-    ...dummyTravelGuides.map((guide) => ({
+    ...listGuides.map((guide) => ({
       url: `${baseUrl}/travel-guide/${guide.slug}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
