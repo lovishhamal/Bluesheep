@@ -330,6 +330,12 @@ Please confirm this booking.`;
                 Attractions
               </Link>
               <Link
+                href="/travel-guide"
+                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+              >
+                Travel Guide
+              </Link>
+              <Link
                 href="/contact"
                 className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
               >
@@ -395,6 +401,13 @@ Please confirm this booking.`;
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Attractions
+                </Link>
+                <Link
+                  href="/travel-guide"
+                  className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Travel Guide
                 </Link>
                 <Link
                   href="/contact"
