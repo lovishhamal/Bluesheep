@@ -1,4 +1,4 @@
-import { createClient } from "./supabase-server";
+import { createPublicClient } from "./supabase-server";
 import { StorageImage, Review } from "./storage";
 
 // Function to get public URL for images from Supabase storage (server-side)
@@ -17,7 +17,7 @@ export const getImagesFromFolder = async (
   folder: string
 ): Promise<StorageImage[]> => {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase.storage.from(bucket).list(folder, {
       sortBy: { column: 'created_at', order: 'desc' }
     });
@@ -62,7 +62,7 @@ export const getImagesFromFolder = async (
 // Function to fetch reviews from Supabase database table (server-side)
 export const getReviews = async (): Promise<Review[]> => {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("reviews")
       .select("*")
@@ -92,7 +92,7 @@ export const getPublicLinks = async (
   type?: "image" | "video"
 ): Promise<PublicLink[]> => {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     let query = supabase.from("public_links").select("*");
 
     // Filter by type if provided
