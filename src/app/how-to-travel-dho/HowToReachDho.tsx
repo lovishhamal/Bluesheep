@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -11,90 +11,12 @@ interface HowToReachDhoProps {
 }
 
 export default function HowToReachDho({ videoUrl }: HowToReachDhoProps) {
-  const componentMountedRef = useRef(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   // Default video URL if not provided (fallback)
   const defaultVideoUrl = "https://ik.imagekit.io/yds5g1shj/travel.MP4";
   const finalVideoUrl = videoUrl || defaultVideoUrl;
-
-  useEffect(() => {
-    componentMountedRef.current = true;
-
-    try {
-      if (typeof window === "undefined" || typeof document === "undefined") {
-        return;
-      }
-
-      const structuredData = {
-        "@context": "https://schema.org",
-        "@type": "TravelAction",
-        name: "How to Travel to Dho, Dolpa",
-        description:
-          "Complete travel guide from Kathmandu to Dho, Dolpa - Bus routes, flight options, and travel times",
-        object: {
-          "@type": "City",
-          name: "Dho",
-          addressRegion: "Dolpa",
-          addressCountry: "NP",
-        },
-        fromLocation: {
-          "@type": "City",
-          name: "Kathmandu",
-          addressCountry: "NP",
-        },
-        toLocation: {
-          "@type": "City",
-          name: "Dho",
-          addressRegion: "Dolpa",
-          addressCountry: "NP",
-        },
-        distance: {
-          "@type": "Distance",
-          name: "750-800 km",
-        },
-        duration: {
-          "@type": "Duration",
-          name: "32-38 hours",
-        },
-      };
-
-      const script = document.createElement("script");
-      script.type = "application/ld+json";
-      script.id = "how-to-travel-dho-structured-data";
-      script.text = JSON.stringify(structuredData);
-
-      const existingScript = document.getElementById(
-        "how-to-travel-dho-structured-data"
-      );
-      if (existingScript) {
-        existingScript.remove();
-      }
-
-      if (!document.head) {
-        return;
-      }
-
-      document.head.appendChild(script);
-    } catch {
-      // Silently handle errors
-    }
-
-    return () => {
-      componentMountedRef.current = false;
-      try {
-        const scriptToRemove = document.getElementById(
-          "how-to-travel-dho-structured-data"
-        );
-        if (scriptToRemove) {
-          scriptToRemove.remove();
-        }
-      } catch {
-        // Silently handle cleanup errors
-      }
-    };
-  }, []);
 
   return (
     <div className="min-h-screen bg-white">
@@ -200,12 +122,12 @@ export default function HowToReachDho({ videoUrl }: HowToReachDhoProps) {
             </motion.div>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
               <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                How to Travel to Dho, Dolpa
+                How to Reach Dho, Dolpa (How to Travel)
               </span>
             </h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Complete travel guide from Kathmandu to Dho, Dolpa - Your
-              adventure to Upper Dolpa begins here
+              Complete guide on how to travel/reach Dho, Dolpa from Kathmandu
+              with route options and tips
             </p>
           </motion.div>
 
@@ -351,4 +273,3 @@ export default function HowToReachDho({ videoUrl }: HowToReachDhoProps) {
     </div>
   );
 }
-

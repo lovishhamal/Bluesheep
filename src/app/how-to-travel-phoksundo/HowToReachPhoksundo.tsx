@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -11,90 +11,12 @@ interface HowToReachPhoksundoProps {
 }
 
 export default function HowToReachPhoksundo({ videoUrl }: HowToReachPhoksundoProps) {
-  const componentMountedRef = useRef(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   // Default video URL if not provided (fallback)
   const defaultVideoUrl = "https://ik.imagekit.io/yds5g1shj/travel.MP4";
   const finalVideoUrl = videoUrl || defaultVideoUrl;
-
-  useEffect(() => {
-    componentMountedRef.current = true;
-
-    try {
-      if (typeof window === "undefined" || typeof document === "undefined") {
-        return;
-      }
-
-      const structuredData = {
-        "@context": "https://schema.org",
-        "@type": "TravelAction",
-        name: "How to Travel to Phoksundo Lake, Dolpa",
-        description:
-          "Complete travel guide from Kathmandu to Phoksundo Lake, Dolpa - Trekking routes and travel times",
-        object: {
-          "@type": "TouristAttraction",
-          name: "Phoksundo Lake",
-          addressRegion: "Dolpa",
-          addressCountry: "NP",
-        },
-        fromLocation: {
-          "@type": "City",
-          name: "Kathmandu",
-          addressCountry: "NP",
-        },
-        toLocation: {
-          "@type": "TouristAttraction",
-          name: "Phoksundo Lake",
-          addressRegion: "Dolpa",
-          addressCountry: "NP",
-        },
-        distance: {
-          "@type": "Distance",
-          name: "800-850 km",
-        },
-        duration: {
-          "@type": "Duration",
-          name: "5-7 days (including trek)",
-        },
-      };
-
-      const script = document.createElement("script");
-      script.type = "application/ld+json";
-      script.id = "how-to-travel-phoksundo-structured-data";
-      script.text = JSON.stringify(structuredData);
-
-      const existingScript = document.getElementById(
-        "how-to-travel-phoksundo-structured-data"
-      );
-      if (existingScript) {
-        existingScript.remove();
-      }
-
-      if (!document.head) {
-        return;
-      }
-
-      document.head.appendChild(script);
-    } catch {
-      // Silently handle errors
-    }
-
-    return () => {
-      componentMountedRef.current = false;
-      try {
-        const scriptToRemove = document.getElementById(
-          "how-to-travel-phoksundo-structured-data"
-        );
-        if (scriptToRemove) {
-          scriptToRemove.remove();
-        }
-      } catch {
-        // Silently handle cleanup errors
-      }
-    };
-  }, []);
 
   return (
     <div className="min-h-screen bg-white">
@@ -200,11 +122,12 @@ export default function HowToReachPhoksundo({ videoUrl }: HowToReachPhoksundoPro
             </motion.div>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
               <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                How to Travel to Phoksundo Lake, Dolpa
+                How to Reach Phoksundo Lake, Dolpa (How to Travel)
               </span>
             </h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Complete travel guide to Phoksundo Lake - Nepal&apos;s deepest and most beautiful alpine lake
+              Complete guide on how to travel/reach Phoksundo Lake in Dolpa with
+              routes, tips, and timing
             </p>
           </motion.div>
 
@@ -350,4 +273,3 @@ export default function HowToReachPhoksundo({ videoUrl }: HowToReachPhoksundoPro
     </div>
   );
 }
-

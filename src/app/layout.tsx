@@ -209,9 +209,6 @@ export const metadata: Metadata = {
   },
 
   metadataBase: new URL("https://hotelbluesheepinn.com"),
-  alternates: {
-    canonical: "/",
-  },
   manifest: "/site.webmanifest", // ✅ CRITICAL: Links to your web app manifest
   openGraph: {
     title: "Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa",
