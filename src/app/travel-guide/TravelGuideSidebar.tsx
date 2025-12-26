@@ -5,10 +5,12 @@ import { useRef } from "react";
 
 type TravelGuideSidebarProps = {
   videoUrl?: string | null;
+  sticky?: boolean;
 };
 
 export default function TravelGuideSidebar({
   videoUrl,
+  sticky = true,
 }: TravelGuideSidebarProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const defaultVideoUrl = "https://ik.imagekit.io/yds5g1shj/travel.MP4";
@@ -20,12 +22,12 @@ export default function TravelGuideSidebar({
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
-      className="relative lg:sticky lg:top-8"
+      className={sticky ? "relative lg:sticky lg:top-8" : "relative"}
     >
-      <div className="relative rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+      <div className="relative rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl border-4 border-white max-h-[360px] sm:max-h-[420px]">
         <video
           ref={videoRef}
-          className="w-full h-auto"
+          className="w-full h-full object-cover"
           autoPlay
           loop
           muted
