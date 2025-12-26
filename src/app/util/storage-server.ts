@@ -37,7 +37,7 @@ export const getImagesFromFolder = async (
       data
         ?.filter((file: { name: string }) => {
           const extension = file.name.toLowerCase().split(".").pop();
-          const isImage = ["jpg", "jpeg", "png", "webp", "gif"].includes(
+          const isImage = ["jpg", "jpeg", "png", "webp", "gif", "avif"].includes(
             extension || ""
           );
 
