@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { unstable_noStore as noStore } from "next/cache";
 import {
-  getTravelGuides,
   getTravelGuideBySlug,
   stripHtml,
 } from "../dummyTravelGuides";
@@ -14,14 +14,13 @@ type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export async function generateStaticParams() {
-  const guides = await getTravelGuides();
-  return guides.filter((g) => g.type === "list").map((g) => ({ slug: g.slug }));
-}
+export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
+  noStore();
   const { slug } = await params;
   const guide = await getTravelGuideBySlug(slug);
   if (!guide) return {};
@@ -46,6 +45,7 @@ export async function generateMetadata({
 }
 
 export default async function TravelGuideDetailPage({ params }: PageProps) {
+  noStore();
   const { slug } = await params;
   const guide = await getTravelGuideBySlug(slug);
   if (!guide || guide.type !== "list") notFound();
