@@ -9,7 +9,7 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
 } from "@heroicons/react/24/outline";
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { StorageImage } from "../util/storage";
 import { getWhatsAppUrl } from "../util/constants";
@@ -42,7 +42,6 @@ export default function CampingPageClient({ initialCampingImages }: CampingPageP
     setCampingImages(initialCampingImages);
   }, [initialCampingImages]);
 
-
   // Prevent body scroll when modal is open (iOS fix)
   useEffect(() => {
     if (isBookingModalOpen || isImageModalOpen) {
@@ -66,34 +65,40 @@ export default function CampingPageClient({ initialCampingImages }: CampingPageP
   }, [isBookingModalOpen, isImageModalOpen]);
 
   // Handle image modal functions
-  const openImageModal = (image: StorageImage) => {
+  const openImageModal = useCallback((image: StorageImage) => {
     setSelectedImage(image);
     setIsImageModalOpen(true);
-  };
+  }, []);
 
-  const closeImageModal = () => {
+  const closeImageModal = useCallback(() => {
     setIsImageModalOpen(false);
     setSelectedImage(null);
-  };
+  }, []);
 
-  const navigateToNextImage = () => {
-    if (!selectedImage) return;
-    const currentIndex = campingImages.findIndex(
-      (img) => img.name === selectedImage.name
-    );
-    const nextIndex = (currentIndex + 1) % campingImages.length;
-    setSelectedImage(campingImages[nextIndex]);
-  };
+  const navigateToNextImage = useCallback(() => {
+    setSelectedImage((current) => {
+      if (!current) return current;
+      const currentIndex = campingImages.findIndex(
+        (img) => img.name === current.name
+      );
+      if (currentIndex < 0) return current;
+      const nextIndex = (currentIndex + 1) % campingImages.length;
+      return campingImages[nextIndex] ?? current;
+    });
+  }, [campingImages]);
 
-  const navigateToPreviousImage = () => {
-    if (!selectedImage) return;
-    const currentIndex = campingImages.findIndex(
-      (img) => img.name === selectedImage.name
-    );
-    const prevIndex =
-      currentIndex === 0 ? campingImages.length - 1 : currentIndex - 1;
-    setSelectedImage(campingImages[prevIndex]);
-  };
+  const navigateToPreviousImage = useCallback(() => {
+    setSelectedImage((current) => {
+      if (!current) return current;
+      const currentIndex = campingImages.findIndex(
+        (img) => img.name === current.name
+      );
+      if (currentIndex < 0) return current;
+      const prevIndex =
+        currentIndex === 0 ? campingImages.length - 1 : currentIndex - 1;
+      return campingImages[prevIndex] ?? current;
+    });
+  }, [campingImages]);
 
   // Handle keyboard navigation
   useEffect(() => {
@@ -111,7 +116,7 @@ export default function CampingPageClient({ initialCampingImages }: CampingPageP
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isImageModalOpen, selectedImage, campingImages, navigateToNextImage, navigateToPreviousImage]);
+  }, [isImageModalOpen, closeImageModal, navigateToNextImage, navigateToPreviousImage]);
 
   // Handle booking form submission
   const handleBookingSubmit = (e: React.FormEvent) => {
@@ -176,7 +181,15 @@ Please confirm this booking.`;
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-emerald-50/30">
       {/* Navigation - With Green Gradient */}
-      <nav className="w-full bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 border-b border-emerald-700/30 sticky top-0 z-50 backdrop-blur-sm shadow-lg shadow-emerald-500/20">
+      <nav
+        className="w-full bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 border-b border-emerald-700/30 sticky top-0 z-50 backdrop-blur-sm shadow-lg shadow-emerald-500/20"
+        style={{
+          WebkitTransform: "translateZ(0)",
+          transform: "translateZ(0)",
+          WebkitBackfaceVisibility: "hidden",
+          backfaceVisibility: "hidden",
+        }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <motion.div
@@ -437,11 +450,15 @@ Please confirm this booking.`;
                 {campingImages.slice(0, visibleImageCount).map((image, index) => (
                   <motion.div
                     key={image.name}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={index === 0 ? { opacity: 1, y: 0 } : undefined}
-                    whileInView={index > 0 ? { opacity: 1, y: 0 } : undefined}
-                    transition={{ duration: 0.8, delay: index * 0.1 }}
-                    viewport={index > 0 ? { once: true } : undefined}
+                    initial={!isMobile ? { opacity: 0, y: 30 } : undefined}
+                    animate={
+                      !isMobile && index === 0 ? { opacity: 1, y: 0 } : undefined
+                    }
+                    whileInView={
+                      !isMobile && index > 0 ? { opacity: 1, y: 0 } : undefined
+                    }
+                    transition={!isMobile ? { duration: 0.8, delay: index * 0.1 } : undefined}
+                    viewport={!isMobile && index > 0 ? { once: true } : undefined}
                     className="break-inside-avoid mb-6 group cursor-pointer"
                     onClick={() => openImageModal(image)}
                   >
