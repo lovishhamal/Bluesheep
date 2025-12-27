@@ -860,31 +860,28 @@ export default function HomeClient({
             </div>
           )}
 
-          {/* Masonry Layout */}
+          {/* Gallery Grid */}
           {!isLoadingHotelGallery &&
             !hotelGalleryError &&
             hotelGalleryImages.length > 0 && (
-              <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 gap-4 sm:gap-6 space-y-4 sm:space-y-6">
-                {hotelGalleryImages.map((image, index) => (
-                  <motion.div
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+                {hotelGalleryImages.map((image) => (
+                  <div
                     key={image.name}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={index === 0 ? { opacity: 1, y: 0 } : undefined}
-                    whileInView={index > 0 ? { opacity: 1, y: 0 } : undefined}
-                    transition={{ duration: 0.8, delay: index * 0.1 }}
-                    viewport={index > 0 ? { once: true } : undefined}
-                    className="break-inside-avoid mb-6 group cursor-pointer"
+                    className="group cursor-pointer"
                     onClick={() => openHotelGalleryModal(image)}
                   >
                     <div className="relative overflow-hidden rounded-2xl border-2 border-gray-200 hover:border-emerald-400 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-400/20 group">
-                      <Image
-                        src={image.url}
-                        alt={image.alt}
-                        width={800}
-                        height={600}
-                        className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-110"
-                        loading="lazy"
-                      />
+                      <div className="relative w-full aspect-[4/3] bg-gray-100">
+                        <Image
+                          src={image.url}
+                          alt={image.alt}
+                          fill
+                          sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                          loading="lazy"
+                        />
+                      </div>
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div className="absolute bottom-4 left-4 right-4 text-center">
                           <p className="text-white text-sm font-medium">
@@ -893,7 +890,7 @@ export default function HomeClient({
                         </div>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             )}
@@ -920,32 +917,8 @@ export default function HomeClient({
       <section className="relative py-32 bg-gradient-to-br from-emerald-50/50 via-white to-blue-50/50 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
-          <motion.div
-            animate={{
-              x: [0, 100, 0],
-              y: [0, 80, 0],
-              scale: [1, 1.3, 1],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute top-0 left-0 w-[600px] h-[600px] bg-gradient-to-br from-emerald-200/25 to-blue-200/25 rounded-full blur-2xl"
-          />
-          <motion.div
-            animate={{
-              x: [0, -100, 0],
-              y: [0, -80, 0],
-              scale: [1, 1.4, 1],
-            }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute bottom-0 right-0 w-[700px] h-[700px] bg-gradient-to-br from-blue-200/25 to-emerald-200/25 rounded-full blur-2xl"
-          />
+          <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-gradient-to-br from-emerald-200/25 to-blue-200/25 rounded-full blur-2xl" />
+          <div className="absolute bottom-0 right-0 w-[700px] h-[700px] bg-gradient-to-br from-blue-200/25 to-emerald-200/25 rounded-full blur-2xl" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

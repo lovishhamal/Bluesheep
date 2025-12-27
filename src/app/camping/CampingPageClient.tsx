@@ -9,7 +9,7 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
 } from "@heroicons/react/24/outline";
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { StorageImage } from "../util/storage";
 import { getWhatsAppUrl } from "../util/constants";
@@ -42,7 +42,6 @@ export default function CampingPageClient({ initialCampingImages }: CampingPageP
     setCampingImages(initialCampingImages);
   }, [initialCampingImages]);
 
-
   // Prevent body scroll when modal is open (iOS fix)
   useEffect(() => {
     if (isBookingModalOpen || isImageModalOpen) {
@@ -66,34 +65,40 @@ export default function CampingPageClient({ initialCampingImages }: CampingPageP
   }, [isBookingModalOpen, isImageModalOpen]);
 
   // Handle image modal functions
-  const openImageModal = (image: StorageImage) => {
+  const openImageModal = useCallback((image: StorageImage) => {
     setSelectedImage(image);
     setIsImageModalOpen(true);
-  };
+  }, []);
 
-  const closeImageModal = () => {
+  const closeImageModal = useCallback(() => {
     setIsImageModalOpen(false);
     setSelectedImage(null);
-  };
+  }, []);
 
-  const navigateToNextImage = () => {
-    if (!selectedImage) return;
-    const currentIndex = campingImages.findIndex(
-      (img) => img.name === selectedImage.name
-    );
-    const nextIndex = (currentIndex + 1) % campingImages.length;
-    setSelectedImage(campingImages[nextIndex]);
-  };
+  const navigateToNextImage = useCallback(() => {
+    setSelectedImage((current) => {
+      if (!current) return current;
+      const currentIndex = campingImages.findIndex(
+        (img) => img.name === current.name
+      );
+      if (currentIndex < 0) return current;
+      const nextIndex = (currentIndex + 1) % campingImages.length;
+      return campingImages[nextIndex] ?? current;
+    });
+  }, [campingImages]);
 
-  const navigateToPreviousImage = () => {
-    if (!selectedImage) return;
-    const currentIndex = campingImages.findIndex(
-      (img) => img.name === selectedImage.name
-    );
-    const prevIndex =
-      currentIndex === 0 ? campingImages.length - 1 : currentIndex - 1;
-    setSelectedImage(campingImages[prevIndex]);
-  };
+  const navigateToPreviousImage = useCallback(() => {
+    setSelectedImage((current) => {
+      if (!current) return current;
+      const currentIndex = campingImages.findIndex(
+        (img) => img.name === current.name
+      );
+      if (currentIndex < 0) return current;
+      const prevIndex =
+        currentIndex === 0 ? campingImages.length - 1 : currentIndex - 1;
+      return campingImages[prevIndex] ?? current;
+    });
+  }, [campingImages]);
 
   // Handle keyboard navigation
   useEffect(() => {
@@ -111,7 +116,7 @@ export default function CampingPageClient({ initialCampingImages }: CampingPageP
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isImageModalOpen, selectedImage, campingImages, navigateToNextImage, navigateToPreviousImage]);
+  }, [isImageModalOpen, closeImageModal, navigateToNextImage, navigateToPreviousImage]);
 
   // Handle booking form submission
   const handleBookingSubmit = (e: React.FormEvent) => {
@@ -176,7 +181,15 @@ Please confirm this booking.`;
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-emerald-50/30">
       {/* Navigation - With Green Gradient */}
-      <nav className="w-full bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 border-b border-emerald-700/30 sticky top-0 z-50 backdrop-blur-sm shadow-lg shadow-emerald-500/20">
+      <nav
+        className="w-full bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 border-b border-emerald-700/30 sticky top-0 z-50 backdrop-blur-sm shadow-lg shadow-emerald-500/20"
+        style={{
+          WebkitTransform: "translateZ(0)",
+          transform: "translateZ(0)",
+          WebkitBackfaceVisibility: "hidden",
+          backfaceVisibility: "hidden",
+        }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <motion.div
@@ -322,32 +335,8 @@ Please confirm this booking.`;
       <section className="relative pt-2 pb-4 sm:py-8 md:py-12 lg:py-16 bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
-          <motion.div
-            animate={{
-              x: [0, 100, 0],
-              y: [0, 50, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-3xl"
-          />
-          <motion.div
-            animate={{
-              x: [0, -80, 0],
-              y: [0, -60, 0],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-3xl"
-          />
+          <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-3xl" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -430,34 +419,28 @@ Please confirm this booking.`;
             </div>
           )}
 
-          {/* Masonry Layout */}
+          {/* Gallery Grid */}
           {!isLoadingImages && !imageError && campingImages.length > 0 && (
             <>
-              <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                 {campingImages.slice(0, visibleImageCount).map((image, index) => (
-                  <motion.div
+                  <div
                     key={image.name}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={index === 0 ? { opacity: 1, y: 0 } : undefined}
-                    whileInView={index > 0 ? { opacity: 1, y: 0 } : undefined}
-                    transition={{ duration: 0.8, delay: index * 0.1 }}
-                    viewport={index > 0 ? { once: true } : undefined}
-                    className="break-inside-avoid mb-6 group cursor-pointer"
+                    className="group cursor-pointer"
                     onClick={() => openImageModal(image)}
                   >
                     <div className="relative overflow-hidden rounded-2xl border-2 border-gray-200 hover:border-emerald-400 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-400/20 group">
-                      <Image
-                        src={image.url}
-                        alt={image.alt}
-                        width={800}
-                        height={600}
-                        className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-110"
-                        loading={index < 4 ? "eager" : "lazy"}
-                        priority={index < 2}
-                        placeholder="blur"
-                        blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                      />
+                      <div className="relative w-full aspect-[4/3] bg-gray-100">
+                        <Image
+                          src={image.url}
+                          alt={image.alt}
+                          fill
+                          sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                          loading={index < 4 ? "eager" : "lazy"}
+                          priority={index < 2}
+                        />
+                      </div>
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div className="absolute bottom-4 left-4 right-4">
                           <p className="text-emerald-300 text-sm font-medium">
@@ -466,7 +449,7 @@ Please confirm this booking.`;
                         </div>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
 
@@ -481,17 +464,6 @@ Please confirm this booking.`;
                   >
                     <span className="relative z-10">Load More Images</span>
                     <span className="relative z-10 text-lg">📸</span>
-                    <motion.div
-                      animate={{
-                        x: ["-100%", "200%"],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                    />
                   </motion.button>
                   <p className="text-gray-600 mt-3 text-sm">
                     Showing {visibleImageCount} of {campingImages.length} images

@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    root: __dirname,
+  },
   trailingSlash: true,
   // Only use static export when explicitly enabled via NEXT_EXPORT env variable
   ...(process.env.NEXT_EXPORT === "true" && { output: "export" }),

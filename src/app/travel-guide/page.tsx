@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     "Dolpa travel guide",
     "Nepal travel guides", 
     "Phoksundo Lake travel",
-    "Sho Tarap Lake guide",
+    "Dho Tarap guide",
     "Kathmandu to Dolpa route",
     "Juphal airport flights",
     "Dunai travel information",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     "Dolpa itinerary planning",
     "Remote Nepal destinations",
     "Phoksundo Lake trekking",
-    "Sho Tarap trekking guide",
+    "Dho Tarap trekking guide",
     "Crystal Mountain trek",
     "Dolpa lakes travel",
     "Hotel Blue Sheep Inn guides"
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Complete Travel Guides to Dolpa Nepal | Expert Local Knowledge",
     description:
-      "Comprehensive travel guides to Dolpa with detailed routes, flight options, local attractions, and insider tips from Hotel Blue Sheep Inn. Explore Phoksundo Lake, Sho Tarap Lake, and Crystal Mountain.",
+      "Comprehensive travel guides to Dolpa with detailed routes, flight options, local attractions, and insider tips from Hotel Blue Sheep Inn. Explore Phoksundo Lake, Dho Tarap, and Crystal Mountain.",
     type: "website",
     url: "https://hotelbluesheepinn.com/travel-guide",
     images: [
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Complete Travel Guides to Dolpa Nepal | Expert Local Knowledge",
-    description: "Comprehensive travel guides to Dolpa with detailed routes, flight options, and insider tips. Explore Phoksundo Lake, Sho Tarap Lake, and Crystal Mountain.",
+    description: "Comprehensive travel guides to Dolpa with detailed routes, flight options, and insider tips. Explore Phoksundo Lake, Dho Tarap, and Crystal Mountain.",
     images: ["https://hotelbluesheepinn.com/phoksundo.jpg"]
   },
   robots: {
@@ -178,10 +178,10 @@ export default async function TravelGuidePage() {
       },
       {
         "@type": "Question",
-        name: "Can I visit Sho Tarap Lake from Phoksundo?",
+        name: "Can I visit Dho Tarap from Phoksundo?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes, Sho Tarap Lake can be reached from Phoksundo Lake via a multi-day trekking route through Upper Dolpa. This requires special permits and is typically part of a longer Crystal Mountain circuit trek. Our guides provide detailed itineraries for this route."
+          text: "Yes, Dho Tarap can be reached from Phoksundo Lake via a multi-day trekking route through Upper Dolpa. This requires special permits and is typically part of a longer Crystal Mountain circuit trek. Our guides provide detailed itineraries for this route."
         }
       }
     ]
@@ -205,7 +205,7 @@ export default async function TravelGuidePage() {
     knowsAbout: [
       "Dolpa travel routes",
       "Phoksundo Lake access",
-      "Sho Tarap Lake trekking",
+      "Dho Tarap trekking",
       "Crystal Mountain pilgrimage",
       "Nepal mountain travel",
       "Himalayan trekking",
@@ -256,7 +256,7 @@ export default async function TravelGuidePage() {
               </span>
             </h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Expert travel guides with detailed routes from Kathmandu to Dolpa, flight options to Juphal Airport, jeep connections, local attractions, and insider tips for exploring Phoksundo Lake, Sho Tarap Lake, Crystal Mountain, and remote Himalayan villages. Plan your perfect journey with our comprehensive local knowledge.
+              Expert travel guides with detailed routes from Kathmandu to Dolpa, flight options to Juphal Airport, jeep connections, local attractions, and insider tips for exploring Phoksundo Lake, Dho Tarap, Crystal Mountain, and remote Himalayan villages. Plan your perfect journey with our comprehensive local knowledge.
             </p>
           </header>
 
