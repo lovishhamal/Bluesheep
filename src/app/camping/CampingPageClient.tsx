@@ -335,32 +335,8 @@ Please confirm this booking.`;
       <section className="relative pt-2 pb-4 sm:py-8 md:py-12 lg:py-16 bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
-          <motion.div
-            animate={{
-              x: [0, 100, 0],
-              y: [0, 50, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-3xl"
-          />
-          <motion.div
-            animate={{
-              x: [0, -80, 0],
-              y: [0, -60, 0],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-3xl"
-          />
+          <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-3xl" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -443,38 +419,28 @@ Please confirm this booking.`;
             </div>
           )}
 
-          {/* Masonry Layout */}
+          {/* Gallery Grid */}
           {!isLoadingImages && !imageError && campingImages.length > 0 && (
             <>
-              <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                 {campingImages.slice(0, visibleImageCount).map((image, index) => (
-                  <motion.div
+                  <div
                     key={image.name}
-                    initial={!isMobile ? { opacity: 0, y: 30 } : undefined}
-                    animate={
-                      !isMobile && index === 0 ? { opacity: 1, y: 0 } : undefined
-                    }
-                    whileInView={
-                      !isMobile && index > 0 ? { opacity: 1, y: 0 } : undefined
-                    }
-                    transition={!isMobile ? { duration: 0.8, delay: index * 0.1 } : undefined}
-                    viewport={!isMobile && index > 0 ? { once: true } : undefined}
-                    className="break-inside-avoid mb-6 group cursor-pointer"
+                    className="group cursor-pointer"
                     onClick={() => openImageModal(image)}
                   >
                     <div className="relative overflow-hidden rounded-2xl border-2 border-gray-200 hover:border-emerald-400 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-400/20 group">
-                      <Image
-                        src={image.url}
-                        alt={image.alt}
-                        width={800}
-                        height={600}
-                        className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-110"
-                        loading={index < 4 ? "eager" : "lazy"}
-                        priority={index < 2}
-                        placeholder="blur"
-                        blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                      />
+                      <div className="relative w-full aspect-[4/3] bg-gray-100">
+                        <Image
+                          src={image.url}
+                          alt={image.alt}
+                          fill
+                          sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                          loading={index < 4 ? "eager" : "lazy"}
+                          priority={index < 2}
+                        />
+                      </div>
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div className="absolute bottom-4 left-4 right-4">
                           <p className="text-emerald-300 text-sm font-medium">
@@ -483,7 +449,7 @@ Please confirm this booking.`;
                         </div>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
 
@@ -498,17 +464,6 @@ Please confirm this booking.`;
                   >
                     <span className="relative z-10">Load More Images</span>
                     <span className="relative z-10 text-lg">📸</span>
-                    <motion.div
-                      animate={{
-                        x: ["-100%", "200%"],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                    />
                   </motion.button>
                   <p className="text-gray-600 mt-3 text-sm">
                     Showing {visibleImageCount} of {campingImages.length} images
