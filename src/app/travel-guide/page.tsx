@@ -239,13 +239,13 @@ export default async function TravelGuidePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      <section className="pt-4 pb-16 bg-white relative overflow-hidden">
+      <section className="pt-4 pb-16 bg-white relative overflow-hidden lg:px-12">
         <div className="absolute inset-0">
-          <div className="absolute top-10 right-20 w-72 h-72 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 left-20 w-96 h-96 bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-3xl" />
+          <div className="absolute top-10 right-20 h-72 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 left-20 h-96 bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-3xl" />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <header className="text-center mb-12 lg:mb-16">
             <div className="inline-block mb-4">
               <span className="text-5xl" role="img" aria-label="Map">🗺️</span>
@@ -260,7 +260,7 @@ export default async function TravelGuidePage() {
             </p>
           </header>
 
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
               {listGuides.length === 0 && generalGuides.length === 0 ? (
                 <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 border border-emerald-200/50 shadow-xl">
                   <div className="text-center">
@@ -361,7 +361,7 @@ export default async function TravelGuidePage() {
 
           {generalGuides.length > 0 ? (
             <div className="mt-16 lg:mt-20">
-              <div className="max-w-6xl mx-auto">
+              <div className="mx-auto">
                 <div className="h-px bg-gradient-to-r from-transparent via-emerald-300 to-transparent mb-12" />
                 
                 <div className="text-center mb-12">
@@ -385,10 +385,10 @@ export default async function TravelGuidePage() {
                 <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mb-8" />
 
                 {generalGuides.map((g) => (
-                  <div key={g.slug} className="max-w-4xl mx-auto">
+                  <div key={g.slug} className="mx-auto text-justify">
                     <div className="prose prose-lg max-w-none">
                       <div 
-                        className="text-gray-700 leading-relaxed text-lg text-justify [&>p]:mb-6 [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:mb-6 [&>ul]:space-y-2 [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:mb-6 [&>ol]:space-y-2 [&_li]:mb-2 [&_li]:text-gray-700 [&_li]:leading-relaxed [&_strong]:text-gray-900 [&_strong]:font-semibold [&>h1]:text-2xl [&>h1]:font-bold [&>h1]:text-gray-900 [&>h1]:mb-4 [&>h2]:text-xl [&>h2]:font-bold [&>h2]:text-gray-900 [&>h2]:mb-3 [&>h3]:text-lg [&>h3]:font-semibold [&>h3]:text-gray-900 [&>h3]:mb-2"
+                        className="text-gray-700 leading-relaxed text-lg [&>p]:mb-6 [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:mb-6 [&>ul]:space-y-2 [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:mb-6 [&>ol]:space-y-2 [&_li]:mb-2 [&_li]:text-gray-700 [&_li]:leading-relaxed [&_strong]:text-gray-900 [&_strong]:font-semibold [&>h1]:text-2xl [&>h1]:font-bold [&>h1]:text-gray-900 [&>h1]:mb-4 [&>h2]:text-xl [&>h2]:font-bold [&>h2]:text-gray-900 [&>h2]:mb-3 [&>h3]:text-lg [&>h3]:font-semibold [&>h3]:text-gray-900 [&>h3]:mb-2"
                         dangerouslySetInnerHTML={{ __html: g.description }}
                       />
                     </div>
