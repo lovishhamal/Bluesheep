@@ -487,6 +487,15 @@ export default function AttractionsClient({
   const isLoadingAttractions = false;
   const attractionsError = initialAttractionsError || null;
 
+  const tableOfContents = useMemo(() => {
+    return attractions
+      .map((a) => ({
+        id: `attraction-${String(a.id).replace(/[^a-zA-Z0-9_-]/g, "-")}`,
+        title: a.title,
+      }))
+      .filter((item) => item.title.trim().length > 0);
+  }, [attractions]);
+
   const ctaAttractionText = useMemo(() => {
     const names = attractions.map((a) => a.title).filter(Boolean);
     if (names.length >= 2) return `${names[0]} and ${names[1]}`;
@@ -521,7 +530,7 @@ export default function AttractionsClient({
     <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-emerald-50/30">
       {/* Navigation - With Green Gradient */}
       <nav className="w-full bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 border-b border-emerald-700/30 sticky top-0 z-50 backdrop-blur-sm shadow-lg shadow-emerald-500/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-3">
           <div className="flex justify-between items-center py-4">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -696,7 +705,7 @@ export default function AttractionsClient({
           />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="w-full px-4 sm:px-6 lg:px-3 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -743,9 +752,43 @@ export default function AttractionsClient({
         </div>
       </section>
 
+      {!isLoadingAttractions &&
+        !attractionsError &&
+        tableOfContents.length > 0 && (
+          <section className="py-4 sm:py-5 bg-white border-y border-emerald-100/70">
+            <div className="w-full px-4 sm:px-6 lg:px-12">
+              <div className="flex items-center justify-between gap-3 flex-wrap">
+                <div className="text-sm font-bold text-gray-900">
+                  Explore attractions
+                </div>
+                <div className="text-xs font-semibold text-gray-500">
+                  Click to jump
+                </div>
+              </div>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {tableOfContents.map((item) => (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document
+                        .getElementById(item.id)
+                        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }}
+                    className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-sm font-semibold text-emerald-800 hover:bg-emerald-100 hover:border-emerald-300 transition-colors duration-200"
+                  >
+                    {item.title}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
       {isLoadingAttractions && (
         <section className="py-12 lg:py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="w-full px-4 sm:px-6 lg:px-3">
             <div className="text-center py-12">
               <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
               <p className="text-gray-600 mt-4 text-lg">
@@ -758,7 +801,7 @@ export default function AttractionsClient({
 
       {!isLoadingAttractions && attractionsError && (
         <section className="py-12 lg:py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="w-full px-4 sm:px-6 lg:px-3">
             <div className="text-center py-12">
               <p className="text-gray-700 text-lg">
                 Failed to load attractions: {attractionsError}
@@ -770,7 +813,7 @@ export default function AttractionsClient({
 
       {!isLoadingAttractions && !attractionsError && attractions.length === 0 && (
         <section className="py-12 lg:py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="w-full px-4 sm:px-6 lg:px-3">
             <div className="text-center py-12">
               <p className="text-gray-700 text-lg">No attractions found.</p>
             </div>
@@ -784,6 +827,11 @@ export default function AttractionsClient({
           const isFirst = index === 0;
           const isSecond = index === 1;
           const isEven = index % 2 === 0;
+
+          const anchorId = `attraction-${String(attraction.id).replace(
+            /[^a-zA-Z0-9_-]/g,
+            "-"
+          )}`;
 
           const hasBlueTheme =
             isSecond ||
@@ -1012,8 +1060,12 @@ export default function AttractionsClient({
           );
 
           return (
-            <section key={attraction.id} className={sectionClass}>
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section
+              key={attraction.id}
+              id={anchorId}
+              className={`${sectionClass} scroll-mt-24`}
+            >
+              <div className="w-full px-4 sm:px-6 lg:px-12">
                 <div className="grid md:grid-cols-2 gap-12 items-center">
                   {imageSideFirst ? (
                     <>
@@ -1034,7 +1086,7 @@ export default function AttractionsClient({
 
       {/* Why Visit Section - Creative Design */}
       <section className="py-8 lg:py-10 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-12">
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {[
               {
@@ -1167,7 +1219,7 @@ export default function AttractionsClient({
           />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="w-full px-4 sm:px-6 lg:px-3 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -1248,4 +1300,3 @@ export default function AttractionsClient({
     </div>
   );
 }
-
