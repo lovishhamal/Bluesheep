@@ -1030,13 +1030,12 @@ export default function AttractionsClient({
                 </div>
               </div>
 
-              <div className="md:flex-1 md:min-h-0">
+              <div className="md:flex-1 md:min-h-0 md:flex md:flex-col">
                 <div
                   ref={(el) => {
-                    descriptionContainerByAttractionIdRef.current[attraction.id] =
-                      el;
+                    descriptionContainerByAttractionIdRef.current[attraction.id] = el;
                   }}
-                  className={`space-y-4 text-gray-700 text-lg leading-relaxed md:h-full md:min-h-0 ${
+                  className={`space-y-4 text-gray-700 text-lg leading-relaxed md:flex-1 md:min-h-0 ${
                     expandedByAttractionId[attraction.id]
                       ? "md:overflow-auto md:pr-2"
                       : "md:overflow-hidden"
@@ -1058,7 +1057,7 @@ export default function AttractionsClient({
 
                 {(isOverflowingByAttractionId[attraction.id] ||
                   expandedByAttractionId[attraction.id]) && (
-                  <div className="hidden md:flex justify-end mt-3">
+                  <div className="hidden md:flex justify-end pt-3">
                     <button
                       type="button"
                       onClick={() =>
@@ -1069,63 +1068,61 @@ export default function AttractionsClient({
                       }
                       className="text-sm font-semibold text-emerald-700 hover:text-emerald-800 underline underline-offset-4"
                     >
-                      {expandedByAttractionId[attraction.id]
-                        ? "Show less"
-                        : "Read more"}
+                      {expandedByAttractionId[attraction.id] ? "Show less" : "Read more"}
                     </button>
                   </div>
                 )}
+
+                {tags.length > 0 && (
+                  <div
+                    className={`grid gap-4 pt-4 ${
+                      tags.length === 1
+                        ? "grid-cols-1"
+                        : tags.length === 2
+                          ? "grid-cols-2"
+                          : "grid-cols-2 sm:grid-cols-3"
+                    }`}
+                  >
+                    {tags.map((tag, i) => {
+                      const TagIconComponent = getTagIcon(tag.label);
+
+                      const isFirstTag = i % 2 === 0;
+                      const cardClass = hasBlueTheme
+                        ? isFirstTag
+                          ? "bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-4 border-2 border-blue-200 shadow-lg"
+                          : "bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-4 border-2 border-purple-200 shadow-lg"
+                        : isFirstTag
+                          ? "bg-gradient-to-br from-emerald-50 to-blue-50 rounded-2xl p-4 border-2 border-emerald-200 shadow-lg"
+                          : "bg-gradient-to-br from-blue-50 to-emerald-50 rounded-2xl p-4 border-2 border-blue-200 shadow-lg";
+
+                      const valueClass = hasBlueTheme
+                        ? isFirstTag
+                          ? "text-xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+                          : "text-xl font-black bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent"
+                        : isFirstTag
+                          ? "text-xl font-black bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent"
+                          : "text-xl font-black bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent";
+
+                      return (
+                        <motion.div
+                          key={`${tag.label}-${tag.value}`}
+                          whileHover={{ scale: 1.05, y: -5 }}
+                          className={cardClass}
+                        >
+                          <TagIconComponent
+                            className="h-6 w-6 mb-2 text-gray-700"
+                            aria-hidden="true"
+                          />
+                          <div className="text-xs font-semibold text-gray-600 mb-1">
+                            {tag.label}
+                          </div>
+                          <div className={valueClass}>{tag.value}</div>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
-
-              {tags.length > 0 && (
-                <div
-                  className={`grid gap-4 pt-4 ${
-                    tags.length === 1
-                      ? "grid-cols-1"
-                      : tags.length === 2
-                        ? "grid-cols-2"
-                        : "grid-cols-2 sm:grid-cols-3"
-                  }`}
-                >
-                  {tags.map((tag, i) => {
-                    const TagIconComponent = getTagIcon(tag.label);
-
-                    const isFirstTag = i % 2 === 0;
-                    const cardClass = hasBlueTheme
-                      ? isFirstTag
-                        ? "bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-4 border-2 border-blue-200 shadow-lg"
-                        : "bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-4 border-2 border-purple-200 shadow-lg"
-                      : isFirstTag
-                        ? "bg-gradient-to-br from-emerald-50 to-blue-50 rounded-2xl p-4 border-2 border-emerald-200 shadow-lg"
-                        : "bg-gradient-to-br from-blue-50 to-emerald-50 rounded-2xl p-4 border-2 border-blue-200 shadow-lg";
-
-                    const valueClass = hasBlueTheme
-                      ? isFirstTag
-                        ? "text-xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
-                        : "text-xl font-black bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent"
-                      : isFirstTag
-                        ? "text-xl font-black bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent"
-                        : "text-xl font-black bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent";
-
-                    return (
-                      <motion.div
-                        key={`${tag.label}-${tag.value}`}
-                        whileHover={{ scale: 1.05, y: -5 }}
-                        className={cardClass}
-                      >
-                        <TagIconComponent
-                          className="h-6 w-6 mb-2 text-gray-700"
-                          aria-hidden="true"
-                        />
-                        <div className="text-xs font-semibold text-gray-600 mb-1">
-                          {tag.label}
-                        </div>
-                        <div className={valueClass}>{tag.value}</div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-              )}
             </motion.div>
           );
 
