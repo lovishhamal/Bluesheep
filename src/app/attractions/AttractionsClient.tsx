@@ -928,6 +928,7 @@ export default function AttractionsClient({
             attraction.imageSrc;
 
           const AttractionIcon = getAttractionIcon(attraction.title);
+          const isExpanded = Boolean(expandedByAttractionId[attraction.id]);
 
           const imageNode = (
             <motion.div
@@ -1004,10 +1005,16 @@ export default function AttractionsClient({
               transition={transition}
               className={
                 isFirst
-                  ? "order-2 md:order-2 md:flex md:flex-col md:min-h-0 md:h-[520px] lg:h-[560px]"
+                  ? isExpanded
+                    ? "order-2 md:order-2 md:flex md:flex-col"
+                    : "order-2 md:order-2 md:flex md:flex-col md:min-h-0 md:h-[520px] lg:h-[560px]"
                   : imageSideFirst
-                    ? "order-2 md:order-2 md:flex md:flex-col md:min-h-0 md:h-[520px] lg:h-[560px]"
-                    : "order-2 md:order-1 md:flex md:flex-col md:min-h-0 md:h-[520px] lg:h-[560px]"
+                    ? isExpanded
+                      ? "order-2 md:order-2 md:flex md:flex-col"
+                      : "order-2 md:order-2 md:flex md:flex-col md:min-h-0 md:h-[520px] lg:h-[560px]"
+                    : isExpanded
+                      ? "order-2 md:order-1 md:flex md:flex-col"
+                      : "order-2 md:order-1 md:flex md:flex-col md:min-h-0 md:h-[520px] lg:h-[560px]"
               }
             >
               <div className="flex items-center gap-4 mb-4">
@@ -1035,10 +1042,8 @@ export default function AttractionsClient({
                   ref={(el) => {
                     descriptionContainerByAttractionIdRef.current[attraction.id] = el;
                   }}
-                  className={`space-y-4 text-gray-700 text-lg leading-relaxed md:flex-1 md:min-h-0 ${
-                    expandedByAttractionId[attraction.id]
-                      ? "md:overflow-auto md:pr-2"
-                      : "md:overflow-hidden"
+                  className={`space-y-4 text-gray-700 text-lg leading-relaxed ${
+                    isExpanded ? "max-h-none overflow-visible" : "max-h-[240px] overflow-hidden"
                   }`}
                 >
                   <div
@@ -1055,9 +1060,8 @@ export default function AttractionsClient({
                   )}
                 </div>
 
-                {(isOverflowingByAttractionId[attraction.id] ||
-                  expandedByAttractionId[attraction.id]) && (
-                  <div className="hidden md:flex justify-end pt-3">
+                {(isOverflowingByAttractionId[attraction.id] || isExpanded) && (
+                  <div className="flex justify-end pt-3">
                     <button
                       type="button"
                       onClick={() =>
@@ -1068,7 +1072,7 @@ export default function AttractionsClient({
                       }
                       className="text-sm font-semibold text-emerald-700 hover:text-emerald-800 underline underline-offset-4"
                     >
-                      {expandedByAttractionId[attraction.id] ? "Show less" : "Read more"}
+                      {isExpanded ? "Show less" : "Read more"}
                     </button>
                   </div>
                 )}
