@@ -93,9 +93,9 @@ export default function MenuPage() {
   }, {} as Record<string, MenuItem[]>);
 
   return (
-    <div className="min-h-screen bg-[#f5f1e8] p-5">
+    <div className="min-h-screen bg-[#f5f1e8]">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-[#1a3a52] border-b border-[#1a3a52]/30 shadow-sm">
+      <nav className="sticky top-0 z-50 bg-[#1a3a52] border-b border-[#1a3a52]/30 shadow-sm mb-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center">
@@ -228,76 +228,77 @@ export default function MenuPage() {
         </div>
       </nav>
 
-      {/* Menu Container */}
-      <div className="bg-[#f5f1e8] border-[3px] border-[#1a3a52] max-w-4xl w-full p-10 relative mt-6 mx-auto">
-        {/* Corner Decorations */}
-        <div className="absolute top-[10px] left-[10px] w-[60px] h-[60px]">
-          <svg
-            viewBox="0 0 60 60"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M5 5 Q5 5 5 15 M5 5 Q5 5 15 5"
-              stroke="#1a3a52"
-              strokeWidth="2"
+      <div className="p-5 pt-0">
+        {/* Menu Container */}
+        <div className="bg-[#f5f1e8] border-[3px] border-[#1a3a52] max-w-4xl w-full p-10 relative mt-0 mx-auto">
+          {/* Corner Decorations */}
+          <div className="absolute top-[10px] left-[10px] w-[60px] h-[60px]">
+            <svg
+              viewBox="0 0 60 60"
               fill="none"
-            />
-            <path
-              d="M10 10 Q10 10 10 20 M10 10 Q10 10 20 10"
-              stroke="#1a3a52"
-              strokeWidth="1.5"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5 5 Q5 5 5 15 M5 5 Q5 5 15 5"
+                stroke="#1a3a52"
+                strokeWidth="2"
+                fill="none"
+              />
+              <path
+                d="M10 10 Q10 10 10 20 M10 10 Q10 10 20 10"
+                stroke="#1a3a52"
+                strokeWidth="1.5"
+                fill="none"
+              />
+              <path
+                d="M15 15 Q15 15 15 25 M15 15 Q15 15 25 15"
+                stroke="#1a3a52"
+                strokeWidth="1"
+                fill="none"
+              />
+            </svg>
+          </div>
+          <div className="absolute top-[10px] right-[10px] w-[60px] h-[60px]">
+            <svg
+              viewBox="0 0 60 60"
               fill="none"
-            />
-            <path
-              d="M15 15 Q15 15 15 25 M15 15 Q15 15 25 15"
-              stroke="#1a3a52"
-              strokeWidth="1"
-              fill="none"
-            />
-          </svg>
-        </div>
-        <div className="absolute top-[10px] right-[10px] w-[60px] h-[60px]">
-          <svg
-            viewBox="0 0 60 60"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M55 5 Q55 5 55 15 M55 5 Q55 5 45 5"
-              stroke="#1a3a52"
-              strokeWidth="2"
-              fill="none"
-            />
-            <path
-              d="M50 10 Q50 10 50 20 M50 10 Q50 10 40 10"
-              stroke="#1a3a52"
-              strokeWidth="1.5"
-              fill="none"
-            />
-            <path
-              d="M45 15 Q45 15 45 25 M45 15 Q45 15 35 15"
-              stroke="#1a3a52"
-              strokeWidth="1"
-              fill="none"
-            />
-          </svg>
-        </div>
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M55 5 Q55 5 55 15 M55 5 Q55 5 45 5"
+                stroke="#1a3a52"
+                strokeWidth="2"
+                fill="none"
+              />
+              <path
+                d="M50 10 Q50 10 50 20 M50 10 Q50 10 40 10"
+                stroke="#1a3a52"
+                strokeWidth="1.5"
+                fill="none"
+              />
+              <path
+                d="M45 15 Q45 15 45 25 M45 15 Q45 15 35 15"
+                stroke="#1a3a52"
+                strokeWidth="1"
+                fill="none"
+              />
+            </svg>
+          </div>
 
-        {/* Header */}
-        <div className="text-center mb-10">
-          <h1
-            className="text-6xl md:text-7xl text-[#1a3a52] tracking-[0.1em] mb-2 font-normal"
-            style={{ fontFamily: "Georgia, serif" }}
-          >
-            HOTEL BLUE SHEEP INN
-          </h1>
-          <h2
-            className="text-2xl md:text-3xl text-[#1a3a52] tracking-[0.3em] font-normal mb-8"
-            style={{ fontFamily: "Georgia, serif" }}
-          >
-            HOTEL & RESTAURANT
-          </h2>
+          {/* Header */}
+          <div className="text-center mb-10">
+            <h1
+              className="text-6xl md:text-7xl text-[#1a3a52] tracking-[0.1em] mb-2 font-normal"
+              style={{ fontFamily: "Georgia, serif" }}
+            >
+              HOTEL BLUE SHEEP INN
+            </h1>
+            <h2
+              className="text-2xl md:text-3xl text-[#1a3a52] tracking-[0.3em] font-normal mb-8"
+              style={{ fontFamily: "Georgia, serif" }}
+            >
+              HOTEL & RESTAURANT
+            </h2>
         </div>
 
         {/* Logo */}
@@ -407,6 +408,7 @@ export default function MenuPage() {
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 }
