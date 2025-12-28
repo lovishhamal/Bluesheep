@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Script from "next/script";
 import { unstable_noStore as noStore } from "next/cache";
 import TravelGuidePage from "../travel-guide/page";
 
@@ -27,5 +28,69 @@ export const metadata: Metadata = {
 
 export default async function HowToTravelDhoPage() {
   noStore();
-  return <TravelGuidePage />;
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://hotelbluesheepinn.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "How to Reach Dho Tarap",
+        item: "https://hotelbluesheepinn.com/how-to-reach-dho/",
+      },
+    ],
+  };
+
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "How do I reach Dho Tarap (Upper Dolpa)?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Most travelers reach Dolpa via Juphal (flight) or by overland routes to Dunai, then continue to Upper Dolpa and Dho Tarap by trekking routes. Plan extra time for weather and remote logistics.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Do I need permits for Upper Dolpa and Dho Tarap?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Upper Dolpa typically requires restricted area permits in addition to trekking documentation. Confirm current rules with a registered trekking agency before traveling.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Where do most Dho Tarap trips start?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Juphal and Dunai are common starting points for logistics in Dolpa before heading toward Upper Dolpa trekking routes.",
+        },
+      },
+    ],
+  };
+
+  return (
+    <>
+      <Script
+        id="how-to-reach-dho-breadcrumb-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <Script
+        id="how-to-reach-dho-faq-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <TravelGuidePage />
+    </>
+  );
 }

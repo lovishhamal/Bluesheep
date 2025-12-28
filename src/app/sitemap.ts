@@ -66,12 +66,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/how-to-reach-dunai/`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.9,
-    },
-    {
       url: `${baseUrl}/how-to-reach-phoksundo/`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
