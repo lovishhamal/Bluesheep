@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
@@ -478,6 +478,15 @@ export default function AttractionsClient({
   const [selectedImageByAttractionId, setSelectedImageByAttractionId] = useState<
     Record<string, string>
   >({});
+  const [expandedByAttractionId, setExpandedByAttractionId] = useState<
+    Record<string, boolean>
+  >({});
+  const [isOverflowingByAttractionId, setIsOverflowingByAttractionId] = useState<
+    Record<string, boolean>
+  >({});
+  const descriptionContainerByAttractionIdRef = useRef<
+    Record<string, HTMLDivElement | null>
+  >({});
 
   const attractions = useMemo(() => {
     const normalized = normalizeAttractionRows(initialAttractionsData);
@@ -495,6 +504,30 @@ export default function AttractionsClient({
       }))
       .filter((item) => item.title.trim().length > 0);
   }, [attractions]);
+
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => {
+      const next: Record<string, boolean> = {};
+
+      for (const attraction of attractions) {
+        const el = descriptionContainerByAttractionIdRef.current[attraction.id];
+        if (!el) continue;
+        next[attraction.id] = el.scrollHeight > el.clientHeight + 1;
+      }
+
+      setIsOverflowingByAttractionId((prev) => {
+        const prevKeys = Object.keys(prev);
+        const nextKeys = Object.keys(next);
+        if (prevKeys.length !== nextKeys.length) return next;
+        for (const k of nextKeys) {
+          if (prev[k] !== next[k]) return next;
+        }
+        return prev;
+      });
+    });
+
+    return () => cancelAnimationFrame(raf);
+  }, [attractions, expandedByAttractionId]);
 
   const ctaAttractionText = useMemo(() => {
     const names = attractions.map((a) => a.title).filter(Boolean);
@@ -530,7 +563,7 @@ export default function AttractionsClient({
     <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-emerald-50/30">
       {/* Navigation - With Green Gradient */}
       <nav className="w-full bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 border-b border-emerald-700/30 sticky top-0 z-50 backdrop-blur-sm shadow-lg shadow-emerald-500/20">
-        <div className="w-full px-4 sm:px-6 lg:px-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -852,6 +885,9 @@ export default function AttractionsClient({
 
           const imageSideFirst = isFirst ? true : isEven;
 
+          const mediaHeightClass =
+            "h-[320px] sm:h-[380px] md:h-[520px] lg:h-[560px]";
+
           const imageMotionProps = isFirst
             ? { initial: { opacity: 0, x: -50 }, animate: { opacity: 1, x: 0 } }
             : imageSideFirst
@@ -905,58 +941,60 @@ export default function AttractionsClient({
                     : "order-1 md:order-2"
               }
             >
-              <div className="relative overflow-hidden rounded-xl shadow-2xl group">
+              <div
+                className={`relative overflow-hidden rounded-xl shadow-2xl group ${mediaHeightClass}`}
+              >
                 <AttractionImage
                   src={selectedImage}
                   alt={attraction.imageAlt}
                   width={800}
                   height={600}
-                  className="w-full h-[320px] sm:h-[380px] md:h-[520px] lg:h-[560px] object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-              </div>
 
-              {availableImages.length > 1 && (
-                <div className="mt-4">
-                  <div className="grid grid-cols-4 gap-5">
-                    {availableImages.slice(0, 8).map((src) => {
-                      const isSelected = src === selectedImage;
-                      return (
-                        <button
-                          key={src}
-                          type="button"
-                          onClick={() =>
-                            setSelectedImageByAttractionId((prev) => ({
-                              ...prev,
-                              [attraction.id]: src,
-                            }))
-                          }
-                          className={`relative overflow-hidden rounded-xl border-2 transition-all duration-300 ${
-                            isSelected
-                              ? hasBlueTheme
-                                ? "border-blue-500 shadow-lg shadow-blue-500/20"
-                                : "border-emerald-500 shadow-lg shadow-emerald-500/20"
-                              : "border-gray-200 hover:border-gray-300"
-                          }`}
-                        >
-                          <AttractionImage
-                            src={src}
-                            alt={attraction.imageAlt}
-                            width={240}
-                            height={180}
-                            className="w-full h-full aspect-[4/3] object-cover"
-                          />
-                          <div
-                            className={`absolute inset-0 transition-opacity duration-300 ${
-                              isSelected ? "opacity-0" : "opacity-20"
-                            } bg-black`}
-                          />
-                        </button>
-                      );
-                    })}
+                {availableImages.length > 1 && (
+                  <div className="absolute left-0 right-0 bottom-0 p-3">
+                    <div className="rounded-xl bg-white/70 backdrop-blur-sm border border-white/60 shadow-lg shadow-black/10 px-2 py-2">
+                      <div className="flex gap-2 overflow-x-auto">
+                        {availableImages.slice(0, 8).map((src) => {
+                          const isSelected = src === selectedImage;
+                          return (
+                            <button
+                              key={src}
+                              type="button"
+                              onClick={() =>
+                                setSelectedImageByAttractionId((prev) => ({
+                                  ...prev,
+                                  [attraction.id]: src,
+                                }))
+                              }
+                              className={`relative flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all duration-300 ${
+                                isSelected
+                                  ? hasBlueTheme
+                                    ? "border-blue-500"
+                                    : "border-emerald-500"
+                                  : "border-white/70 hover:border-white"
+                              }`}
+                            >
+                              <AttractionImage
+                                src={src}
+                                alt={attraction.imageAlt}
+                                width={96}
+                                height={72}
+                                className="w-16 h-12 object-cover"
+                              />
+                              {!isSelected && (
+                                <div className="absolute inset-0 bg-black/10" />
+                              )}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </motion.div>
           );
 
@@ -966,10 +1004,10 @@ export default function AttractionsClient({
               transition={transition}
               className={
                 isFirst
-                  ? "order-2 md:order-2 space-y-6"
+                  ? "order-2 md:order-2 md:flex md:flex-col md:min-h-0 md:h-[520px] lg:h-[560px]"
                   : imageSideFirst
-                    ? "order-2 md:order-2 space-y-6"
-                    : "order-2 md:order-1 space-y-6"
+                    ? "order-2 md:order-2 md:flex md:flex-col md:min-h-0 md:h-[520px] lg:h-[560px]"
+                    : "order-2 md:order-1 md:flex md:flex-col md:min-h-0 md:h-[520px] lg:h-[560px]"
               }
             >
               <div className="flex items-center gap-4 mb-4">
@@ -992,18 +1030,50 @@ export default function AttractionsClient({
                 </div>
               </div>
 
-              <div className="space-y-4 text-gray-700 text-lg leading-relaxed">
+              <div className="md:flex-1 md:min-h-0">
                 <div
-                  dangerouslySetInnerHTML={{
-                    __html: attraction.paragraphs[0] || "",
+                  ref={(el) => {
+                    descriptionContainerByAttractionIdRef.current[attraction.id] =
+                      el;
                   }}
-                />
-                {Boolean(attraction.paragraphs[1]) && (
+                  className={`space-y-4 text-gray-700 text-lg leading-relaxed md:h-full md:min-h-0 ${
+                    expandedByAttractionId[attraction.id]
+                      ? "md:overflow-auto md:pr-2"
+                      : "md:overflow-hidden"
+                  }`}
+                >
                   <div
                     dangerouslySetInnerHTML={{
-                      __html: attraction.paragraphs[1] || "",
+                      __html: attraction.paragraphs[0] || "",
                     }}
                   />
+                  {Boolean(attraction.paragraphs[1]) && (
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: attraction.paragraphs[1] || "",
+                      }}
+                    />
+                  )}
+                </div>
+
+                {(isOverflowingByAttractionId[attraction.id] ||
+                  expandedByAttractionId[attraction.id]) && (
+                  <div className="hidden md:flex justify-end mt-3">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setExpandedByAttractionId((prev) => ({
+                          ...prev,
+                          [attraction.id]: !prev[attraction.id],
+                        }))
+                      }
+                      className="text-sm font-semibold text-emerald-700 hover:text-emerald-800 underline underline-offset-4"
+                    >
+                      {expandedByAttractionId[attraction.id]
+                        ? "Show less"
+                        : "Read more"}
+                    </button>
+                  </div>
                 )}
               </div>
 
@@ -1066,7 +1136,7 @@ export default function AttractionsClient({
               className={`${sectionClass} scroll-mt-24`}
             >
               <div className="w-full px-4 sm:px-6 lg:px-12">
-                <div className="grid md:grid-cols-2 gap-12 items-center">
+                <div className="grid md:grid-cols-2 gap-12 items-start md:items-stretch">
                   {imageSideFirst ? (
                     <>
                       {imageNode}
