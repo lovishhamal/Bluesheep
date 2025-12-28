@@ -1041,7 +1041,7 @@ export default function AttractionsClient({
                     descriptionContainerByAttractionIdRef.current[attraction.id] = el;
                   }}
                   className={`space-y-4 text-gray-700 text-lg leading-relaxed ${
-                    isExpanded ? "max-h-none overflow-visible" : "max-h-[240px] overflow-hidden"
+                    isExpanded ? "max-h-none overflow-visible" : "max-h-[320px] overflow-hidden"
                   }`}
                 >
                   <div
