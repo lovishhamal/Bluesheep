@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 
+export const revalidate = 0;
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title:
     "Phoksundo Lake & Dho Tarap | Best Attractions in Dolpa Nepal | Hotel Blue Sheep Inn",
