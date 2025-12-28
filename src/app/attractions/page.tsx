@@ -888,67 +888,29 @@ export default function AttractionsPage() {
                     : "order-1 md:order-2"
               }
             >
-              <div className="relative">
-                <div
-                  className={`absolute -inset-6 opacity-70 blur-2xl ${
-                    hasBlueTheme
-                      ? "bg-gradient-to-br from-blue-400/40 via-purple-400/20 to-blue-400/40"
-                      : "bg-gradient-to-br from-emerald-400/40 via-blue-400/20 to-emerald-400/40"
-                  }`}
+              <div className="relative overflow-hidden rounded-xl shadow-2xl group">
+                <AttractionImage
+                  src={selectedImage}
+                  alt={attraction.imageAlt}
+                  width={800}
+                  height={600}
+                  className="w-full h-[320px] sm:h-[380px] md:h-[520px] lg:h-[560px] object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="relative shadow-2xl bg-white">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                {elevationTag?.value && (
                   <div
-                    className={`absolute inset-0 border-2 ${
-                      hasBlueTheme ? "border-blue-200" : "border-emerald-200"
-                    }`}
-                  />
-                  <div
-                    className={`absolute -top-2 -left-2 h-6 w-6 border-t-4 border-l-4 ${
-                      hasBlueTheme ? "border-blue-500" : "border-emerald-500"
-                    }`}
-                  />
-                  <div
-                    className={`absolute -top-2 -right-2 h-6 w-6 border-t-4 border-r-4 ${
-                      hasBlueTheme ? "border-blue-500" : "border-emerald-500"
-                    }`}
-                  />
-                  <div
-                    className={`absolute -bottom-2 -left-2 h-6 w-6 border-b-4 border-l-4 ${
-                      hasBlueTheme ? "border-blue-500" : "border-emerald-500"
-                    }`}
-                  />
-                  <div
-                    className={`absolute -bottom-2 -right-2 h-6 w-6 border-b-4 border-r-4 ${
-                      hasBlueTheme ? "border-blue-500" : "border-emerald-500"
-                    }`}
-                  />
-
-                  <div className="relative overflow-hidden group">
-                    <AttractionImage
-                      src={selectedImage}
-                      alt={attraction.imageAlt}
-                      width={800}
-                      height={600}
-                      className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-                    <div className="pointer-events-none absolute inset-0 ring-1 ring-white/50"></div>
-                    {elevationTag?.value && (
-                      <div
-                        className={`absolute top-6 right-6 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border-2 ${badgeBorder}`}
-                      >
-                        <div className="text-xs font-semibold text-gray-600 mb-1">
-                          Elevation
-                        </div>
-                        <div
-                          className={`text-xl font-black bg-gradient-to-r ${badgeTextGradient} bg-clip-text text-transparent`}
-                        >
-                          {elevationTag.value}
-                        </div>
-                      </div>
-                    )}
+                    className={`absolute top-6 right-6 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border-2 ${badgeBorder}`}
+                  >
+                    <div className="text-xs font-semibold text-gray-600 mb-1">
+                      Elevation
+                    </div>
+                    <div
+                      className={`text-xl font-black bg-gradient-to-r ${badgeTextGradient} bg-clip-text text-transparent`}
+                    >
+                      {elevationTag.value}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
 
               {availableImages.length > 1 && (
