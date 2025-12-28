@@ -416,20 +416,9 @@ body {
   animation: marquee-scroll 20s linear infinite;
 }
 
-@media (max-width: 768px) {
-  .marquee__track {
-    animation-duration: 10s;
-  }
-}
-
 .marquee__item {
   display: inline-flex;
   flex: 0 0 auto;
-}
-
-.marquee__item::after {
-  content: attr(data-text);
-  padding-left: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -438,9 +427,8 @@ body {
     transform: translateX(0%);
   }
 
-  .marquee__item::after {
-    content: "";
-    padding-left: 0;
+  .marquee__item + .marquee__item {
+    display: none;
   }
 }
 /* Travel Guide Specific Styles */

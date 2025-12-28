@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
@@ -18,7 +18,7 @@ import {
 import { StorageImage, Review } from "../util/storage";
 import { getWhatsAppUrl, getTelUrl, PHONE_NUMBER } from "../util/constants";
 import { useIsMobile } from "../util/useIsMobile";
-import { supabase } from "../util/supabase";
+import { getCachedLatestAppDetail } from "../util/app-detail-client";
 import HowToReach from "./HowToReach";
 import { GalleryImage } from "./CreativeImageCarousel";
 import HeroCarousel from "./HeroCarousel";
@@ -55,6 +55,10 @@ export default function HomeClient({
   const [galleryImages] = useState<GalleryImage[]>(initialGalleryImages);
   const [bannerText, setBannerText] = useState(defaultBannerText);
   const [adminPhone, setAdminPhone] = useState(PHONE_NUMBER);
+  const [marqueeDurationSeconds, setMarqueeDurationSeconds] = useState(20);
+  const marqueeBaseMeasureRef = useRef<HTMLSpanElement | null>(null);
+  const marqueeMeasureRef = useRef<HTMLSpanElement | null>(null);
+  const marqueeSpeedRef = useRef<number | null>(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -63,33 +67,12 @@ export default function HomeClient({
       value.endsWith(" ") ? value : `${value} `;
 
     const fetchBanner = async () => {
-      if (
-        !process.env.NEXT_PUBLIC_SUPABASE_URL ||
-        !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-      ) {
-        return;
-      }
-
       try {
-        const { data, error } = await supabase
-          .from("app_detail")
-          .select("banner_text,admin_phone,created_at")
-          .order("created_at", { ascending: false })
-          .limit(1)
-          .maybeSingle();
+        const detail = await getCachedLatestAppDetail();
+        const value = detail?.bannerText ?? "";
+        if (value && isMounted) setBannerText(ensureTrailingSpace(value));
 
-        if (error) return;
-        const value =
-          data && typeof data.banner_text === "string"
-            ? data.banner_text.trim()
-            : "";
-        if (!value) return;
-        if (isMounted) setBannerText(ensureTrailingSpace(value));
-
-        const phoneValue =
-          data && typeof data.admin_phone === "string"
-            ? data.admin_phone.trim()
-            : "";
+        const phoneValue = detail?.adminPhone ?? "";
         if (phoneValue && isMounted) setAdminPhone(phoneValue);
       } catch {}
     };
@@ -100,6 +83,44 @@ export default function HomeClient({
       isMounted = false;
     };
   }, [defaultBannerText]);
+
+  useEffect(() => {
+    marqueeSpeedRef.current = null;
+  }, [isMobile]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const baselineSeconds = isMobile ? 10 : 20;
+
+    const measure = () => {
+      const baseEl = marqueeBaseMeasureRef.current;
+      const currentEl = marqueeMeasureRef.current;
+
+      if (!baseEl || !currentEl) return;
+
+      const baseWidth = baseEl.scrollWidth;
+      const currentWidth = currentEl.scrollWidth;
+
+      if (!baseWidth || !currentWidth) return;
+
+      const speed =
+        marqueeSpeedRef.current ?? baseWidth / Math.max(1, baselineSeconds);
+      marqueeSpeedRef.current = speed;
+
+      setMarqueeDurationSeconds(currentWidth / speed);
+    };
+
+    measure();
+
+    const resizeObserver = new ResizeObserver(measure);
+    if (marqueeBaseMeasureRef.current)
+      resizeObserver.observe(marqueeBaseMeasureRef.current);
+    if (marqueeMeasureRef.current)
+      resizeObserver.observe(marqueeMeasureRef.current);
+
+    return () => resizeObserver.disconnect();
+  }, [bannerText, isMobile]);
 
   // Intersection Observer for feature cards
   useEffect(() => {
@@ -219,10 +240,22 @@ export default function HomeClient({
       <div className="relative z-40">
         <div className="w-full bg-gradient-to-r from-emerald-700 via-emerald-600 to-blue-600 text-white border-b border-white/10">
           <div className="marquee">
-            <div className="marquee__track">
+            <span className="fixed left-[-9999px] top-0 opacity-0 pointer-events-none whitespace-nowrap px-6 py-2 pr-20 text-sm sm:text-base font-semibold tracking-wide">
+              <span ref={marqueeBaseMeasureRef}>{defaultBannerText}</span>
+            </span>
+            <div
+              className="marquee__track"
+              style={{ animationDuration: `${marqueeDurationSeconds}s` }}
+            >
               <span
-                className="marquee__item px-6 py-2 text-sm sm:text-base font-semibold tracking-wide whitespace-nowrap"
-                data-text={bannerText}
+                ref={marqueeMeasureRef}
+                className="marquee__item px-6 py-2 pr-20 text-sm sm:text-base font-semibold tracking-wide whitespace-nowrap"
+              >
+                {bannerText}
+              </span>
+              <span
+                aria-hidden="true"
+                className="marquee__item px-6 py-2 pr-20 text-sm sm:text-base font-semibold tracking-wide whitespace-nowrap"
               >
                 {bannerText}
               </span>

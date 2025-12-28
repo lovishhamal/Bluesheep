@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "../../util/supabase";
 import { getWhatsAppUrl } from "../../util/constants";
+import { getCachedLatestAppDetail } from "../../util/app-detail-client";
 import { UserIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 interface Room {
@@ -24,6 +25,7 @@ function BookingPageContent() {
 
   const [room, setRoom] = useState<Room | null>(null);
   const [loading, setLoading] = useState(true);
+  const [adminPhone, setAdminPhone] = useState<string | undefined>(undefined);
   const [bookingForm, setBookingForm] = useState({
     customerName: "",
     customerEmail: "",
@@ -58,6 +60,24 @@ function BookingPageContent() {
     fetchRoom();
   }, [roomId, router]);
 
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadAdminPhone = async () => {
+      try {
+        const detail = await getCachedLatestAppDetail();
+        const phoneValue = detail?.adminPhone;
+        if (phoneValue && isMounted) setAdminPhone(phoneValue);
+      } catch {}
+    };
+
+    loadAdminPhone();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-NP", {
       style: "currency",
@@ -87,7 +107,7 @@ ${bookingForm.specialRequests ? `*Special Requests:*\n${bookingForm.specialReque
 
 Please confirm this booking.`;
 
-    const whatsappUrl = getWhatsAppUrl(message);
+    const whatsappUrl = getWhatsAppUrl(message, adminPhone);
     window.open(whatsappUrl, "_blank");
 
     // Reset form
@@ -326,4 +346,3 @@ export default function BookingPage() {
     </Suspense>
   );
 }
-
