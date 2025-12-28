@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "../../util/supabase";
-import { getWhatsAppUrl } from "../../util/constants";
+import { getWhatsAppUrl, PHONE_NUMBER } from "../../util/constants";
 import { UserIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useAppDetail } from "../../components/AppDetailProvider";
 
@@ -23,6 +23,10 @@ function BookingPageContent() {
   const searchParams = useSearchParams();
   const roomId = searchParams?.get("id") || null;
   const { adminPhone } = useAppDetail();
+  const contactPhone =
+    typeof adminPhone === "string" && adminPhone.trim()
+      ? adminPhone.trim()
+      : PHONE_NUMBER;
 
   const [room, setRoom] = useState<Room | null>(null);
   const [loading, setLoading] = useState(true);
@@ -89,7 +93,7 @@ ${bookingForm.specialRequests ? `*Special Requests:*\n${bookingForm.specialReque
 
 Please confirm this booking.`;
 
-    const whatsappUrl = getWhatsAppUrl(message, adminPhone ?? undefined);
+    const whatsappUrl = getWhatsAppUrl(message, contactPhone);
     window.open(whatsappUrl, "_blank");
 
     // Reset form

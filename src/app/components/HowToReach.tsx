@@ -217,8 +217,7 @@ export default function HowToReach() {
                     </Link>
                   </motion.div>
                   <div className="text-sm text-gray-600">
-                    Includes routes, contacts, hotels, and cost tips for
-                    first-time travelers.
+                    Includes routes, contacts, hotels, and cost tips for travelers.
                   </div>
                 </div>
               </div>

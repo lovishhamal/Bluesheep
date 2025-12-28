@@ -1,7 +1,7 @@
 import { getImagesFromFolder } from "../util/storage-server";
 import CampingPageClient from "./CampingPageClient";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 export default async function CampingPage() {
   // Load only first 20 images initially for better performance
