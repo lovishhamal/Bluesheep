@@ -882,10 +882,10 @@ export default function AttractionsPage() {
               transition={transition}
               className={
                 isFirst
-                  ? "order-2 md:order-1"
+                  ? "order-1 md:order-1"
                   : imageSideFirst
-                    ? "order-2 md:order-1"
-                    : "order-2 md:order-2"
+                    ? "order-1 md:order-1"
+                    : "order-1 md:order-2"
               }
             >
               <div
@@ -969,10 +969,10 @@ export default function AttractionsPage() {
               transition={transition}
               className={
                 isFirst
-                  ? "order-1 md:order-2 space-y-6"
+                  ? "order-2 md:order-2 space-y-6"
                   : imageSideFirst
-                    ? "order-1 md:order-2 space-y-6"
-                    : "order-1 md:order-1 space-y-6"
+                    ? "order-2 md:order-2 space-y-6"
+                    : "order-2 md:order-1 space-y-6"
               }
             >
               <div className="flex items-center gap-4 mb-4">
