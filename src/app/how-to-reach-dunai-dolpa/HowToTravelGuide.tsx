@@ -385,8 +385,13 @@ export default function HowToTravelGuide({
   const pathname = usePathname();
   const variant = useMemo<TravelGuideVariant>(() => {
     const path = (pathname || "").toLowerCase();
-    if (path.includes("how-to-travel-dho")) return "dho";
-    if (path.includes("how-to-travel-phoksundo")) return "phoksundo";
+    if (path.includes("how-to-reach-dho") || path.includes("how-to-travel-dho"))
+      return "dho";
+    if (
+      path.includes("how-to-reach-phoksundo") ||
+      path.includes("how-to-travel-phoksundo")
+    )
+      return "phoksundo";
     return "dunai-dolpa";
   }, [pathname]);
 
