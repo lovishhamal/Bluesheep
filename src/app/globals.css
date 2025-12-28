@@ -416,6 +416,12 @@ body {
   animation: marquee-scroll 20s linear infinite;
 }
 
+@media (max-width: 768px) {
+  .marquee__track {
+    animation-duration: 10s;
+  }
+}
+
 .marquee__item {
   display: inline-flex;
   flex: 0 0 auto;
