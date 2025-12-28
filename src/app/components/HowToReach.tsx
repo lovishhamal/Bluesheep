@@ -137,8 +137,9 @@ export default function HowToReach() {
               </span>
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Need routes from Kathmandu to Dunai (Dolpa), flights, jeeps, and
-              practical tips? Open the Travel Guide.
+              View complete routes from Kathmandu to Dunai (Dolpa), flights,
+              jeeps, contacts, hotels/stays, and estimated costs to travel
+              Dolpa. Open the Travel Guide.
             </p>
           </motion.div>
 
@@ -178,9 +179,8 @@ export default function HowToReach() {
                   Travel Guide
                 </h3>
                 <p className="text-gray-700 leading-relaxed">
-                  Clear routes, practical tips, and what to expect on the road.
-                  Use this to plan bus, flight, and jeep connections without
-                  guessing.
+                  Routes, contacts, stays, and cost guidance to plan bus,
+                  flight, and jeep connections without guessing.
                 </p>
 
                 <div className="mt-6 grid sm:grid-cols-3 gap-3">
@@ -217,7 +217,7 @@ export default function HowToReach() {
                     </Link>
                   </motion.div>
                   <div className="text-sm text-gray-600">
-                    Includes routes, stops, and tips for first-time travelers.
+                    Includes routes, contacts, hotels, and cost tips for travelers.
                   </div>
                 </div>
               </div>

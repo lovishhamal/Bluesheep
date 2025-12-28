@@ -13,8 +13,14 @@ import {
 } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { getWhatsAppUrl, getTelUrl, PHONE_NUMBER } from "../util/constants";
+import { useAppDetail } from "../components/AppDetailProvider";
 export default function ContactPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { adminPhone } = useAppDetail();
+  const contactPhone =
+    typeof adminPhone === "string" && adminPhone.trim()
+      ? adminPhone.trim()
+      : PHONE_NUMBER;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-emerald-50/30">
@@ -241,13 +247,13 @@ export default function ContactPage() {
               <div className="flex-1">
                 <p className="text-sm text-gray-600 mb-1">Phone</p>
                 <p className="text-lg font-semibold text-gray-900">
-                  {PHONE_NUMBER}
+                  {contactPhone}
                 </p>
               </div>
               <button
                 onClick={() => {
                   const message = `Hi! I'd like to get in touch about your hotel services.`;
-                  const whatsappUrl = getWhatsAppUrl(message);
+                  const whatsappUrl = getWhatsAppUrl(message, contactPhone);
                   window.open(whatsappUrl, "_blank");
                 }}
                 className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg text-sm font-semibold transition-colors"
@@ -457,7 +463,7 @@ export default function ContactPage() {
               <motion.button
                 onClick={() => {
                   const message = `Hi! I'd like to make a reservation at your hotel.`;
-                  const whatsappUrl = getWhatsAppUrl(message);
+                  const whatsappUrl = getWhatsAppUrl(message, contactPhone);
                   window.open(whatsappUrl, "_blank");
                 }}
                 className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-5 bg-white text-emerald-600 font-bold rounded-2xl overflow-hidden transition-all duration-300 shadow-2xl text-lg sm:text-xl"
@@ -492,7 +498,7 @@ export default function ContactPage() {
 
               <motion.button
                 onClick={() => {
-                  window.open(getTelUrl(), "_self");
+                  window.open(getTelUrl(contactPhone), "_self");
                 }}
                 className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-5 bg-white/10 backdrop-blur-sm border-2 border-white text-white font-bold rounded-2xl overflow-hidden transition-all duration-300 hover:bg-white/20 text-lg sm:text-xl"
                 whileHover={{ scale: 1.05 }}

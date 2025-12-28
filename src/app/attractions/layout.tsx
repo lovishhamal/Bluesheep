@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+
+
 export const metadata: Metadata = {
   title:
     "Phoksundo Lake & Dho Tarap | Best Attractions in Dolpa Nepal | Hotel Blue Sheep Inn",

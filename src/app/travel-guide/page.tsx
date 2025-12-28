@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import Link from "next/link";
-import { unstable_noStore as noStore } from "next/cache";
 import { getTravelGuides, stripHtml } from "./dummyTravelGuides";
 import Navigation from "../components/Navigation";
 
 export const metadata: Metadata = {
-  title: "Complete Travel Guides to Dolpa Nepal | Hotel Blue Sheep Inn - Expert Local Tips & Itineraries",
+  title:
+    "Dolpa Itineraries & Travel Guides | Dunai, Phoksundo, Dho Tarap | Hotel Blue Sheep Inn",
   description:
-    "Discover comprehensive travel guides to Dolpa, Nepal with detailed routes from Kathmandu, flight options to Juphal, jeep connections, local attractions, and insider tips. Plan your perfect journey to Phoksundo Lake and remote Himalayan villages with our expert local knowledge.",
+    "Plan your Dolpa itinerary with expert travel guides: Kathmandu to Dunai routes, flights to Juphal, jeep connections, trekking itineraries for Phoksundo Lake and Dho Tarap, stays/hotels, contacts, permits, and practical cost tips.",
   keywords: [
     "Dolpa travel guide",
-    "Nepal travel guides", 
+    "Nepal travel guides",
     "Phoksundo Lake travel",
     "Dho Tarap guide",
     "Kathmandu to Dolpa route",
@@ -20,6 +20,13 @@ export const metadata: Metadata = {
     "Upper Dolpa trekking",
     "Nepal Himalayan travel",
     "Dolpa itinerary planning",
+    "Dolpa itinerary",
+    "Phoksundo itinerary",
+    "Phoksundo Lake itinerary",
+    "Dho Tarap itinerary",
+    "Dolpa trekking itinerary",
+    "Nepal trekking itinerary",
+    "Best treks in Dolpa",
     "Remote Nepal destinations",
     "Phoksundo Lake trekking",
     "Dho Tarap trekking guide",
@@ -31,9 +38,10 @@ export const metadata: Metadata = {
     canonical: "/travel-guide/",
   },
   openGraph: {
-    title: "Complete Travel Guides to Dolpa Nepal | Expert Local Knowledge",
+    title:
+      "Dolpa Itineraries & Travel Guides | Dunai, Phoksundo, Dho Tarap",
     description:
-      "Comprehensive travel guides to Dolpa with detailed routes, flight options, local attractions, and insider tips from Hotel Blue Sheep Inn. Explore Phoksundo Lake, Dho Tarap, and Crystal Mountain.",
+      "Plan your Dolpa itinerary with routes, flights to Juphal, jeep options, trekking itineraries, stays/hotels, contacts, permits, and practical tips from Hotel Blue Sheep Inn.",
     type: "website",
     url: "https://hotelbluesheepinn.com/travel-guide/",
     images: [
@@ -49,8 +57,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Complete Travel Guides to Dolpa Nepal | Expert Local Knowledge",
-    description: "Comprehensive travel guides to Dolpa with detailed routes, flight options, and insider tips. Explore Phoksundo Lake, Dho Tarap, and Crystal Mountain.",
+    title:
+      "Dolpa Itineraries & Travel Guides | Dunai, Phoksundo, Dho Tarap",
+    description:
+      "Plan your Dolpa itinerary with routes, flights to Juphal, jeep options, trekking itineraries, stays/hotels, contacts, permits, and practical tips.",
     images: ["https://hotelbluesheepinn.com/phoksundo.jpg"]
   },
   robots: {
@@ -66,19 +76,18 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 0;
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export default async function TravelGuidePage() {
-  noStore();
   const guides = await getTravelGuides();
   const listGuides = guides.filter((g) => g.type === "list");
   const generalGuides = guides.filter((g) => g.type === "general");
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Dolpa Nepal Travel Guides",
-    description: "Comprehensive collection of travel guides for Dolpa, Nepal including routes, attractions, and local insights",
+    name: "Dolpa Itineraries and Travel Guides",
+    description:
+      "Comprehensive travel guides and trekking itineraries for Dolpa, Nepal including routes, flights, jeeps, stays, contacts, and practical tips",
     url: "https://hotelbluesheepinn.com/travel-guide/",
     numberOfItems: listGuides.length,
     itemListElement: listGuides.map((guide, index) => ({
@@ -183,6 +192,22 @@ export default async function TravelGuidePage() {
           "@type": "Answer",
           text: "Yes, Dho Tarap can be reached from Phoksundo Lake via a multi-day trekking route through Upper Dolpa. This requires special permits and is typically part of a longer Crystal Mountain circuit trek. Our guides provide detailed itineraries for this route."
         }
+      },
+      {
+        "@type": "Question",
+        name: "What is a good Dolpa trekking itinerary for first-time visitors?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "A common first-time Dolpa trekking itinerary is Kathmandu → Nepalgunj → Juphal (flight), jeep to Dunai, then a 2–3 day trek to Phoksundo Lake. Add extra days for acclimatization, weather delays, and return logistics."
+        }
+      },
+      {
+        "@type": "Question",
+        name: "What are the best places to trek in Dolpa?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Top trekking areas in Dolpa include Phoksundo Lake (Lower Dolpa) and the remote Upper Dolpa routes toward Dho Tarap and Crystal Mountain. Choice depends on permits, time, and season."
+        }
       }
     ]
   };
@@ -204,6 +229,10 @@ export default async function TravelGuidePage() {
     },
     knowsAbout: [
       "Dolpa travel routes",
+      "Dolpa itineraries",
+      "Dolpa trekking itineraries",
+      "Phoksundo itinerary",
+      "Dho Tarap itinerary",
       "Phoksundo Lake access",
       "Dho Tarap trekking",
       "Crystal Mountain pilgrimage",
@@ -252,12 +281,41 @@ export default async function TravelGuidePage() {
             </div>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
               <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                Complete Travel Guides to Dolpa, Nepal
+                Dolpa Travel Guides & Itineraries
               </span>
             </h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Expert travel guides with detailed routes from Kathmandu to Dolpa, flight options to Juphal Airport, jeep connections, local attractions, and insider tips for exploring Phoksundo Lake, Dho Tarap, Crystal Mountain, and remote Himalayan villages. Plan your perfect journey with our comprehensive local knowledge.
+              Plan your Dolpa itinerary with routes from Kathmandu to Dunai,
+              flights to Juphal, jeep connections, trekking itineraries, stays,
+              contacts, and cost tips for Phoksundo Lake, Dho Tarap, Crystal
+              Mountain, and remote Himalayan villages.
             </p>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
+              <Link
+                href="/how-to-reach-dunai-dolpa/"
+                className="rounded-full bg-white/70 backdrop-blur-sm border border-emerald-200/60 px-4 py-2 text-sm font-semibold text-emerald-700 hover:text-emerald-800 hover:border-emerald-300 transition-colors"
+              >
+                Dunai (Dolpa) route
+              </Link>
+              <Link
+                href="/how-to-reach-phoksundo/"
+                className="rounded-full bg-white/70 backdrop-blur-sm border border-emerald-200/60 px-4 py-2 text-sm font-semibold text-emerald-700 hover:text-emerald-800 hover:border-emerald-300 transition-colors"
+              >
+                Phoksundo itinerary
+              </Link>
+              <Link
+                href="/how-to-reach-dho/"
+                className="rounded-full bg-white/70 backdrop-blur-sm border border-emerald-200/60 px-4 py-2 text-sm font-semibold text-emerald-700 hover:text-emerald-800 hover:border-emerald-300 transition-colors"
+              >
+                Dho Tarap itinerary
+              </Link>
+              <Link
+                href="/attractions/"
+                className="rounded-full bg-white/70 backdrop-blur-sm border border-emerald-200/60 px-4 py-2 text-sm font-semibold text-emerald-700 hover:text-emerald-800 hover:border-emerald-300 transition-colors"
+              >
+                Best places to trek
+              </Link>
+            </div>
           </header>
 
           <div className="mx-auto">
