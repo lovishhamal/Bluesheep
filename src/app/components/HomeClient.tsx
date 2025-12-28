@@ -409,23 +409,33 @@ export default function HomeClient({
                 </span>
               </motion.h1>
 
-              {/* Description - More Subtle */}
-              <motion.p
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.6 }}
-                className="text-lg sm:text-xl md:text-2xl text-gray-600 font-light max-w-2xl mx-auto leading-relaxed"
-              >
-                Experience luxury in the heart of Dolpa, Nepal
-              </motion.p>
-              <motion.p
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-                className="text-base sm:text-lg text-gray-500 font-light max-w-xl mx-auto"
-              >
-                Your gateway to the majestic Himalayas
-              </motion.p>
+              <div className="max-w-2xl mx-auto lg:mx-0">
+                <motion.p
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.6 }}
+                  className="text-lg sm:text-xl md:text-2xl text-gray-700 font-medium leading-relaxed"
+                >
+                  <span className="font-semibold text-gray-900">
+                    Experience luxury
+                  </span>{" "}
+                  in the heart of{" "}
+                  <span className="bg-gradient-to-r from-emerald-700 to-blue-700 bg-clip-text text-transparent font-semibold">
+                    Dolpa, Nepal
+                  </span>
+                </motion.p>
+                <motion.p
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.6 }}
+                  className="mt-1.5 text-sm sm:text-base md:text-lg text-gray-600 font-medium"
+                >
+                  Your gateway to the{" "}
+                  <span className="text-gray-900 font-semibold">
+                    majestic Himalayas
+                  </span>
+                </motion.p>
+              </div>
 
               {/* Contact Info - Enhanced Button Style for Mobile - Hidden on Mobile */}
               <motion.div
@@ -944,8 +954,10 @@ export default function HomeClient({
               </span>
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              We keep the home page simple—see the full list in the Attractions
-              tab.
+              Dolpa is still one of Nepal&apos;s most unexplored regions—home to
+              remote mountain trails, crystal lakes, ancient monasteries, and
+              rich Tibetan-influenced culture. See the highlights in the
+              Attractions tab.
             </p>
           </motion.div>
 

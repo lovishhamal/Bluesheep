@@ -791,8 +791,13 @@ export default function AttractionsClient({
           <section className="py-4 sm:py-5 bg-white border-y border-emerald-100/70">
             <div className="w-full px-4 sm:px-6 lg:px-12">
               <div className="flex items-center justify-between gap-3 flex-wrap">
-                <div className="text-sm font-bold text-gray-900">
-                  Explore attractions
+                <div>
+                  <div className="text-sm font-bold text-gray-900">
+                    Explore Dolpa’s hidden gems
+                  </div>
+                  <div className="text-xs font-semibold text-gray-500 mt-0.5">
+                    Dolpa is still one of Nepal’s most unexplored regions—start here.
+                  </div>
                 </div>
                 <div className="text-xs font-semibold text-gray-500">
                   Click to jump
