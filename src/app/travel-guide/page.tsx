@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import Link from "next/link";
-import { unstable_noStore as noStore } from "next/cache";
 import { getTravelGuides, stripHtml } from "./dummyTravelGuides";
 import Navigation from "../components/Navigation";
 
@@ -77,11 +76,9 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 0;
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export default async function TravelGuidePage() {
-  noStore();
   const guides = await getTravelGuides();
   const listGuides = guides.filter((g) => g.type === "list");
   const generalGuides = guides.filter((g) => g.type === "general");

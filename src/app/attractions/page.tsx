@@ -1,7 +1,7 @@
 import AttractionsClient from "./AttractionsClient";
 import { createPublicClient } from "../util/supabase-server";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 export default async function AttractionsPage() {
   let initialAttractionsData: unknown[] | null = null;

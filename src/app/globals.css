@@ -161,12 +161,6 @@ body {
     transform-style: flat !important;
     -webkit-transform-style: flat !important;
   }
-
-  /* GPU acceleration for smooth scrolling */
-  * {
-    -webkit-transform: translateZ(0);
-    will-change: auto;
-  }
 }
 
 /* Prefers reduced motion */
@@ -398,10 +392,10 @@ body {
 
 @keyframes marquee-scroll {
   0% {
-    transform: translateX(-50%);
+    transform: translateX(calc(-1 * var(--marquee-distance, 50%)));
   }
   100% {
-    transform: translateX(0%);
+    transform: translateX(0);
   }
 }
 
@@ -413,7 +407,7 @@ body {
   display: flex;
   width: max-content;
   will-change: transform;
-  animation: marquee-scroll 20s linear infinite;
+  animation: marquee-scroll var(--marquee-duration, 20s) linear infinite;
 }
 
 .marquee__item {
@@ -423,12 +417,11 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .marquee__track {
-    animation: none;
-    transform: translateX(0%);
-  }
-
-  .marquee__item + .marquee__item {
-    display: none;
+    animation-name: marquee-scroll !important;
+    animation-duration: var(--marquee-duration, 20s) !important;
+    animation-timing-function: linear !important;
+    animation-iteration-count: infinite !important;
+    animation-play-state: running !important;
   }
 }
 /* Travel Guide Specific Styles */

@@ -17,10 +17,10 @@ import {
 } from "@heroicons/react/24/outline";
 import { supabase } from "../util/supabase";
 import { getWhatsAppUrl } from "../util/constants";
-import { getCachedLatestAppDetail } from "../util/app-detail-client";
 import { useState, useEffect } from "react";
 import { useIsMobile } from "../util/useIsMobile";
 import { useRouter } from "next/navigation";
+import { useAppDetail } from "../components/AppDetailProvider";
 
 // Room interface matching your database schema
 interface Room {
@@ -42,10 +42,10 @@ interface Room {
 export default function RoomsPage() {
   const router = useRouter();
   const isMobile = useIsMobile();
+  const { adminPhone } = useAppDetail();
   const [rooms, setRooms] = useState<Room[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [adminPhone, setAdminPhone] = useState<string | undefined>(undefined);
   const [currentImageIndex, setCurrentImageIndex] = useState<{
     [key: string]: number;
   }>({});
@@ -112,24 +112,6 @@ export default function RoomsPage() {
     };
 
     fetchRooms();
-  }, []);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const loadAdminPhone = async () => {
-      try {
-        const detail = await getCachedLatestAppDetail();
-        const phoneValue = detail?.adminPhone;
-        if (phoneValue && isMounted) setAdminPhone(phoneValue);
-      } catch {}
-    };
-
-    loadAdminPhone();
-
-    return () => {
-      isMounted = false;
-    };
   }, []);
 
   // Prevent body scroll when modal is open (iOS fix)
@@ -220,7 +202,7 @@ ${
 
 Please confirm this booking.`;
 
-    const whatsappUrl = getWhatsAppUrl(message, adminPhone);
+    const whatsappUrl = getWhatsAppUrl(message, adminPhone ?? undefined);
     window.open(whatsappUrl, "_blank");
 
     // Close modal after opening WhatsApp

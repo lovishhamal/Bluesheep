@@ -18,7 +18,7 @@ import {
 import { StorageImage, Review } from "../util/storage";
 import { getWhatsAppUrl, getTelUrl, PHONE_NUMBER } from "../util/constants";
 import { useIsMobile } from "../util/useIsMobile";
-import { getCachedLatestAppDetail } from "../util/app-detail-client";
+import { useAppDetail } from "./AppDetailProvider";
 import HowToReach from "./HowToReach";
 import { GalleryImage } from "./CreativeImageCarousel";
 import HeroCarousel from "./HeroCarousel";
@@ -36,6 +36,7 @@ export default function HomeClient({
 }: HomeClientProps) {
   const defaultBannerText =
     "🅿️ Free Parking • Secure & Spacious • For All Guests • 🔥 Campfire Evenings • Warm & Cozy Vibes • ";
+  const appDetail = useAppDetail();
   const router = useRouter();
   const isMobile = useIsMobile();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -53,36 +54,37 @@ export default function HomeClient({
     useState<StorageImage | null>(null);
   const [isHotelGalleryModalOpen, setIsHotelGalleryModalOpen] = useState(false);
   const [galleryImages] = useState<GalleryImage[]>(initialGalleryImages);
-  const [bannerText, setBannerText] = useState(defaultBannerText);
-  const [adminPhone, setAdminPhone] = useState(PHONE_NUMBER);
+  const [bannerText, setBannerText] = useState(() => {
+    const value =
+      typeof appDetail.bannerText === "string" ? appDetail.bannerText.trim() : "";
+    return value
+      ? value.endsWith(" ")
+        ? value
+        : `${value} `
+      : defaultBannerText;
+  });
+  const [adminPhone, setAdminPhone] = useState(() => {
+    const value =
+      typeof appDetail.adminPhone === "string" ? appDetail.adminPhone.trim() : "";
+    return value || PHONE_NUMBER;
+  });
   const [marqueeDurationSeconds, setMarqueeDurationSeconds] = useState(20);
+  const [marqueeDistancePx, setMarqueeDistancePx] = useState(0);
+  const [marqueeRepeatCount, setMarqueeRepeatCount] = useState(2);
+  const marqueeContainerRef = useRef<HTMLDivElement | null>(null);
   const marqueeBaseMeasureRef = useRef<HTMLSpanElement | null>(null);
   const marqueeMeasureRef = useRef<HTMLSpanElement | null>(null);
   const marqueeSpeedRef = useRef<number | null>(null);
 
   useEffect(() => {
-    let isMounted = true;
+    const value =
+      typeof appDetail.bannerText === "string" ? appDetail.bannerText.trim() : "";
+    if (value) setBannerText(value.endsWith(" ") ? value : `${value} `);
 
-    const ensureTrailingSpace = (value: string) =>
-      value.endsWith(" ") ? value : `${value} `;
-
-    const fetchBanner = async () => {
-      try {
-        const detail = await getCachedLatestAppDetail();
-        const value = detail?.bannerText ?? "";
-        if (value && isMounted) setBannerText(ensureTrailingSpace(value));
-
-        const phoneValue = detail?.adminPhone ?? "";
-        if (phoneValue && isMounted) setAdminPhone(phoneValue);
-      } catch {}
-    };
-
-    fetchBanner();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [defaultBannerText]);
+    const phoneValue =
+      typeof appDetail.adminPhone === "string" ? appDetail.adminPhone.trim() : "";
+    if (phoneValue) setAdminPhone(phoneValue);
+  }, [appDetail.adminPhone, appDetail.bannerText]);
 
   useEffect(() => {
     marqueeSpeedRef.current = null;
@@ -94,32 +96,71 @@ export default function HomeClient({
     const baselineSeconds = isMobile ? 10 : 20;
 
     const measure = () => {
+      const containerEl = marqueeContainerRef.current;
       const baseEl = marqueeBaseMeasureRef.current;
       const currentEl = marqueeMeasureRef.current;
 
-      if (!baseEl || !currentEl) return;
+      if (!containerEl || !baseEl || !currentEl) return;
 
-      const baseWidth = baseEl.scrollWidth;
-      const currentWidth = currentEl.scrollWidth;
+      const baseWidth =
+        baseEl.scrollWidth || baseEl.getBoundingClientRect().width || 0;
+      const currentWidth =
+        currentEl.scrollWidth || currentEl.getBoundingClientRect().width || 0;
+      const containerWidth =
+        containerEl.clientWidth || containerEl.getBoundingClientRect().width || 0;
 
-      if (!baseWidth || !currentWidth) return;
+      if (!baseWidth || !currentWidth || !containerWidth) return;
 
+      const defaultSpeed = baseWidth / Math.max(1, baselineSeconds);
+      const speedFromRef = marqueeSpeedRef.current;
       const speed =
-        marqueeSpeedRef.current ?? baseWidth / Math.max(1, baselineSeconds);
+        typeof speedFromRef === "number" && speedFromRef > 0
+          ? speedFromRef
+          : defaultSpeed;
       marqueeSpeedRef.current = speed;
 
-      setMarqueeDurationSeconds(currentWidth / speed);
+      const durationSeconds = currentWidth / speed;
+      setMarqueeDurationSeconds(
+        Number.isFinite(durationSeconds) && durationSeconds > 0
+          ? durationSeconds
+          : baselineSeconds
+      );
+      setMarqueeDistancePx(currentWidth || baseWidth);
+      setMarqueeRepeatCount(Math.max(2, Math.ceil(containerWidth / currentWidth) + 2));
     };
 
     measure();
 
-    const resizeObserver = new ResizeObserver(measure);
-    if (marqueeBaseMeasureRef.current)
-      resizeObserver.observe(marqueeBaseMeasureRef.current);
-    if (marqueeMeasureRef.current)
-      resizeObserver.observe(marqueeMeasureRef.current);
+    const rafId = window.requestAnimationFrame(measure);
+    const timeoutId = window.setTimeout(measure, 250);
 
-    return () => resizeObserver.disconnect();
+    const fonts = (document as unknown as { fonts?: { ready?: Promise<unknown> } })
+      .fonts;
+    const fontsReady = fonts?.ready;
+    if (fontsReady) fontsReady.finally(() => measure());
+
+    const ResizeObserverConstructor =
+      typeof window.ResizeObserver === "function" ? window.ResizeObserver : null;
+
+    if (!ResizeObserverConstructor) {
+      window.addEventListener("resize", measure);
+      return () => {
+        window.removeEventListener("resize", measure);
+        window.cancelAnimationFrame(rafId);
+        window.clearTimeout(timeoutId);
+      };
+    }
+
+    const resizeObserver = new ResizeObserverConstructor(measure);
+    if (marqueeContainerRef.current) resizeObserver.observe(marqueeContainerRef.current);
+    if (marqueeBaseMeasureRef.current) resizeObserver.observe(marqueeBaseMeasureRef.current);
+    if (marqueeMeasureRef.current) resizeObserver.observe(marqueeMeasureRef.current);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.cancelAnimationFrame(rafId);
+      window.clearTimeout(timeoutId);
+    };
   }, [bannerText, isMobile]);
 
   // Intersection Observer for feature cards
@@ -239,26 +280,43 @@ export default function HomeClient({
 
       <div className="relative z-40">
         <div className="w-full bg-gradient-to-r from-emerald-700 via-emerald-600 to-blue-600 text-white border-b border-white/10">
-          <div className="marquee">
+          <div className="marquee" ref={marqueeContainerRef}>
             <span className="fixed left-[-9999px] top-0 opacity-0 pointer-events-none whitespace-nowrap px-6 py-2 pr-20 text-sm sm:text-base font-semibold tracking-wide">
               <span ref={marqueeBaseMeasureRef}>{defaultBannerText}</span>
             </span>
             <div
               className="marquee__track"
-              style={{ animationDuration: `${marqueeDurationSeconds}s` }}
+              style={{
+                ...(Number.isFinite(marqueeDurationSeconds) &&
+                marqueeDurationSeconds > 0
+                  ? {
+                      ["--marquee-duration" as never]: `${marqueeDurationSeconds}s`,
+                    }
+                  : {}),
+                ...(marqueeDistancePx > 0
+                  ? { ["--marquee-distance" as never]: `${marqueeDistancePx}px` }
+                  : {}),
+              }}
             >
-              <span
-                ref={marqueeMeasureRef}
-                className="marquee__item px-6 py-2 pr-20 text-sm sm:text-base font-semibold tracking-wide whitespace-nowrap"
-              >
-                {bannerText}
-              </span>
-              <span
-                aria-hidden="true"
-                className="marquee__item px-6 py-2 pr-20 text-sm sm:text-base font-semibold tracking-wide whitespace-nowrap"
-              >
-                {bannerText}
-              </span>
+              {Array.from({ length: marqueeRepeatCount }).map((_, index) =>
+                index === 0 ? (
+                  <span
+                    key={index}
+                    ref={marqueeMeasureRef}
+                    className="marquee__item px-6 py-2 pr-20 text-sm sm:text-base font-semibold tracking-wide whitespace-nowrap"
+                  >
+                    {bannerText}
+                  </span>
+                ) : (
+                  <span
+                    key={index}
+                    aria-hidden="true"
+                    className="marquee__item px-6 py-2 pr-20 text-sm sm:text-base font-semibold tracking-wide whitespace-nowrap"
+                  >
+                    {bannerText}
+                  </span>
+                )
+              )}
             </div>
           </div>
         </div>
