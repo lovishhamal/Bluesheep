@@ -169,13 +169,13 @@ export default function HomeClient({
       <div className="relative z-40">
         <div className="w-full bg-gradient-to-r from-emerald-700 via-emerald-600 to-blue-600 text-white border-b border-white/10">
           <div className="marquee">
-            <div className="marquee__sweep">
-              <span className="marquee__item inline-flex items-center gap-2 px-6 py-2 text-sm sm:text-base font-semibold tracking-wide whitespace-nowrap">
-                <span className="opacity-95">🅿️ Free Parking</span>
-                <span className="opacity-70">•</span>
-                <span className="opacity-90">Secure & Spacious</span>
-                <span className="opacity-70">•</span>
-                <span className="opacity-90">For All Guests</span>
+            <div className="marquee__track">
+              <span
+                className="marquee__item px-6 py-2 text-sm sm:text-base font-semibold tracking-wide whitespace-nowrap"
+                data-text="🅿️ Free Parking • Secure & Spacious • For All Guests • 🔥 Campfire Evenings • Warm & Cozy Vibes • "
+              >
+                🅿️ Free Parking • Secure & Spacious • For All Guests • 🔥 Campfire
+                Evenings • Warm & Cozy Vibes •{" "}
               </span>
             </div>
           </div>
