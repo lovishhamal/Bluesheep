@@ -953,49 +953,47 @@ export default function AttractionsClient({
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-
-                {availableImages.length > 1 && (
-                  <div className="absolute left-0 right-0 bottom-0 p-3">
-                    <div className="rounded-xl bg-white/70 backdrop-blur-sm border border-white/60 shadow-lg shadow-black/10 px-2 py-2">
-                      <div className="flex gap-2 overflow-x-auto">
-                        {availableImages.slice(0, 8).map((src) => {
-                          const isSelected = src === selectedImage;
-                          return (
-                            <button
-                              key={src}
-                              type="button"
-                              onClick={() =>
-                                setSelectedImageByAttractionId((prev) => ({
-                                  ...prev,
-                                  [attraction.id]: src,
-                                }))
-                              }
-                              className={`relative flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all duration-300 ${
-                                isSelected
-                                  ? hasBlueTheme
-                                    ? "border-blue-500"
-                                    : "border-emerald-500"
-                                  : "border-white/70 hover:border-white"
-                              }`}
-                            >
-                              <AttractionImage
-                                src={src}
-                                alt={attraction.imageAlt}
-                                width={96}
-                                height={72}
-                                className="w-16 h-12 object-cover"
-                              />
-                              {!isSelected && (
-                                <div className="absolute inset-0 bg-black/10" />
-                              )}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </div>
-                )}
               </div>
+
+              {availableImages.length > 1 && (
+                <div className="mt-4 rounded-xl bg-white/70 backdrop-blur-sm border border-white/60 shadow-lg shadow-black/10 px-3 py-3">
+                  <div className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-2">
+                    {availableImages.slice(0, 8).map((src) => {
+                      const isSelected = src === selectedImage;
+                      return (
+                        <button
+                          key={src}
+                          type="button"
+                          onClick={() =>
+                            setSelectedImageByAttractionId((prev) => ({
+                              ...prev,
+                              [attraction.id]: src,
+                            }))
+                          }
+                          className={`relative overflow-hidden rounded-lg border-2 transition-all duration-300 ${
+                            isSelected
+                              ? hasBlueTheme
+                                ? "border-blue-500"
+                                : "border-emerald-500"
+                              : "border-white/70 hover:border-white"
+                          }`}
+                        >
+                          <AttractionImage
+                            src={src}
+                            alt={attraction.imageAlt}
+                            width={96}
+                            height={72}
+                            className="w-full aspect-[4/3] object-cover"
+                          />
+                          {!isSelected && (
+                            <div className="absolute inset-0 bg-black/10" />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </motion.div>
           );
 
