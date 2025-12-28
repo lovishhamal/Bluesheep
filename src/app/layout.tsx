@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Poppins, Playfair_Display, Montserrat } from "next/font/google";
 import "./globals.css";
+import { unstable_cache } from "next/cache";
+import { createPublicClient } from "./util/supabase-server";
+import { AppDetailProvider } from "./components/AppDetailProvider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -273,11 +276,49 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export const revalidate = 86400;
+
+const getAppDetailCached = unstable_cache(
+  async () => {
+    if (
+      !process.env.NEXT_PUBLIC_SUPABASE_URL ||
+      !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    ) {
+      return null;
+    }
+
+    const supabase = createPublicClient();
+
+    const { data, error } = await supabase
+      .from("app_detail")
+      .select("banner_text,admin_phone,created_at")
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (error) return null;
+
+    return {
+      bannerText:
+        typeof data?.banner_text === "string" ? data.banner_text.trim() : null,
+      adminPhone:
+        typeof data?.admin_phone === "string" ? data.admin_phone.trim() : null,
+    };
+  },
+  ["app_detail_latest_v1"],
+  { revalidate: 86400 }
+);
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const appDetail = await Promise.race([
+    getAppDetailCached(),
+    new Promise<null>((resolve) => setTimeout(() => resolve(null), 150)),
+  ]);
+
   return (
     <html
       lang="en"
@@ -729,7 +770,12 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${montserrat.variable} antialiased`}
       >
-        {children}
+        <AppDetailProvider
+          bannerText={appDetail?.bannerText ?? null}
+          adminPhone={appDetail?.adminPhone ?? null}
+        >
+          {children}
+        </AppDetailProvider>
       </body>
     </html>
   );

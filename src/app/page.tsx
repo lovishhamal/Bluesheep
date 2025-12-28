@@ -4,7 +4,7 @@ import { GalleryImage } from "./components/CreativeImageCarousel";
 import HomeClient from "./components/HomeClient";
 import { getCarouselImagesFromSupabase } from "./util/carousel-images-config";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 export default async function Home() {
   // Fetch all data server-side
