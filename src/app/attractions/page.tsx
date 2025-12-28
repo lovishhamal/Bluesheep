@@ -329,8 +329,8 @@ const normalizeAttraction = (row: unknown, index: number): Attraction | null => 
     r.about ??
     r.content_html ??
     r.contentHtml;
-  const description =
-    typeof descriptionRaw === "string" ? stripHtml(descriptionRaw) : "";
+  const descriptionHtml = typeof descriptionRaw === "string" ? String(descriptionRaw) : "";
+  const descriptionText = descriptionHtml ? stripHtml(descriptionHtml) : "";
 
   const fieldParagraphs = Object.entries(r)
     .filter(([key, value]) => {
@@ -351,13 +351,19 @@ const normalizeAttraction = (row: unknown, index: number): Attraction | null => 
           .filter(
             (p): p is string => typeof p === "string" && p.trim().length > 0
           )
-          .map((p) => stripHtml(p).trim())
-      : fieldParagraphs.length
-        ? fieldParagraphs
-        : description
-            .split(/\n\s*\n+/g)
+          .map((p) => p.trim())
+      : typeof r.paragraphs === "string"
+        ? parseStringArray(r.paragraphs)
+            .filter((p) => typeof p === "string" && p.trim().length > 0)
             .map((p) => p.trim())
-            .filter(Boolean);
+        : fieldParagraphs.length
+          ? fieldParagraphs
+          : descriptionHtml
+            ? [descriptionHtml.trim()]
+            : descriptionText
+                .split(/\n\s*\n+/g)
+                .map((p) => p.trim())
+                .filter(Boolean);
 
   const tags = [
     ...collectTagsFromColumns(r),
@@ -824,16 +830,7 @@ export default function AttractionsPage() {
 
           const accentText = hasBlueTheme ? "text-blue-600" : "text-emerald-600";
 
-          const badgeBorder = hasBlueTheme ? "border-blue-500" : "border-emerald-500";
-          const badgeTextGradient = hasBlueTheme
-            ? "from-blue-600 to-purple-600"
-            : "from-emerald-600 to-blue-600";
-
           const tags = attraction.tags ?? [];
-
-          const elevationTag =
-            tags.find((t) => t.label.toLowerCase().replace(/\s+/g, "") === "elevation") ||
-            tags.find((t) => t.label.toLowerCase().replace(/\s+/g, "") === "altitude");
 
           const imageSideFirst = isFirst ? true : isEven;
 
@@ -897,20 +894,6 @@ export default function AttractionsPage() {
                   className="w-full h-[320px] sm:h-[380px] md:h-[520px] lg:h-[560px] object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-                {elevationTag?.value && (
-                  <div
-                    className={`absolute top-6 right-6 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border-2 ${badgeBorder}`}
-                  >
-                    <div className="text-xs font-semibold text-gray-600 mb-1">
-                      Elevation
-                    </div>
-                    <div
-                      className={`text-xl font-black bg-gradient-to-r ${badgeTextGradient} bg-clip-text text-transparent`}
-                    >
-                      {elevationTag.value}
-                    </div>
-                  </div>
-                )}
               </div>
 
               {availableImages.length > 1 && (
@@ -989,14 +972,19 @@ export default function AttractionsPage() {
                 </div>
               </div>
 
-              <div className="space-y-4 text-gray-700 text-lg leading-relaxed font-light">
-                <p>
-                  <strong className="text-gray-900 font-semibold">
-                    {attraction.title}
-                  </strong>{" "}
-                  {attraction.paragraphs[0]}
-                </p>
-                {attraction.paragraphs[1] && <p>{attraction.paragraphs[1]}</p>}
+              <div className="space-y-4 text-gray-700 text-lg leading-relaxed">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: attraction.paragraphs[0] || "",
+                  }}
+                />
+                {Boolean(attraction.paragraphs[1]) && (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: attraction.paragraphs[1] || "",
+                    }}
+                  />
+                )}
               </div>
 
               {tags.length > 0 && (
