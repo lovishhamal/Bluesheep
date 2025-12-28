@@ -6,20 +6,22 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: "Travel Guide to Dolpa, Nepal | Hotel Blue Sheep Inn",
+  title:
+    "How to Reach Dho Tarap (Upper Dolpa) from Kathmandu | Route, Trek & Permits",
   description:
-    "Complete travel guides to Dolpa, Nepal with routes, tips, and practical information for travelers.",
+    "Practical guide to reach Dho Tarap in Upper Dolpa from Kathmandu via Juphal/Dunai, including travel stages, timing guidance, and what to plan for remote Dolpa travel.",
   keywords:
-    "dolpa travel guide, dho travel guide, how to travel to dolpa, kathmandu to dolpa, phoksundo travel guide",
+    "how to reach dho tarap, how to reach dho dolpa, dho tarap upper dolpa, kathmandu to dho tarap, juphal to dunai, dunai to dho tarap, upper dolpa permits, dolpo trek route",
   alternates: {
-    canonical: "/how-to-travel-dho",
+    canonical: "/how-to-reach-dho/",
   },
   openGraph: {
-    title: "Travel Guide to Dolpa, Nepal | Hotel Blue Sheep Inn",
+    title:
+      "How to Reach Dho Tarap (Upper Dolpa) from Kathmandu | Route, Trek & Permits",
     description:
-      "Complete travel guides to Dolpa, Nepal with routes, tips, and practical information for travelers.",
+      "Practical guide to reach Dho Tarap in Upper Dolpa from Kathmandu via Juphal/Dunai, with travel stages, timing, and planning tips.",
     type: "website",
-    url: "https://hotelbluesheepinn.com/how-to-travel-dho",
+    url: "https://hotelbluesheepinn.com/how-to-reach-dho/",
   },
 };
 

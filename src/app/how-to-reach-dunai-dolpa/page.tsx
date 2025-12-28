@@ -6,20 +6,22 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: "Travel Guide to Dolpa, Nepal | Hotel Blue Sheep Inn",
+  title:
+    "How to Reach Dunai (Dolpa) from Kathmandu | Bus, Flight to Juphal & Jeep",
   description:
-    "Complete travel guides to Dolpa, Nepal with routes, tips, and practical information for travelers.",
+    "Step-by-step routes to reach Dunai, Dolpa from Kathmandu: direct bus, bus + jeep via Radi/Tallubagar, or flight to Juphal with transfer to Dunai. Practical timing tips for Dolpa travel.",
   keywords:
-    "dolpa travel guide, dunai travel guide, how to travel to dolpa, kathmandu to dolpa, phoksundo travel guide",
+    "how to reach dunai, how to reach dolpa, kathmandu to dunai bus, kathmandu to dolpa bus, flight to juphal, juphal to dunai jeep, dolpa travel route, dunai dolpa travel",
   alternates: {
-    canonical: "/how-to-travel-dunai-dolpa",
+    canonical: "/how-to-reach-dunai-dolpa/",
   },
   openGraph: {
-    title: "Travel Guide to Dolpa, Nepal | Hotel Blue Sheep Inn",
+    title:
+      "How to Reach Dunai (Dolpa) from Kathmandu | Bus, Flight to Juphal & Jeep",
     description:
-      "Complete travel guides to Dolpa, Nepal with routes, tips, and practical information for travelers.",
+      "Step-by-step routes to reach Dunai, Dolpa from Kathmandu: direct bus, bus + jeep, or flight to Juphal. Practical timings and travel tips.",
     type: "website",
-    url: "https://hotelbluesheepinn.com/how-to-travel-dunai-dolpa",
+    url: "https://hotelbluesheepinn.com/how-to-reach-dunai-dolpa/",
   },
 };
 

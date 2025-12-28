@@ -6,20 +6,22 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: "Travel Guide to Dolpa, Nepal | Hotel Blue Sheep Inn",
+  title:
+    "How to Reach Shey Phoksundo Lake (Dolpa) from Kathmandu | Flight, Jeep & Trek",
   description:
-    "Complete travel guides to Dolpa, Nepal with routes, tips, and practical information for travelers.",
+    "Complete route guide to reach Shey Phoksundo Lake in Dolpa: Kathmandu to Juphal flight options, transfer to Dunai, and trekking stages to Phoksundo. Timing and practical tips for first-time visitors.",
   keywords:
-    "dolpa travel guide, phoksundo travel guide, how to travel to dolpa, kathmandu to dolpa, dunai travel guide",
+    "how to reach phoksundo lake, shey phoksundo lake how to reach, kathmandu to phoksundo, flight to juphal phoksundo, juphal to phoksundo trek, dolpa phoksundo trekking route, shey phoksundo national park",
   alternates: {
-    canonical: "/how-to-travel-phoksundo",
+    canonical: "/how-to-reach-phoksundo/",
   },
   openGraph: {
-    title: "Travel Guide to Dolpa, Nepal | Hotel Blue Sheep Inn",
+    title:
+      "How to Reach Shey Phoksundo Lake (Dolpa) from Kathmandu | Flight, Jeep & Trek",
     description:
-      "Complete travel guides to Dolpa, Nepal with routes, tips, and practical information for travelers.",
+      "Complete route guide to reach Shey Phoksundo Lake in Dolpa with flight, transfer, and trekking stages. Timing and practical tips.",
     type: "website",
-    url: "https://hotelbluesheepinn.com/how-to-travel-phoksundo",
+    url: "https://hotelbluesheepinn.com/how-to-reach-phoksundo/",
   },
 };
 

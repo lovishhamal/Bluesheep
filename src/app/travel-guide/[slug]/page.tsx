@@ -27,19 +27,34 @@ export async function generateMetadata({
 
   const plain = stripHtml(guide.description);
   const description = plain.length > 160 ? `${plain.slice(0, 160)}...` : plain;
-  const url = `https://hotelbluesheepinn.com/travel-guide/${guide.slug}`;
+  const url = `https://hotelbluesheepinn.com/travel-guide/${guide.slug}/`;
+  const title = `${guide.title} | Dolpa Travel Guide | Hotel Blue Sheep Inn`;
 
   return {
-    title: `${guide.title} | Travel Guide`,
+    title,
     description,
     alternates: {
-      canonical: `/travel-guide/${guide.slug}`,
+      canonical: `/travel-guide/${guide.slug}/`,
     },
     openGraph: {
-      title: `${guide.title} | Travel Guide`,
+      title,
       description,
       type: "article",
       url,
+      images: [
+        {
+          url: "https://hotelbluesheepinn.com/phoksundo.jpg",
+          width: 1200,
+          height: 630,
+          alt: `${guide.title} - Dolpa Travel Guide`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["https://hotelbluesheepinn.com/phoksundo.jpg"],
     },
   };
 }
@@ -51,7 +66,7 @@ export default async function TravelGuideDetailPage({ params }: PageProps) {
   if (!guide || guide.type !== "list") notFound();
 
   const plain = stripHtml(guide.description);
-  const url = `https://hotelbluesheepinn.com/travel-guide/${guide.slug}`;
+  const url = `https://hotelbluesheepinn.com/travel-guide/${guide.slug}/`;
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -67,7 +82,7 @@ export default async function TravelGuideDetailPage({ params }: PageProps) {
         "@type": "ListItem",
         position: 2,
         name: "Travel Guide",
-        item: "https://hotelbluesheepinn.com/travel-guide",
+        item: "https://hotelbluesheepinn.com/travel-guide/",
       },
       {
         "@type": "ListItem",
@@ -85,7 +100,7 @@ export default async function TravelGuideDetailPage({ params }: PageProps) {
     description: plain,
     offers: {
       "@type": "Offer",
-      priceCurrency: "USD",
+      priceCurrency: "NPR",
       price: guide.price,
       availability: "https://schema.org/InStock",
       url,

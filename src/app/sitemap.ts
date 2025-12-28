@@ -8,73 +8,79 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const travelGuideRoutes: MetadataRoute.Sitemap = [
     {
-      url: `${baseUrl}/travel-guide`,
+      url: `${baseUrl}/travel-guide/`,
       lastModified: new Date(),
       changeFrequency: "weekly" as const,
-      priority: 0.8,
+      priority: 0.85,
     },
     ...listGuides.map((guide) => ({
-      url: `${baseUrl}/travel-guide/${guide.slug}`,
+      url: `${baseUrl}/travel-guide/${guide.slug}/`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
-      priority: 0.7,
+      priority: 0.8,
     })),
   ];
 
   return [
     {
-      url: baseUrl,
+      url: `${baseUrl}/`,
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 1,
     },
     {
-      url: `${baseUrl}/rooms`,
+      url: `${baseUrl}/rooms/`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/menu`,
+      url: `${baseUrl}/menu/`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/camping`,
+      url: `${baseUrl}/camping/`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/attractions`,
+      url: `${baseUrl}/attractions/`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/contact`,
+      url: `${baseUrl}/contact/`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     // How to reach pages - HIGH PRIORITY for SEO
     {
-      url: `${baseUrl}/how-to-travel-dunai-dolpa`,
+      url: `${baseUrl}/how-to-reach-dunai-dolpa/`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "monthly" as const,
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/how-to-travel-phoksundo`,
+      url: `${baseUrl}/how-to-reach-dunai/`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "monthly" as const,
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/how-to-travel-dho`,
+      url: `${baseUrl}/how-to-reach-phoksundo/`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/how-to-reach-dho/`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
       priority: 0.9,
     },
     ...travelGuideRoutes,

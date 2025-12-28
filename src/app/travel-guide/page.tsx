@@ -28,14 +28,14 @@ export const metadata: Metadata = {
     "Hotel Blue Sheep Inn guides"
   ],
   alternates: {
-    canonical: "/travel-guide",
+    canonical: "/travel-guide/",
   },
   openGraph: {
     title: "Complete Travel Guides to Dolpa Nepal | Expert Local Knowledge",
     description:
       "Comprehensive travel guides to Dolpa with detailed routes, flight options, local attractions, and insider tips from Hotel Blue Sheep Inn. Explore Phoksundo Lake, Dho Tarap, and Crystal Mountain.",
     type: "website",
-    url: "https://hotelbluesheepinn.com/travel-guide",
+    url: "https://hotelbluesheepinn.com/travel-guide/",
     images: [
       {
         url: "https://hotelbluesheepinn.com/phoksundo.jpg",
@@ -79,15 +79,15 @@ export default async function TravelGuidePage() {
     "@type": "ItemList",
     name: "Dolpa Nepal Travel Guides",
     description: "Comprehensive collection of travel guides for Dolpa, Nepal including routes, attractions, and local insights",
-    url: "https://hotelbluesheepinn.com/travel-guide",
+    url: "https://hotelbluesheepinn.com/travel-guide/",
     numberOfItems: listGuides.length,
     itemListElement: listGuides.map((guide, index) => ({
       "@type": "ListItem",
       position: index + 1,
       item: {
         "@type": "TravelGuide",
-        "@id": `https://hotelbluesheepinn.com/travel-guide/${guide.slug}`,
-        url: `https://hotelbluesheepinn.com/travel-guide/${guide.slug}`,
+        "@id": `https://hotelbluesheepinn.com/travel-guide/${guide.slug}/`,
+        url: `https://hotelbluesheepinn.com/travel-guide/${guide.slug}/`,
         name: guide.title,
         description: stripHtml(guide.description).slice(0, 160),
         author: {
@@ -135,7 +135,7 @@ export default async function TravelGuidePage() {
         "@type": "ListItem",
         position: 2,
         name: "Travel Guides",
-        item: "https://hotelbluesheepinn.com/travel-guide"
+        item: "https://hotelbluesheepinn.com/travel-guide/"
       }
     ]
   };
@@ -192,7 +192,7 @@ export default async function TravelGuidePage() {
     "@type": "TouristInformationCenter",
     name: "Hotel Blue Sheep Inn Travel Guides",
     description: "Expert travel guides and local knowledge for Dolpa, Nepal",
-    url: "https://hotelbluesheepinn.com/travel-guide",
+    url: "https://hotelbluesheepinn.com/travel-guide/",
     parentOrganization: {
       "@type": "LodgingBusiness",
       name: "Hotel Blue Sheep Inn",
