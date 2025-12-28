@@ -18,6 +18,7 @@ import {
 import { StorageImage, Review } from "../util/storage";
 import { getWhatsAppUrl, getTelUrl, PHONE_NUMBER } from "../util/constants";
 import { useIsMobile } from "../util/useIsMobile";
+import { supabase } from "../util/supabase";
 import HowToReach from "./HowToReach";
 import { GalleryImage } from "./CreativeImageCarousel";
 import HeroCarousel from "./HeroCarousel";
@@ -33,6 +34,8 @@ export default function HomeClient({
   initialReviews,
   initialHotelGalleryImages,
 }: HomeClientProps) {
+  const defaultBannerText =
+    "🅿️ Free Parking • Secure & Spacious • For All Guests • 🔥 Campfire Evenings • Warm & Cozy Vibes • ";
   const router = useRouter();
   const isMobile = useIsMobile();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -50,6 +53,53 @@ export default function HomeClient({
     useState<StorageImage | null>(null);
   const [isHotelGalleryModalOpen, setIsHotelGalleryModalOpen] = useState(false);
   const [galleryImages] = useState<GalleryImage[]>(initialGalleryImages);
+  const [bannerText, setBannerText] = useState(defaultBannerText);
+  const [adminPhone, setAdminPhone] = useState(PHONE_NUMBER);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const ensureTrailingSpace = (value: string) =>
+      value.endsWith(" ") ? value : `${value} `;
+
+    const fetchBanner = async () => {
+      if (
+        !process.env.NEXT_PUBLIC_SUPABASE_URL ||
+        !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+      ) {
+        return;
+      }
+
+      try {
+        const { data, error } = await supabase
+          .from("app_detail")
+          .select("banner_text,admin_phone,created_at")
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .maybeSingle();
+
+        if (error) return;
+        const value =
+          data && typeof data.banner_text === "string"
+            ? data.banner_text.trim()
+            : "";
+        if (!value) return;
+        if (isMounted) setBannerText(ensureTrailingSpace(value));
+
+        const phoneValue =
+          data && typeof data.admin_phone === "string"
+            ? data.admin_phone.trim()
+            : "";
+        if (phoneValue && isMounted) setAdminPhone(phoneValue);
+      } catch {}
+    };
+
+    fetchBanner();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [defaultBannerText]);
 
   // Intersection Observer for feature cards
   useEffect(() => {
@@ -172,10 +222,9 @@ export default function HomeClient({
             <div className="marquee__track">
               <span
                 className="marquee__item px-6 py-2 text-sm sm:text-base font-semibold tracking-wide whitespace-nowrap"
-                data-text="🅿️ Free Parking • Secure & Spacious • For All Guests • 🔥 Campfire Evenings • Warm & Cozy Vibes • "
+                data-text={bannerText}
               >
-                🅿️ Free Parking • Secure & Spacious • For All Guests • 🔥 Campfire
-                Evenings • Warm & Cozy Vibes •{" "}
+                {bannerText}
               </span>
             </div>
           </div>
@@ -439,7 +488,7 @@ export default function HomeClient({
               >
                 {/* Phone Button - Full Width on Mobile */}
                 <motion.a
-                  href={getTelUrl()}
+                  href={getTelUrl(adminPhone)}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="group flex items-center justify-center gap-2.5 sm:gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-semibold px-4 py-2.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-lg border-0 sm:border sm:bg-gradient-to-r sm:from-emerald-50 sm:to-blue-50 sm:text-gray-600 sm:border-emerald-200/50 sm:shadow-sm md:bg-white/80 md:border-gray-200/50 transition-all duration-300 shadow-md sm:shadow-sm hover:shadow-lg sm:hover:shadow-md"
@@ -449,7 +498,7 @@ export default function HomeClient({
                   </div>
                   <PhoneIcon className="w-5 h-5 text-emerald-600 hidden sm:block flex-shrink-0" />
                   <span className="text-sm sm:text-sm md:text-base font-semibold sm:font-medium">
-                    {PHONE_NUMBER}
+                    {adminPhone}
                   </span>
                 </motion.a>
 
@@ -913,412 +962,70 @@ export default function HomeClient({
         </div>
       </section>
 
-      {/* Discover Dolpa's Wonders Section - Ultra Creative */}
-      <section className="relative py-32 bg-gradient-to-br from-emerald-50/50 via-white to-blue-50/50 overflow-hidden">
-        {/* Animated Background Elements */}
+      <section className="py-16 bg-gradient-to-br from-white via-emerald-50/40 to-blue-50 relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-gradient-to-br from-emerald-200/25 to-blue-200/25 rounded-full blur-2xl" />
-          <div className="absolute bottom-0 right-0 w-[700px] h-[700px] bg-gradient-to-br from-blue-200/25 to-emerald-200/25 rounded-full blur-2xl" />
+          <motion.div
+            animate={{ x: [0, 40, 0], y: [0, -20, 0], opacity: [0.2, 0.4, 0.2] }}
+            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -top-20 -right-20 w-[520px] h-[520px] bg-gradient-to-br from-emerald-300/20 to-blue-300/20 rounded-full blur-3xl"
+          />
+          <motion.div
+            animate={{ x: [0, -30, 0], y: [0, 25, 0], opacity: [0.18, 0.35, 0.18] }}
+            transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -bottom-28 -left-28 w-[560px] h-[560px] bg-gradient-to-br from-blue-300/18 to-emerald-300/18 rounded-full blur-3xl"
+          />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(16,185,129,0.08),transparent_45%),radial-gradient(circle_at_80%_40%,rgba(59,130,246,0.08),transparent_50%),radial-gradient(circle_at_50%_90%,rgba(16,185,129,0.06),transparent_55%)]" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Creative Header */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-20"
+            className="text-center mb-12"
           >
-            <motion.div
-              initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, type: "spring" }}
-              viewport={{ once: true }}
-              className="inline-flex items-center gap-3 mb-6 px-6 py-3 bg-gradient-to-r from-emerald-100 via-blue-100 to-emerald-100 rounded-full border border-emerald-200/50 shadow-lg"
-            >
-              <span className="text-3xl animate-bounce">🏔️</span>
-              <span className="text-emerald-700 font-bold">
-                Natural Wonders
-              </span>
-              <span
-                className="text-3xl animate-bounce"
-                style={{ animationDelay: "0.2s" }}
-              >
-                ✨
-              </span>
-            </motion.div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            <div className="inline-flex items-center gap-3 mb-6 px-6 py-3 bg-gradient-to-r from-emerald-100 via-blue-100 to-emerald-100 rounded-full border border-emerald-200/50 shadow-lg">
+              <span className="text-3xl">🏔️</span>
+              <span className="text-emerald-700 font-bold">Dolpa Attractions</span>
+              <span className="text-3xl">✨</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                Discover Dolpa&apos;s Natural Wonders
+                Explore Dolpa&apos;s Wonders
               </span>
             </h2>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto font-light">
-              Experience the breathtaking beauty of Phoksundo Lake and Dho Tarap
-              - the highest village in Nepal
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              We keep the home page simple—see the full list in the Attractions
+              tab.
             </p>
           </motion.div>
 
-          {/* Phoksundo Lake - Ultra Creative Design */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, type: "spring" }}
-            viewport={{ once: true }}
-            className="mb-20"
-          >
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              {/* Image Side with Creative Effects */}
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-                className="relative group"
-              >
-                <motion.div
-                  animate={{ y: [0, -15, 0] }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 to-emerald-500/30 z-10 group-hover:opacity-0 transition-opacity duration-500"></div>
-                  <Image
-                    src="/phoksundo.jpg"
-                    alt="Phoksundo Lake Dolpa Nepal - Crystal Clear Alpine Lake at 3611m elevation - Best attraction in Dolpa"
-                    width={800}
-                    height={450}
-                    className="w-full h-[450px] object-cover relative z-0 group-hover:scale-110 transition-transform duration-700"
-                    style={{
-                      WebkitTransform: "translateZ(0)",
-                      transform: "translateZ(0)",
-                      WebkitBackfaceVisibility: "hidden",
-                      backfaceVisibility: "hidden",
-                    }}
-                  />
-                  {/* Floating Badge */}
-                  <motion.div
-                    animate={{ y: [0, 10, 0], rotate: [0, 5, 0] }}
-                    transition={{
-                      duration: 4,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                    className="absolute top-6 right-6 bg-gradient-to-br from-emerald-500 to-blue-500 rounded-xl p-3 shadow-xl border-2 border-white z-20"
-                  >
-                    <div className="text-white text-center">
-                      <div className="text-2xl font-bold">3,611m</div>
-                      <div className="text-xs opacity-90">Elevation</div>
-                    </div>
-                  </motion.div>
-                </motion.div>
-                {/* Glow Effect */}
-                <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 to-emerald-500/20 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
-              </motion.div>
-
-              {/* Content Side */}
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="bg-gradient-to-br from-white via-blue-50/30 to-emerald-50/30 rounded-2xl p-10 border border-gray-200/50 shadow-xl relative overflow-hidden"
-              >
-                {/* Decorative Background Elements */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-emerald-200/20 to-transparent rounded-bl-full"></div>
-                <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-blue-200/20 to-transparent rounded-tr-full"></div>
-
-                <div className="relative z-10">
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5 }}
-                    viewport={{ once: true }}
-                    className="inline-block mb-4 px-4 py-2 bg-gradient-to-r from-blue-100 to-emerald-100 rounded-full border border-blue-200/50"
-                  >
-                    <span className="text-emerald-700 font-semibold text-sm">
-                      🏞️ Alpine Lake
-                    </span>
-                  </motion.div>
-                  <h3 className="text-4xl font-bold mb-6">
-                    <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                      Phoksundo Lake
-                    </span>
-                  </h3>
-                  <p className="text-gray-700 mb-8 leading-relaxed text-lg">
-                    One of Nepal&apos;s most stunning high-altitude lakes at
-                    3,611m, renowned for its crystal-clear turquoise waters that
-                    reflect the surrounding snow-capped peaks. A sacred
-                    destination in the heart of Dolpa.
-                  </p>
-                  <div className="grid grid-cols-2 gap-4 mb-8">
-                    <motion.div
-                      whileHover={{ scale: 1.05, y: -5 }}
-                      className="bg-gradient-to-br from-blue-50 to-emerald-50 rounded-xl p-4 border border-gray-200/50 shadow-sm"
-                    >
-                      <div className="text-xs font-semibold text-gray-600 mb-2">
-                        Elevation
-                      </div>
-                      <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">
-                        3,611m
-                      </div>
-                    </motion.div>
-                    <motion.div
-                      whileHover={{ scale: 1.05, y: -5 }}
-                      className="bg-gradient-to-br from-emerald-50 to-blue-50 rounded-xl p-4 border border-gray-200/50 shadow-sm"
-                    >
-                      <div className="text-xs font-semibold text-gray-600 mb-2">
-                        Type
-                      </div>
-                      <div className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
-                        Freshwater
-                      </div>
-                    </motion.div>
+          <div className="grid gap-6 max-w-2xl mx-auto">
+            <Link href="/attractions" className="group block">
+              <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-emerald-200/60 shadow-lg hover:shadow-xl transition-all duration-300 p-6">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-blue-500 rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-md group-hover:scale-110 transition-transform">
+                    1
                   </div>
-                  <Link
-                    href="/attractions"
-                    className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-xl transition-all duration-300 shadow-xl hover:shadow-2xl shadow-emerald-500/40 hover:scale-105"
-                  >
-                    <span>Explore Phoksundo</span>
-                    <motion.span
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                    >
-                      →
-                    </motion.span>
-                  </Link>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-
-          {/* Dho Tarap - Ultra Creative Design */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, type: "spring" }}
-            viewport={{ once: true }}
-            className="mb-20"
-          >
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              {/* Content Side */}
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="order-2 md:order-1 bg-gradient-to-br from-white via-emerald-50/30 to-purple-50/30 rounded-2xl p-10 border border-gray-200/50 shadow-xl relative overflow-hidden"
-              >
-                {/* Decorative Background Elements */}
-                <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-emerald-200/20 to-transparent rounded-br-full"></div>
-                <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-purple-200/20 to-transparent rounded-tl-full"></div>
-
-                <div className="relative z-10">
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5 }}
-                    viewport={{ once: true }}
-                    className="inline-block mb-4 px-4 py-2 bg-gradient-to-r from-emerald-100 to-purple-100 rounded-full border border-emerald-200/50"
-                  >
-                    <span className="text-emerald-700 font-semibold text-sm">
-                      🏘️ Highest Village
-                    </span>
-                  </motion.div>
-                  <h3 className="text-4xl font-bold mb-6">
-                    <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                      Dho Tarap
-                    </span>
-                  </h3>
-                  <p className="text-gray-700 mb-8 leading-relaxed text-lg">
-                    The highest permanently inhabited village in Nepal at
-                    4,200m, offering a unique glimpse into traditional Tibetan
-                    Buddhist culture and stunning high-altitude landscapes
-                    preserved for centuries.
-                  </p>
-                  <div className="grid grid-cols-2 gap-4 mb-8">
-                    <motion.div
-                      whileHover={{ scale: 1.05, y: -5 }}
-                      className="bg-gradient-to-br from-emerald-50 to-purple-50 rounded-xl p-4 border border-gray-200/50 shadow-sm"
-                    >
-                      <div className="text-xs font-semibold text-gray-600 mb-2">
-                        Elevation
-                      </div>
-                      <div className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-purple-600 bg-clip-text text-transparent">
-                        4,200m
-                      </div>
-                    </motion.div>
-                    <motion.div
-                      whileHover={{ scale: 1.05, y: -5 }}
-                      className="bg-gradient-to-br from-purple-50 to-emerald-50 rounded-xl p-4 border border-gray-200/50 shadow-sm"
-                    >
-                      <div className="text-xs font-semibold text-gray-600 mb-2">
-                        Culture
-                      </div>
-                      <div className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-emerald-600 bg-clip-text text-transparent">
-                        Tibetan
-                      </div>
-                    </motion.div>
-                  </div>
-                  <Link
-                    href="/attractions"
-                    className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-xl transition-all duration-300 shadow-xl hover:shadow-2xl shadow-emerald-500/40 hover:scale-105"
-                  >
-                    <span>Discover Dho Tarap</span>
-                    <motion.span
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                    >
-                      →
-                    </motion.span>
-                  </Link>
-                </div>
-              </motion.div>
-
-              {/* Image Side with Creative Effects */}
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-                className="relative group order-1 md:order-2"
-              >
-                <motion.div
-                  animate={{ y: [0, 15, 0] }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/30 to-purple-500/30 z-10 group-hover:opacity-0 transition-opacity duration-500"></div>
-                  <Image
-                    src="/dho.jpg"
-                    alt="Dho Tarap - Highest Village in Nepal at 4200m elevation - Traditional Tibetan Buddhist culture"
-                    width={800}
-                    height={450}
-                    className="w-full h-[450px] object-cover relative z-0 group-hover:scale-110 transition-transform duration-700"
-                    style={{
-                      WebkitTransform: "translateZ(0)",
-                      transform: "translateZ(0)",
-                      WebkitBackfaceVisibility: "hidden",
-                      backfaceVisibility: "hidden",
-                    }}
-                  />
-                  {/* Floating Badge */}
-                  <motion.div
-                    animate={{ y: [0, -10, 0], rotate: [0, -5, 0] }}
-                    transition={{
-                      duration: 4,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                    className="absolute bottom-6 left-6 bg-gradient-to-br from-purple-500 to-emerald-500 rounded-xl p-3 shadow-xl border-2 border-white z-20"
-                  >
-                    <div className="text-white text-center">
-                      <div className="text-2xl font-bold">4,200m</div>
-                      <div className="text-xs opacity-90">Highest Village</div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg md:text-xl font-bold text-gray-900 group-hover:text-emerald-700 transition-colors duration-200 leading-tight">
+                      Explore Attractions
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed mb-4 text-sm">
+                      Phoksundo Lake, Dho Tarap, and more—everything in one place.
+                    </p>
+                    <div className="inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm">
+                      Open Attractions
+                      <span className="transition-transform duration-200 group-hover:translate-x-1">
+                        →
+                      </span>
                     </div>
-                  </motion.div>
-                </motion.div>
-                {/* Glow Effect */}
-                <div className="absolute -inset-4 bg-gradient-to-r from-emerald-500/20 to-purple-500/20 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
-              </motion.div>
-            </div>
-          </motion.div>
-
-          {/* CTA Section - Ultra Creative */}
-          <motion.div
-            initial={{ opacity: 0, y: 50, scale: 0.95 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.8, type: "spring" }}
-            viewport={{ once: true }}
-            className="relative text-center overflow-hidden"
-          >
-            {/* Animated Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-100 via-blue-100 to-purple-100 rounded-3xl"></div>
-            {!isMobile && (
-              <>
-                <motion.div
-                  animate={{
-                    rotate: [0, 360],
-                    scale: [1, 1.1, 1],
-                  }}
-                  transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  className="absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br from-emerald-300/30 to-blue-300/30 rounded-full blur-2xl"
-                />
-                <motion.div
-                  animate={{
-                    rotate: [360, 0],
-                    scale: [1, 1.2, 1],
-                  }}
-                  transition={{
-                    duration: 25,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  className="absolute -bottom-20 -left-20 w-80 h-80 bg-gradient-to-br from-blue-300/30 to-purple-300/30 rounded-full blur-2xl"
-                />
-              </>
-            )}
-
-            <div className="relative z-10 p-12 md:p-16 border-2 border-emerald-200/50 rounded-3xl shadow-2xl">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-                className="mb-6"
-              >
-                <span className="text-5xl">🌟</span>
-              </motion.div>
-              <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-                <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                  Ready to Explore Dolpa?
-                </span>
-              </h3>
-              <p className="text-xl text-gray-700 mb-10 max-w-3xl mx-auto font-light">
-                Plan your adventure to Phoksundo Lake and Dho Tarap from the
-                comfort of Hotel Blue Sheep Inn
-              </p>
-              <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <motion.div
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Link
-                    href="/attractions"
-                    className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold rounded-xl transition-all duration-300 shadow-xl hover:shadow-2xl shadow-emerald-500/40 text-lg"
-                  >
-                    <span>Explore All Attractions</span>
-                    <motion.span
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                      className="text-2xl"
-                    >
-                      →
-                    </motion.span>
-                  </Link>
-                </motion.div>
-                <motion.div
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Link
-                    href="/rooms"
-                    className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/90 backdrop-blur-sm border-2 border-gray-300 text-gray-900 font-bold rounded-xl hover:border-emerald-400 hover:bg-white transition-all duration-300 shadow-lg text-lg"
-                  >
-                    <span>Book Your Stay</span>
-                    <span className="text-xl">🏨</span>
-                  </Link>
-                </motion.div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -1387,7 +1094,7 @@ export default function HomeClient({
                 <motion.button
                   onClick={() => {
                     const message = `Hi! I'd like to know more about your hotel location and services.`;
-                    const whatsappUrl = getWhatsAppUrl(message);
+                    const whatsappUrl = getWhatsAppUrl(message, adminPhone);
                     window.open(whatsappUrl, "_blank");
                   }}
                   className="border-2 border-gray-300 text-gray-900 hover:border-gray-400 hover:bg-gray-50 px-6 py-3 rounded-lg font-medium transition-colors duration-200"
@@ -1661,10 +1368,10 @@ export default function HomeClient({
                 Phone
               </h3>
               <a
-                href={getTelUrl()}
+                href={getTelUrl(adminPhone)}
                 className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-medium"
               >
-                {PHONE_NUMBER}
+                {adminPhone}
               </a>
             </motion.div>
 
@@ -1711,7 +1418,7 @@ export default function HomeClient({
               <motion.button
                 onClick={() => {
                   const message = `Hi! I'd like to book a room at Hotel Blue Sheep Inn.`;
-                  const whatsappUrl = getWhatsAppUrl(message);
+                  const whatsappUrl = getWhatsAppUrl(message, adminPhone);
                   window.open(whatsappUrl, "_blank");
                 }}
                 className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-lg transition-all duration-200 shadow-lg shadow-emerald-500/30"
@@ -1819,10 +1526,10 @@ export default function HomeClient({
               >
                 <PhoneIcon className="w-5 h-5 text-emerald-200" />
                 <a
-                  href={getTelUrl()}
+                  href={getTelUrl(adminPhone)}
                   className="text-base font-semibold text-white hover:text-emerald-100 transition-colors"
                 >
-                  {PHONE_NUMBER}
+                  {adminPhone}
                 </a>
               </motion.div>
             </motion.div>
