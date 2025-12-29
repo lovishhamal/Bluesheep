@@ -369,7 +369,7 @@ export default function HomeClient({
           </div>
         )}
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 w-screen mx-auto px-4 sm:px-6 lg:px-24">
           <div
             className="grid lg:grid-cols-2 gap-8 lg:gap-16 xl:gap-20 items-center min-h-[70vh] py-8 sm:py-8 md:py-4 lg:py-0"
             style={{
