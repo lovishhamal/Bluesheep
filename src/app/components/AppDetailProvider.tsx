@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useIsMobile } from "../util/useIsMobile";
+import { ArrowUpIcon } from "@heroicons/react/24/outline";
 
 type AppDetailContextValue = {
   bannerText?: string | null;
@@ -25,6 +26,7 @@ export function AppDetailProvider({
   const [marqueeDurationSeconds, setMarqueeDurationSeconds] = useState(20);
   const [marqueeDistancePx, setMarqueeDistancePx] = useState(0);
   const [marqueeRepeatCount, setMarqueeRepeatCount] = useState(2);
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
   const marqueeContainerRef = useRef<HTMLDivElement | null>(null);
   const marqueeBaseMeasureRef = useRef<HTMLSpanElement | null>(null);
   const marqueeMeasureRef = useRef<HTMLSpanElement | null>(null);
@@ -101,6 +103,18 @@ export function AppDetailProvider({
     };
   }, [isMobile, marqueeText]);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const onScroll = () => {
+      setShowScrollToTop(window.scrollY > 300);
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const value = useMemo(
     () => ({
       bannerText,
@@ -154,6 +168,16 @@ export function AppDetailProvider({
         </div>
       </div>
       {children}
+      {showScrollToTop && (
+        <button
+          type="button"
+          aria-label="Scroll to top"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="fixed bottom-6 right-6 z-[60] inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#1a3a52] text-white shadow-lg border border-white/15 hover:bg-[#224862] active:scale-[0.98] transition"
+        >
+          <ArrowUpIcon className="w-5 h-5" />
+        </button>
+      )}
     </AppDetailContext.Provider>
   );
 }

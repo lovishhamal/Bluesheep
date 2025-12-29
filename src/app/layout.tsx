@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { Inter, Poppins, Playfair_Display, Montserrat } from "next/font/google";
+import {
+  Inter,
+  Poppins,
+  Playfair_Display,
+  Montserrat,
+  Quattrocento_Sans,
+} from "next/font/google";
 import "./globals.css";
 import { unstable_cache } from "next/cache";
 import { createPublicClient } from "./util/supabase-server";
@@ -29,6 +35,13 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
+});
+
+const quattrocentoSans = Quattrocento_Sans({
+  variable: "--font-quattrocento-sans",
+  subsets: ["latin"],
+  weight: ["400", "700"],
   display: "swap",
 });
 
@@ -322,7 +335,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${montserrat.variable}`}
+      className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${montserrat.variable} ${quattrocentoSans.variable}`}
     >
       <head>
         {/* Theme color for mobile browsers */}

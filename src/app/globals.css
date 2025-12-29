@@ -24,7 +24,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-quattrocento-sans);
   --font-mono: var(--font-geist-mono);
 }
 
@@ -48,7 +48,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-montserrat), system-ui, sans-serif;
+  font-family: var(--font-quattrocento-sans), system-ui, sans-serif;
   min-height: 100vh;
   background-attachment: fixed;
   font-weight: 400;
@@ -426,7 +426,7 @@ body {
 }
 /* Travel Guide Specific Styles */
 .travel-guide-content {
-  font-family: 'Georgia', 'Times New Roman', serif;
+  font-family: var(--font-quattrocento-sans), system-ui, sans-serif;
   line-height: 1.8;
 }
 
@@ -434,7 +434,7 @@ body {
 .travel-guide-content h2,
 .travel-guide-content h3,
 .travel-guide-content h4 {
-  font-family: var(--font-montserrat), system-ui, sans-serif;
+  font-family: var(--font-quattrocento-sans), system-ui, sans-serif;
 }
 
 /* Print Styles for Travel Guides */
