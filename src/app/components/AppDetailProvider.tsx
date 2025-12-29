@@ -173,9 +173,9 @@ export function AppDetailProvider({
           type="button"
           aria-label="Scroll to top"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-6 right-6 z-[60] inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#1a3a52] text-white shadow-lg border border-white/15 hover:bg-[#224862] active:scale-[0.98] transition"
+          className="fixed bottom-6 right-6 z-[60] inline-flex items-center justify-center w-10 h-10 rounded-full bg-emerald-600 shadow-lg border border-white/15 hover:bg-emerald-700 active:scale-[0.98] transition"
         >
-          <ArrowUpIcon className="w-5 h-5" />
+          <ArrowUpIcon className="w-4 h-4 text-white" />
         </button>
       )}
     </AppDetailContext.Provider>

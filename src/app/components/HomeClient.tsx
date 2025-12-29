@@ -402,9 +402,9 @@ export default function HomeClient({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight text-center"
               >
-                <span className="block bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
+                <span className="block bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent text-center">
                   Hotel Blue Sheep Inn
                 </span>
               </motion.h1>
@@ -1455,7 +1455,7 @@ export default function HomeClient({
             >
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="flex items-center justify-center md:justify-start gap-4 mb-6"
+                className="flex items-center justify-center gap-4 mb-6"
               >
                 <div className="relative">
                   <Image
@@ -1472,7 +1472,7 @@ export default function HomeClient({
                     }}
                   />
                 </div>
-                <h3 className="text-2xl font-bold text-white">
+                <h3 className="text-2xl font-bold text-white text-center">
                   Hotel Blue Sheep Inn
                 </h3>
               </motion.div>

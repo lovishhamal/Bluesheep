@@ -560,7 +560,7 @@ export default function AttractionsClient({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-emerald-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-emerald-50/30 overflow-x-hidden">
       {/* Navigation - With Green Gradient */}
       <nav className="w-full bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 border-b border-emerald-700/30 sticky top-0 z-50 backdrop-blur-sm shadow-lg shadow-emerald-500/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -814,9 +814,11 @@ export default function AttractionsClient({
                         .getElementById(item.id)
                         ?.scrollIntoView({ behavior: "smooth", block: "start" });
                     }}
-                    className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-sm font-semibold text-emerald-800 hover:bg-emerald-100 hover:border-emerald-300 transition-colors duration-200"
+                    className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-sm font-semibold text-emerald-800 hover:bg-emerald-100 hover:border-emerald-300 transition-colors duration-200 max-w-full"
                   >
-                    {item.title}
+                    <span className="min-w-0 break-words whitespace-normal">
+                      {item.title}
+                    </span>
                   </a>
                 ))}
               </div>
