@@ -381,7 +381,7 @@ export default async function TravelGuidePage() {
                     return (
                       <Link
                         key={guide.slug}
-                        href={`/travel-guide/${guide.slug}`}
+                        href={`/travel-guide/${guide.slug}/`}
                         className="group block"
                       >
                         <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-emerald-200/60 shadow-lg hover:shadow-xl transition-all duration-300 p-6">

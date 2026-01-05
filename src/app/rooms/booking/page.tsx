@@ -41,25 +41,25 @@ function BookingPageContent() {
   useEffect(() => {
     const fetchRoom = async () => {
       if (!roomId) {
-      router.push("/rooms");
+        router.push("/rooms/");
         return;
-    }
+      }
 
-    try {
-      const { data, error } = await supabase
-        .from("rooms")
-        .select("*")
-        .eq("id", roomId)
-        .single();
+      try {
+        const { data, error } = await supabase
+          .from("rooms")
+          .select("*")
+          .eq("id", roomId)
+          .single();
 
-      if (error) throw error;
-      setRoom(data);
+        if (error) throw error;
+        setRoom(data);
       } catch {
-      router.push("/rooms");
-    } finally {
-      setLoading(false);
-    }
-  };
+        router.push("/rooms/");
+      } finally {
+        setLoading(false);
+      }
+    };
 
     fetchRoom();
   }, [roomId, router]);
@@ -123,7 +123,7 @@ Please confirm this booking.`;
         <div className="text-center">
           <p className="text-gray-600 mb-4">Room not found</p>
           <Link
-            href="/rooms"
+            href="/rooms/"
             className="inline-flex items-center px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
           >
             Back to Rooms
@@ -140,7 +140,7 @@ Please confirm this booking.`;
         <div className="max-w-2xl mx-auto flex items-center justify-between">
           <h1 className="text-xl font-bold">Book Room</h1>
           <Link
-            href="/rooms"
+            href="/rooms/"
             className="p-2 hover:bg-white/20 rounded-lg transition-colors"
           >
             <XMarkIcon className="w-6 h-6" />
@@ -298,7 +298,7 @@ Please confirm this booking.`;
 
           <div className="flex flex-col gap-3 pt-4">
             <Link
-              href="/rooms"
+              href="/rooms/"
               className="w-full px-6 py-4 border-2 border-gray-300 text-gray-700 rounded-xl font-bold hover:bg-gray-50 hover:border-gray-400 transition-all text-center"
             >
               Cancel

@@ -209,7 +209,7 @@ export default function HowToReach() {
                     className="inline-flex"
                   >
                     <Link
-                      href="/travel-guide"
+                      href="/travel-guide/"
                       className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 text-white font-extrabold shadow-xl shadow-emerald-500/30 hover:shadow-emerald-500/40 transition-shadow"
                     >
                       View Travel Guide

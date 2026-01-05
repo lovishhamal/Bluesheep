@@ -215,37 +215,37 @@ Please confirm this booking.`;
                 Home
               </Link>
               <Link
-                href="/rooms"
+                href="/rooms/"
                 className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
               >
                 Rooms
               </Link>
               <Link
-                href="/menu"
+                href="/menu/"
                 className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
               >
                 Menu
               </Link>
               <Link
-                href="/camping"
+                href="/camping/"
                 className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium border-b-2 border-emerald-50"
               >
                 Camping
               </Link>
               <Link
-                href="/attractions"
+                href="/attractions/"
                 className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
               >
                 Attractions
               </Link>
               <Link
-                href="/travel-guide"
+                href="/travel-guide/"
                 className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
               >
                 Travel Guide
               </Link>
               <Link
-                href="/contact"
+                href="/contact/"
                 className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
               >
                 Contact
@@ -284,42 +284,42 @@ Please confirm this booking.`;
                   Home
                 </Link>
                 <Link
-                  href="/rooms"
+                  href="/rooms/"
                   className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Rooms
                 </Link>
                 <Link
-                  href="/menu"
+                  href="/menu/"
                   className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Menu
                 </Link>
                 <Link
-                  href="/camping"
+                  href="/camping/"
                   className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Camping
                 </Link>
                 <Link
-                  href="/attractions"
+                  href="/attractions/"
                   className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Attractions
                 </Link>
                 <Link
-                  href="/travel-guide"
+                  href="/travel-guide/"
                   className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Travel Guide
                 </Link>
                 <Link
-                  href="/contact"
+                  href="/contact/"
                   className="block text-white hover:text-emerald-100 transition-colors duration-200 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >

@@ -11,12 +11,12 @@ export default function MobileNavigation() {
 
   const menuItems = [
     { href: "/", label: "Home", icon: "🏠" },
-    { href: "/rooms", label: "Rooms", icon: "🛏️" },
-    { href: "/menu", label: "Menu", icon: "🍽️" },
-    { href: "/camping", label: "Camping", icon: "⛺" },
-    { href: "/attractions", label: "Attractions", icon: "🏔️" },
-    { href: "/travel-guide", label: "Travel Guide", icon: "🗺️" },
-    { href: "/contact", label: "Contact", icon: "📞" },
+    { href: "/rooms/", label: "Rooms", icon: "🛏️" },
+    { href: "/menu/", label: "Menu", icon: "🍽️" },
+    { href: "/camping/", label: "Camping", icon: "⛺" },
+    { href: "/attractions/", label: "Attractions", icon: "🏔️" },
+    { href: "/travel-guide/", label: "Travel Guide", icon: "🗺️" },
+    { href: "/contact/", label: "Contact", icon: "📞" },
   ];
 
   return (

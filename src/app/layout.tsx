@@ -98,6 +98,21 @@ export const metadata: Metadata = {
     "how to travel to Dunai",
     "how to travel to Dolpa",
     "how to travel to Phoksundo",
+
+    // Itinerary Keywords - High Priority
+    "Phoksundo Itinerary",
+    "Phoksundo Lake Itinerary",
+    "Shey Phoksundo Itinerary",
+    "Dho Itinerary",
+    "Dho Tarap Itinerary",
+    "Dho Tarap Trek Itinerary",
+    "Dolpo Itinerary",
+    "Dolpa Itinerary",
+    "Lower Dolpo Itinerary",
+    "Upper Dolpo Itinerary",
+    "Phoksundo Trek Itinerary",
+    "Dho Tarap Trek Cost",
+    "Phoksundo Lake Trek Cost",
     "how to travel to Phoksundo Lake",
     "how to travel to Dho Tarap",
     "how to travel to Dho",
@@ -223,8 +238,10 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-
   metadataBase: new URL("https://hotelbluesheepinn.com"),
+  alternates: {
+    canonical: "/",
+  },
   manifest: "/site.webmanifest", // ✅ CRITICAL: Links to your web app manifest
   openGraph: {
     title: "Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa",

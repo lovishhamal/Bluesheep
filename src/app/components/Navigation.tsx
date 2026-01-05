@@ -50,7 +50,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
                 Home
               </Link>
               <Link
-                href="/rooms"
+                href="/rooms/"
                 className={`font-medium transition-colors duration-200 ${
                   currentPage === "rooms" 
                     ? "text-white border-b-2 border-emerald-50" 
@@ -60,7 +60,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
                 Rooms
               </Link>
               <Link
-                href="/menu"
+                href="/menu/"
                 className={`font-medium transition-colors duration-200 ${
                   currentPage === "menu" 
                     ? "text-white border-b-2 border-emerald-50" 
@@ -70,7 +70,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
                 Menu
               </Link>
               <Link
-                href="/camping"
+                href="/camping/"
                 className={`font-medium transition-colors duration-200 ${
                   currentPage === "camping" 
                     ? "text-white border-b-2 border-emerald-50" 
@@ -80,7 +80,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
                 Camping
               </Link>
               <Link
-                href="/attractions"
+                href="/attractions/"
                 className={`font-medium transition-colors duration-200 ${
                   currentPage === "attractions" 
                     ? "text-white border-b-2 border-emerald-50" 
@@ -90,7 +90,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
                 Attractions
               </Link>
               <Link
-                href="/travel-guide"
+                href="/travel-guide/"
                 className={`font-medium transition-colors duration-200 ${
                   currentPage === "travel-guide" 
                     ? "text-white border-b-2 border-emerald-50" 
@@ -100,7 +100,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
                 Travel Guide
               </Link>
               <Link
-                href="/contact"
+                href="/contact/"
                 className={`font-medium transition-colors duration-200 ${
                   currentPage === "contact" 
                     ? "text-white border-b-2 border-emerald-50" 
@@ -143,7 +143,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
                   Home
                 </Link>
                 <Link
-                  href="/rooms"
+                  href="/rooms/"
                   className={`block font-medium transition-colors duration-200 ${
                     currentPage === "rooms" ? "text-white" : "text-emerald-50 hover:text-white"
                   }`}
@@ -152,7 +152,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
                   Rooms
                 </Link>
                 <Link
-                  href="/menu"
+                  href="/menu/"
                   className={`block font-medium transition-colors duration-200 ${
                     currentPage === "menu" ? "text-white" : "text-emerald-50 hover:text-white"
                   }`}
@@ -161,7 +161,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
                   Menu
                 </Link>
                 <Link
-                  href="/camping"
+                  href="/camping/"
                   className={`block font-medium transition-colors duration-200 ${
                     currentPage === "camping" ? "text-white" : "text-emerald-50 hover:text-white"
                   }`}
@@ -170,7 +170,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
                   Camping
                 </Link>
                 <Link
-                  href="/attractions"
+                  href="/attractions/"
                   className={`block font-medium transition-colors duration-200 ${
                     currentPage === "attractions" ? "text-white" : "text-emerald-50 hover:text-white"
                   }`}
@@ -179,7 +179,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
                   Attractions
                 </Link>
                 <Link
-                  href="/travel-guide"
+                  href="/travel-guide/"
                   className={`block font-medium transition-colors duration-200 ${
                     currentPage === "travel-guide" ? "text-white" : "text-emerald-50 hover:text-white"
                   }`}
@@ -188,7 +188,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
                   Travel Guide
                 </Link>
                 <Link
-                  href="/contact"
+                  href="/contact/"
                   className={`block font-medium transition-colors duration-200 ${
                     currentPage === "contact" ? "text-white" : "text-emerald-50 hover:text-white"
                   }`}

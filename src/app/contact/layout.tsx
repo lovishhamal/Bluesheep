@@ -1,15 +1,18 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact Us - Garden Hotel",
+  title: "Contact Us | Hotel Blue Sheep Inn",
   description:
-    "Get in touch with Garden Hotel in Dunai, Dunai. Contact us for reservations, inquiries, or any assistance you need during your stay.",
+    "Get in touch with Hotel Blue Sheep Inn in Dunai, Dolpa. Contact us for reservations, inquiries, or any assistance you need during your stay.",
   keywords:
-    "contact, hotel contact, Dunai, Dunai, Nepal, reservations, inquiries",
+    "contact, hotel contact, Dunai, Dolpa, Nepal, reservations, inquiries, Hotel Blue Sheep Inn",
+  alternates: {
+    canonical: "/contact/",
+  },
   openGraph: {
-    title: "Contact Us - Garden Hotel",
+    title: "Contact Us | Hotel Blue Sheep Inn",
     description:
-      "Get in touch with Garden Hotel in Dunai, Dunai. Contact us for reservations, inquiries, or any assistance you need during your stay.",
+      "Get in touch with Hotel Blue Sheep Inn in Dunai, Dolpa. Contact us for reservations, inquiries, or any assistance you need during your stay.",
     type: "website",
   },
 };

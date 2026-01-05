@@ -25,11 +25,48 @@ export async function generateMetadata({
   const plain = stripHtml(guide.description);
   const description = plain.length > 160 ? `${plain.slice(0, 160)}...` : plain;
   const url = `https://hotelbluesheepinn.com/travel-guide/${guide.slug}/`;
-  const title = `${guide.title} | Dolpa Travel Guide | Hotel Blue Sheep Inn`;
+
+  // Optimize Title for SEO - prioritize keywords like "Itinerary"
+  const guideTitleLower = guide.title.toLowerCase();
+  let seoTitle = guide.title;
+
+  if (!guideTitleLower.includes("itinerary")) {
+    seoTitle = `${guide.title} Itinerary`;
+  }
+
+  const title = `${seoTitle} | Dolpa Travel Guide | Hotel Blue Sheep Inn`;
+
+  // Dynamic Keywords based on content
+  const keywords = [
+    guide.title,
+    `${guide.title} Itinerary`,
+    "Dolpa Travel Guide",
+    "Dolpa Trekking",
+    "Nepal Trekking",
+  ];
+
+  if (guideTitleLower.includes("phoksundo")) {
+    keywords.push(
+      "Phoksundo Itinerary",
+      "Phoksundo Lake Trek",
+      "Shey Phoksundo Itinerary",
+      "Phoksundo Trek Cost"
+    );
+  }
+
+  if (guideTitleLower.includes("dho")) {
+    keywords.push(
+      "Dho Itinerary",
+      "Dho Tarap Trek",
+      "Dho Tarap Itinerary",
+      "Upper Dolpo Trek"
+    );
+  }
 
   return {
     title,
     description,
+    keywords,
     alternates: {
       canonical: `/travel-guide/${guide.slug}/`,
     },
@@ -121,7 +158,7 @@ export default async function TravelGuideDetailPage({ params }: PageProps) {
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
         <div className="mb-8">
           <Link
-            href="/travel-guide"
+            href="/travel-guide/"
             className="inline-flex items-center gap-3 text-emerald-700 font-semibold hover:text-emerald-600 transition-colors bg-emerald-50 hover:bg-emerald-100 px-4 py-2 rounded-lg border border-emerald-200"
           >
             <span className="text-lg">←</span> 

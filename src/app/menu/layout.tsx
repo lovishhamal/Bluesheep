@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     title: "Garden Restaurant in Dunai | Best Dining Experience",
     description:
       "🍽️ Experience the best garden restaurant in Dunai. Fresh local cuisine with mountain views and garden dining.",
-    url: "https://hotelbluesheepinn.com/menu",
+    url: "https://hotelbluesheepinn.com/menu/",
     images: [
       {
         url: "/dining-area.jpg",
@@ -32,6 +32,9 @@ export const metadata: Metadata = {
         alt: "Garden Restaurant in Dunai",
       },
     ],
+  },
+  alternates: {
+    canonical: "/menu/",
   },
   twitter: {
     card: "summary_large_image",

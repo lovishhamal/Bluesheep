@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     title: "Best Camping in Dunai | Garden Camping Experience",
     description:
       "🏕️ Experience the best camping in Dunai. Garden camping with stunning mountain views and modern facilities.",
-    url: "https://hotelbluesheepinn.com/camping",
+    url: "https://hotelbluesheepinn.com/camping/",
     images: [
       {
         url: "/phoksundo-lake.jpg",
@@ -32,6 +32,9 @@ export const metadata: Metadata = {
       },
     ],
     type: "website",
+  },
+  alternates: {
+    canonical: "/camping/",
   },
   twitter: {
     card: "summary_large_image",

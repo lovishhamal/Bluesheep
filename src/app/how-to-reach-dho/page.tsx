@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Script from "next/script";
 import { unstable_noStore as noStore } from "next/cache";
-import TravelGuidePage from "../travel-guide/page";
+import HowToReachDho from "./HowToReachDho";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -90,7 +90,7 @@ export default async function HowToTravelDhoPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <TravelGuidePage />
+      <HowToReachDho />
     </>
   );
 }

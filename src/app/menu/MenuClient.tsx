@@ -117,37 +117,37 @@ export default function MenuPage() {
                 Home
               </Link>
               <Link
-                href="/rooms"
+                href="/rooms/"
                 className="text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
               >
                 Rooms
               </Link>
               <Link
-                href="/menu"
+                href="/menu/"
                 className="text-[#c9a961] font-semibold border-b-2 border-[#c9a961] transition-colors duration-300"
               >
                 Menu
               </Link>
               <Link
-                href="/camping"
+                href="/camping/"
                 className="text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
               >
                 Camping
               </Link>
               <Link
-                href="/attractions"
+                href="/attractions/"
                 className="text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
               >
                 Attractions
               </Link>
               <Link
-                href="/travel-guide"
+                href="/travel-guide/"
                 className="text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
               >
                 Travel Guide
               </Link>
               <Link
-                href="/contact"
+                href="/contact/"
                 className="text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
               >
                 Contact
@@ -170,61 +170,61 @@ export default function MenuPage() {
           </div>
 
           {/* Mobile menu */}
-          {isMobileMenuOpen && (
-            <div className="md:hidden border-t border-[#1a3a52]/30">
-              <div className="py-4 space-y-4">
-                <Link
-                  href="/"
-                  className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Home
-                </Link>
-                <Link
-                  href="/rooms"
-                  className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Rooms
-                </Link>
-                <Link
-                  href="/menu"
-                  className="block text-[#c9a961] font-semibold"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Menu
-                </Link>
-                <Link
-                  href="/camping"
-                  className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Camping
-                </Link>
-                <Link
-                  href="/attractions"
-                  className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Attractions
-                </Link>
-                <Link
-                  href="/travel-guide"
-                  className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Travel Guide
-                </Link>
-                <Link
-                  href="/contact"
-                  className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Contact
-                </Link>
+            {isMobileMenuOpen && (
+              <div className="md:hidden border-t border-[#1a3a52]/30">
+                <div className="py-4 space-y-4">
+                  <Link
+                    href="/"
+                    className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Home
+                  </Link>
+                  <Link
+                    href="/rooms/"
+                    className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Rooms
+                  </Link>
+                  <Link
+                    href="/menu/"
+                    className="block text-[#c9a961] font-semibold"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Menu
+                  </Link>
+                  <Link
+                    href="/camping/"
+                    className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Camping
+                  </Link>
+                  <Link
+                    href="/attractions/"
+                    className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Attractions
+                  </Link>
+                  <Link
+                    href="/travel-guide/"
+                    className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Travel Guide
+                  </Link>
+                  <Link
+                    href="/contact/"
+                    className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Contact
+                  </Link>
+                </div>
               </div>
-            </div>
-          )}
+            )}
         </div>
       </nav>
 

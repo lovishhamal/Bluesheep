@@ -52,7 +52,7 @@ ${bookingForm.specialRequests ? `*Special Requests:*\n${bookingForm.specialReque
             <h1 className="text-xl font-bold">Book Camping</h1>
           </div>
           <Link
-            href="/camping"
+            href="/camping/"
             className="p-2 hover:bg-white/20 rounded-lg transition-colors"
           >
             <XMarkIcon className="w-6 h-6" />
@@ -160,7 +160,7 @@ ${bookingForm.specialRequests ? `*Special Requests:*\n${bookingForm.specialReque
 
           <div className="flex flex-col gap-3 pt-4">
             <Link
-              href="/camping"
+              href="/camping/"
               className="w-full px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors text-center"
             >
               Cancel

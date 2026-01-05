@@ -89,7 +89,7 @@ export default function HomeClient({
 
   // Navigate to camping page
   const openCampingPage = () => {
-    router.push("/camping");
+    router.push("/camping/");
   };
 
   const nextImage = () => {
@@ -210,37 +210,37 @@ export default function HomeClient({
                   Home
                 </Link>
                 <Link
-                  href="/rooms"
+                  href="/rooms/"
                   className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                 >
                   Rooms
                 </Link>
                 <Link
-                  href="/menu"
+                  href="/menu/"
                   className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                 >
                   Menu
                 </Link>
                 <Link
-                  href="/camping"
+                  href="/camping/"
                   className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                 >
                   Camping
                 </Link>
                 <Link
-                  href="/attractions"
+                  href="/attractions/"
                   className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                 >
                   Attractions
                 </Link>
                 <Link
-                  href="/travel-guide"
+                  href="/travel-guide/"
                   className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                 >
                   Travel Guide
                 </Link>
                 <Link
-                  href="/contact"
+                  href="/contact/"
                   className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                 >
                   Contact
@@ -277,42 +277,42 @@ export default function HomeClient({
                     Home
                   </Link>
                   <Link
-                    href="/rooms"
+                    href="/rooms/"
                     className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Rooms
                   </Link>
                   <Link
-                    href="/menu"
+                    href="/menu/"
                     className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Menu
                   </Link>
                   <Link
-                    href="/camping"
+                    href="/camping/"
                     className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Camping
                   </Link>
                   <Link
-                    href="/attractions"
+                    href="/attractions/"
                     className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Attractions
                   </Link>
                   <Link
-                    href="/travel-guide"
+                    href="/travel-guide/"
                     className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Travel Guide
                   </Link>
                   <Link
-                    href="/contact"
+                    href="/contact/"
                     className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
@@ -962,7 +962,7 @@ export default function HomeClient({
           </motion.div>
 
           <div className="grid gap-6 max-w-2xl mx-auto">
-            <Link href="/attractions" className="group block">
+            <Link href="/attractions/" className="group block">
               <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-emerald-200/60 shadow-lg hover:shadow-xl transition-all duration-300 p-6">
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-blue-500 rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-md group-hover:scale-110 transition-transform">
