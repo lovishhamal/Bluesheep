@@ -18,40 +18,6 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   generateEtags: true,
-  async redirects() {
-    return [
-      {
-        source: "/how-to-reach-dho/:path*",
-        destination: "/travel-guide/",
-        permanent: true,
-      },
-      {
-        source: "/how-to-reach-dunai-dolpa/:path*",
-        destination: "/travel-guide/",
-        permanent: true,
-      },
-      {
-        source: "/how-to-reach-phoksundo/:path*",
-        destination: "/travel-guide/",
-        permanent: true,
-      },
-      {
-        source: "/how-to-travel-dho/:path*",
-        destination: "/travel-guide/",
-        permanent: true,
-      },
-      {
-        source: "/how-to-travel-dunai-dolpa/:path*",
-        destination: "/travel-guide/",
-        permanent: true,
-      },
-      {
-        source: "/how-to-travel-phoksundo/:path*",
-        destination: "/travel-guide/",
-        permanent: true,
-      },
-    ];
-  },
   // Note: async headers() is not compatible with static export
   // Headers should be configured at server/hosting level instead
   ...(process.env.NODE_ENV !== "production" && {
