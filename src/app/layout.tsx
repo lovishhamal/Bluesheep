@@ -113,6 +113,10 @@ export const metadata: Metadata = {
     "Phoksundo Trek Itinerary",
     "Dho Tarap Trek Cost",
     "Phoksundo Lake Trek Cost",
+    // Common Typos (Requested)
+    "itenary",
+    "Dolpa itenary",
+    "Phoksundo itenary",
     "how to travel to Phoksundo Lake",
     "how to travel to Dho Tarap",
     "how to travel to Dho",

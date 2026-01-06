@@ -40,6 +40,8 @@ export async function generateMetadata({
   const keywords = [
     guide.title,
     `${guide.title} Itinerary`,
+    `how to reach ${guide.title}`,
+    `how to travel to ${guide.title}`,
     "Dolpa Travel Guide",
     "Dolpa Trekking",
     "Nepal Trekking",

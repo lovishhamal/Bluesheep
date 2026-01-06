@@ -32,7 +32,17 @@ export const metadata: Metadata = {
     "Dho Tarap trekking guide",
     "Crystal Mountain trek",
     "Dolpa lakes travel",
-    "Hotel Blue Sheep Inn guides"
+    "Hotel Blue Sheep Inn guides",
+    // SEO Optimized Keywords
+    "how to reach Dolpa",
+    "how to reach Phoksundo Lake",
+    "how to reach Dho Tarap",
+    "how to travel to Dolpa",
+    "Dolpo itinerary",
+    "Phoksundo itinerary",
+    "Dho Tarap itinerary",
+    "Upper Dolpa itinerary",
+    "Lower Dolpa itinerary"
   ],
   alternates: {
     canonical: "/travel-guide/",
@@ -183,6 +193,14 @@ export default async function TravelGuidePage() {
         acceptedAnswer: {
           "@type": "Answer",
           text: "To reach Phoksundo Lake, fly from Kathmandu to Juphal Airport (45 minutes), then take a jeep to Dunai (6-8 hours), followed by a 2-3 day trek to the lake. Our detailed travel guides include route maps, accommodation options, and permit requirements."
+        }
+      },
+      {
+        "@type": "Question",
+        name: "How do I reach Dho Tarap?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "To reach Dho Tarap, you can fly to Juphal and trek via Dunai (4-5 days), or trek from Phoksundo Lake via two high passes (Numala and Bagala). This requires Upper Dolpa permits. We provide complete itinerary planning for this route."
         }
       },
       {
