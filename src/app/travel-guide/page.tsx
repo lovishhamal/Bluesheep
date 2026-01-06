@@ -292,24 +292,6 @@ export default async function TravelGuidePage() {
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
               <Link
-                href="/how-to-reach-dunai-dolpa/"
-                className="rounded-full bg-white/70 backdrop-blur-sm border border-emerald-200/60 px-4 py-2 text-sm font-semibold text-emerald-700 hover:text-emerald-800 hover:border-emerald-300 transition-colors"
-              >
-                Dunai (Dolpa) route
-              </Link>
-              <Link
-                href="/how-to-reach-phoksundo/"
-                className="rounded-full bg-white/70 backdrop-blur-sm border border-emerald-200/60 px-4 py-2 text-sm font-semibold text-emerald-700 hover:text-emerald-800 hover:border-emerald-300 transition-colors"
-              >
-                Phoksundo itinerary
-              </Link>
-              <Link
-                href="/how-to-reach-dho/"
-                className="rounded-full bg-white/70 backdrop-blur-sm border border-emerald-200/60 px-4 py-2 text-sm font-semibold text-emerald-700 hover:text-emerald-800 hover:border-emerald-300 transition-colors"
-              >
-                Dho Tarap itinerary
-              </Link>
-              <Link
                 href="/attractions/"
                 className="rounded-full bg-white/70 backdrop-blur-sm border border-emerald-200/60 px-4 py-2 text-sm font-semibold text-emerald-700 hover:text-emerald-800 hover:border-emerald-300 transition-colors"
               >
