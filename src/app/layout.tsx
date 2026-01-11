@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     "Phoksundo hotel",
     "hotel near Phoksundo",
     "hotel near Phoksundo Lake",
-    
+
     // HOW TO REACH - All Variations
     "how to reach Dunai",
     "how to reach Dolpa",
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     "how to reach Dunai Dolpa",
     "how to reach Dolpa Nepal",
     "how to reach Shey Phoksundo",
-    
+
     // HOW TO GET - All Variations
     "how to get to Dunai",
     "how to get to Dolpa",
@@ -83,7 +83,7 @@ export const metadata: Metadata = {
     "how to get to Dho",
     "how to get to Dunai Dolpa",
     "how to get to Dolpa Nepal",
-    
+
     // HOW TO GO - All Variations
     "how to go to Dunai",
     "how to go to Dolpa",
@@ -93,7 +93,7 @@ export const metadata: Metadata = {
     "how to go to Dho",
     "how to go Dunai",
     "how to go Dolpa",
-    
+
     // HOW TO TRAVEL - All Variations
     "how to travel to Dunai",
     "how to travel to Dolpa",
@@ -122,7 +122,7 @@ export const metadata: Metadata = {
     "how to travel to Dho",
     "how to travel Dunai",
     "how to travel Dolpa",
-    
+
     // TRAVEL TO - All Variations
     "travel to Dunai",
     "travel to Dolpa",
@@ -134,7 +134,7 @@ export const metadata: Metadata = {
     "traveling to Dolpa",
     "travelling to Dunai",
     "travelling to Dolpa",
-    
+
     // WAY TO - All Variations
     "way to Dunai",
     "way to Dolpa",
@@ -146,14 +146,14 @@ export const metadata: Metadata = {
     "best way to Dolpa",
     "best way to reach Dunai",
     "best way to reach Dolpa",
-    
+
     // GETTING TO - All Variations
     "getting to Dunai",
     "getting to Dolpa",
     "getting to Phoksundo",
     "getting to Phoksundo Lake",
     "getting to Dho Tarap",
-    
+
     // ROUTE/ROAD TO - All Variations
     "route to Dunai",
     "route to Dolpa",
@@ -161,7 +161,7 @@ export const metadata: Metadata = {
     "road to Dunai",
     "road to Dolpa",
     "road to Phoksundo",
-    
+
     // FROM KATHMANDU - All Variations
     "Kathmandu to Dunai",
     "Kathmandu to Dolpa",
@@ -169,14 +169,14 @@ export const metadata: Metadata = {
     "Kathmandu to Dho Tarap",
     "from Kathmandu to Dunai",
     "from Kathmandu to Dolpa",
-    
+
     // FROM OTHER CITIES
     "Nepalgunj to Dunai",
     "Nepalgunj to Dolpa",
     "Juphal to Dunai",
     "Pokhara to Dolpa",
     "Pokhara to Dunai",
-    
+
     // TRANSPORT METHODS
     "flight to Dolpa",
     "flight to Dunai",
@@ -186,7 +186,7 @@ export const metadata: Metadata = {
     "jeep to Dunai",
     "trek to Phoksundo",
     "trek to Dho Tarap",
-    
+
     // TRAVEL GUIDES
     "Dunai travel guide",
     "Dolpa travel guide",
@@ -195,7 +195,7 @@ export const metadata: Metadata = {
     "Dho Tarap travel guide",
     "Dolpa Nepal travel guide",
     "Dunai Dolpa guide",
-    
+
     // VISIT/VISITING
     "visit Dunai",
     "visit Dolpa",
@@ -203,14 +203,14 @@ export const metadata: Metadata = {
     "visiting Dunai",
     "visiting Dolpa",
     "visiting Phoksundo Lake",
-    
+
     // TRIP TO
     "trip to Dunai",
     "trip to Dolpa",
     "trip to Phoksundo",
     "Dolpa trip",
     "Phoksundo trip",
-    
+
     // Accommodation Keywords
     "accommodation in Dunai",
     "accommodation in Dolpa",
@@ -223,7 +223,7 @@ export const metadata: Metadata = {
     "where to stay Phoksundo",
     "place to stay Dunai",
     "place to stay Dolpa",
-    
+
     // Facilities Keywords
     "garden restaurant Dolpa",
     "camping in Dolpa",
@@ -232,6 +232,88 @@ export const metadata: Metadata = {
     "WiFi hotel Dolpa",
     "restaurant in Dunai",
     "food in Dunai",
+
+    // MORE ITINERARY TYPOS & VARIATIONS
+    "Shey Phoksundo itinerary",
+    "Shey Phoksundo trek",
+    "Shey Phoksundo itenary",
+    "phoksundo lake itenary",
+    "Dho Tarap itenary",
+    "dho tarap itenary",
+    "dolpo itenary",
+    "lower dolpo itenary",
+    "upper dolpo itenary",
+    "iternary Phoksundo",
+    "iternary Dolpa",
+    "iternary Dho Tarap",
+
+    // BEST TIME TO VISIT
+    "best time to visit Dolpa",
+    "best time to visit Phoksundo",
+    "best time to visit Phoksundo Lake",
+    "best time to visit Dho Tarap",
+    "best season Dolpa trek",
+    "best month Phoksundo trek",
+    "when to visit Dolpa",
+    "when to visit Phoksundo",
+
+    // PLACES IN DOLPA
+    "places in Dolpa",
+    "Dolpa places to visit",
+    "places to visit in Dolpa",
+    "things to do in Dolpa",
+    "things to see in Dolpa",
+    "tourist places Dolpa",
+    "Dolpa tourist attractions",
+    "what to see in Dolpa",
+    "must visit places Dolpa",
+
+    // SPECIFIC LOCATIONS
+    "Ringmo village",
+    "Ringmo Phoksundo",
+    "Dunai bazaar",
+    "Juphal airport",
+    "Shey Gompa",
+    "Crystal Mountain Nepal",
+    "Shey Phoksundo National Park",
+
+    // COST & BUDGET
+    "Dolpa trek cost",
+    "Phoksundo trek cost",
+    "Phoksundo Lake trek budget",
+    "Dho Tarap trek cost",
+    "Upper Dolpa trek cost",
+    "Lower Dolpa trek cost",
+    "Dolpa permit cost",
+    "Upper Dolpa permit fee",
+    "Dolpa trek budget",
+    "cheap trek Nepal Dolpa",
+
+    // DURATION KEYWORDS
+    "5 day Phoksundo trek",
+    "7 day Phoksundo itinerary",
+    "10 day Dho Tarap trek",
+    "2 week Dolpa trek",
+    "short trek Dolpa",
+    "Phoksundo trek days",
+    "Dho Tarap trek duration",
+
+    // TREKKING VARIATIONS
+    "Phoksundo Lake trek",
+    "Lower Dolpo trek",
+    "Upper Dolpo trek",
+    "Dolpa circuit trek",
+    "Crystal Mountain trek",
+    "Shey Phoksundo trek",
+    "Dolpa trekking package",
+    "Dolpa trekking guide",
+
+    // COMPARISON KEYWORDS
+    "Phoksundo vs Rara Lake",
+    "Dolpa vs Mustang trek",
+    "remote treks Nepal",
+    "off the beaten path Nepal",
+    "hidden gems Nepal",
   ],
   applicationName: "Hotel Blue Sheep Inn", // ✅ CRITICAL: Shows site name in Google Search
   authors: [{ name: "Hotel Blue Sheep Inn" }],

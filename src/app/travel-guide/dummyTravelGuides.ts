@@ -9,13 +9,14 @@ export type TravelGuide = {
   price: number;
   order: number;
   slug: string;
+  category?: string | null;
 };
 
 const slugify = (value: string) =>
   value
     .toLowerCase()
     .trim()
-    .replace(/['"]/g, "")
+    .replace(/['\"]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
@@ -72,6 +73,11 @@ const normalizeTravelGuide = (row: unknown, index: number): TravelGuide | null =
       ? record.slug.trim()
       : slugify(title);
 
+  const category =
+    typeof record.category === "string" && record.category.trim().length > 0
+      ? record.category.trim()
+      : null;
+
   return {
     type,
     title,
@@ -79,6 +85,7 @@ const normalizeTravelGuide = (row: unknown, index: number): TravelGuide | null =
     price,
     order,
     slug,
+    category,
   };
 };
 
@@ -92,7 +99,22 @@ export async function getTravelGuides(): Promise<TravelGuide[]> {
     }
 
     const supabase = createPublicClient();
-    const { data, error } = await supabase.rpc("get_travel_guides");
+
+    // Try fetching directly from table first (more reliable for schema changes)
+    let { data, error } = await supabase
+      .from("travel_guide")
+      .select("*");
+
+    // Fallback to RPC if direct select fails or returns empty (and maybe RPC has logic)
+    if (error || !data || data.length === 0) {
+      console.log("Direct select returned empty/error, trying RPC...");
+      const rpcResult = await supabase.rpc("get_travel_guides");
+      if (!rpcResult.error) {
+        data = rpcResult.data;
+        error = rpcResult.error;
+      }
+    }
+
     if (error || !Array.isArray(data)) return [];
 
     const normalized = data
@@ -109,6 +131,13 @@ export async function getTravelGuides(): Promise<TravelGuide[]> {
 export const getTravelGuideBySlug = async (slug: string) => {
   const guides = await getTravelGuides();
   return guides.find((g) => g.type === "list" && g.slug === slug);
+};
+
+export const getTravelGuideByCategory = async (category: string) => {
+  const guides = await getTravelGuides();
+  return guides.find(
+    (g) => g.type === "list" && g.category === category
+  );
 };
 
 export const stripHtml = (html: string) =>

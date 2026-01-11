@@ -21,6 +21,34 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   ];
 
+  // High-priority itinerary pages for SEO
+  const itineraryRoutes: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/itineraries/`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/itineraries/phoksundo/`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/itineraries/dho-tarap/`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/itineraries/lower-dolpa/`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.95,
+    },
+  ];
+
   return [
     {
       url: `${baseUrl}/`,
@@ -50,7 +78,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/attractions/`,
       lastModified: new Date(),
       changeFrequency: "weekly",
-      priority: 0.8,
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/places-in-dolpa/`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/contact/`,
@@ -58,6 +92,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    ...itineraryRoutes,
     ...travelGuideRoutes,
   ];
 }
+
