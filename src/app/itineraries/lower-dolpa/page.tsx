@@ -342,7 +342,7 @@ export default async function LowerDolpaItineraryPage() {
                         </Link>
 
                         <Link
-                            href="/itineraries/dho-tarap/"
+                            href="/itineraries/upper-dolpa/"
                             className="group bg-gradient-to-r from-white to-blue-50/50 rounded-2xl border border-blue-100 shadow-lg p-6 hover:shadow-xl transition-all"
                         >
                             <div className="flex items-center gap-4">

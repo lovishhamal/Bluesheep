@@ -82,6 +82,12 @@ const nextConfig: NextConfig = {
         destination: "/travel-guide/",
         permanent: true,
       },
+      // Rename Dho Tarap to Upper Dolpa
+      {
+        source: "/itineraries/dho-tarap/",
+        destination: "/itineraries/upper-dolpa/",
+        permanent: true,
+      },
     ];
   },
 };
