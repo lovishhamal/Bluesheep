@@ -148,7 +148,7 @@ export default async function PhoksundoItineraryPage() {
             />
 
             {/* Hero Section */}
-            <section className="relative pt-10 pb-16 lg:pt-16 lg:pb-24 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
+            <section className="relative pt-10 pb-4 lg:pt-16 lg:pb-8 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute top-20 right-10 w-72 h-72 bg-emerald-200/30 rounded-full blur-3xl" />
                     <div className="absolute bottom-10 left-10 w-96 h-96 bg-blue-200/30 rounded-full blur-3xl" />
@@ -192,7 +192,7 @@ export default async function PhoksundoItineraryPage() {
             </section>
 
             {/* Main Content */}
-            <section className="py-16 bg-white">
+            <section className="pt-4 pb-16 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <TravelGuideContent content={guide.description} title={guide.title} />
                 </div>
