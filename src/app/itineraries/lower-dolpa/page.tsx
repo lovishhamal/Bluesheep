@@ -186,12 +186,7 @@ export default async function LowerDolpaItineraryPage() {
                             </Link>
                         </div>
 
-                        {guide.price > 0 && (
-                            <div className="inline-block bg-white/80 backdrop-blur-sm rounded-xl px-6 py-3 shadow-lg border border-purple-100">
-                                <span className="text-gray-500 text-sm">Budget-Friendly</span>
-                                <p className="text-lg font-bold text-gray-900">NPR {guide.price.toFixed(0)}</p>
-                            </div>
-                        )}
+                        {/* Cost section removed as requested */}
                     </div>
                 </div>
             </section>
