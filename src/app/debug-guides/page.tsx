@@ -9,6 +9,7 @@ export default async function DebugGuidesPage() {
     const tableResult = await supabase.from("travel_guide").select("*");
 
     // 2. Fetch from RPC
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let rpcResult: { data: any; error: any } = { data: null, error: null };
     try {
         rpcResult = await supabase.rpc("get_travel_guides");
@@ -53,7 +54,7 @@ export default async function DebugGuidesPage() {
                 <ul className="list-disc pl-5 space-y-2 text-slate-700">
                     <li><strong>If both are empty:</strong> You need to INSERT data into your `travel_guide` table.</li>
                     <li><strong>If Table has data but RPC is empty/missing columns:</strong> The RPC definition is outdated. My code patch should fix this by preferring the Table query.</li>
-                    <li><strong>Check for 'category':</strong> Search the JSON above for "category": "phoksundo". If it's missing or null, you need to run the UPDATE SQL.</li>
+                    <li><strong>Check for &apos;category&apos;:</strong> Search the JSON above for &quot;category&quot;: &quot;phoksundo&quot;. If it&apos;s missing or null, you need to run the UPDATE SQL.</li>
                 </ul>
             </div>
         </div>

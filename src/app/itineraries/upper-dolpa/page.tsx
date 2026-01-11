@@ -275,7 +275,7 @@ export default async function DhoTarapItineraryPage() {
                                     Crystal Mountain
                                 </h3>
                                 <p className="text-gray-600 mb-4">
-                                    Sacred 'Crystal Mountain' (Shey Phoksundo) with unique geology.
+                                    Sacred &apos;Crystal Mountain&apos; (Shey Phoksundo) with unique geology.
                                 </p>
                                 <span className="text-emerald-600 font-semibold group-hover:translate-x-2 transition-transform inline-flex items-center gap-2">
                                     View Attraction <span>→</span>
