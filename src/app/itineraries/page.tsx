@@ -70,7 +70,7 @@ const itineraries = [
     },
     {
         title: "Dho Tarap Itinerary",
-        slug: "dho-tarap",
+        slug: "upper-dolpa",
         duration: "10-13 days",
         difficulty: "Strenuous",
         maxAltitude: "5,238m",

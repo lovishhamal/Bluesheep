@@ -148,32 +148,13 @@ export default async function LowerDolpaItineraryPage() {
             />
 
             {/* Hero Section */}
-            <section className="relative py-16 lg:py-24 bg-gradient-to-br from-purple-50 via-white to-pink-50">
+            <section className="relative pt-10 pb-16 lg:pt-16 lg:pb-24 bg-gradient-to-br from-purple-50 via-white to-pink-50">
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute top-20 right-10 w-72 h-72 bg-purple-200/30 rounded-full blur-3xl" />
                     <div className="absolute bottom-10 left-10 w-96 h-96 bg-pink-200/30 rounded-full blur-3xl" />
                 </div>
 
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    {/* Breadcrumb */}
-                    <nav className="mb-8 text-sm">
-                        <ol className="flex items-center space-x-2 text-gray-500">
-                            <li>
-                                <Link href="/" className="hover:text-purple-600">
-                                    Home
-                                </Link>
-                            </li>
-                            <li>/</li>
-                            <li>
-                                <Link href="/itineraries/" className="hover:text-purple-600">
-                                    Itineraries
-                                </Link>
-                            </li>
-                            <li>/</li>
-                            <li className="text-purple-600 font-medium">Lower Dolpa</li>
-                        </ol>
-                    </nav>
-
                     <div className="text-center">
                         <span className="inline-block px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-semibold mb-4">
                             ✓ No Restricted Permit Required
@@ -191,12 +172,6 @@ export default async function LowerDolpaItineraryPage() {
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                            <Link
-                                href="/contact/"
-                                className="inline-flex items-center justify-center px-8 py-4 bg-purple-600 text-white font-bold rounded-xl hover:bg-purple-700 transition-colors shadow-lg"
-                            >
-                                Contact Us
-                            </Link>
                             <Link
                                 href="/travel-guide/"
                                 className="inline-flex items-center justify-center px-8 py-4 border-2 border-purple-600 text-purple-600 font-bold rounded-xl hover:bg-purple-50 transition-colors"
