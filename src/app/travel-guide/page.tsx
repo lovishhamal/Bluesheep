@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title:
     "Dolpa Itineraries & Travel Guides | Dunai, Phoksundo, Dho Tarap | Hotel Blue Sheep Inn",
   description:
-    "Plan your Dolpa itinerary with expert travel guides: Kathmandu to Dunai routes, flights to Juphal, jeep connections, trekking itineraries for Phoksundo Lake and Dho Tarap, stays/hotels, contacts, permits, and practical cost tips.",
+    "Plan your Dolpa itinerary with expert travel guides: Kathmandu to Dunai routes, flights to Juphal, jeep connections, trekking itineraries for Phoksundo Lake and Dho Tarap, stays/hotels, contacts, permits, and practical travel tips.",
   keywords: [
     "Dolpa travel guide",
     "Nepal travel guides",
@@ -172,7 +172,7 @@ export default async function TravelGuidePage() {
         }
       },
       {
-        "@type": "Question", 
+        "@type": "Question",
         name: "What is the best time to visit Dolpa?",
         acceptedAnswer: {
           "@type": "Answer",
@@ -264,7 +264,7 @@ export default async function TravelGuidePage() {
   return (
     <div className="min-h-screen bg-white">
       <Navigation currentPage="travel-guide" />
-      
+
       <Script
         id="travel-guide-itemlist-jsonld"
         type="application/ld+json"
@@ -319,109 +319,109 @@ export default async function TravelGuidePage() {
           </header>
 
           <div className="mx-auto">
-              {listGuides.length === 0 && generalGuides.length === 0 ? (
-                <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 border border-emerald-200/50 shadow-xl">
-                  <div className="text-center">
-                    <div className="text-6xl mb-4">📍</div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                      No travel guides available yet
-                    </h2>
-                    <p className="text-gray-600 text-lg">We&apos;re working on creating amazing travel guides for you. Please check back soon!</p>
-                  </div>
+            {listGuides.length === 0 && generalGuides.length === 0 ? (
+              <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 border border-emerald-200/50 shadow-xl">
+                <div className="text-center">
+                  <div className="text-6xl mb-4">📍</div>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-3">
+                    No travel guides available yet
+                  </h2>
+                  <p className="text-gray-600 text-lg">We&apos;re working on creating amazing travel guides for you. Please check back soon!</p>
                 </div>
-              ) : (
-                <div className="grid md:grid-cols-2 gap-6">
-                  {listGuides.map((guide, index) => {
-                    const plain = stripHtml(guide.description);
-                    const excerpt =
-                      plain.length > 150 ? `${plain.slice(0, 150)}...` : plain;
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 gap-6">
+                {listGuides.map((guide, index) => {
+                  const plain = stripHtml(guide.description);
+                  const excerpt =
+                    plain.length > 150 ? `${plain.slice(0, 150)}...` : plain;
 
-                    // Random color schemes for cards
-                    const colorSchemes = [
-                      {
-                        badge: "from-emerald-500 to-emerald-600",
-                        text: "text-emerald-700",
-                        bg: "bg-emerald-50",
-                        border: "border-emerald-100"
-                      },
-                      {
-                        badge: "from-blue-500 to-blue-600",
-                        text: "text-blue-700",
-                        bg: "bg-blue-50",
-                        border: "border-blue-100"
-                      },
-                      {
-                        badge: "from-purple-500 to-purple-600",
-                        text: "text-purple-700",
-                        bg: "bg-purple-50",
-                        border: "border-purple-100"
-                      },
-                      {
-                        badge: "from-orange-500 to-orange-600",
-                        text: "text-orange-700",
-                        bg: "bg-orange-50",
-                        border: "border-orange-100"
-                      },
-                      {
-                        badge: "from-teal-500 to-teal-600",
-                        text: "text-teal-700",
-                        bg: "bg-teal-50",
-                        border: "border-teal-100"
-                      },
-                      {
-                        badge: "from-indigo-500 to-indigo-600",
-                        text: "text-indigo-700",
-                        bg: "bg-indigo-50",
-                        border: "border-indigo-100"
-                      }
-                    ];
-                    
-                    const colorScheme = colorSchemes[index % colorSchemes.length];
+                  // Random color schemes for cards
+                  const colorSchemes = [
+                    {
+                      badge: "from-emerald-500 to-emerald-600",
+                      text: "text-emerald-700",
+                      bg: "bg-emerald-50",
+                      border: "border-emerald-100"
+                    },
+                    {
+                      badge: "from-blue-500 to-blue-600",
+                      text: "text-blue-700",
+                      bg: "bg-blue-50",
+                      border: "border-blue-100"
+                    },
+                    {
+                      badge: "from-purple-500 to-purple-600",
+                      text: "text-purple-700",
+                      bg: "bg-purple-50",
+                      border: "border-purple-100"
+                    },
+                    {
+                      badge: "from-orange-500 to-orange-600",
+                      text: "text-orange-700",
+                      bg: "bg-orange-50",
+                      border: "border-orange-100"
+                    },
+                    {
+                      badge: "from-teal-500 to-teal-600",
+                      text: "text-teal-700",
+                      bg: "bg-teal-50",
+                      border: "border-teal-100"
+                    },
+                    {
+                      badge: "from-indigo-500 to-indigo-600",
+                      text: "text-indigo-700",
+                      bg: "bg-indigo-50",
+                      border: "border-indigo-100"
+                    }
+                  ];
 
-                    return (
-                      <Link
-                        key={guide.slug}
-                        href={`/travel-guide/${guide.slug}/`}
-                        className="group block"
-                      >
-                        <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-emerald-200/60 shadow-lg hover:shadow-xl transition-all duration-300 p-6">
-                          <div className="flex items-start gap-4">
-                            <div className={`flex-shrink-0 w-10 h-10 bg-gradient-to-br ${colorScheme.badge} rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-md group-hover:scale-110 transition-transform`}>
-                              {index + 1}
+                  const colorScheme = colorSchemes[index % colorSchemes.length];
+
+                  return (
+                    <Link
+                      key={guide.slug}
+                      href={`/travel-guide/${guide.slug}/`}
+                      className="group block"
+                    >
+                      <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-emerald-200/60 shadow-lg hover:shadow-xl transition-all duration-300 p-6">
+                        <div className="flex items-start gap-4">
+                          <div className={`flex-shrink-0 w-10 h-10 bg-gradient-to-br ${colorScheme.badge} rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-md group-hover:scale-110 transition-transform`}>
+                            {index + 1}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-start justify-between gap-3 mb-3">
+                              <h2 className={`text-lg md:text-xl font-bold text-gray-900 group-hover:${colorScheme.text} transition-colors duration-200 leading-tight`}>
+                                {guide.title}
+                              </h2>
+                              {guide.price > 0 && (
+                                <div className={`shrink-0 rounded-lg ${colorScheme.bg} border ${colorScheme.border} px-2 py-1 ${colorScheme.text} font-semibold text-sm`}>
+                                  NPR {guide.price.toFixed(0)}
+                                </div>
+                              )}
                             </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-start justify-between gap-3 mb-3">
-                                <h2 className={`text-lg md:text-xl font-bold text-gray-900 group-hover:${colorScheme.text} transition-colors duration-200 leading-tight`}>
-                                  {guide.title}
-                                </h2>
-                                {guide.price > 0 && (
-                                  <div className={`shrink-0 rounded-lg ${colorScheme.bg} border ${colorScheme.border} px-2 py-1 ${colorScheme.text} font-semibold text-sm`}>
-                                    NPR {guide.price.toFixed(0)}
-                                  </div>
-                                )}
-                              </div>
-                              <p className="text-gray-700 leading-relaxed mb-4 text-sm">{excerpt}</p>
-                              <div className={`inline-flex items-center gap-2 ${colorScheme.text} font-semibold text-sm`}>
-                                Read Guide{" "}
-                                <span className="transition-transform duration-200 group-hover:translate-x-1">
-                                  →
-                                </span>
-                              </div>
+                            <p className="text-gray-700 leading-relaxed mb-4 text-sm">{excerpt}</p>
+                            <div className={`inline-flex items-center gap-2 ${colorScheme.text} font-semibold text-sm`}>
+                              Read Guide{" "}
+                              <span className="transition-transform duration-200 group-hover:translate-x-1">
+                                →
+                              </span>
                             </div>
                           </div>
                         </div>
-                      </Link>
-                    );
-                  })}
-                </div>
-              )}
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           {generalGuides.length > 0 ? (
             <div className="mt-16 lg:mt-20">
               <div className="mx-auto">
                 <div className="h-px bg-gradient-to-r from-transparent via-emerald-300 to-transparent mb-12" />
-                
+
                 <div className="text-center mb-12">
                   <div className="inline-block mb-4">
                     <span className="text-4xl">📚</span>
@@ -445,7 +445,7 @@ export default async function TravelGuidePage() {
                 {generalGuides.map((g) => (
                   <div key={g.slug} className="mx-auto text-justify">
                     <div className="prose prose-lg max-w-none">
-                      <div 
+                      <div
                         className="text-gray-700 leading-relaxed text-lg [&>p]:mb-6 [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:mb-6 [&>ul]:space-y-2 [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:mb-6 [&>ol]:space-y-2 [&_li]:mb-2 [&_li]:text-gray-700 [&_li]:leading-relaxed [&_strong]:text-gray-900 [&_strong]:font-semibold [&>h1]:text-2xl [&>h1]:font-bold [&>h1]:text-gray-900 [&>h1]:mb-4 [&>h2]:text-xl [&>h2]:font-bold [&>h2]:text-gray-900 [&>h2]:mb-3 [&>h3]:text-lg [&>h3]:font-semibold [&>h3]:text-gray-900 [&>h3]:mb-2"
                         dangerouslySetInnerHTML={{ __html: g.description }}
                       />

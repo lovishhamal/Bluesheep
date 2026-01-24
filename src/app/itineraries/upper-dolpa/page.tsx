@@ -24,14 +24,15 @@ export async function generateMetadata(): Promise<Metadata> {
         : plainDescription;
 
     return {
-        title: "Dho Tarap Itinerary 2025 | Upper Dolpa Trek Guide | Hotel Blue Sheep Inn",
-        description: description || "Complete Dho Tarap trek itinerary - Nepal's highest village at 4,200m. Day-by-day guide, permits, cost breakdown for Upper Dolpa trek.",
+        title: "Dho Tarap Itinerary (Itinery) 2025 | Upper Dolpa Trek Guide | Hotel Blue Sheep Inn",
+        description: description || "Complete Dho Tarap trek itinerary (itenary) - Nepal's highest village at 4,200m. Day-by-day guide, permits and breakdown for Upper Dolpa trek.",
         keywords: [
             "Dho Tarap itinerary",
+            "Dho Tarap itinery",
             "Dho Tarap trek",
             "Upper Dolpa itinerary",
+            "Upper Dolpa itinery",
             "Upper Dolpa trek",
-            "Dho Tarap itenary",
             "highest village Nepal",
             "Crystal Mountain trek",
             "Shey Gompa trek",
@@ -40,7 +41,7 @@ export async function generateMetadata(): Promise<Metadata> {
             "Hotel Blue Sheep Inn",
         ],
         alternates: {
-            canonical: "/itineraries/upper-dolpa/",
+            canonical: "https://hotelbluesheepinn.com/itineraries/upper-dolpa/",
         },
         openGraph: {
             title: "Dho Tarap Itinerary 2025 | Complete Upper Dolpa Trek Guide",
@@ -96,9 +97,9 @@ export default async function DhoTarapItineraryPage() {
         touristType: ["Adventure Tourist", "Cultural Tourist", "Trekker"],
         offers: {
             "@type": "Offer",
-            price: guide.price > 0 ? guide.price.toString() : "200000",
-            priceCurrency: "NPR",
-            availability: "https://schema.org/InStock",
+            "price": "0",
+            "priceCurrency": "NPR",
+            "availability": "https://schema.org/InStock",
         },
         provider: {
             "@type": "LodgingBusiness",
@@ -145,6 +146,34 @@ export default async function DhoTarapItineraryPage() {
                 id="dho-tarap-breadcrumb-jsonld"
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+            />
+            <Script
+                id="dho-tarap-faq-jsonld"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "FAQPage",
+                        "mainEntity": [
+                            {
+                                "@type": "Question",
+                                "name": "What is the best Dho Tarap itinery duration?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "A complete Dho Tarap itinerary (itinery) typically takes 10-13 days, starting from Dunai and passing through various high passes like Numa La and Baga La."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "What permits are needed for Upper Dolpa?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "A Restricted Area Permit is mandatory for visiting Dho Tarap in Upper Dolpa. Hotel Blue Sheep Inn can help you arrange and manage these local permits."
+                                }
+                            }
+                        ]
+                    })
+                }}
             />
 
             {/* Hero Section */}
@@ -195,6 +224,29 @@ export default async function DhoTarapItineraryPage() {
             <section className="pt-4 pb-16 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <TravelGuideContent content={guide.description} title={guide.title} />
+                </div>
+            </section>
+
+            {/* FAQ Section */}
+            <section className="py-16 bg-gray-50">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 flex items-center justify-center gap-3">
+                        <span>🤔</span> Frequently Asked Questions
+                    </h2>
+                    <div className="space-y-6">
+                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">What is the best Dho Tarap itinery duration?</h3>
+                            <p className="text-gray-600">A complete Dho Tarap itinerary (itinery) typically takes 10-13 days, starting from Dunai and passing through various high passes like Numa La and Baga La before reaching the highest village in Nepal.</p>
+                        </div>
+                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">Is the Dho Tarap trek difficult?</h3>
+                            <p className="text-gray-600">The trek to Dho Tarap is considered strenuous due to the high altitude (max 5,238m) and the remote nature of Upper Dolpa. Proper acclimatization is key, and we recommend staying at Hotel Blue Sheep Inn for prep.</p>
+                        </div>
+                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">What permits are needed for Upper Dolpa?</h3>
+                            <p className="text-gray-600">A Restricted Area Permit is mandatory for visiting Dho Tarap in Upper Dolpa. Hotel Blue Sheep Inn can help you arrange and manage these local permits seamlessly.</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 

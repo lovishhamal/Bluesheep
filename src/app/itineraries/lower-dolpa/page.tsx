@@ -24,13 +24,14 @@ export async function generateMetadata(): Promise<Metadata> {
         : plainDescription;
 
     return {
-        title: "Lower Dolpa Itinerary 2025 | Easy Dolpa Trek | Hotel Blue Sheep Inn",
-        description: description || "Complete Lower Dolpa trek itinerary - the easiest way to experience Dolpa. 5-7 day trek without restricted area permit.",
+        title: "Lower Dolpa Itinerary (Itinery) 2025 | Easy Dolpa Trek | Hotel Blue Sheep Inn",
+        description: description || "Complete Lower Dolpa trek itinerary (itenary) - the easiest way to experience Dolpa. 5-7 day trek without restricted area permits.",
         keywords: [
             "Lower Dolpa itinerary",
+            "Lower Dolpa itinery",
             "Lower Dolpo itinerary",
             "Lower Dolpa trek",
-            "Lower Dolpa itenary",
+            "Lower Dolpa itinery",
             "easy Dolpa trek",
             "budget Dolpa trek",
             "Lower Dolpa cost",
@@ -40,7 +41,7 @@ export async function generateMetadata(): Promise<Metadata> {
             "Hotel Blue Sheep Inn",
         ],
         alternates: {
-            canonical: "/itineraries/lower-dolpa/",
+            canonical: "https://hotelbluesheepinn.com/itineraries/lower-dolpa/",
         },
         openGraph: {
             title: "Lower Dolpa Itinerary 2025 | Easy Dolpa Trek Guide",
@@ -96,9 +97,9 @@ export default async function LowerDolpaItineraryPage() {
         touristType: ["Adventure Tourist", "Budget Traveler", "Nature Lover"],
         offers: {
             "@type": "Offer",
-            price: guide.price > 0 ? guide.price.toString() : "50000",
-            priceCurrency: "NPR",
-            availability: "https://schema.org/InStock",
+            "price": "0",
+            "priceCurrency": "NPR",
+            "availability": "https://schema.org/InStock",
         },
         provider: {
             "@type": "LodgingBusiness",
@@ -145,6 +146,34 @@ export default async function LowerDolpaItineraryPage() {
                 id="lower-dolpa-breadcrumb-jsonld"
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+            />
+            <Script
+                id="lower-dolpa-faq-jsonld"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "FAQPage",
+                        "mainEntity": [
+                            {
+                                "@type": "Question",
+                                "name": "What is the best Lower Dolpa itinery for 5 days?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "A standard 5-day Lower Dolpa itinerary (itinery) starts with a flight to Juphal, followed by a trek to Dunai and then heading towards Phoksundo Lake. This route doesn't require the $500 restricted permit."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "How long does a Lower Dolpa trek take?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "A standard Lower Dolpa itinerary (itinery) typically takes 5-7 days, focusing on reaching Phoksundo Lake from Dunai without venturing into the restricted high-altitude areas."
+                                }
+                            }
+                        ]
+                    })
+                }}
             />
 
             {/* Hero Section */}
@@ -195,6 +224,29 @@ export default async function LowerDolpaItineraryPage() {
             <section className="pt-4 pb-16 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <TravelGuideContent content={guide.description} title={guide.title} />
+                </div>
+            </section>
+
+            {/* FAQ Section */}
+            <section className="py-16 bg-gray-50">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 flex items-center justify-center gap-3">
+                        <span>🤔</span> Frequently Asked Questions
+                    </h2>
+                    <div className="space-y-6">
+                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">What is the best Lower Dolpa itinery for 5 days?</h3>
+                            <p className="text-gray-600">A standard 5-day Lower Dolpa itinerary (itinery) starts from Juphal Airport, trekking through Dunai and Chhepka to reach the turquoise Phoksundo Lake without needing expensive restricted permits.</p>
+                        </div>
+                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">How long does a Lower Dolpa trek take?</h3>
+                            <p className="text-gray-600">A standard Lower Dolpa itinerary (itinery) typically takes 5-7 days. It is the most time-efficient way to see the turquoise Phoksundo Lake while starting and ending your journey at Hotel Blue Sheep Inn in Dunai.</p>
+                        </div>
+                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">Is the Lower Dolpa itinery suitable for beginners?</h3>
+                            <p className="text-gray-600">Yes! The Lower Dolpa route is the most accessible trek in the region, with moderate altitudes and well-defined trails, making it perfect for first-time Himalayan trekkers.</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 

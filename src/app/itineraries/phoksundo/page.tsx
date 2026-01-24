@@ -24,13 +24,14 @@ export async function generateMetadata(): Promise<Metadata> {
         : plainDescription;
 
     return {
-        title: "Phoksundo Lake Itinerary 2025 | Day-by-Day Trek Guide | Hotel Blue Sheep Inn",
-        description: description || "Complete Phoksundo Lake trek itinerary with day-by-day guide, cost breakdown, best time to visit, permits, and accommodation tips.",
+        title: "Phoksundo Lake Itinerary (Itinery) 2025 | Day-by-Day Trek Guide | Hotel Blue Sheep Inn",
+        description: description || "Complete Phoksundo Lake trek itinerary (itenary) with day-by-day guide, permits, and best time to visit. Plan your Phoksundo adventure from Dunai.",
         keywords: [
             "Phoksundo itinerary",
             "Phoksundo Lake itinerary",
             "Shey Phoksundo itinerary",
-            "Phoksundo itenary",
+            "Phoksundo itenery",
+            "Phoksundo itinery",
             "Phoksundo Lake trek",
             "how to reach Phoksundo",
             "Phoksundo trek cost",
@@ -40,7 +41,7 @@ export async function generateMetadata(): Promise<Metadata> {
             "Hotel Blue Sheep Inn",
         ],
         alternates: {
-            canonical: "/itineraries/phoksundo/",
+            canonical: "https://hotelbluesheepinn.com/itineraries/phoksundo/",
         },
         openGraph: {
             title: "Phoksundo Lake Itinerary 2025 | Complete Trek Guide",
@@ -96,9 +97,9 @@ export default async function PhoksundoItineraryPage() {
         touristType: ["Adventure Tourist", "Nature Lover", "Trekker"],
         offers: {
             "@type": "Offer",
-            price: guide.price > 0 ? guide.price.toString() : "50000",
-            priceCurrency: "NPR",
-            availability: "https://schema.org/InStock",
+            "price": "0",
+            "priceCurrency": "NPR",
+            "availability": "https://schema.org/InStock",
         },
         provider: {
             "@type": "LodgingBusiness",
@@ -145,6 +146,34 @@ export default async function PhoksundoItineraryPage() {
                 id="phoksundo-breadcrumb-jsonld"
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+            />
+            <Script
+                id="phoksundo-faq-jsonld"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "FAQPage",
+                        "mainEntity": [
+                            {
+                                "@type": "Question",
+                                "name": "What is the best Phoksundo Lake itenary for 7 days?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "A standard 7-day Phoksundo itinerary (itenary) starts with a flight to Juphal, followed by a trek to Dunai, Chhepka, Jharana, and finally Ringmo village at Shey Phoksundo Lake."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "How do I reach Phoksundo Lake?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "To reach Phoksundo Lake, fly from Kathmandu to Juphal, take a jeep to Dunai, and then enjoy a beautiful 2-3 day trek through the Shey Phoksundo National Park."
+                                }
+                            }
+                        ]
+                    })
+                }}
             />
 
             {/* Hero Section */}
@@ -195,6 +224,29 @@ export default async function PhoksundoItineraryPage() {
             <section className="pt-4 pb-16 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <TravelGuideContent content={guide.description} title={guide.title} />
+                </div>
+            </section>
+
+            {/* FAQ Section */}
+            <section className="py-16 bg-gray-50">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 flex items-center justify-center gap-3">
+                        <span>🤔</span> Frequently Asked Questions
+                    </h2>
+                    <div className="space-y-6">
+                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">What is the best Phoksundo Lake itenary for 7 days?</h3>
+                            <p className="text-gray-600">A standard 7-day Phoksundo itinerary (itenary) starts with a flight to Juphal, followed by a trek to Dunai, Chhepka, Jharana, and finally Ringmo village at Shey Phoksundo Lake.</p>
+                        </div>
+                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">How do I reach Phoksundo Lake?</h3>
+                            <p className="text-gray-600">To reach Phoksundo Lake, fly from Kathmandu to Juphal, take a jeep to Dunai, and then enjoy a beautiful 2-3 day trek through the Shey Phoksundo National Park reaching Ringmo village.</p>
+                        </div>
+                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">Is a guide required for the Phoksundo itinery?</h3>
+                            <p className="text-gray-600">While not strictly mandatory for the lower Phoksundo trek, we highly recommend a local guide for safety and cultural immersion. Hotel Blue Sheep Inn can arrange expert local guides for your trip.</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 

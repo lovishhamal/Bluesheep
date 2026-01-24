@@ -39,73 +39,75 @@ export default function Navigation({ currentPage }: NavigationProps) {
                 />
               </Link>
             </motion.div>
-            
+
             <div className="hidden md:flex space-x-8">
               <Link
                 href="/"
-                className={`font-medium transition-colors duration-200 hover:text-emerald-100 ${
-                  currentPage === "home" ? "text-white" : "text-emerald-50 hover:text-white"
-                }`}
+                className={`font-medium transition-colors duration-200 hover:text-emerald-100 ${currentPage === "home" ? "text-white" : "text-emerald-50 hover:text-white"
+                  }`}
               >
                 Home
               </Link>
               <Link
                 href="/rooms/"
-                className={`font-medium transition-colors duration-200 ${
-                  currentPage === "rooms" 
-                    ? "text-white border-b-2 border-emerald-50" 
-                    : "text-emerald-50 hover:text-white"
-                }`}
+                className={`font-medium transition-colors duration-200 ${currentPage === "rooms"
+                  ? "text-white border-b-2 border-emerald-50"
+                  : "text-emerald-50 hover:text-white"
+                  }`}
               >
                 Rooms
               </Link>
               <Link
                 href="/menu/"
-                className={`font-medium transition-colors duration-200 ${
-                  currentPage === "menu" 
-                    ? "text-white border-b-2 border-emerald-50" 
-                    : "text-emerald-50 hover:text-white"
-                }`}
+                className={`font-medium transition-colors duration-200 ${currentPage === "menu"
+                  ? "text-white border-b-2 border-emerald-50"
+                  : "text-emerald-50 hover:text-white"
+                  }`}
               >
                 Menu
               </Link>
               <Link
                 href="/camping/"
-                className={`font-medium transition-colors duration-200 ${
-                  currentPage === "camping" 
-                    ? "text-white border-b-2 border-emerald-50" 
-                    : "text-emerald-50 hover:text-white"
-                }`}
+                className={`font-medium transition-colors duration-200 ${currentPage === "camping"
+                  ? "text-white border-b-2 border-emerald-50"
+                  : "text-emerald-50 hover:text-white"
+                  }`}
               >
                 Camping
               </Link>
               <Link
                 href="/attractions/"
-                className={`font-medium transition-colors duration-200 ${
-                  currentPage === "attractions" 
-                    ? "text-white border-b-2 border-emerald-50" 
-                    : "text-emerald-50 hover:text-white"
-                }`}
+                className={`font-medium transition-colors duration-200 ${currentPage === "attractions"
+                  ? "text-white border-b-2 border-emerald-50"
+                  : "text-emerald-50 hover:text-white"
+                  }`}
               >
                 Attractions
               </Link>
               <Link
+                href="/itineraries/"
+                className={`font-medium transition-colors duration-200 ${currentPage === "itineraries"
+                  ? "text-white border-b-2 border-emerald-50"
+                  : "text-emerald-50 hover:text-white"
+                  }`}
+              >
+                Itineraries
+              </Link>
+              <Link
                 href="/travel-guide/"
-                className={`font-medium transition-colors duration-200 ${
-                  currentPage === "travel-guide" 
-                    ? "text-white border-b-2 border-emerald-50" 
-                    : "text-emerald-50 hover:text-white"
-                }`}
+                className={`font-medium transition-colors duration-200 ${currentPage === "travel-guide"
+                  ? "text-white border-b-2 border-emerald-50"
+                  : "text-emerald-50 hover:text-white"
+                  }`}
               >
                 Travel Guide
               </Link>
               <Link
                 href="/contact/"
-                className={`font-medium transition-colors duration-200 ${
-                  currentPage === "contact" 
-                    ? "text-white border-b-2 border-emerald-50" 
-                    : "text-emerald-50 hover:text-white"
-                }`}
+                className={`font-medium transition-colors duration-200 ${currentPage === "contact"
+                  ? "text-white border-b-2 border-emerald-50"
+                  : "text-emerald-50 hover:text-white"
+                  }`}
               >
                 Contact
               </Link>
@@ -135,63 +137,64 @@ export default function Navigation({ currentPage }: NavigationProps) {
               <div className="py-4 space-y-4">
                 <Link
                   href="/"
-                  className={`block font-medium transition-colors duration-200 ${
-                    currentPage === "home" ? "text-white" : "text-emerald-50 hover:text-white"
-                  }`}
+                  className={`block font-medium transition-colors duration-200 ${currentPage === "home" ? "text-white" : "text-emerald-50 hover:text-white"
+                    }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Home
                 </Link>
                 <Link
                   href="/rooms/"
-                  className={`block font-medium transition-colors duration-200 ${
-                    currentPage === "rooms" ? "text-white" : "text-emerald-50 hover:text-white"
-                  }`}
+                  className={`block font-medium transition-colors duration-200 ${currentPage === "rooms" ? "text-white" : "text-emerald-50 hover:text-white"
+                    }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Rooms
                 </Link>
                 <Link
                   href="/menu/"
-                  className={`block font-medium transition-colors duration-200 ${
-                    currentPage === "menu" ? "text-white" : "text-emerald-50 hover:text-white"
-                  }`}
+                  className={`block font-medium transition-colors duration-200 ${currentPage === "menu" ? "text-white" : "text-emerald-50 hover:text-white"
+                    }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Menu
                 </Link>
                 <Link
                   href="/camping/"
-                  className={`block font-medium transition-colors duration-200 ${
-                    currentPage === "camping" ? "text-white" : "text-emerald-50 hover:text-white"
-                  }`}
+                  className={`block font-medium transition-colors duration-200 ${currentPage === "camping" ? "text-white" : "text-emerald-50 hover:text-white"
+                    }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Camping
                 </Link>
                 <Link
                   href="/attractions/"
-                  className={`block font-medium transition-colors duration-200 ${
-                    currentPage === "attractions" ? "text-white" : "text-emerald-50 hover:text-white"
-                  }`}
+                  className={`block font-medium transition-colors duration-200 ${currentPage === "attractions" ? "text-white" : "text-emerald-50 hover:text-white"
+                    }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Attractions
                 </Link>
                 <Link
+                  href="/itineraries/"
+                  className={`block font-medium transition-colors duration-200 ${currentPage === "itineraries" ? "text-white" : "text-emerald-50 hover:text-white"
+                    }`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Itineraries
+                </Link>
+                <Link
                   href="/travel-guide/"
-                  className={`block font-medium transition-colors duration-200 ${
-                    currentPage === "travel-guide" ? "text-white" : "text-emerald-50 hover:text-white"
-                  }`}
+                  className={`block font-medium transition-colors duration-200 ${currentPage === "travel-guide" ? "text-white" : "text-emerald-50 hover:text-white"
+                    }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Travel Guide
                 </Link>
                 <Link
                   href="/contact/"
-                  className={`block font-medium transition-colors duration-200 ${
-                    currentPage === "contact" ? "text-white" : "text-emerald-50 hover:text-white"
-                  }`}
+                  className={`block font-medium transition-colors duration-200 ${currentPage === "contact" ? "text-white" : "text-emerald-50 hover:text-white"
+                    }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Contact

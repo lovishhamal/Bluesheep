@@ -6,7 +6,7 @@ import Navigation from "../components/Navigation";
 export const metadata: Metadata = {
     title: "Dolpa Trek Itineraries 2025 | Phoksundo, Dho Tarap, Lower Dolpa | Hotel Blue Sheep Inn",
     description:
-        "Complete Dolpa trekking itineraries: Phoksundo Lake (7-8 days), Dho Tarap (10-13 days), Lower Dolpa (5-7 days). Day-by-day guides, costs, permits, and tips from Hotel Blue Sheep Inn in Dunai.",
+        "Complete Dolpa trekking itineraries: Phoksundo Lake (7-8 days), Dho Tarap (10-13 days), Lower Dolpa (5-7 days). Day-by-day guides, permits, and tips from Hotel Blue Sheep Inn in Dunai.",
     keywords: [
         "Dolpa itinerary",
         "Dolpo itinerary",
@@ -274,14 +274,10 @@ export default function ItinerariesIndexPage() {
                                             </p>
 
                                             {/* Stats */}
-                                            <div className="grid grid-cols-2 gap-3 mb-4">
-                                                <div className="bg-white rounded-lg p-3 border border-gray-100">
-                                                    <span className="text-xs text-gray-500 uppercase">Max Alt</span>
+                                            <div className="grid grid-cols-1 gap-3 mb-4">
+                                                <div className="bg-white rounded-lg p-3 border border-gray-100 flex items-center justify-between">
+                                                    <span className="text-xs text-gray-500 uppercase">Max Altitude</span>
                                                     <p className="font-bold text-gray-900">{itinerary.maxAltitude}</p>
-                                                </div>
-                                                <div className="bg-white rounded-lg p-3 border border-gray-100">
-                                                    <span className="text-xs text-gray-500 uppercase">Est. Cost</span>
-                                                    <p className="font-bold text-gray-900">{itinerary.cost}</p>
                                                 </div>
                                             </div>
 

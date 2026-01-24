@@ -234,6 +234,12 @@ export default function HomeClient({
                   Attractions
                 </Link>
                 <Link
+                  href="/itineraries/"
+                  className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+                >
+                  Itineraries
+                </Link>
+                <Link
                   href="/travel-guide/"
                   className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                 >
@@ -303,6 +309,13 @@ export default function HomeClient({
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Attractions
+                  </Link>
+                  <Link
+                    href="/itineraries/"
+                    className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Itineraries
                   </Link>
                   <Link
                     href="/travel-guide/"
@@ -819,6 +832,56 @@ export default function HomeClient({
                 <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Itineraries Section - Critical for SEO */}
+      <section className="py-20 bg-white relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              Popular <span className="text-emerald-600">Dolpa Itineraries</span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Plan your perfect trek with our detailed day-by-day guides.
+              Search for <span className="font-semibold text-emerald-700">Phoksundo itinery</span> or Upper Dolpo guides below.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <Link href="/itineraries/phoksundo/" className="group block h-full">
+              <div className="bg-emerald-50 rounded-3xl p-8 border border-emerald-100 hover:shadow-2xl transition-all duration-300 h-full flex flex-col">
+                <div className="text-4xl mb-6">💎</div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-emerald-600 transition-colors">Phoksundo Lake Itinerary</h3>
+                <p className="text-gray-600 mb-6 flex-grow">A classic 7-8 day trek to Nepal&apos;s deepest lake. Perfect for first-time visitors to Dolpa.</p>
+                <div className="flex items-center text-emerald-600 font-bold gap-2">
+                  View Full Itinerary <span>→</span>
+                </div>
+              </div>
+            </Link>
+
+            <Link href="/itineraries/upper-dolpa/" className="group block h-full">
+              <div className="bg-blue-50 rounded-3xl p-8 border border-blue-100 hover:shadow-2xl transition-all duration-300 h-full flex flex-col">
+                <div className="text-4xl mb-6">🏔️</div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">Dho Tarap Itinerary</h3>
+                <p className="text-gray-600 mb-6 flex-grow">Venture into the high Himalayas to the highest human settlement in Nepal.</p>
+                <div className="flex items-center text-blue-600 font-bold gap-2">
+                  View Full Itinerary <span>→</span>
+                </div>
+              </div>
+            </Link>
+
+            <Link href="/itineraries/" className="group block h-full">
+              <div className="bg-purple-50 rounded-3xl p-8 border border-purple-100 hover:shadow-2xl transition-all duration-300 h-full flex flex-col">
+                <div className="text-4xl mb-6">🗺️</div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-purple-600 transition-colors">All Dolpa Itineries</h3>
+                <p className="text-gray-600 mb-6 flex-grow">Compare different routes, permits, and durations for all major Dolpa treks.</p>
+                <div className="flex items-center text-purple-600 font-bold gap-2">
+                  Explore All <span>→</span>
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
       </section>
@@ -1551,7 +1614,7 @@ export default function HomeClient({
 
       {/* Hotel Gallery Modal - iOS Compatible */}
       {isHotelGalleryModalOpen && selectedHotelGalleryImage && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/90 z-[9999] flex items-center justify-center p-4"
           style={{
             position: 'fixed',
