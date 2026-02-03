@@ -79,154 +79,96 @@ export default function EventsClient({ initialEvents }: EventsClientProps) {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-emerald-50/30">
+        <div className="min-h-screen bg-white">
             <Navigation currentPage="events" />
 
-
-
-            {/* Events Grid */}
-            <section className="py-12 relative z-10">
+            <section className="py-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {initialEvents.length === 0 ? (
-                        <div className="text-center py-24 bg-white/50 backdrop-blur-sm rounded-3xl border-2 border-dashed border-emerald-200">
-                            <div className="text-6xl mb-4">🏜️</div>
-                            <h3 className="text-2xl font-bold text-gray-900 mb-2">No active events</h3>
-                            <p className="text-gray-600">We're currently planning some exciting new experiences. Stay tuned!</p>
+                        <div className="text-center py-20 border-2 border-dashed border-gray-200 rounded-xl">
+                            <h3 className="text-xl font-medium text-gray-900">No active events</h3>
+                            <p className="text-gray-500 mt-2">Check back later for new updates.</p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                            {initialEvents.map((event, index) => (
-                                <motion.div
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {initialEvents.map((event) => (
+                                <div
                                     key={event.id}
-                                    initial={{ opacity: 0, y: 50 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                                    viewport={{ once: true }}
-                                    className="group relative h-full"
+                                    className="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm flex flex-col"
                                 >
-                                    {/* Card Container */}
-                                    <div className="h-full bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-xl hover:shadow-2xl transition-all duration-500 flex flex-col">
-
-                                        {/* Image Section */}
-                                        <div className="relative h-64 overflow-hidden">
+                                    {/* Image Section - Only shown if images exist */}
+                                    {event.images && event.images.length > 0 && (
+                                        <div className="relative h-64">
                                             <Image
                                                 src={getCurrentEventImage(event.id, event.images)}
-                                                alt={event.title || "Event image"}
+                                                alt={event.title || "Event Image"}
                                                 fill
-                                                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                                className="object-cover"
                                                 sizes="(max-w-768px) 100vw, (max-w-1200px) 50vw, 33vw"
                                             />
 
-                                            {/* Gradient Overlay */}
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60"></div>
-
-                                            {/* Date Badge */}
-                                            <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-2xl shadow-lg flex flex-col items-center">
-                                                <span className="text-emerald-700 font-black text-lg">
-                                                    {event.start_date ? new Date(event.start_date).getDate() : "TBA"}
-                                                </span>
-                                                <span className="text-gray-600 text-xs font-bold uppercase">
-                                                    {event.start_date ? new Date(event.start_date).toLocaleDateString('en-US', { month: 'short' }) : ""}
-                                                </span>
-                                            </div>
-
-                                            {/* Participant Badge */}
-                                            {event.no_of_participant && (
-                                                <div className="absolute top-4 right-4 bg-emerald-600/90 backdrop-blur-md px-3 py-1.5 rounded-xl shadow-lg flex items-center gap-1.5 border border-white/20">
-                                                    <UsersIcon className="w-4 h-4 text-white" />
-                                                    <span className="text-white text-xs font-bold">
-                                                        {event.no_of_participant} spots
-                                                    </span>
-                                                </div>
-                                            )}
-
-                                            {/* Gallery Controls */}
-                                            {event.images && event.images.length > 1 && (
-                                                <div className="absolute inset-x-0 bottom-4 flex justify-between px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                            {event.images.length > 1 && (
+                                                <div className="absolute inset-0 flex items-center justify-between px-2 opacity-0 hover:opacity-100 transition-opacity">
                                                     <button
                                                         onClick={(e) => { e.preventDefault(); prevImage(event.id, event.images!.length); }}
-                                                        className="bg-white/20 backdrop-blur-md hover:bg-white/40 p-2 rounded-full text-white transition-all shadow-lg"
+                                                        className="bg-black/50 p-2 rounded-full text-white"
                                                     >
                                                         <ChevronLeftIcon className="w-5 h-5" />
                                                     </button>
-                                                    <div className="flex gap-1.5 items-center">
-                                                        {event.images.map((_, i) => (
-                                                            <div
-                                                                key={i}
-                                                                className={`h-1.5 rounded-full transition-all duration-300 ${(currentImageIndex[event.id] || 0) === i ? "w-4 bg-white" : "w-1.5 bg-white/50"
-                                                                    }`}
-                                                            />
-                                                        ))}
-                                                    </div>
                                                     <button
                                                         onClick={(e) => { e.preventDefault(); nextImage(event.id, event.images!.length); }}
-                                                        className="bg-white/20 backdrop-blur-md hover:bg-white/40 p-2 rounded-full text-white transition-all shadow-lg"
+                                                        className="bg-black/50 p-2 rounded-full text-white"
                                                     >
                                                         <ChevronRightIcon className="w-5 h-5" />
                                                     </button>
                                                 </div>
                                             )}
                                         </div>
+                                    )}
 
-                                        {/* Content Section */}
-                                        <div className="p-8 flex flex-col flex-grow">
-                                            <div className="mb-4">
-                                                <h3 className="text-2xl font-black text-gray-900 mb-2 leading-tight group-hover:text-emerald-700 transition-colors">
-                                                    {event.title}
-                                                </h3>
-                                                {event.sub_title && (
-                                                    <p className="text-emerald-600 font-bold text-sm uppercase tracking-wide">
-                                                        {event.sub_title}
-                                                    </p>
-                                                )}
-                                            </div>
-
-                                            <div className="space-y-3 mb-6">
-                                                <div className="flex items-center gap-3 text-gray-600">
-                                                    <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600">
-                                                        <CalendarIcon className="w-5 h-5" />
-                                                    </div>
-                                                    <span className="text-sm font-medium">
-                                                        {formatDateRange(event.start_date, event.end_date)}
-                                                    </span>
-                                                </div>
-                                                <div className="flex items-center gap-3 text-gray-600">
-                                                    <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600">
-                                                        <MapPinIcon className="w-5 h-5" />
-                                                    </div>
-                                                    <span className="text-sm font-medium">Dunai, Dolpa</span>
-                                                </div>
-                                            </div>
-
-                                            <div className="relative mb-6">
-                                                <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">
-                                                    {event.description}
+                                    {/* Content Section */}
+                                    <div className="p-6 flex flex-col flex-grow">
+                                        <div className="mb-4">
+                                            <h3 className="text-xl font-bold text-gray-900 mb-1">
+                                                {event.title}
+                                            </h3>
+                                            {event.sub_title && (
+                                                <p className="text-emerald-600 font-medium text-sm">
+                                                    {event.sub_title}
                                                 </p>
+                                            )}
+                                        </div>
+
+                                        <div className="space-y-2 mb-4 text-gray-600 text-sm">
+                                            <div className="flex items-center gap-2">
+                                                <CalendarIcon className="w-4 h-4" />
+                                                <span>{formatDateRange(event.start_date, event.end_date)}</span>
                                             </div>
-
-                                            <div className="mt-auto pt-6 border-t border-gray-50 flex items-center justify-between">
-
-
-                                                <Link
-                                                    href={`/contact?subject=Event Inquiry: ${event.title}`}
-                                                    className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white px-5 py-2.5 rounded-xl font-bold text-sm hover:shadow-lg hover:shadow-emerald-200 transition-all hover:-translate-y-0.5"
-                                                >
-                                                    Join Event
-                                                    <CheckBadgeIcon className="w-5 h-5" />
-                                                </Link>
+                                            <div className="flex items-center gap-2">
+                                                <MapPinIcon className="w-4 h-4" />
+                                                <span>Dunai, Dolpa</span>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    {/* Decorative Background Element for Hover */}
-                                    <div className="absolute -inset-2 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-[2.5rem] -z-10 opacity-0 group-hover:opacity-10 blur transition-opacity duration-300"></div>
-                                </motion.div>
+                                        <p className="text-gray-600 text-sm mb-6 line-clamp-3">
+                                            {event.description}
+                                        </p>
+
+                                        <div className="mt-auto">
+                                            <Link
+                                                href={`/contact?subject=Event Inquiry: ${event.title}`}
+                                                className="block text-center bg-emerald-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-emerald-700 transition-colors"
+                                            >
+                                                Join Event
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </div>
                             ))}
                         </div>
                     )}
                 </div>
             </section>
-
         </div>
     );
 }
