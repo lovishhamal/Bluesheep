@@ -255,7 +255,7 @@ export default function EventsClient({ initialEvents }: EventsClientProps) {
                             <p className="text-gray-500">Check back soon for upcoming experiences</p>
                         </motion.div>
                     ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="flex flex-wrap justify-center gap-8">
                             {initialEvents.map((event, index) => (
                                 <motion.div
                                     key={event.id}
@@ -264,7 +264,7 @@ export default function EventsClient({ initialEvents }: EventsClientProps) {
                                     transition={{ duration: 0.5, delay: index * 0.1 }}
                                     viewport={{ once: true }}
                                     onClick={() => openEventPage(event)}
-                                    className="group cursor-pointer"
+                                    className="group cursor-pointer w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]"
                                 >
                                     <div className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-emerald-200">
                                         {/* Image */}
