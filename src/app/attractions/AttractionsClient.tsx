@@ -60,7 +60,7 @@ const parseStringArray = (value: unknown): string[] => {
         (v): v is string => typeof v === "string" && v.length > 0
       );
     }
-  } catch {}
+  } catch { }
 
   if (value.includes(",")) {
     return value
@@ -284,14 +284,14 @@ const normalizeAttraction = (row: unknown, index: number): Attraction | null => 
 
   const images = parseStringArray(
     r.images ??
-      r.image_urls ??
-      r.imageUrls ??
-      r.photos ??
-      r.gallery ??
-      r.image_list ??
-      r.imageList ??
-      r.image_array ??
-      r.imageArray
+    r.image_urls ??
+    r.imageUrls ??
+    r.photos ??
+    r.gallery ??
+    r.image_list ??
+    r.imageList ??
+    r.image_array ??
+    r.imageArray
   );
   const imageSrcFromFields =
     findFirstStringValue(r, [
@@ -347,22 +347,22 @@ const normalizeAttraction = (row: unknown, index: number): Attraction | null => 
   const paragraphs =
     typeof r.paragraphs === "object" && Array.isArray(r.paragraphs)
       ? r.paragraphs
-          .filter(
-            (p): p is string => typeof p === "string" && p.trim().length > 0
-          )
-          .map((p) => p.trim())
+        .filter(
+          (p): p is string => typeof p === "string" && p.trim().length > 0
+        )
+        .map((p) => p.trim())
       : typeof r.paragraphs === "string"
         ? parseStringArray(r.paragraphs)
-            .filter((p) => typeof p === "string" && p.trim().length > 0)
-            .map((p) => p.trim())
+          .filter((p) => typeof p === "string" && p.trim().length > 0)
+          .map((p) => p.trim())
         : fieldParagraphs.length
           ? fieldParagraphs
           : descriptionHtml
             ? [descriptionHtml.trim()]
             : descriptionText
-                .split(/\n\s*\n+/g)
-                .map((p) => p.trim())
-                .filter(Boolean);
+              .split(/\n\s*\n+/g)
+              .map((p) => p.trim())
+              .filter(Boolean);
 
   const tags = [
     ...collectTagsFromColumns(r),
@@ -614,6 +614,12 @@ export default function AttractionsClient({
                 Attractions
               </Link>
               <Link
+                href="/events/"
+                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+              >
+                Events
+              </Link>
+              <Link
                 href="/travel-guide/"
                 className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
               >
@@ -685,6 +691,13 @@ export default function AttractionsClient({
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Attractions
+                </Link>
+                <Link
+                  href="/events/"
+                  className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Events
                 </Link>
                 <Link
                   href="/travel-guide/"
@@ -899,29 +912,29 @@ export default function AttractionsClient({
             ? { initial: { opacity: 0, x: -50 }, animate: { opacity: 1, x: 0 } }
             : imageSideFirst
               ? {
-                  initial: { opacity: 0, x: -50 },
-                  whileInView: { opacity: 1, x: 0 },
-                  viewport: { once: true as const },
-                }
+                initial: { opacity: 0, x: -50 },
+                whileInView: { opacity: 1, x: 0 },
+                viewport: { once: true as const },
+              }
               : {
-                  initial: { opacity: 0, x: 50 },
-                  whileInView: { opacity: 1, x: 0 },
-                  viewport: { once: true as const },
-                };
+                initial: { opacity: 0, x: 50 },
+                whileInView: { opacity: 1, x: 0 },
+                viewport: { once: true as const },
+              };
 
           const contentMotionProps = isFirst
             ? { initial: { opacity: 0, x: 50 }, animate: { opacity: 1, x: 0 } }
             : imageSideFirst
               ? {
-                  initial: { opacity: 0, x: 50 },
-                  whileInView: { opacity: 1, x: 0 },
-                  viewport: { once: true as const },
-                }
+                initial: { opacity: 0, x: 50 },
+                whileInView: { opacity: 1, x: 0 },
+                viewport: { once: true as const },
+              }
               : {
-                  initial: { opacity: 0, x: -50 },
-                  whileInView: { opacity: 1, x: 0 },
-                  viewport: { once: true as const },
-                };
+                initial: { opacity: 0, x: -50 },
+                whileInView: { opacity: 1, x: 0 },
+                viewport: { once: true as const },
+              };
 
           const transition = { duration: 0.8 };
 
@@ -977,13 +990,12 @@ export default function AttractionsClient({
                               [attraction.id]: src,
                             }))
                           }
-                          className={`relative overflow-hidden rounded-lg border-2 transition-all duration-300 ${
-                            isSelected
-                              ? hasBlueTheme
-                                ? "border-blue-500"
-                                : "border-emerald-500"
-                              : "border-white/70 hover:border-white"
-                          }`}
+                          className={`relative overflow-hidden rounded-lg border-2 transition-all duration-300 ${isSelected
+                            ? hasBlueTheme
+                              ? "border-blue-500"
+                              : "border-emerald-500"
+                            : "border-white/70 hover:border-white"
+                            }`}
                         >
                           <AttractionImage
                             src={src}
@@ -1047,9 +1059,8 @@ export default function AttractionsClient({
                   ref={(el) => {
                     descriptionContainerByAttractionIdRef.current[attraction.id] = el;
                   }}
-                  className={`space-y-4 text-gray-700 text-lg leading-relaxed ${
-                    isExpanded ? "max-h-none overflow-visible" : "max-h-[320px] overflow-hidden"
-                  }`}
+                  className={`space-y-4 text-gray-700 text-lg leading-relaxed ${isExpanded ? "max-h-none overflow-visible" : "max-h-[320px] overflow-hidden"
+                    }`}
                 >
                   <div
                     dangerouslySetInnerHTML={{
@@ -1084,13 +1095,12 @@ export default function AttractionsClient({
 
                 {tags.length > 0 && (
                   <div
-                    className={`grid gap-4 pt-4 ${
-                      tags.length === 1
-                        ? "grid-cols-1"
-                        : tags.length === 2
-                          ? "grid-cols-2"
-                          : "grid-cols-2 sm:grid-cols-3"
-                    }`}
+                    className={`grid gap-4 pt-4 ${tags.length === 1
+                      ? "grid-cols-1"
+                      : tags.length === 2
+                        ? "grid-cols-2"
+                        : "grid-cols-2 sm:grid-cols-3"
+                      }`}
                   >
                     {tags.map((tag, i) => {
                       const TagIconComponent = getTagIcon(tag.label);

@@ -146,11 +146,10 @@ export default function CampingPageClient({ initialCampingImages }: CampingPageP
 *Customer Information:*
 • Name: ${bookingForm.name}
 
-${
-  bookingForm.specialRequests
-    ? `*Special Requests:*\n${bookingForm.specialRequests}`
-    : ""
-}
+${bookingForm.specialRequests
+        ? `*Special Requests:*\n${bookingForm.specialRequests}`
+        : ""
+      }
 
 Please confirm this booking.`;
 
@@ -239,6 +238,12 @@ Please confirm this booking.`;
                 Attractions
               </Link>
               <Link
+                href="/events/"
+                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+              >
+                Events
+              </Link>
+              <Link
                 href="/travel-guide/"
                 className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
               >
@@ -310,6 +315,13 @@ Please confirm this booking.`;
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Attractions
+                </Link>
+                <Link
+                  href="/events/"
+                  className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Events
                 </Link>
                 <Link
                   href="/travel-guide/"

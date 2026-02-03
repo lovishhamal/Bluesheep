@@ -234,10 +234,10 @@ export default function HomeClient({
                   Attractions
                 </Link>
                 <Link
-                  href="/itineraries/"
+                  href="/events/"
                   className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                 >
-                  Itineraries
+                  Events
                 </Link>
                 <Link
                   href="/travel-guide/"
@@ -311,11 +311,11 @@ export default function HomeClient({
                     Attractions
                   </Link>
                   <Link
-                    href="/itineraries/"
+                    href="/events/"
                     className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    Itineraries
+                    Events
                   </Link>
                   <Link
                     href="/travel-guide/"

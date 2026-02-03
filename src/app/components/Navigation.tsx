@@ -85,13 +85,13 @@ export default function Navigation({ currentPage }: NavigationProps) {
                 Attractions
               </Link>
               <Link
-                href="/itineraries/"
-                className={`font-medium transition-colors duration-200 ${currentPage === "itineraries"
+                href="/events/"
+                className={`font-medium transition-colors duration-200 ${currentPage === "events"
                   ? "text-white border-b-2 border-emerald-50"
                   : "text-emerald-50 hover:text-white"
                   }`}
               >
-                Itineraries
+                Events
               </Link>
               <Link
                 href="/travel-guide/"
@@ -176,12 +176,12 @@ export default function Navigation({ currentPage }: NavigationProps) {
                   Attractions
                 </Link>
                 <Link
-                  href="/itineraries/"
-                  className={`block font-medium transition-colors duration-200 ${currentPage === "itineraries" ? "text-white" : "text-emerald-50 hover:text-white"
+                  href="/events/"
+                  className={`block font-medium transition-colors duration-200 ${currentPage === "events" ? "text-white" : "text-emerald-50 hover:text-white"
                     }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Itineraries
+                  Events
                 </Link>
                 <Link
                   href="/travel-guide/"

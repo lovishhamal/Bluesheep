@@ -106,8 +106,7 @@ export default function RoomsPage() {
         setRooms(data || []);
       } catch (err) {
         setError(
-          `Failed to load rooms: ${
-            err instanceof Error ? err.message : "Unknown error"
+          `Failed to load rooms: ${err instanceof Error ? err.message : "Unknown error"
           }`
         );
       } finally {
@@ -183,26 +182,23 @@ export default function RoomsPage() {
 
 *Room Details:*
 • Room: ${selectedRoom.room_name}
-• Capacity: ${selectedRoom.capacity} ${
-      selectedRoom.capacity === 1 ? "guest" : "guests"
-    }
+• Capacity: ${selectedRoom.capacity} ${selectedRoom.capacity === 1 ? "guest" : "guests"
+      }
 • Price: ${formatPrice(selectedRoom.price_per_night)}/night
-${
-  bookingForm.numberOfGuests
-    ? `• Number of Guests: ${bookingForm.numberOfGuests}`
-    : ""
-}
+${bookingForm.numberOfGuests
+        ? `• Number of Guests: ${bookingForm.numberOfGuests}`
+        : ""
+      }
 
 *Customer Information:*
 • Name: ${bookingForm.customerName}
 • Phone: ${bookingForm.customerPhone}
 ${bookingForm.customerEmail ? `• Email: ${bookingForm.customerEmail}` : ""}
 
-${
-  bookingForm.specialRequests
-    ? `*Special Requests:*\n${bookingForm.specialRequests}`
-    : ""
-}
+${bookingForm.specialRequests
+        ? `*Special Requests:*\n${bookingForm.specialRequests}`
+        : ""
+      }
 
 Please confirm this booking.`;
 
@@ -336,6 +332,12 @@ Please confirm this booking.`;
                 Attractions
               </Link>
               <Link
+                href="/events/"
+                className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+              >
+                Events
+              </Link>
+              <Link
                 href="/travel-guide/"
                 className="text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
               >
@@ -407,6 +409,13 @@ Please confirm this booking.`;
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Attractions
+                </Link>
+                <Link
+                  href="/events/"
+                  className="block text-emerald-50 hover:text-white transition-colors duration-200 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Events
                 </Link>
                 <Link
                   href="/travel-guide/"
@@ -627,11 +636,10 @@ Please confirm this booking.`;
                                 }));
                               }}
                               whileTap={{ scale: 0.9 }}
-                              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                                (currentImageIndex[room.id] || 0) === imgIndex
-                                  ? "bg-white w-6"
-                                  : "bg-white/50 hover:bg-white/75"
-                              }`}
+                              className={`w-2 h-2 rounded-full transition-all duration-300 ${(currentImageIndex[room.id] || 0) === imgIndex
+                                ? "bg-white w-6"
+                                : "bg-white/50 hover:bg-white/75"
+                                }`}
                             />
                           ))}
                         </div>
@@ -938,11 +946,9 @@ Please confirm this booking.`;
 
                 {/* Glow Effect on Hover - Simplified on mobile */}
                 <div
-                  className={`absolute -inset-1 bg-gradient-to-r ${
-                    amenity.gradient
-                  } rounded-2xl ${
-                    isMobile ? "" : "blur"
-                  } opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10`}
+                  className={`absolute -inset-1 bg-gradient-to-r ${amenity.gradient
+                    } rounded-2xl ${isMobile ? "" : "blur"
+                    } opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10`}
                 ></div>
 
                 <div className="relative z-10">
@@ -1422,9 +1428,8 @@ Please confirm this booking.`;
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3 }}
                 src={selectedRoom.images[selectedImageIndex]}
-                alt={`${selectedRoom.room_name} - Image ${
-                  selectedImageIndex + 1
-                }`}
+                alt={`${selectedRoom.room_name} - Image ${selectedImageIndex + 1
+                  }`}
                 className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;

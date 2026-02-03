@@ -49,8 +49,7 @@ export default function MenuPage() {
       } catch (err) {
         if (isMounted) {
           setError(
-            `Failed to load menu: ${
-              err instanceof Error ? err.message : "Unknown error"
+            `Failed to load menu: ${err instanceof Error ? err.message : "Unknown error"
             }`
           );
           setMenuItems([]);
@@ -141,6 +140,12 @@ export default function MenuPage() {
                 Attractions
               </Link>
               <Link
+                href="/events/"
+                className="text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
+              >
+                Events
+              </Link>
+              <Link
                 href="/travel-guide/"
                 className="text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
               >
@@ -170,61 +175,68 @@ export default function MenuPage() {
           </div>
 
           {/* Mobile menu */}
-            {isMobileMenuOpen && (
-              <div className="md:hidden border-t border-[#1a3a52]/30">
-                <div className="py-4 space-y-4">
-                  <Link
-                    href="/"
-                    className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Home
-                  </Link>
-                  <Link
-                    href="/rooms/"
-                    className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Rooms
-                  </Link>
-                  <Link
-                    href="/menu/"
-                    className="block text-[#c9a961] font-semibold"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Menu
-                  </Link>
-                  <Link
-                    href="/camping/"
-                    className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Camping
-                  </Link>
-                  <Link
-                    href="/attractions/"
-                    className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Attractions
-                  </Link>
-                  <Link
-                    href="/travel-guide/"
-                    className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Travel Guide
-                  </Link>
-                  <Link
-                    href="/contact/"
-                    className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Contact
-                  </Link>
-                </div>
+          {isMobileMenuOpen && (
+            <div className="md:hidden border-t border-[#1a3a52]/30">
+              <div className="py-4 space-y-4">
+                <Link
+                  href="/"
+                  className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/rooms/"
+                  className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Rooms
+                </Link>
+                <Link
+                  href="/menu/"
+                  className="block text-[#c9a961] font-semibold"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Menu
+                </Link>
+                <Link
+                  href="/camping/"
+                  className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Camping
+                </Link>
+                <Link
+                  href="/attractions/"
+                  className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Attractions
+                </Link>
+                <Link
+                  href="/events/"
+                  className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Events
+                </Link>
+                <Link
+                  href="/travel-guide/"
+                  className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Travel Guide
+                </Link>
+                <Link
+                  href="/contact/"
+                  className="block text-white hover:text-[#c9a961] transition-colors duration-300 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Contact
+                </Link>
               </div>
-            )}
+            </div>
+          )}
         </div>
       </nav>
 
@@ -299,116 +311,116 @@ export default function MenuPage() {
             >
               HOTEL & RESTAURANT
             </h2>
-        </div>
-
-        {/* Logo */}
-        <div className="flex justify-center mb-8">
-          <Image
-            src="/logo.png"
-            alt="Blue Sheep Hotel Logo"
-            width={96}
-            height={96}
-            className="h-24 w-auto rounded-lg shadow-lg"
-          />
-        </div>
-
-        {/* Menu Content */}
-        {loading ? (
-          <div className="text-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1a3a52] mx-auto mb-4"></div>
-            <p className="text-[#1a3a52] text-lg">Loading menu...</p>
           </div>
-        ) : error ? (
-          <div className="text-center py-20">
-            <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
-              <p className="text-red-600 text-lg">{error}</p>
-              <button
-                onClick={() => window.location.reload()}
-                className="mt-4 bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-400 transition-colors"
-              >
-                Try Again
-              </button>
+
+          {/* Logo */}
+          <div className="flex justify-center mb-8">
+            <Image
+              src="/logo.png"
+              alt="Blue Sheep Hotel Logo"
+              width={96}
+              height={96}
+              className="h-24 w-auto rounded-lg shadow-lg"
+            />
+          </div>
+
+          {/* Menu Content */}
+          {loading ? (
+            <div className="text-center py-20">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1a3a52] mx-auto mb-4"></div>
+              <p className="text-[#1a3a52] text-lg">Loading menu...</p>
             </div>
-          </div>
-        ) : (
-          <div className="space-y-12">
-            {categories.map((category) => {
-              const categoryItems = itemsByCategory[category];
-              if (!categoryItems || categoryItems.length === 0) return null;
+          ) : error ? (
+            <div className="text-center py-20">
+              <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
+                <p className="text-red-600 text-lg">{error}</p>
+                <button
+                  onClick={() => window.location.reload()}
+                  className="mt-4 bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-400 transition-colors"
+                >
+                  Try Again
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-12">
+              {categories.map((category) => {
+                const categoryItems = itemsByCategory[category];
+                if (!categoryItems || categoryItems.length === 0) return null;
 
-              return (
-                <div key={category}>
-                  {/* Section Title */}
-                  <div className="flex items-center justify-center my-12 px-4">
-                    <div className="flex-1 h-0.5 bg-[#c9a961] max-w-16"></div>
-                    <h3
-                      className="text-center text-3xl md:text-4xl text-[#1a3a52] tracking-[0.2em] px-6"
-                      style={{ fontFamily: "var(--font-quattrocento-sans), sans-serif" }}
-                    >
-                      {category.toUpperCase()}
-                    </h3>
-                    <div className="flex-1 h-0.5 bg-[#c9a961] max-w-16"></div>
-                  </div>
-
-                  {/* Menu Items */}
-                  <div className="space-y-6">
-                    {categoryItems.map((item, index) => (
-                      <motion.div
-                        key={item.id}
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={index === 0 ? { opacity: 1, y: 0 } : undefined}
-                        whileInView={index > 0 ? { opacity: 1, y: 0 } : undefined}
-                        transition={{ duration: 0.8, delay: index * 0.1 }}
-                        viewport={index > 0 ? { once: true } : undefined}
-                        className="flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-6 mb-6"
+                return (
+                  <div key={category}>
+                    {/* Section Title */}
+                    <div className="flex items-center justify-center my-12 px-4">
+                      <div className="flex-1 h-0.5 bg-[#c9a961] max-w-16"></div>
+                      <h3
+                        className="text-center text-3xl md:text-4xl text-[#1a3a52] tracking-[0.2em] px-6"
+                        style={{ fontFamily: "var(--font-quattrocento-sans), sans-serif" }}
                       >
-                        {/* Item Image */}
-                        {item.images && (
-                          <div className="flex-shrink-0">
-                            <Image
-                              src={item.images}
-                              alt={item.item_name}
-                              width={96}
-                              height={96}
-                              className="w-20 h-20 md:w-24 md:h-24 object-cover shadow-md"
-                              onError={(e) => {
-                                e.currentTarget.style.display = "none";
-                              }}
-                            />
-                          </div>
-                        )}
+                        {category.toUpperCase()}
+                      </h3>
+                      <div className="flex-1 h-0.5 bg-[#c9a961] max-w-16"></div>
+                    </div>
 
-                        {/* Item Details */}
-                        <div className="flex-1">
+                    {/* Menu Items */}
+                    <div className="space-y-6">
+                      {categoryItems.map((item, index) => (
+                        <motion.div
+                          key={item.id}
+                          initial={{ opacity: 0, y: 30 }}
+                          animate={index === 0 ? { opacity: 1, y: 0 } : undefined}
+                          whileInView={index > 0 ? { opacity: 1, y: 0 } : undefined}
+                          transition={{ duration: 0.8, delay: index * 0.1 }}
+                          viewport={index > 0 ? { once: true } : undefined}
+                          className="flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-6 mb-6"
+                        >
+                          {/* Item Image */}
+                          {item.images && (
+                            <div className="flex-shrink-0">
+                              <Image
+                                src={item.images}
+                                alt={item.item_name}
+                                width={96}
+                                height={96}
+                                className="w-20 h-20 md:w-24 md:h-24 object-cover shadow-md"
+                                onError={(e) => {
+                                  e.currentTarget.style.display = "none";
+                                }}
+                              />
+                            </div>
+                          )}
+
+                          {/* Item Details */}
+                          <div className="flex-1">
+                            <div
+                              className="text-2xl md:text-3xl text-[#1a3a52] font-semibold"
+                              style={{ fontFamily: "var(--font-quattrocento-sans), sans-serif" }}
+                            >
+                              {capitalizeItemName(item.item_name)}
+                            </div>
+                            <div className="text-sm md:text-lg text-[#4a4a4a] mt-1 italic break-words">
+                              {item.description ||
+                                "Delicious and freshly prepared"}
+                            </div>
+                          </div>
+
+                          {/* Price */}
                           <div
-                            className="text-2xl md:text-3xl text-[#1a3a52] font-semibold"
+                            className="text-2xl md:text-3xl text-[#1a3a52] font-semibold whitespace-nowrap mt-2 md:mt-0 self-end md:self-auto"
                             style={{ fontFamily: "var(--font-quattrocento-sans), sans-serif" }}
                           >
-                            {capitalizeItemName(item.item_name)}
+                            {formatPrice(item.price)}
                           </div>
-                          <div className="text-sm md:text-lg text-[#4a4a4a] mt-1 italic break-words">
-                            {item.description ||
-                              "Delicious and freshly prepared"}
-                          </div>
-                        </div>
-
-                        {/* Price */}
-                        <div
-                          className="text-2xl md:text-3xl text-[#1a3a52] font-semibold whitespace-nowrap mt-2 md:mt-0 self-end md:self-auto"
-                          style={{ fontFamily: "var(--font-quattrocento-sans), sans-serif" }}
-                        >
-                          {formatPrice(item.price)}
-                        </div>
-                      </motion.div>
-                    ))}
+                        </motion.div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
+                );
+              })}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
     </div>
   );
 }

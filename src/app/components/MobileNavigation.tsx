@@ -15,6 +15,7 @@ export default function MobileNavigation() {
     { href: "/menu/", label: "Menu", icon: "🍽️" },
     { href: "/camping/", label: "Camping", icon: "⛺" },
     { href: "/attractions/", label: "Attractions", icon: "🏔️" },
+    { href: "/events/", label: "Events", icon: "📅" },
     { href: "/travel-guide/", label: "Travel Guide", icon: "🗺️" },
     { href: "/contact/", label: "Contact", icon: "📞" },
   ];
