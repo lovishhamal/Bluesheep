@@ -4,8 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import {
     CalendarIcon,
-    ChevronLeftIcon,
-    ChevronRightIcon,
+    ArrowLeftIcon,
     MapPinIcon,
     XMarkIcon,
 } from "@heroicons/react/24/outline";
@@ -34,7 +33,7 @@ export default function EventsClient({ initialEvents }: EventsClientProps) {
         [key: number]: number;
     }>({});
     const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
-    const [modalImageIndex, setModalImageIndex] = useState(0);
+    const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
     // Format date range
     const formatDateRange = (start: string | null, end: string | null) => {
@@ -47,7 +46,7 @@ export default function EventsClient({ initialEvents }: EventsClientProps) {
             return startDate.toLocaleDateString('en-US', { dateStyle: 'long' });
         }
 
-        return `${startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${endDate.toLocaleDateString('en-US', { dateStyle: 'long' })}`;
+        return `${startDate.toLocaleDateString('en-US', { dateStyle: 'long' })} - ${endDate.toLocaleDateString('en-US', { dateStyle: 'long' })}`;
     };
 
     // Get current image for an event
@@ -59,64 +58,155 @@ export default function EventsClient({ initialEvents }: EventsClientProps) {
         return "/hero-bg.jpg";
     };
 
-    // Navigate images in grid
-    const nextImage = (eventId: number, totalImages: number) => {
-        setCurrentImageIndex((prev) => ({
-            ...prev,
-            [eventId]: ((prev[eventId] || 0) + 1) % totalImages,
-        }));
-    };
-
-    const prevImage = (eventId: number, totalImages: number) => {
-        setCurrentImageIndex((prev) => ({
-            ...prev,
-            [eventId]: ((prev[eventId] || 0) - 1 + totalImages) % totalImages,
-        }));
-    };
-
-    // Open modal
-    const openEventModal = (event: Event) => {
+    // Open event detail page
+    const openEventPage = (event: Event) => {
         setSelectedEvent(event);
-        setModalImageIndex(0);
-        document.body.style.overflow = 'hidden';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    // Close modal
-    const closeEventModal = () => {
+    // Go back to events list
+    const goBackToEvents = () => {
         setSelectedEvent(null);
-        document.body.style.overflow = 'unset';
     };
 
-    return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50/20">
-            <Navigation currentPage="events" />
+    // Render event detail page
+    if (selectedEvent) {
+        return (
+            <div className="min-h-screen bg-white">
+                <Navigation currentPage="events" />
 
-            {/* Hero Header */}
-            <section className="relative py-16 md:py-24 overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-100/40 via-transparent to-transparent"></div>
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+                {/* Back Button */}
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+                    <motion.button
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        onClick={goBackToEvents}
+                        className="inline-flex items-center gap-2 text-gray-600 hover:text-emerald-600 transition-colors mb-8 group"
+                    >
+                        <ArrowLeftIcon className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+                        <span className="font-medium">Back to Events</span>
+                    </motion.button>
+                </div>
+
+                {/* Event Header */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+                >
+                    <div className="mb-8">
+                        <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">
+                            {selectedEvent.title}
+                        </h1>
+                        {selectedEvent.sub_title && (
+                            <p className="text-xl text-emerald-600 font-semibold mb-6">{selectedEvent.sub_title}</p>
+                        )}
+                        <div className="flex flex-wrap gap-4">
+                            <div className="flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-2 rounded-full">
+                                <CalendarIcon className="w-5 h-5" />
+                                <span className="font-medium">{formatDateRange(selectedEvent.start_date, selectedEvent.end_date)}</span>
+                            </div>
+                            <div className="flex items-center gap-2 bg-gray-100 text-gray-700 px-4 py-2 rounded-full">
+                                <MapPinIcon className="w-5 h-5" />
+                                <span className="font-medium">Dunai, Dolpa</span>
+                            </div>
+                        </div>
+                    </div>
+                </motion.div>
+
+                {/* Image Gallery Grid */}
+                {selectedEvent.images && selectedEvent.images.length > 0 && (
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="text-center"
+                        transition={{ delay: 0.1 }}
+                        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12"
                     >
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-100 rounded-full mb-6">
-                            <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
-                            <span className="text-emerald-700 text-sm font-semibold">Upcoming Events</span>
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center">
+                            {selectedEvent.images.map((img, idx) => (
+                                <motion.div
+                                    key={idx}
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: 0.05 + idx * 0.03 }}
+                                    onClick={() => setLightboxImage(img)}
+                                    className="w-full cursor-pointer group"
+                                >
+                                    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group-hover:scale-[1.02]">
+                                        <Image
+                                            src={img}
+                                            alt={`${selectedEvent.title || 'Event'} - Image ${idx + 1}`}
+                                            fill
+                                            className="object-cover"
+                                        />
+                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                                    </div>
+                                </motion.div>
+                            ))}
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-4">
-                            Experience <span className="text-emerald-600">Dolpa</span>
-                        </h1>
-                        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                            Join us for cultural celebrations and unforgettable moments at Hotel Blue Sheep Inn
-                        </p>
                     </motion.div>
-                </div>
-            </section>
+                )}
+
+                {/* Description */}
+                {selectedEvent.description && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24"
+                    >
+                        <div
+                            className="prose prose-lg prose-gray max-w-none text-gray-800 [&_p]:text-gray-700 [&_p]:leading-relaxed"
+                            dangerouslySetInnerHTML={{ __html: selectedEvent.description }}
+                        />
+                    </motion.div>
+                )}
+
+                {/* Lightbox Modal */}
+                <AnimatePresence>
+                    {lightboxImage && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setLightboxImage(null)}
+                            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+                        >
+                            <button
+                                onClick={() => setLightboxImage(null)}
+                                className="absolute top-6 right-6 text-white/80 hover:text-white transition-colors"
+                            >
+                                <XMarkIcon className="w-8 h-8" />
+                            </button>
+                            <motion.div
+                                initial={{ scale: 0.9, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                exit={{ scale: 0.9, opacity: 0 }}
+                                className="relative max-w-5xl max-h-[85vh] w-full"
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                <Image
+                                    src={lightboxImage}
+                                    alt="Event image"
+                                    width={1200}
+                                    height={800}
+                                    className="w-full h-auto max-h-[85vh] object-contain rounded-lg"
+                                />
+                            </motion.div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
+        );
+    }
+
+    // Render events list
+    return (
+        <div className="min-h-screen bg-white">
+            <Navigation currentPage="events" />
 
             {/* Events Grid */}
-            <section className="pb-24">
+            <section className="py-12 md:py-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {initialEvents.length === 0 ? (
                         <motion.div
@@ -139,7 +229,7 @@ export default function EventsClient({ initialEvents }: EventsClientProps) {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.5, delay: index * 0.1 }}
                                     viewport={{ once: true }}
-                                    onClick={() => openEventModal(event)}
+                                    onClick={() => openEventPage(event)}
                                     className="group cursor-pointer"
                                 >
                                     <div className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-emerald-200">
@@ -207,133 +297,6 @@ export default function EventsClient({ initialEvents }: EventsClientProps) {
                     )}
                 </div>
             </section>
-
-            {/* Event Detail Modal */}
-            <AnimatePresence>
-                {selectedEvent && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
-                        onClick={closeEventModal}
-                    >
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            transition={{ duration: 0.3 }}
-                            className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl"
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            {/* Modal Header with Image Gallery */}
-                            {selectedEvent.images && selectedEvent.images.length > 0 && (
-                                <div className="relative h-72 md:h-96">
-                                    <Image
-                                        src={selectedEvent.images[modalImageIndex]}
-                                        alt={selectedEvent.title || "Event"}
-                                        fill
-                                        className="object-cover"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20"></div>
-
-                                    {/* Navigation arrows */}
-                                    {selectedEvent.images.length > 1 && (
-                                        <>
-                                            <button
-                                                onClick={() => setModalImageIndex((prev) => (prev - 1 + selectedEvent.images!.length) % selectedEvent.images!.length)}
-                                                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-md p-3 rounded-full text-white transition-all"
-                                            >
-                                                <ChevronLeftIcon className="w-6 h-6" />
-                                            </button>
-                                            <button
-                                                onClick={() => setModalImageIndex((prev) => (prev + 1) % selectedEvent.images!.length)}
-                                                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-md p-3 rounded-full text-white transition-all"
-                                            >
-                                                <ChevronRightIcon className="w-6 h-6" />
-                                            </button>
-                                        </>
-                                    )}
-
-                                    {/* Image indicators */}
-                                    {selectedEvent.images.length > 1 && (
-                                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                                            {selectedEvent.images.map((_, idx) => (
-                                                <button
-                                                    key={idx}
-                                                    onClick={() => setModalImageIndex(idx)}
-                                                    className={`w-2 h-2 rounded-full transition-all ${idx === modalImageIndex ? 'bg-white w-6' : 'bg-white/50'}`}
-                                                />
-                                            ))}
-                                        </div>
-                                    )}
-
-                                    {/* Close button */}
-                                    <button
-                                        onClick={closeEventModal}
-                                        className="absolute top-4 right-4 bg-black/40 hover:bg-black/60 backdrop-blur-md p-2 rounded-full text-white transition-all"
-                                    >
-                                        <XMarkIcon className="w-6 h-6" />
-                                    </button>
-                                </div>
-                            )}
-
-                            {/* Modal Content */}
-                            <div className="p-8 max-h-[50vh] overflow-y-auto">
-                                {!selectedEvent.images?.length && (
-                                    <button
-                                        onClick={closeEventModal}
-                                        className="absolute top-4 right-4 bg-gray-100 hover:bg-gray-200 p-2 rounded-full text-gray-600 transition-all"
-                                    >
-                                        <XMarkIcon className="w-6 h-6" />
-                                    </button>
-                                )}
-
-                                <div className="mb-6">
-                                    <h2 className="text-3xl font-black text-gray-900 mb-2">{selectedEvent.title}</h2>
-                                    {selectedEvent.sub_title && (
-                                        <p className="text-emerald-600 font-semibold text-lg">{selectedEvent.sub_title}</p>
-                                    )}
-                                </div>
-
-                                <div className="flex flex-wrap gap-4 mb-8">
-                                    <div className="flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-2 rounded-full">
-                                        <CalendarIcon className="w-5 h-5" />
-                                        <span className="font-medium">{formatDateRange(selectedEvent.start_date, selectedEvent.end_date)}</span>
-                                    </div>
-                                    <div className="flex items-center gap-2 bg-gray-100 text-gray-700 px-4 py-2 rounded-full">
-                                        <MapPinIcon className="w-5 h-5" />
-                                        <span className="font-medium">Dunai, Dolpa</span>
-                                    </div>
-                                </div>
-
-                                <div
-                                    className="prose prose-emerald max-w-none ProseMirror"
-                                    dangerouslySetInnerHTML={{ __html: selectedEvent.description || "<p>No description available.</p>" }}
-                                />
-
-                                {/* Thumbnail gallery */}
-                                {selectedEvent.images && selectedEvent.images.length > 1 && (
-                                    <div className="mt-8 pt-6 border-t border-gray-100">
-                                        <h4 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4">Gallery</h4>
-                                        <div className="flex gap-3 overflow-x-auto pb-2">
-                                            {selectedEvent.images.map((img, idx) => (
-                                                <button
-                                                    key={idx}
-                                                    onClick={() => setModalImageIndex(idx)}
-                                                    className={`relative flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden transition-all ${idx === modalImageIndex ? 'ring-2 ring-emerald-500 ring-offset-2' : 'opacity-70 hover:opacity-100'}`}
-                                                >
-                                                    <Image src={img} alt="" fill className="object-cover" />
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
         </div>
     );
 }
