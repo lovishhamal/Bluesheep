@@ -707,18 +707,20 @@ Please confirm this booking.`;
                       {room.description && (
                         <div className="relative mb-6">
                           {/* Mobile: Show full description */}
-                          <p className="block sm:hidden text-gray-700 text-sm leading-relaxed break-words">
-                            {room.description}
-                          </p>
+                          <div
+                            className="block sm:hidden text-gray-700 text-sm leading-relaxed break-words ProseMirror"
+                            dangerouslySetInnerHTML={{ __html: room.description || "" }}
+                          />
                           {/* Desktop: Show truncated with hover tooltip */}
                           <div
                             className="hidden sm:block relative"
                             onMouseEnter={() => setHoveredRoomId(room.id)}
                             onMouseLeave={() => setHoveredRoomId(null)}
                           >
-                            <p className="text-gray-700 text-sm sm:text-base leading-relaxed break-words line-clamp-2 h-12 cursor-pointer select-none overflow-hidden">
-                              {room.description}
-                            </p>
+                            <div
+                              className="text-gray-700 text-sm sm:text-base leading-relaxed break-words line-clamp-2 h-12 cursor-pointer select-none overflow-hidden ProseMirror"
+                              dangerouslySetInnerHTML={{ __html: room.description || "" }}
+                            />
                             {/* Desktop: Hover tooltip - Solid Design */}
                             {hoveredRoomId === room.id && (
                               <motion.div
@@ -738,9 +740,10 @@ Please confirm this booking.`;
                                       Full Description
                                     </span>
                                   </div>
-                                  <p className="text-gray-800 text-sm leading-relaxed font-medium">
-                                    {room.description}
-                                  </p>
+                                  <div
+                                    className="text-gray-800 text-sm leading-relaxed font-medium ProseMirror"
+                                    dangerouslySetInnerHTML={{ __html: room.description || "" }}
+                                  />
                                 </div>
 
                                 {/* Arrow */}

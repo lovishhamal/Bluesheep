@@ -398,10 +398,10 @@ export default function MenuPage() {
                             >
                               {capitalizeItemName(item.item_name)}
                             </div>
-                            <div className="text-sm md:text-lg text-[#4a4a4a] mt-1 italic break-words">
-                              {item.description ||
-                                "Delicious and freshly prepared"}
-                            </div>
+                            <div
+                              className="text-sm md:text-lg text-[#4a4a4a] mt-1 italic break-words ProseMirror"
+                              dangerouslySetInnerHTML={{ __html: item.description || "Delicious and freshly prepared" }}
+                            />
                           </div>
 
                           {/* Price */}

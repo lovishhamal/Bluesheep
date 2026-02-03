@@ -1263,9 +1263,10 @@ export default function AttractionsClient({
                   <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2 group-hover:text-emerald-700 transition-colors">
                     {feature.title}
                   </h3>
-                  <p className="text-sm text-gray-700 leading-relaxed font-light">
-                    {feature.description}
-                  </p>
+                  <div
+                    className="text-sm text-gray-700 leading-relaxed font-light ProseMirror"
+                    dangerouslySetInnerHTML={{ __html: feature.description || "" }}
+                  />
                 </div>
               </motion.div>
             ))}
