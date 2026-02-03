@@ -7,6 +7,8 @@ import {
     ArrowLeftIcon,
     MapPinIcon,
     XMarkIcon,
+    ChevronLeftIcon,
+    ChevronRightIcon,
 } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import Navigation from "../components/Navigation";
@@ -164,7 +166,7 @@ export default function EventsClient({ initialEvents }: EventsClientProps) {
 
                 {/* Lightbox Modal */}
                 <AnimatePresence>
-                    {lightboxImage && (
+                    {lightboxImage && selectedEvent.images && (
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -174,11 +176,43 @@ export default function EventsClient({ initialEvents }: EventsClientProps) {
                         >
                             <button
                                 onClick={() => setLightboxImage(null)}
-                                className="absolute top-6 right-6 text-white/80 hover:text-white transition-colors"
+                                className="absolute top-6 right-6 text-white/80 hover:text-white transition-colors z-10"
                             >
                                 <XMarkIcon className="w-8 h-8" />
                             </button>
+
+                            {/* Left Arrow */}
+                            {selectedEvent.images.length > 1 && (
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        const currentIdx = selectedEvent.images!.indexOf(lightboxImage);
+                                        const prevIdx = (currentIdx - 1 + selectedEvent.images!.length) % selectedEvent.images!.length;
+                                        setLightboxImage(selectedEvent.images![prevIdx]);
+                                    }}
+                                    className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-sm p-3 rounded-full text-white transition-all z-10"
+                                >
+                                    <ChevronLeftIcon className="w-8 h-8" />
+                                </button>
+                            )}
+
+                            {/* Right Arrow */}
+                            {selectedEvent.images.length > 1 && (
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        const currentIdx = selectedEvent.images!.indexOf(lightboxImage);
+                                        const nextIdx = (currentIdx + 1) % selectedEvent.images!.length;
+                                        setLightboxImage(selectedEvent.images![nextIdx]);
+                                    }}
+                                    className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-sm p-3 rounded-full text-white transition-all z-10"
+                                >
+                                    <ChevronRightIcon className="w-8 h-8" />
+                                </button>
+                            )}
+
                             <motion.div
+                                key={lightboxImage}
                                 initial={{ scale: 0.9, opacity: 0 }}
                                 animate={{ scale: 1, opacity: 1 }}
                                 exit={{ scale: 0.9, opacity: 0 }}
