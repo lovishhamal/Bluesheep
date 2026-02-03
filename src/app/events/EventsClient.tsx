@@ -82,23 +82,7 @@ export default function EventsClient({ initialEvents }: EventsClientProps) {
         <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-emerald-50/30">
             <Navigation currentPage="events" />
 
-            {/* Header Section */}
-            <section className="relative pt-12 pb-20 overflow-hidden">
-                {/* Animated Background Elements */}
-                <div className="absolute inset-0">
-                    <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-3xl animate-pulse"></div>
-                    <div className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-                </div>
 
-                <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                    >
-                    </motion.div>
-                </div>
-            </section>
 
             {/* Events Grid */}
             <section className="py-12 relative z-10">
