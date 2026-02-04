@@ -26,14 +26,23 @@ export default function EventDetailClient({ event }: EventDetailClientProps) {
     const formatDateRange = (start: string | null, end: string | null) => {
         if (!start) return "TBA";
         const startDate = new Date(start);
-        if (!end) return startDate.toLocaleDateString('en-US', { dateStyle: 'long' });
+
+        const formatDateTime = (date: Date) => {
+            const d = date.toLocaleDateString('en-US', { dateStyle: 'long' });
+            const t = date.toLocaleTimeString('en-US', { timeStyle: 'short' });
+            return `${d}, ${t}`;
+        };
+
+        if (!end) return formatDateTime(startDate);
         const endDate = new Date(end);
 
         if (startDate.toDateString() === endDate.toDateString()) {
-            return startDate.toLocaleDateString('en-US', { dateStyle: 'long' });
+            // Same day, show date and then time range
+            const timeOptions: Intl.DateTimeFormatOptions = { timeStyle: 'short' };
+            return `${startDate.toLocaleDateString('en-US', { dateStyle: 'long' })} | ${startDate.toLocaleTimeString('en-US', timeOptions)} - ${endDate.toLocaleTimeString('en-US', timeOptions)}`;
         }
 
-        return `${startDate.toLocaleDateString('en-US', { dateStyle: 'long' })} - ${endDate.toLocaleDateString('en-US', { dateStyle: 'long' })}`;
+        return `${formatDateTime(startDate)} - ${formatDateTime(endDate)}`;
     };
 
     return (
