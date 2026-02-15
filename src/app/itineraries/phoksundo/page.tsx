@@ -24,14 +24,12 @@ export async function generateMetadata(): Promise<Metadata> {
         : plainDescription;
 
     return {
-        title: "Phoksundo Lake Itinerary (Itinery) 2025 | Day-by-Day Trek Guide | Hotel Blue Sheep Inn",
-        description: description || "Complete Phoksundo Lake trek itinerary (itenary) with day-by-day guide, permits, and best time to visit. Plan your Phoksundo adventure from Dunai.",
+        title: "Phoksundo Itinerary 2025 | Phoksundo Lake Trek Day-by-Day Guide",
+        description: description || "Complete Phoksundo itinerary with a day-by-day Phoksundo Lake trek plan, permits, route details, and best time to visit from Dunai.",
         keywords: [
             "Phoksundo itinerary",
             "Phoksundo Lake itinerary",
             "Shey Phoksundo itinerary",
-            "Phoksundo itenery",
-            "Phoksundo itinery",
             "Phoksundo Lake trek",
             "how to reach Phoksundo",
             "Phoksundo trek cost",
@@ -44,8 +42,8 @@ export async function generateMetadata(): Promise<Metadata> {
             canonical: "https://hotelbluesheepinn.com/itineraries/phoksundo/",
         },
         openGraph: {
-            title: "Phoksundo Lake Itinerary 2025 | Complete Trek Guide",
-            description: description || "Complete Phoksundo Lake trek itinerary from Hotel Blue Sheep Inn.",
+            title: "Phoksundo Itinerary 2025 | Complete Phoksundo Lake Trek Guide",
+            description: description || "Complete Phoksundo itinerary with day-by-day route details and trek planning tips.",
             type: "article",
             url: "https://hotelbluesheepinn.com/itineraries/phoksundo/",
             images: [
@@ -61,8 +59,8 @@ export async function generateMetadata(): Promise<Metadata> {
         },
         twitter: {
             card: "summary_large_image",
-            title: "Phoksundo Lake Itinerary 2025 | Complete Trek Guide",
-            description: description || "Complete Phoksundo Lake trek itinerary from Hotel Blue Sheep Inn.",
+            title: "Phoksundo Itinerary 2025 | Complete Phoksundo Lake Trek Guide",
+            description: description || "Complete Phoksundo itinerary with day-by-day route details and trek planning tips.",
             images: ["https://hotelbluesheepinn.com/phoksundo.jpg"],
         },
         robots: {
@@ -157,10 +155,10 @@ export default async function PhoksundoItineraryPage() {
                         "mainEntity": [
                             {
                                 "@type": "Question",
-                                "name": "What is the best Phoksundo Lake itenary for 7 days?",
+                                "name": "What is the best Phoksundo Lake itinerary for 7 days?",
                                 "acceptedAnswer": {
                                     "@type": "Answer",
-                                    "text": "A standard 7-day Phoksundo itinerary (itenary) starts with a flight to Juphal, followed by a trek to Dunai, Chhepka, Jharana, and finally Ringmo village at Shey Phoksundo Lake."
+                                    "text": "A standard 7-day Phoksundo itinerary starts with a flight to Juphal, followed by a trek to Dunai, Chhepka, Jharana, and finally Ringmo village at Shey Phoksundo Lake."
                                 }
                             },
                             {
@@ -190,7 +188,7 @@ export default async function PhoksundoItineraryPage() {
                         </span>
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
                             <span className="bg-gradient-to-r from-emerald-600 via-blue-600 to-emerald-600 bg-clip-text text-transparent">
-                                {guide.title}
+                                Phoksundo Itinerary
                             </span>
                         </h1>
                         <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
@@ -235,15 +233,15 @@ export default async function PhoksundoItineraryPage() {
                     </h2>
                     <div className="space-y-6">
                         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                            <h3 className="text-xl font-bold text-gray-900 mb-2">What is the best Phoksundo Lake itenary for 7 days?</h3>
-                            <p className="text-gray-600">A standard 7-day Phoksundo itinerary (itenary) starts with a flight to Juphal, followed by a trek to Dunai, Chhepka, Jharana, and finally Ringmo village at Shey Phoksundo Lake.</p>
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">What is the best Phoksundo Lake itinerary for 7 days?</h3>
+                            <p className="text-gray-600">A standard 7-day Phoksundo itinerary starts with a flight to Juphal, followed by a trek to Dunai, Chhepka, Jharana, and finally Ringmo village at Shey Phoksundo Lake.</p>
                         </div>
                         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                             <h3 className="text-xl font-bold text-gray-900 mb-2">How do I reach Phoksundo Lake?</h3>
                             <p className="text-gray-600">To reach Phoksundo Lake, fly from Kathmandu to Juphal, take a jeep to Dunai, and then enjoy a beautiful 2-3 day trek through the Shey Phoksundo National Park reaching Ringmo village.</p>
                         </div>
                         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                            <h3 className="text-xl font-bold text-gray-900 mb-2">Is a guide required for the Phoksundo itinery?</h3>
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">Is a guide required for the Phoksundo itinerary?</h3>
                             <p className="text-gray-600">While not strictly mandatory for the lower Phoksundo trek, we highly recommend a local guide for safety and cultural immersion. Hotel Blue Sheep Inn can arrange expert local guides for your trip.</p>
                         </div>
                     </div>
