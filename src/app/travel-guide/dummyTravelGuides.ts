@@ -100,22 +100,22 @@ export async function getTravelGuides(): Promise<TravelGuide[]> {
 
     const supabase = createPublicClient();
 
-    // Try fetching directly from table first (more reliable for schema changes)
-    let { data, error } = await supabase
-      .from("travel_guide")
-      .select("*");
+    // Fetch from RPC get_travel_guides which contains the real active database guides
+    let data: unknown[] | null = null;
 
-    // Fallback to RPC if direct select fails or returns empty (and maybe RPC has logic)
-    if (error || !data || data.length === 0) {
-      console.log("Direct select returned empty/error, trying RPC...");
-      const rpcResult = await supabase.rpc("get_travel_guides");
-      if (!rpcResult.error) {
-        data = rpcResult.data;
-        error = rpcResult.error;
+    const rpcResult = await supabase.rpc("get_travel_guides");
+    if (!rpcResult.error && Array.isArray(rpcResult.data) && rpcResult.data.length > 0) {
+      data = rpcResult.data;
+    } else {
+      const tableResult = await supabase.from("travel_guide").select("*");
+      if (!tableResult.error && Array.isArray(tableResult.data) && tableResult.data.length > 0) {
+        data = tableResult.data;
       }
     }
 
-    if (error || !Array.isArray(data)) return [];
+    if (!Array.isArray(data) || data.length === 0) {
+      return [];
+    }
 
     const normalized = data
       .map((row, index) => normalizeTravelGuide(row, index))
@@ -130,13 +130,16 @@ export async function getTravelGuides(): Promise<TravelGuide[]> {
 
 export const getTravelGuideBySlug = async (slug: string) => {
   const guides = await getTravelGuides();
-  return guides.find((g) => g.type === "list" && g.slug === slug);
+  return guides.find(
+    (g) => g.type === "list" && (g.slug === slug || slug.includes(g.slug) || g.slug.includes(slug))
+  );
 };
 
 export const getTravelGuideByCategory = async (category: string) => {
   const guides = await getTravelGuides();
+  const normalizedCategory = category.toLowerCase().trim();
   return guides.find(
-    (g) => g.type === "list" && g.category === category
+    (g) => g.type === "list" && g.category && g.category.toLowerCase().includes(normalizedCategory)
   );
 };
 

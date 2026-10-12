@@ -11,22 +11,25 @@ export const revalidate = 3600; // Revalidate every hour
 export async function generateMetadata(): Promise<Metadata> {
     const guide = await getTravelGuideByCategory("phoksundo");
 
-    if (!guide) {
-        return {
-            title: "Phoksundo Lake Itinerary | Hotel Blue Sheep Inn",
-            description: "Complete Phoksundo Lake trek itinerary from Hotel Blue Sheep Inn in Dunai.",
-        };
-    }
-
-    const plainDescription = stripHtml(guide.description);
+    const plainDescription = guide ? stripHtml(guide.description) : "";
     const description = plainDescription.length > 160
         ? `${plainDescription.slice(0, 160)}...`
-        : plainDescription;
+        : plainDescription || "Complete trekking to Phoksundo Lake guide (Shey Phoksundo). Day-by-day itinerary, permit fees, Ringmo village, best hotel in Dunai gateway & travel tips.";
 
     return {
-        title: "Phoksundo Itinerary 2025 | Phoksundo Lake Trek Day-by-Day Guide",
-        description: description || "Complete Phoksundo itinerary with a day-by-day Phoksundo Lake trek plan, permits, route details, and best time to visit from Dunai.",
+        title: "Trekking to Phoksundo | Shey Phoksundo Trek Guide & Hotel Base | Hotel Blue Sheep Inn",
+        description: description,
         keywords: [
+            "phoksundo",
+            "shey phoksundo",
+            "hotel in phoksundo",
+            "hotels in phoksundo",
+            "hotel shey phoksundo",
+            "treking to phoksundo",
+            "trekking to phoksundo",
+            "trek to phoksundo",
+            "shey phoksundo trek",
+            "shey phoksundo trekking",
             "Phoksundo itinerary",
             "Phoksundo Lake itinerary",
             "Shey Phoksundo itinerary",
@@ -42,8 +45,8 @@ export async function generateMetadata(): Promise<Metadata> {
             canonical: "https://hotelbluesheepinn.com/itineraries/phoksundo/",
         },
         openGraph: {
-            title: "Phoksundo Itinerary 2025 | Complete Phoksundo Lake Trek Guide",
-            description: description || "Complete Phoksundo itinerary with day-by-day route details and trek planning tips.",
+            title: "Trekking to Phoksundo | Shey Phoksundo Trek Guide & Hotel Base",
+            description: description,
             type: "article",
             url: "https://hotelbluesheepinn.com/itineraries/phoksundo/",
             images: [
@@ -59,8 +62,8 @@ export async function generateMetadata(): Promise<Metadata> {
         },
         twitter: {
             card: "summary_large_image",
-            title: "Phoksundo Itinerary 2025 | Complete Phoksundo Lake Trek Guide",
-            description: description || "Complete Phoksundo itinerary with day-by-day route details and trek planning tips.",
+            title: "Trekking to Phoksundo | Shey Phoksundo Trek Guide & Hotel Base",
+            description: description,
             images: ["https://hotelbluesheepinn.com/phoksundo.jpg"],
         },
         robots: {
@@ -131,6 +134,53 @@ export default async function PhoksundoItineraryPage() {
         ],
     };
 
+    const faqJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How to plan trekking to Phoksundo (treking to phoksundo)?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Trekking to Phoksundo Lake (3,611m) begins with a flight to Juphal Airport or overland bus/jeep to Dunai. From Dunai, trek 2-3 days through Shey Phoksundo National Park via Chhepka and Jharana to reach Ringmo village and the turquoise waters of Phoksundo Lake. Hotel Blue Sheep Inn in Dunai provides the ideal staging basecamp, rooms, permits, and guides."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is there a hotel in Phoksundo or Shey Phoksundo?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Directly at Phoksundo Lake (Ringmo village), accommodation consists of rustic local teahouses and camping grounds. Most travelers stay in Dunai at Hotel Blue Sheep Inn, the leading luxury hotel in the region with deluxe rooms, attached bathrooms, hot showers, Wi-Fi, and garden dining before and after the trek."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is the best Phoksundo Lake itinerary for 7 days?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "A classic 7-day Phoksundo itinerary: Day 1 Kathmandu/Nepalgunj to Juphal and jeep to Dunai (stay at Hotel Blue Sheep Inn); Day 2 Dunai to Chhepka; Day 3 Chhepka to Jharana waterfall; Day 4 Jharana to Ringmo village at Phoksundo Lake; Day 5 Explore Phoksundo Lake and Tshowa Bon Gompa; Day 6 Return trek to Chhepka; Day 7 Chhepka to Dunai (Hotel Blue Sheep Inn)."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What permits are required for trekking to Shey Phoksundo?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "You require the Shey Phoksundo National Park Entry Permit (NPR 3,000 for foreigners) and the Lower Dolpa Restricted Area Permit ($20 per person per week). Hotel Blue Sheep Inn can assist with permit arrangements in Dunai."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What makes Shey Phoksundo Lake famous?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Shey Phoksundo Lake is Nepal's deepest lake (145m deep) situated at 3,611m altitude. It is famous for its magical crystal-turquoise color, absence of aquatic life, the towering 167m waterfall, and the 900-year-old Bon monastery in Ringmo."
+                }
+            }
+        ]
+    };
+
     return (
         <div className="min-h-screen bg-white">
             <Navigation currentPage="travel-guide" />
@@ -148,30 +198,7 @@ export default async function PhoksundoItineraryPage() {
             <Script
                 id="phoksundo-faq-jsonld"
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "FAQPage",
-                        "mainEntity": [
-                            {
-                                "@type": "Question",
-                                "name": "What is the best Phoksundo Lake itinerary for 7 days?",
-                                "acceptedAnswer": {
-                                    "@type": "Answer",
-                                    "text": "A standard 7-day Phoksundo itinerary starts with a flight to Juphal, followed by a trek to Dunai, Chhepka, Jharana, and finally Ringmo village at Shey Phoksundo Lake."
-                                }
-                            },
-                            {
-                                "@type": "Question",
-                                "name": "How do I reach Phoksundo Lake?",
-                                "acceptedAnswer": {
-                                    "@type": "Answer",
-                                    "text": "To reach Phoksundo Lake, fly from Kathmandu to Juphal, take a jeep to Dunai, and then enjoy a beautiful 2-3 day trek through the Shey Phoksundo National Park."
-                                }
-                            }
-                        ]
-                    })
-                }}
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
             />
 
             {/* Hero Section */}

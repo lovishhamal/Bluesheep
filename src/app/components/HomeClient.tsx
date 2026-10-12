@@ -406,7 +406,7 @@ export default function HomeClient({
                 className="inline-flex items-center gap-2 px-4 py-1.5 sm:px-5 sm:py-2 bg-gradient-to-r from-emerald-100 to-blue-100 rounded-full border border-emerald-200/50 shadow-sm"
               >
                 <span className="text-emerald-600 font-medium text-xs sm:text-sm">
-                  🏔️ Luxury in the Himalayas
+                  🏔️ Gateway to Shey Phoksundo & Dolpa Himalayas
                 </span>
               </motion.div>
 
@@ -443,9 +443,9 @@ export default function HomeClient({
                   transition={{ delay: 0.4, duration: 0.6 }}
                   className="mt-1.5 text-sm sm:text-base md:text-lg text-gray-600 font-medium"
                 >
-                  Your gateway to the{" "}
+                  Premier hotel in Dunai &amp; basecamp for{" "}
                   <span className="text-gray-900 font-semibold">
-                    majestic Himalayas
+                    trekking to Phoksundo Lake
                   </span>
                 </motion.p>
               </div>
@@ -958,43 +958,95 @@ export default function HomeClient({
           >
             <div className="inline-flex items-center gap-3 mb-6 px-6 py-3 bg-gradient-to-r from-emerald-100 via-blue-100 to-emerald-100 rounded-full border border-emerald-200/50 shadow-lg">
               <span className="text-3xl">🏔️</span>
-              <span className="text-emerald-700 font-bold">Dolpa Attractions</span>
+              <span className="text-emerald-700 font-bold">Shey Phoksundo & Dolpa Gateway</span>
               <span className="text-3xl">✨</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               <span className="bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent">
-                Explore Dolpa&apos;s Wonders
+                Explore Phoksundo & Dolpa&apos;s Wonders
               </span>
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Dolpa is still one of Nepal&apos;s most unexplored regions—home to
-              remote mountain trails, crystal lakes, ancient monasteries, and
-              rich Tibetan-influenced culture. See the highlights in the
-              Attractions tab.
+              Hotel Blue Sheep Inn is the official basecamp in Dunai for your Himalayan journey.
+              From luxury rooms to trekking guides and permits, plan your trip to Nepal&apos;s deepest alpine lake.
             </p>
           </motion.div>
 
-          <div className="grid gap-6 max-w-2xl mx-auto">
-            <Link href="/attractions/" className="group block">
-              <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-emerald-200/60 shadow-lg hover:shadow-xl transition-all duration-300 p-6">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-blue-500 rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-md group-hover:scale-110 transition-transform">
-                    1
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-lg md:text-xl font-bold text-gray-900 group-hover:text-emerald-700 transition-colors duration-200 leading-tight">
-                      Explore Attractions
-                    </h3>
-                    <p className="text-gray-700 leading-relaxed mb-4 text-sm">
-                      Phoksundo Lake, Dho Tarap, and more—everything in one place.
-                    </p>
-                    <div className="inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm">
-                      Open Attractions
-                      <span className="transition-transform duration-200 group-hover:translate-x-1">
-                        →
-                      </span>
+          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {/* Card 1: Hotel in Phoksundo & Dunai */}
+            <Link href="/hotel-in-phoksundo/" className="group block">
+              <div className="h-full bg-white/80 backdrop-blur-sm rounded-2xl border border-emerald-200/60 shadow-lg hover:shadow-xl transition-all duration-300 p-6 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center text-white text-xl shadow-md group-hover:scale-110 transition-transform">
+                      🏨
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold uppercase tracking-wider text-emerald-600">Basecamp Stay</span>
+                      <h3 className="text-lg font-bold text-gray-900 group-hover:text-emerald-700 transition-colors">
+                        Hotel in Phoksundo Gateway
+                      </h3>
                     </div>
                   </div>
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                    Deluxe rooms with attached baths, 24/7 hot showers, Wi-Fi, restaurant &amp; secure parking before and after your Phoksundo trek.
+                  </p>
+                </div>
+                <div className="inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm pt-2 border-t border-emerald-100">
+                  Explore Hotel Details
+                  <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+                </div>
+              </div>
+            </Link>
+
+            {/* Card 2: Trekking to Phoksundo */}
+            <Link href="/trekking-to-phoksundo/" className="group block">
+              <div className="h-full bg-white/80 backdrop-blur-sm rounded-2xl border border-blue-200/60 shadow-lg hover:shadow-xl transition-all duration-300 p-6 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center text-white text-xl shadow-md group-hover:scale-110 transition-transform">
+                      🥾
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold uppercase tracking-wider text-blue-600">Complete Trek</span>
+                      <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-700 transition-colors">
+                        Trekking to Phoksundo Lake
+                      </h3>
+                    </div>
+                  </div>
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                    Verified 7-day day-by-day route, trail distances, Shey Phoksundo National Park permits, Ringmo village, and packing guide.
+                  </p>
+                </div>
+                <div className="inline-flex items-center gap-2 text-blue-700 font-semibold text-sm pt-2 border-t border-blue-100">
+                  View Trekking Guide
+                  <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+                </div>
+              </div>
+            </Link>
+
+            {/* Card 3: Attractions & Lake Facts */}
+            <Link href="/attractions/" className="group block">
+              <div className="h-full bg-white/80 backdrop-blur-sm rounded-2xl border border-emerald-200/60 shadow-lg hover:shadow-xl transition-all duration-300 p-6 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-emerald-600 rounded-xl flex items-center justify-center text-white text-xl shadow-md group-hover:scale-110 transition-transform">
+                      💎
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold uppercase tracking-wider text-teal-600">Sightseeing</span>
+                      <h3 className="text-lg font-bold text-gray-900 group-hover:text-teal-700 transition-colors">
+                        Dolpa &amp; Phoksundo Attractions
+                      </h3>
+                    </div>
+                  </div>
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                    Discover Nepal&apos;s deepest lake (3,611m), the 167m waterfall, 900-year-old Tshowa Bon Gompa, and Dho Tarap valley.
+                  </p>
+                </div>
+                <div className="inline-flex items-center gap-2 text-teal-700 font-semibold text-sm pt-2 border-t border-teal-100">
+                  Open Attractions
+                  <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
                 </div>
               </div>
             </Link>

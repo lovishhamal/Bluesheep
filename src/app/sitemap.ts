@@ -21,6 +21,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   ];
 
+  // High-priority Phoksundo and itinerary pages for SEO
+  const phoksundoSpecialRoutes: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/hotel-in-phoksundo/`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 1.0,
+    },
+    {
+      url: `${baseUrl}/trekking-to-phoksundo/`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.95,
+    },
+  ];
+
   // High-priority itinerary pages for SEO
   const itineraryRoutes: MetadataRoute.Sitemap = [
     {
@@ -56,6 +72,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "daily",
       priority: 1,
     },
+    ...phoksundoSpecialRoutes,
     {
       url: `${baseUrl}/rooms/`,
       lastModified: new Date(),

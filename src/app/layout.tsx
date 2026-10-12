@@ -46,10 +46,28 @@ const quattrocentoSans = Quattrocento_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo Dolpa",
+  title: "Hotel Blue Sheep Inn | Best Hotel in Dunai & Phoksundo | Shey Phoksundo Gateway",
   description:
-    "Hotel Blue Sheep Inn - Best hotel in Dunai and Phoksundo Dolpa with garden restaurant & camping. Luxury accommodation in Dolpa with mountain views, WiFi, and exceptional service. Book your stay today!",
+    "Hotel Blue Sheep Inn - Best hotel in Dunai and Phoksundo, Dolpa Nepal. Premier luxury accommodation, garden restaurant, camping & trekking packages to Shey Phoksundo Lake. Book your stay today!",
   keywords: [
+    // Primary User Target Keywords
+    "phoksundo",
+    "shey phoksundo",
+    "hotel in phoksundo",
+    "hotels in phoksundo",
+    "hotel phoksundo",
+    "shey phoksundo hotel",
+    "hotel shey phoksundo",
+    "treking to phoksundo",
+    "trekking to phoksundo",
+    "trek to phoksundo",
+    "shey phoksundo trek",
+    "shey phoksundo trekking",
+    "phoksundo lake trek",
+    "hotel near phoksundo lake",
+    "stay in phoksundo",
+    "accommodation in phoksundo",
+
     // Hotel Keywords
     "Hotel Blue Sheep Inn",
     "Blue Sheep Inn Dolpa",
@@ -812,6 +830,22 @@ export default async function RootLayout({
                   acceptedAnswer: {
                     "@type": "Answer",
                     text: "From Kathmandu to Dolpa: Take a direct bus from Gongabu Bus Park (30 hours continuous journey), or fly from Kathmandu to Juphal Airport (45 minutes) then travel to Dunai. Alternative route: Bus to Radi, Rukum (24-25 hours) then local jeep to Dunai (6-8 hours). Stay at Hotel Blue Sheep Inn in Dunai for comfortable accommodation.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Is there a hotel in Phoksundo or Shey Phoksundo?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "At Phoksundo Lake (Ringmo village, 3,611m), lodging is limited to basic rustic teahouses and designated lakeshore campsites. For luxury accommodation, comfortable rooms, 24/7 hot showers, Wi-Fi, organic restaurant food, and complete trekking equipment, travelers stay at Hotel Blue Sheep Inn in Dunai (the official gateway town) before and after the trek.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "How to do trekking to Phoksundo (treking to phoksundo)?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Trekking to Phoksundo Lake begins with a flight to Juphal Airport or overland bus/jeep to Dunai. From Dunai (staying at Hotel Blue Sheep Inn), trek 2-3 days through Shey Phoksundo National Park via Chhepka and Jharana waterfall to reach Ringmo village and the turquoise waters of Phoksundo Lake (3,611m).",
                   },
                 },
                 {
